@@ -1,0 +1,6 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="sealed_generator_test.dart" type="DartTestRunConfigurationType" factoryName="Dart Test">
+    <option name="filePath" value="$PROJECT_DIR$/sealed_generator/test/sealed_generator_test.dart" />
+    <method v="2" />
+  </configuration>
+</component>
