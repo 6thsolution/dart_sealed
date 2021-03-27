@@ -10,24 +10,32 @@ class Sealed {
   });
 }
 
+class SealedFrom {
+  final Type type;
+
+  const SealedFrom(this.type);
+}
+
 enum SealedEquality {
   data,
   identity,
   distinct,
 }
 
-@SealedEquality.data
 abstract class SealedEqualityData extends Equatable {
   @override
-  List<Object?> get props;
+  List<Object?> get props => [];
 
   @override
-  String toString() {
-    throw 'not implemented';
-  }
+  bool operator ==(Object other);
+
+  @override
+  int get hashCode;
+
+  @override
+  String toString();
 }
 
-@SealedEquality.identity
 abstract class SealedEqualityIdentity {
   @override
   bool operator ==(Object other) => identical(this, other);
@@ -36,12 +44,9 @@ abstract class SealedEqualityIdentity {
   int get hashCode => identityHashCode(this);
 
   @override
-  String toString() {
-    throw 'not implemented';
-  }
+  String toString();
 }
 
-@SealedEquality.distinct
 abstract class SealedEqualityDistinct {
   @override
   bool operator ==(Object other) => false;
@@ -50,7 +55,5 @@ abstract class SealedEqualityDistinct {
   int get hashCode => identityHashCode(this);
 
   @override
-  String toString() {
-    throw 'not implemented';
-  }
+  String toString();
 }
