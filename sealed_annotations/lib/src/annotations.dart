@@ -8,12 +8,18 @@ class Sealed {
   const Sealed({
     this.equality = SealedEquality.data,
   });
+
+  @override
+  String toString() => 'Sealed(equality: $equality)';
 }
 
 class SealedFrom {
   final Type type;
 
   const SealedFrom(this.type);
+
+  @override
+  String toString() => 'SealedFrom(type: $type)';
 }
 
 enum SealedEquality {
