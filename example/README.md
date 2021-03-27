@@ -1,0 +1,3 @@
+#  Dart Sealed Example
+
+example
