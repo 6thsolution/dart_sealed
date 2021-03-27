@@ -1,6 +1,0 @@
-<component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="sealed_annotations_test.dart" type="DartTestRunConfigurationType" factoryName="Dart Test">
-    <option name="filePath" value="$PROJECT_DIR$/test/sealed_annotations_test.dart" />
-    <method v="2" />
-  </configuration>
-</component>

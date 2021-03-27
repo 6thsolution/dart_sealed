@@ -1,7 +1,0 @@
-<component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="sealed_generator_example.dart" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application" nameIsGenerated="true">
-    <option name="filePath" value="$PROJECT_DIR$/sealed_generator/example/sealed_generator_example.dart" />
-    <option name="workingDirectory" value="$PROJECT_DIR$/sealed_generator" />
-    <method v="2" />
-  </configuration>
-</component>

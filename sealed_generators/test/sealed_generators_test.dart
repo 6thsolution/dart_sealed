@@ -1,4 +1,4 @@
-import 'package:sealed_generator/sealed_generator.dart';
+import 'package:sealed_generators/sealed_generators.dart';
 import 'package:test/test.dart';
 
 void main() {

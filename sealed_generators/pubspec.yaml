@@ -1,5 +1,5 @@
-name: sealed_generator
-description: sealed generator.
+name: sealed_generators
+description: sealed generators.
 version: 0.1.0
 publish_to: 'none'
 
