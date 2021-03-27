@@ -22,7 +22,9 @@ abstract class SealedEqualityData extends Equatable {
   List<Object?> get props;
 
   @override
-  String toString();
+  String toString() {
+    throw 'not implemented';
+  }
 }
 
 @SealedEquality.identity
@@ -34,7 +36,9 @@ abstract class SealedEqualityIdentity {
   int get hashCode => identityHashCode(this);
 
   @override
-  String toString();
+  String toString() {
+    throw 'not implemented';
+  }
 }
 
 @SealedEquality.distinct
@@ -46,5 +50,7 @@ abstract class SealedEqualityDistinct {
   int get hashCode => identityHashCode(this);
 
   @override
-  String toString();
+  String toString() {
+    throw 'not implemented';
+  }
 }
