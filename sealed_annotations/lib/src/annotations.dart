@@ -1,7 +1,5 @@
 import 'package:equatable/equatable.dart';
 
-export 'package:equatable/equatable.dart';
-
 class Sealed {
   final SealedEquality equality;
 
