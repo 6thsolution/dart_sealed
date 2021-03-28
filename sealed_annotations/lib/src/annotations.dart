@@ -7,6 +7,7 @@ import 'package:sealed_annotations/sealed_annotations.dart';
 class Sealed {
   final SealedEquality equality;
 
+  @literal
   const Sealed({
     this.equality = SealedEquality.data,
   });
@@ -20,6 +21,7 @@ class Sealed {
 class SealedFrom {
   final Type type;
 
+  @literal
   const SealedFrom(this.type);
 
   @override
