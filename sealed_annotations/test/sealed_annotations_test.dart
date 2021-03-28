@@ -7,7 +7,7 @@ void main() {
       final a = Sealed();
       expect(a.equality, SealedEquality.data);
 
-      final b  = Sealed(equality: SealedEquality.identity);
+      final b = Sealed(equality: SealedEquality.identity);
       expect(b.equality, SealedEquality.identity);
     });
 

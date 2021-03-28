@@ -1,5 +1,9 @@
 import 'package:equatable/equatable.dart';
+import 'package:meta/meta_meta.dart';
+import 'package:sealed_annotations/sealed_annotations.dart';
 
+@sealed
+@Target({TargetKind.classType})
 class Sealed {
   final SealedEquality equality;
 
@@ -11,6 +15,8 @@ class Sealed {
   String toString() => 'Sealed(equality: $equality)';
 }
 
+@sealed
+@Target({TargetKind.classType})
 class SealedFrom {
   final Type type;
 
@@ -29,15 +35,6 @@ enum SealedEquality {
 abstract class SealedEqualityData extends Equatable {
   @override
   List<Object?> get props => [];
-
-  @override
-  bool operator ==(Object other);
-
-  @override
-  int get hashCode;
-
-  @override
-  String toString();
 }
 
 abstract class SealedEqualityIdentity {
@@ -46,9 +43,6 @@ abstract class SealedEqualityIdentity {
 
   @override
   int get hashCode => identityHashCode(this);
-
-  @override
-  String toString();
 }
 
 abstract class SealedEqualityDistinct {
@@ -57,7 +51,4 @@ abstract class SealedEqualityDistinct {
 
   @override
   int get hashCode => identityHashCode(this);
-
-  @override
-  String toString();
 }
