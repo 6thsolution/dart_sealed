@@ -1,6 +1,7 @@
 import 'package:analyzer/dart/element/element.dart';
 import 'package:build/build.dart';
 import 'package:sealed_annotations/sealed_annotations.dart';
+import 'package:sealed_generators/src/source/source_reader.dart';
 import 'package:source_gen/source_gen.dart';
 
 class SealedGenerator extends GeneratorForAnnotation<Sealed> {
@@ -12,7 +13,8 @@ class SealedGenerator extends GeneratorForAnnotation<Sealed> {
     ConstantReader annotation,
     BuildStep buildStep,
   ) async {
-    return '// todo';
+    final source = SourceReader.read(element, annotation);
+    return await source.generate();
   }
 
   @override

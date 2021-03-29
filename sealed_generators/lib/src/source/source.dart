@@ -1,3 +1,4 @@
+import 'package:sealed_generators/src/backward/backward.dart';
 import 'package:sealed_generators/src/manifest/manifest.dart';
 import 'package:sealed_generators/src/options/options.dart';
 
@@ -11,7 +12,7 @@ class Source {
   });
 
   Future<String> generate() async {
-    return '// todo';
+    return backward();
   }
 
   @override
