@@ -29,16 +29,16 @@ class SealedException {
     var s = 'SealedException';
 
     if (message == null) {
-      s = '$s(unknown';
+      s = '$s{unknown';
     } else {
-      s = '$s($message';
+      s = '$s{$message';
     }
 
     if (cause != null) {
       s = '$s, cause=$cause';
     }
 
-    s = '$s)';
+    s = '$s}';
 
     return s;
   }
