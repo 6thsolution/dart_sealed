@@ -9,7 +9,7 @@ void require(final bool value, [final dynamic message]) {
     } else if (message is String Function()) {
       m = message();
     } else {
-      throw 'internal';
+      throw AssertionError();
     }
     throw SealedException(m);
   }

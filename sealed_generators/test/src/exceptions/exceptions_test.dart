@@ -63,7 +63,7 @@ void main() {
       test('when false does throw internal', () {
         expect(
           () => require(false, 1),
-          throwsA(isA<String>()),
+          throwsA(anything),
         );
       });
     });

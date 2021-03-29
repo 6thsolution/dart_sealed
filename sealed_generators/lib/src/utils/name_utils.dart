@@ -1,6 +1,6 @@
 class NameUtils {
   NameUtils._() {
-    throw 'internal';
+    throw AssertionError();
   }
 
   static bool startWithUpper(String name) {
