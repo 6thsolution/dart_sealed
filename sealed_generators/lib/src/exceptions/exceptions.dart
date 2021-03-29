@@ -1,17 +1,22 @@
 import 'package:meta/meta.dart';
 
-void require(final bool value, [final String? message]) {
+/// message should be null, String or String Function()
+void require(final bool value, [final dynamic message]) {
   if (!value) {
-    throw SealedException(message);
+    String? m;
+    if (message is String?) {
+      m = message;
+    } else if (message is String Function()) {
+      m = message();
+    } else {
+      throw 'internal';
+    }
+    throw SealedException(m);
   }
 }
 
-void requireLate(final bool value, final String Function() message) {
-  if (!value) {
-    throw SealedException(message());
-  }
-}
-
+/// SealedException
+@immutable
 @sealed
 class SealedException {
   final String? message;

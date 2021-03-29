@@ -1,5 +1,5 @@
 import 'package:meta/meta.dart';
-import 'package:sealed_generators/src/exceptions.dart';
+import 'package:sealed_generators/src/exceptions/exceptions.dart';
 import 'package:test/test.dart';
 
 Matcher hasMessage(dynamic matcher) => _HasMessage(matcher);
