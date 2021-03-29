@@ -4,15 +4,15 @@ import 'package:test/test.dart';
 void main() {
   group('sealed annotations', () {
     test('annotation Sealed', () {
-      final a = Sealed();
+      const a = Sealed();
       expect(a.equality, SealedEquality.data);
 
-      final b = Sealed(equality: SealedEquality.identity);
+      const b = Sealed(equality: SealedEquality.identity);
       expect(b.equality, SealedEquality.identity);
     });
 
     test('annotation SealedFor', () {
-      final a = SealedFrom(String);
+      const a = SealedFrom(String);
       expect(a.type, String);
     });
   });
