@@ -1,6 +1,9 @@
+// GENERATED CODE - DO NOT MODIFY BY HAND
+
 part of 'weather_state.dart';
 
-// should be generated
+// **************************************************************************
+// Generator: sealed_generators
+// **************************************************************************
 
-@SealedFrom(_WeatherState)
-class WeatherState {}
+// todo
