@@ -1,0 +1,14 @@
+targets:
+  $default:
+    builders:
+      sealed_generators:
+        enabled: true
+
+builders:
+  sealed_generators:
+    target: ":sealed_generators"
+    import: "package:sealed_generators/sealed_generators.dart"
+    builder_factories: [ "sealedGeneratorsBuilder" ]
+    build_extensions: { ".dart": [ ".sealed.dart" ] }
+    auto_apply: dependents
+    build_to: source

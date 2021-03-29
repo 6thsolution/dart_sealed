@@ -11,7 +11,7 @@ class Source {
   });
 
   Future<String> generate() async {
-    return '// $options $manifest';
+    return '// todo';
   }
 
   @override
