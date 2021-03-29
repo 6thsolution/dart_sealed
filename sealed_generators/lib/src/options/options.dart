@@ -11,6 +11,8 @@ class Options {
   final SealedEquality equality;
   final bool isNullSafe;
 
+  bool get isLegacy => !isNullSafe;
+
   @override
   String toString() => 'Options{equality: $equality, isNullSafe: $isNullSafe}';
 }
