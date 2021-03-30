@@ -12,7 +12,7 @@ class Source {
   });
 
   Future<String> generate() async {
-    return backward();
+    return backward(debug: true);
   }
 
   @override

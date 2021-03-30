@@ -6,15 +6,15 @@ part of 'weather_state.dart';
 // Generator: sealed_generators
 // **************************************************************************
 
-// ****************************************************************
-// backward generated code
+// **************************************************************************
+// backward generated code:
 // language level: nullSafe
 @Sealed(equality: SealedEquality.data)
-abstract class _WeatherState$ {
+abstract class _Weather$ {
   void sunny();
 
   void rainy();
 
   void windy();
 }
-// ****************************************************************
+// **************************************************************************

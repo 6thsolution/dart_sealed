@@ -2,11 +2,11 @@ import 'package:sealed_annotations/sealed_annotations.dart';
 
 part 'weather_state.sealed.dart';
 
-@Sealed(equality: SealedEquality.data)
-abstract class _WeatherState {
+@Sealed()
+abstract class _Weather {
   void sunny();
 
-  void rainy(double rain);
+  void rainy(int rain);
 
-  void windy(double? angle);
+  void windy(double velocity, double? angle);
 }

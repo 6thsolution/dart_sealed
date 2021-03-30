@@ -1,27 +1,42 @@
 import 'package:sealed_generators/src/source/source.dart';
 import 'package:sealed_generators/src/utils/name_utils.dart';
 
-/// only for debug
+/// mimic original manifest code.
+/// used only for debug and test.
 extension Backward on Source {
-  String backward() {
+  String backward({bool debug = false}) {
     final s = StringBuffer();
-    s.writeln('// ' + '*' * 64);
-    s.writeln('// backward generated code');
-    s.write('// language level: ');
-    s.writeln(options.isNullSafe ? 'nullSafe' : 'legacy');
+    if (debug) {
+      s.writeln('// ' + '*' * 74);
+      s.writeln('// backward generated code:');
+      s.write('// language level: ');
+      s.writeln(options.isNullSafe ? 'nullSafe' : 'legacy');
+    }
     s.writeln('@Sealed(equality: ${options.equality})');
-    s.writeln('abstract class _${manifest.name}\${');
+    s.write('abstract class _${manifest.name}');
+    if (debug) {
+      // prevent clash with original manifest
+      s.write(r'$');
+    }
+    s.writeln('{');
     s.writeln();
     for (final item in manifest.items) {
       s.write('void ${item.name.toLowerStart()}(');
-      for (var field in item.fields) {
-        s.write('${field.type} ${field.name},');
+      final fields = item.fields;
+      for (var index = 0; index < fields.length; index++) {
+        final field = fields[index];
+        s.write('${field.type} ${field.name}');
+        if (index != fields.length - 1) {
+          s.write(', ');
+        }
       }
       s.writeln(');');
       s.writeln();
     }
     s.writeln('}');
-    s.writeln('// ' + '*' * 64);
+    if (debug) {
+      s.writeln('// ' + '*' * 74);
+    }
     return s.toString();
   }
 }
