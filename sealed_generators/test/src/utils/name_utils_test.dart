@@ -2,7 +2,7 @@ import 'package:sealed_generators/src/utils/name_utils.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('class NameUtils', () {
+  group('extension NameUtils', () {
     test('method startWithUpper', () {
       expect(() => ''.startWithUpper(), throwsA(anything));
       expect(() => ' d '.startWithUpper(), throwsA(anything));

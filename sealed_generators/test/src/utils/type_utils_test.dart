@@ -2,7 +2,7 @@ import 'package:sealed_generators/src/utils/type_utils.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('class TypeUtils', () {
+  group('extension TypeUtils', () {
     test('method isNullable', () {
       expect(() => ''.isNullable(), throwsA(anything));
       expect(() => ' d '.isNullable(), throwsA(anything));
