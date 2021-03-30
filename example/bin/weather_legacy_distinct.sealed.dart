@@ -26,17 +26,33 @@ abstract class _Weather$ {
 
 @SealedManifest(manifest: _Weather)
 abstract class Weather {
-// ...
+  static WeatherSunny sunny() => WeatherSunny();
+
+  static WeatherRainy rainy() => WeatherRainy();
+
+  static WeatherWindy windy() => WeatherWindy();
+
+  bool isSunny() => this is WeatherSunny;
+
+  WeatherSunny asSunny() => this as WeatherSunny;
+
+  WeatherSunny /*?*/ asSunnyOrNull() => isSunny() ? asSunny() : null;
+
+  bool isRainy() => this is WeatherRainy;
+
+  WeatherRainy asRainy() => this as WeatherRainy;
+
+  WeatherRainy /*?*/ asRainyOrNull() => isRainy() ? asRainy() : null;
+
+  bool isWindy() => this is WeatherWindy;
+
+  WeatherWindy asWindy() => this as WeatherWindy;
+
+  WeatherWindy /*?*/ asWindyOrNull() => isWindy() ? asWindy() : null;
 }
 
-class WeatherSunny extends Weather {
-  // ...
-}
+class WeatherSunny extends Weather {}
 
-class WeatherRainy extends Weather {
-  // ...
-}
+class WeatherRainy extends Weather {}
 
-class WeatherWindy extends Weather {
-  // ...
-}
+class WeatherWindy extends Weather {}
