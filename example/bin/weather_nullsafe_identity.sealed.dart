@@ -25,17 +25,17 @@ abstract class _Weather$ {
 
 @SealedManifest(manifest: _Weather)
 abstract class Weather {
-// todo
+// ...
 }
 
 class WeatherSunny extends Weather {
-  // todo
+  // ...
 }
 
 class WeatherRainy extends Weather {
-  // todo
+  // ...
 }
 
 class WeatherWindy extends Weather {
-  // todo
+  // ...
 }

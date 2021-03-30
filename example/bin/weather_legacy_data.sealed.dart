@@ -26,25 +26,25 @@ abstract class _Weather$ {
 
 @SealedManifest(manifest: _Weather)
 abstract class Weather extends Equatable {
-// todo
+// ...
 }
 
 class WeatherSunny extends Weather {
-  // todo
+  // ...
 
   @override
   List<Object> get props => [];
 }
 
 class WeatherRainy extends Weather {
-  // todo
+  // ...
 
   @override
   List<Object> get props => [];
 }
 
 class WeatherWindy extends Weather {
-  // todo
+  // ...
 
   @override
   List<Object> get props => [];

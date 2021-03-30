@@ -35,7 +35,7 @@ class Source {
       s.write(' extends Equatable');
     }
     s.writeln('{');
-    s.writeln('// todo');
+    s.writeln('// ...');
     s.writeln('}');
     return s.toString();
   }
@@ -44,7 +44,7 @@ class Source {
   String generateSubClass(ManifestItem item) {
     final s = StringBuffer();
     s.write('class ${manifest.name}${item.name} extends ${manifest.name}{');
-    s.writeln('// todo');
+    s.writeln('// ...');
     if (options.equality == SealedEquality.data) {
       s.writeln();
       s.writeln('@override');
