@@ -1,4 +1,4 @@
-/// Sealed Annotations
+/// Sealed Annotations Library
 library sealed_annotations;
 
 export 'package:equatable/equatable.dart';
