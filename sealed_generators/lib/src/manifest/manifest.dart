@@ -8,14 +8,13 @@ class Manifest {
   Manifest({
     required this.name,
     required this.items,
-  })   : assert(name.startWithUpper()),
-        assert(name.isNonNullable()),
+  })   : assert(name.isGenClassName()),
         assert(items.isNotEmpty);
 
-  /// name, for example "WeatherState"
+  /// name, for example "WeatherState".
   final String name;
 
-  /// items
+  /// items.
   final List<ManifestItem> items;
 
   @override
@@ -28,17 +27,16 @@ class ManifestItem {
   ManifestItem({
     required this.name,
     required this.fields,
-  })   : assert(name.startWithUpper()),
-        assert(name.isNonNullable());
+  }) : assert(name.isGenClassName());
 
-  /// name, for example "Rainy"
+  /// name, for example "Rainy".
   final String name;
 
-  /// fields
+  /// fields.
   final List<ManifestField> fields;
 
   @override
-  String toString() => 'ManifestItem{name: $name, fields: $fields}';
+  String toString() => 'Item{name: $name, fields: $fields}';
 }
 
 @immutable
@@ -47,14 +45,39 @@ class ManifestField {
   ManifestField({
     required this.name,
     required this.type,
-  }) : assert(name.startWithLower());
+  }) : assert(name.startsWithLower());
 
-  /// name, for example "direction"
+  /// name, for example "direction".
   final String name;
 
-  /// type, for example "double" or "double?"
-  final String type;
+  /// type.
+  final ManifestType type;
 
   @override
-  String toString() => 'ManifestField{name: $name, type: $type}';
+  String toString() => 'Field{name: $name, type: $type}';
+}
+
+@immutable
+@sealed
+class ManifestType {
+  ManifestType({
+    required this.name,
+    required this.isNullable,
+  }) : assert(name.isGenTypeName());
+
+  /// name without any ?, ! or *
+  /// and their helpers like /*!*/ or /*?*/.
+  ///
+  /// for example "double". but
+  /// can NOT be "double?".
+  final String name;
+
+  /// without considering null-safety.
+  ///
+  /// by default all legacy fields are nullable.
+  /// but can be overridden in future.
+  final bool isNullable;
+
+  @override
+  String toString() => 'Type{name: $name, isNullable: $isNullable}';
 }

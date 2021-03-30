@@ -4,21 +4,21 @@ import 'package:test/test.dart';
 void main() {
   group('extension NameUtils', () {
     test('method startWithUpper', () {
-      expect(() => ''.startWithUpper(), throwsA(anything));
-      expect(() => ' d '.startWithUpper(), throwsA(anything));
-      expect(() => '_A'.startWithUpper(), throwsA(anything));
+      expect(() => ''.startsWithUpper(), throwsA(anything));
+      expect(() => ' d '.startsWithUpper(), throwsA(anything));
+      expect(() => '_A'.startsWithUpper(), throwsA(anything));
 
-      expect('Apple'.startWithUpper(), equals(true));
-      expect('apple'.startWithUpper(), equals(false));
+      expect('Apple'.startsWithUpper(), equals(true));
+      expect('apple'.startsWithUpper(), equals(false));
     });
 
     test('method startWithLower', () {
-      expect(() => ''.startWithLower(), throwsA(anything));
-      expect(() => ' d '.startWithLower(), throwsA(anything));
-      expect(() => '_A'.startWithLower(), throwsA(anything));
+      expect(() => ''.startsWithLower(), throwsA(anything));
+      expect(() => ' d '.startsWithLower(), throwsA(anything));
+      expect(() => '_A'.startsWithLower(), throwsA(anything));
 
-      expect('Apple'.startWithLower(), equals(false));
-      expect('apple'.startWithLower(), equals(true));
+      expect('Apple'.startsWithLower(), equals(false));
+      expect('apple'.startsWithLower(), equals(true));
     });
 
     test('method toUpperStart', () {

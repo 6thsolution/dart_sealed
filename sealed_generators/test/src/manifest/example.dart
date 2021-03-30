@@ -10,14 +10,23 @@ final manifest = Manifest(
     ManifestItem(
       name: 'Rainy',
       fields: [
-        ManifestField(name: 'rain', type: 'int'),
+        ManifestField(
+          name: 'rain',
+          type: ManifestType(name: 'int', isNullable: false),
+        ),
       ],
     ),
     ManifestItem(
       name: 'Windy',
       fields: [
-        ManifestField(name: 'velocity', type: 'double'),
-        ManifestField(name: 'angle', type: 'double?')
+        ManifestField(
+          name: 'velocity',
+          type: ManifestType(name: 'double', isNullable: false),
+        ),
+        ManifestField(
+          name: 'angle',
+          type: ManifestType(name: 'double', isNullable: true),
+        )
       ],
     ),
   ],

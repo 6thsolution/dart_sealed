@@ -1,6 +1,5 @@
 import 'package:sealed_generators/src/source/source.dart';
 import 'package:sealed_generators/src/utils/name_utils.dart';
-import 'package:sealed_generators/src/utils/type_utils.dart';
 
 /// mimic original manifest code.
 /// used only for debug and test.
@@ -30,10 +29,13 @@ extension Backward on Source {
       final fields = item.fields;
       for (var index = 0; index < fields.length; index++) {
         final field = fields[index];
-        if (options.isNullSafe) {
-          s.write(field.type);
-        } else {
-          s.write(field.type.toLegacyNullable());
+        s.write(field.type.name);
+        if (field.type.isNullable) {
+          if (options.isNullSafe) {
+            s.write('?');
+          } else {
+            s.write('/*?*/');
+          }
         }
         s.write(' ${field.name}');
         if (index != fields.length - 1) {

@@ -2,18 +2,40 @@ import 'package:sealed_generators/src/manifest/manifest.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('class ManifestField', () {
+  group('class ManifestType', () {
     test('initialization', () {
-      final a = ManifestField(name: 'angle', type: 'double');
-      expect(a.name, 'angle');
-      expect(a.type, 'double');
+      final a = ManifestType(name: 'double', isNullable: true);
+      expect(a.name, 'double');
+      expect(a.isNullable, true);
 
-      final b = ManifestField(name: 'angle', type: 'double?');
-      expect(b.name, 'angle');
-      expect(b.type, 'double?');
+      final b = ManifestType(name: '_Object', isNullable: false);
+      expect(b.name, '_Object');
+      expect(b.isNullable, false);
 
       expect(
-        () => ManifestField(name: 'Angle', type: 'double'),
+        () => ManifestType(name: 'double?', isNullable: true),
+        throwsA(anything),
+      );
+    });
+  });
+
+  group('class ManifestField', () {
+    test('initialization', () {
+      final type = ManifestType(name: 'double', isNullable: true);
+      final a = ManifestField(name: 'angle', type: type);
+      expect(a.name, 'angle');
+      expect(a.type, type);
+
+      final b = ManifestField(name: 'angle', type: type);
+      expect(b.name, 'angle');
+      expect(b.type, type);
+
+      expect(
+        () => ManifestField(name: '_angle', type: type),
+        throwsA(anything),
+      );
+      expect(
+        () => ManifestField(name: 'Angle', type: type),
         throwsA(anything),
       );
     });
@@ -21,7 +43,8 @@ void main() {
 
   group('class ManifestItem', () {
     test('initialization', () {
-      final field1 = ManifestField(name: 'angle', type: 'double');
+      final type1 = ManifestType(name: 'double', isNullable: true);
+      final field1 = ManifestField(name: 'angle', type: type1);
       final item1 = ManifestItem(name: 'Windy', fields: []);
       final item2 = ManifestItem(name: 'Windy', fields: [field1]);
 
@@ -35,7 +58,11 @@ void main() {
         throwsA(anything),
       );
       expect(
-        () => ManifestItem(name: 'Windy?', fields: []),
+        () => ManifestItem(name: 'Windy?', fields: [field1]),
+        throwsA(anything),
+      );
+      expect(
+        () => ManifestItem(name: '_Windy', fields: [field1]),
         throwsA(anything),
       );
     });
@@ -59,6 +86,10 @@ void main() {
       );
       expect(
         () => Manifest(name: 'Weather', items: []),
+        throwsA(anything),
+      );
+      expect(
+        () => Manifest(name: '_Weather', items: []),
         throwsA(anything),
       );
     });

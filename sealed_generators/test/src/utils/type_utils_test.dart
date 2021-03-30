@@ -3,36 +3,74 @@ import 'package:test/test.dart';
 
 void main() {
   group('extension TypeUtils', () {
-    test('method isNullable', () {
-      expect(() => ''.isNullable(), throwsA(anything));
-      expect(() => ' d '.isNullable(), throwsA(anything));
+    test('method isPrivate', () {
+      expect('_hello'.isPrivate(), equals(true));
+      expect('_Hello'.isPrivate(), equals(true));
+      expect('hello'.isPrivate(), equals(false));
+      expect('Hello'.isPrivate(), equals(false));
 
-      expect('Apple?'.isNullable(), equals(true));
-      expect('Apple'.isNullable(), equals(false));
+      expect(''.isPrivate(), equals(false));
+      expect('a '.isPrivate(), equals(false));
+      expect('a b'.isPrivate(), equals(false));
     });
 
-    test('method isNonNullable', () {
-      expect(() => ''.isNonNullable(), throwsA(anything));
-      expect(() => ' d '.isNonNullable(), throwsA(anything));
+    test('method isPublic', () {
+      expect('_hello'.isPublic(), equals(false));
+      expect('_Hello'.isPublic(), equals(false));
+      expect('hello'.isPublic(), equals(true));
+      expect('Hello'.isPublic(), equals(true));
 
-      expect('Apple?'.isNonNullable(), equals(false));
-      expect('Apple'.isNonNullable(), equals(true));
+      expect(''.isPublic(), equals(false));
+      expect('a '.isPublic(), equals(false));
+      expect('a b'.isPublic(), equals(false));
     });
 
-    test('method toLegacyNullable', () {
-      expect(() => ''.toLegacyNullable(), throwsA(anything));
-      expect(() => ' d '.toLegacyNullable(), throwsA(anything));
-      expect(() => 'Apple?'.toLegacyNullable(), throwsA(anything));
+    test('method isGenTypeName', () {
+      expect('_hello'.isGenTypeName(), equals(true));
+      expect('_Hello'.isGenTypeName(), equals(true));
+      expect('hello'.isGenTypeName(), equals(true));
+      expect('Hello'.isGenTypeName(), equals(true));
 
-      expect('Apple'.toLegacyNullable(), equals('Apple/*?*/'));
+      expect('Hello*'.isGenTypeName(), equals(false));
+      expect('Hello?'.isGenTypeName(), equals(false));
+      expect('Hello/*!*/'.isGenTypeName(), equals(false));
+      expect('Hello/*?*/'.isGenTypeName(), equals(false));
+
+      expect(''.isGenTypeName(), equals(false));
+      expect('A '.isGenTypeName(), equals(false));
+      expect('A b'.isGenTypeName(), equals(false));
     });
 
-    test('method toLegacyNonNullable', () {
-      expect(() => ''.toLegacyNonNullable(), throwsA(anything));
-      expect(() => ' d '.toLegacyNonNullable(), throwsA(anything));
-      expect(() => 'Apple?'.toLegacyNonNullable(), throwsA(anything));
+    test('method isGenFieldName', () {
+      expect('_hello'.isGenFieldName(), equals(false));
+      expect('_Hello'.isGenFieldName(), equals(false));
+      expect('hello'.isGenFieldName(), equals(true));
+      expect('Hello'.isGenFieldName(), equals(false));
 
-      expect('Apple'.toLegacyNonNullable(), equals('Apple/*!*/'));
+      expect('Hello*'.isGenFieldName(), equals(false));
+      expect('Hello?'.isGenFieldName(), equals(false));
+      expect('Hello/*!*/'.isGenFieldName(), equals(false));
+      expect('Hello/*?*/'.isGenFieldName(), equals(false));
+
+      expect(''.isGenFieldName(), equals(false));
+      expect('a '.isGenFieldName(), equals(false));
+      expect('a b'.isGenFieldName(), equals(false));
+    });
+
+    test('method isGenClassName', () {
+      expect('_hello'.isGenClassName(), equals(false));
+      expect('_Hello'.isGenClassName(), equals(false));
+      expect('hello'.isGenClassName(), equals(false));
+      expect('Hello'.isGenClassName(), equals(true));
+
+      expect('Hello*'.isGenClassName(), equals(false));
+      expect('Hello?'.isGenClassName(), equals(false));
+      expect('Hello/*!*/'.isGenClassName(), equals(false));
+      expect('Hello/*?*/'.isGenClassName(), equals(false));
+
+      expect(''.isGenTypeName(), equals(false));
+      expect('A '.isGenTypeName(), equals(false));
+      expect('A b'.isGenTypeName(), equals(false));
     });
   });
 }

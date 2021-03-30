@@ -84,12 +84,13 @@ class ManifestReader {
       for (final arg in method.parameters) {
         final argName = arg.name;
         final argType = arg.type;
-        var argTypeName = argType.getDisplayString(withNullability: false);
-        if (argTypeName != 'dynamic' &&
-            argType.nullabilitySuffix == NullabilitySuffix.question) {
-          argTypeName += '?';
-        }
-        fields.add(ManifestField(name: argName, type: argTypeName));
+        final argTypeName = argType.getDisplayString(withNullability: false);
+        // assume legacy types as nullable
+        final isNullable = argType.nullabilitySuffix != NullabilitySuffix.none;
+        fields.add(ManifestField(
+          name: argName,
+          type: ManifestType(name: argTypeName, isNullable: isNullable),
+        ));
       }
       items.add(ManifestItem(name: subName, fields: fields));
     }
