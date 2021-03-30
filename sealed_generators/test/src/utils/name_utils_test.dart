@@ -26,7 +26,8 @@ void main() {
       expect(() => ' d '.toUpperStart(), throwsA(anything));
       expect(() => '_A'.toUpperStart(), throwsA(anything));
 
-      expect('Apple'.toUpperStart(), equals('Apple'));
+      expect(() => 'Apple'.toUpperStart(), throwsA(anything));
+
       expect('apple'.toUpperStart(), equals('Apple'));
     });
 
@@ -36,7 +37,8 @@ void main() {
       expect(() => '_A'.toLowerStart(), throwsA(anything));
 
       expect('Apple'.toLowerStart(), equals('apple'));
-      expect('apple'.toLowerStart(), equals('apple'));
+
+      expect(() => 'apple'.toLowerStart(), throwsA(anything));
     });
   });
 }
