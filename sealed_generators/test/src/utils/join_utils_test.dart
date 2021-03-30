@@ -6,8 +6,8 @@ void main() {
     test('method joinArgs', () {
       expect(<String>[].joinArgs(), equals(''));
       expect(['a'].joinArgs(), equals('a'));
-      expect(['a', 'b'].joinArgs(), equals('a, b'));
-      expect(['a', 'b', 'c'].joinArgs(), equals('a, b, c'));
+      expect(['a', 'b'].joinArgs(), equals('a, b,'));
+      expect(['a', 'b', 'c'].joinArgs(), equals('a, b, c,'));
     });
   });
 }

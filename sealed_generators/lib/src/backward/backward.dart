@@ -1,5 +1,6 @@
 import 'package:sealed_generators/src/source/source.dart';
 import 'package:sealed_generators/src/utils/name_utils.dart';
+import 'package:sealed_generators/src/utils/type_utils.dart';
 
 /// mimic original manifest code.
 /// used only for debug and test.
@@ -10,7 +11,11 @@ extension Backward on Source {
       s.writeln('// ' + '*' * 74);
       s.writeln('// backward generated code:');
       s.write('// language level: ');
-      s.writeln(options.isNullSafe ? 'null-safe' : 'legacy');
+      if (options.isNullSafe) {
+        s.writeln('null-safe');
+      } else {
+        s.writeln('legacy');
+      }
     }
     s.writeln('@Sealed(equality: ${options.equality})');
     s.write('abstract class _${manifest.name}');
@@ -25,9 +30,16 @@ extension Backward on Source {
       final fields = item.fields;
       for (var index = 0; index < fields.length; index++) {
         final field = fields[index];
-        s.write('${field.type} ${field.name}');
+        if (options.isNullSafe) {
+          s.write(field.type);
+        } else {
+          s.write(field.type.toLegacyNullable());
+        }
+        s.write(' ${field.name}');
         if (index != fields.length - 1) {
           s.write(', ');
+        } else if (index > 0) {
+          s.write(',');
         }
       }
       s.writeln(');');

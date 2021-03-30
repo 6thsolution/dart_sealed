@@ -14,8 +14,11 @@ part of 'weather_legacy.dart';
 abstract class _Weather$ {
   void sunny();
 
-  void rainy();
+  void rainy(int /*?*/ rain);
 
-  void windy();
+  void windy(
+    double /*?*/ velocity,
+    double /*?*/ angle,
+  );
 }
 // **************************************************************************

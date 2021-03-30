@@ -1,4 +1,5 @@
 import 'package:analyzer/dart/element/element.dart';
+import 'package:analyzer/dart/element/nullability_suffix.dart';
 import 'package:sealed_generators/src/exceptions/exceptions.dart';
 import 'package:sealed_generators/src/manifest/manifest.dart';
 import 'package:sealed_generators/src/utils/name_utils.dart';
@@ -38,7 +39,10 @@ class ManifestReader {
       cls.allSupertypes.length == 1,
       () => 'class($name) can only have Object as super type',
     );
-
+    require(
+      cls.typeParameters.isEmpty,
+      () => 'class($name) can not have type parameters',
+    );
     return cls;
   }
 
@@ -68,13 +72,27 @@ class ManifestReader {
         () => 'method($name.$methodName) should be pubic',
       );
       require(
+        method.typeParameters.isEmpty,
+        () => 'method($name.$methodName) can not have type parameters',
+      );
+      require(
         RegExp(r'[a-z].*').hasMatch(methodName),
         () => 'method($name.$methodName) should start with lower case letter',
       );
       final subName = methodName.toUpperStart();
-      items.add(ManifestItem(name: subName, fields: []));
+      final fields = <ManifestField>[];
+      for (final arg in method.parameters) {
+        final argName = arg.name;
+        final argType = arg.type;
+        var argTypeName = argType.getDisplayString(withNullability: false);
+        if (argTypeName != 'dynamic' &&
+            argType.nullabilitySuffix == NullabilitySuffix.question) {
+          argTypeName += '?';
+        }
+        fields.add(ManifestField(name: argName, type: argTypeName));
+      }
+      items.add(ManifestItem(name: subName, fields: fields));
     }
-
     return items;
   }
 }
