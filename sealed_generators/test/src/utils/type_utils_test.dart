@@ -24,7 +24,7 @@ void main() {
       expect(() => ' d '.toLegacyNullable(), throwsA(anything));
       expect(() => 'Apple?'.toLegacyNullable(), throwsA(anything));
 
-      expect('Apple'.toLegacyNullable(), equals('Apple /*?*/'));
+      expect('Apple'.toLegacyNullable(), equals('Apple/*?*/'));
     });
 
     test('method toLegacyNonNullable', () {
@@ -32,7 +32,7 @@ void main() {
       expect(() => ' d '.toLegacyNonNullable(), throwsA(anything));
       expect(() => 'Apple?'.toLegacyNonNullable(), throwsA(anything));
 
-      expect('Apple'.toLegacyNonNullable(), equals('Apple /*!*/'));
+      expect('Apple'.toLegacyNonNullable(), equals('Apple/*!*/'));
     });
   });
 }

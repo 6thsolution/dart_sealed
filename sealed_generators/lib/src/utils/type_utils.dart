@@ -1,3 +1,4 @@
+/// utilities for type names
 extension TypeUtils on String {
   bool isNullable() {
     assert(isNotEmpty && trim() == this);
@@ -12,12 +13,12 @@ extension TypeUtils on String {
   String toLegacyNullable() {
     assert(isNotEmpty && trim() == this);
     assert(!endsWith('?'));
-    return '$this /*?*/';
+    return '$this/*?*/';
   }
 
   String toLegacyNonNullable() {
     assert(isNotEmpty && trim() == this);
     assert(!endsWith('?'));
-    return '$this /*!*/';
+    return '$this/*!*/';
   }
 }
