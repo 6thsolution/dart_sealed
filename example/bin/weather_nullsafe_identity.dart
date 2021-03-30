@@ -1,8 +1,8 @@
 import 'package:sealed_annotations/sealed_annotations.dart';
 
-part 'weather_nullsafe.sealed.dart';
+part 'weather_nullsafe_identity.sealed.dart';
 
-@Sealed()
+@Sealed(equality: SealedEquality.identity)
 abstract class _Weather {
   void sunny();
 

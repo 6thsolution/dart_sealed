@@ -1,7 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 // @dart=2.9
-part of 'weather_legacy.dart';
+part of 'weather_legacy_distinct.dart';
 
 // **************************************************************************
 // Generator: sealed_generators
@@ -10,7 +10,8 @@ part of 'weather_legacy.dart';
 // **************************************************************************
 // backward generated code:
 // language level: legacy
-@Sealed(equality: SealedEquality.data)
+@Sealed(equality: SealedEquality.distinct)
+// ignore: unused_element
 abstract class _Weather$ {
   void sunny();
 
@@ -22,3 +23,20 @@ abstract class _Weather$ {
   );
 }
 // **************************************************************************
+
+@SealedManifest(manifest: _Weather)
+abstract class Weather {
+// todo
+}
+
+class WeatherSunny extends Weather {
+  // todo
+}
+
+class WeatherRainy extends Weather {
+  // todo
+}
+
+class WeatherWindy extends Weather {
+  // todo
+}

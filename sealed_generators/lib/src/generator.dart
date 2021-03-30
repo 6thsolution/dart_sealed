@@ -8,13 +8,13 @@ class SealedGenerator extends GeneratorForAnnotation<Sealed> {
   const SealedGenerator();
 
   @override
-  Future<String> generateForAnnotatedElement(
+  String generateForAnnotatedElement(
     Element element,
     ConstantReader annotation,
     BuildStep buildStep,
-  ) async {
+  ) {
     final source = SourceReader.read(element, annotation);
-    return await source.generate();
+    return source.generate();
   }
 
   @override

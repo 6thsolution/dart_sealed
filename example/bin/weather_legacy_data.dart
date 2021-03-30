@@ -1,7 +1,7 @@
 // @dart=2.9
 import 'package:sealed_annotations/sealed_annotations.dart';
 
-part 'weather_legacy.sealed.dart';
+part 'weather_legacy_data.sealed.dart';
 
 @Sealed()
 abstract class _Weather {

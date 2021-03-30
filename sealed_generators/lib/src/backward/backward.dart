@@ -17,6 +17,9 @@ extension Backward on Source {
       }
     }
     s.writeln('@Sealed(equality: ${options.equality})');
+    if (debug) {
+      s.writeln('// ignore: unused_element');
+    }
     s.write('abstract class _${manifest.name}');
     if (debug) {
       // prevent clash with original manifest

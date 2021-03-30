@@ -1,4 +1,3 @@
-import 'package:equatable/equatable.dart';
 import 'package:meta/meta_meta.dart';
 import 'package:sealed_annotations/sealed_annotations.dart';
 
@@ -88,22 +87,4 @@ enum SealedEquality {
   /// all of the instances are not equal.
   /// even some instance is not equal with itself.
   distinct,
-}
-
-/// for [SealedEquality.data].
-///
-/// users should not use this class.
-abstract class SealedEqualityData extends Equatable {}
-
-/// for [SealedEquality.identity].
-///
-/// users should not use this class.
-abstract class SealedEqualityIdentity {}
-
-/// for [SealedEquality.distinct].
-///
-/// users should not use this class.
-abstract class SealedEqualityDistinct {
-  @override
-  bool operator ==(Object other) => false;
 }
