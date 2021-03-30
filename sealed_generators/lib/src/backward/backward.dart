@@ -10,7 +10,7 @@ extension Backward on Source {
       s.writeln('// ' + '*' * 74);
       s.writeln('// backward generated code:');
       s.write('// language level: ');
-      s.writeln(options.isNullSafe ? 'nullSafe' : 'legacy');
+      s.writeln(options.isNullSafe ? 'null-safe' : 'legacy');
     }
     s.writeln('@Sealed(equality: ${options.equality})');
     s.write('abstract class _${manifest.name}');

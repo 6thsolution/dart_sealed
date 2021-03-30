@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'weather_state.dart';
+part of 'weather_nullsafe.dart';
 
 // **************************************************************************
 // Generator: sealed_generators
@@ -8,7 +8,7 @@ part of 'weather_state.dart';
 
 // **************************************************************************
 // backward generated code:
-// language level: nullSafe
+// language level: null-safe
 @Sealed(equality: SealedEquality.data)
 abstract class _Weather$ {
   void sunny();
