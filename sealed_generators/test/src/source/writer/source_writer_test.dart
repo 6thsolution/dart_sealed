@@ -26,11 +26,29 @@ void main() {
       });
     });
 
-    test('method name', () {
+    test('method top', () {
+      expect(source1DataSafe.top, 'Weather');
+    });
+
+    test('method short', () {
       final source = source1DataSafe;
       final item = source.manifest.items.first;
 
-      expect(source.name(item), 'WeatherSunny');
+      expect(source.short(item), 'Sunny');
+    });
+
+    test('method full', () {
+      final source = source1DataSafe;
+      final item = source.manifest.items.first;
+
+      expect(source.full(item), 'WeatherSunny');
+    });
+
+    test('method lower', () {
+      final source = source1DataSafe;
+      final item = source.manifest.items.first;
+
+      expect(source.lower(item), 'sunny');
     });
 
     test('method topCastIsItem', () {
@@ -130,6 +148,13 @@ void main() {
           'asRainy()',
           'asWindyOrNull()',
         ]),
+      );
+    });
+
+    test('method topManifest', () {
+      expect(
+        source1DataSafe.topManifest().tr(),
+        '@SealedManifest(_Weather)',
       );
     });
   });

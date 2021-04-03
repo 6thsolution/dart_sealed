@@ -2,6 +2,7 @@ import 'package:analyzer/dart/element/element.dart';
 import 'package:build/build.dart';
 import 'package:sealed_annotations/sealed_annotations.dart';
 import 'package:sealed_generators/src/source/reader/source_reader.dart';
+import 'package:sealed_generators/src/source/writer/backward_source_writer.dart';
 import 'package:sealed_generators/src/source/writer/source_writer.dart';
 import 'package:source_gen/source_gen.dart';
 
@@ -15,7 +16,10 @@ class SealedGenerator extends GeneratorForAnnotation<Sealed> {
     BuildStep buildStep,
   ) {
     final source = SourceReader.read(element, annotation);
-    return source.write();
+    final s = StringBuffer();
+    s.writeln(source.writeBackward(debug: true));
+    s.writeln(source.write());
+    return s.toString();
   }
 
   @override

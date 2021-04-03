@@ -2,7 +2,6 @@ import 'package:meta/meta.dart';
 import 'package:sealed_annotations/sealed_annotations.dart';
 import 'package:sealed_generators/src/manifest/manifest.dart';
 import 'package:sealed_generators/src/source/source.dart';
-import 'package:sealed_generators/src/source/writer/backward_source_writer.dart';
 import 'package:sealed_generators/src/utils/name_utils.dart';
 
 extension SourceWriter on Source {
@@ -14,14 +13,26 @@ extension SourceWriter on Source {
   @visibleForTesting
   String get nn => options.isNullSafe ? '' : '/*!*/';
 
-  /// subclass name
+  /// top class name, ex. Weather
   @visibleForTesting
-  String name(ManifestItem item) => manifest.name + item.name;
+  String get top => manifest.name;
+
+  /// short sub class name, ex. Sunny
+  @visibleForTesting
+  String short(ManifestItem item) => item.name;
+
+  /// sub class name, ex. WeatherSunny
+  @visibleForTesting
+  String full(ManifestItem item) => '$top${short(item)}';
+
+  /// lower start short sub class name, ex. sunny
+  @visibleForTesting
+  String lower(ManifestItem item) => short(item).toLowerStart();
 
   /// ex. isRainy()
   @visibleForTesting
   String topCastIsItem(ManifestItem item) =>
-      'bool is${item.name}() => this is ${name(item)};';
+      'bool is${short(item)}() => this is ${full(item)};';
 
   @visibleForTesting
   String topCastsIs() {
@@ -36,8 +47,8 @@ extension SourceWriter on Source {
   /// ex. asRainy()
   @visibleForTesting
   String topCastAsItem(ManifestItem item) =>
-      '${name(item)}$nn as${item.name}() =>'
-      ' this as ${name(item)};';
+      '${full(item)}$nn as${short(item)}() =>'
+      ' this as ${full(item)};';
 
   @visibleForTesting
   String topCastsAs() {
@@ -52,8 +63,8 @@ extension SourceWriter on Source {
   /// ex. asRainyOrNull()
   @visibleForTesting
   String topCastAsOrNullItem(ManifestItem item) =>
-      '${name(item)}$n as${item.name}OrNull() => '
-      ' this is ${name(item)} ? this as ${name(item)} : null;';
+      '${full(item)}$n as${short(item)}OrNull() => '
+      ' this is ${full(item)} ? this as ${full(item)} : null;';
 
   @visibleForTesting
   String topCastsAsOrNull() {
@@ -74,11 +85,12 @@ extension SourceWriter on Source {
     return s.toString();
   }
 
+  String topManifest() => '@SealedManifest(_$top)';
+
   // **** //
 
   String write() {
     final s = StringBuffer();
-    s.writeln(writeBackward(debug: true));
     s.writeln(writeTopClass());
     for (final item in manifest.items) {
       s.writeln(writeSubClass(item));
@@ -90,7 +102,7 @@ extension SourceWriter on Source {
   @visibleForTesting
   String writeTopClass() {
     final s = StringBuffer();
-    s.writeln('@SealedManifest(_${manifest.name})');
+    s.writeln(topManifest());
     s.write('abstract class ${manifest.name}');
     if (options.equality == SealedEquality.data) {
       s.write(' extends Equatable');
