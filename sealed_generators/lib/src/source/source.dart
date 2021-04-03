@@ -1,8 +1,8 @@
 import 'package:meta/meta.dart';
 import 'package:sealed_annotations/sealed_annotations.dart';
-import 'package:sealed_generators/src/backward/backward.dart';
 import 'package:sealed_generators/src/manifest/manifest.dart';
 import 'package:sealed_generators/src/options/options.dart';
+import 'package:sealed_generators/src/source/writer/backward_source_writer.dart';
 import 'package:sealed_generators/src/utils/name_utils.dart';
 
 class Source {
@@ -19,7 +19,7 @@ class Source {
 
   String generate() {
     final s = StringBuffer();
-    s.writeln(backward(debug: true));
+    s.writeln(writeBackward(debug: true));
     s.writeln(generateTopClass());
     for (final item in manifest.items) {
       s.writeln(generateSubClass(item));

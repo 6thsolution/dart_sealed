@@ -1,6 +1,6 @@
 import 'package:analyzer/dart/element/element.dart';
-import 'package:sealed_generators/src/manifest/manifest_reader.dart';
-import 'package:sealed_generators/src/options/options_reader.dart';
+import 'package:sealed_generators/src/manifest/reader/manifest_reader.dart';
+import 'package:sealed_generators/src/options/reader/options_reader.dart';
 import 'package:sealed_generators/src/source/source.dart';
 import 'package:source_gen/src/constants/reader.dart';
 

@@ -3,8 +3,8 @@ import 'package:sealed_generators/src/utils/name_utils.dart';
 
 /// mimic original manifest code.
 /// used only for debug and test.
-extension Backward on Source {
-  String backward({bool debug = false}) {
+extension BackwardSourceWriter on Source {
+  String writeBackward({bool debug = false}) {
     final s = StringBuffer();
     if (debug) {
       s.writeln('// ' + '*' * 74);
