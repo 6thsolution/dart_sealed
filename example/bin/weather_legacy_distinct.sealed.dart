@@ -34,21 +34,24 @@ abstract class Weather {
 
   bool isSunny() => this is WeatherSunny;
 
-  WeatherSunny asSunny() => this as WeatherSunny;
-
-  WeatherSunny /*?*/ asSunnyOrNull() => isSunny() ? asSunny() : null;
-
   bool isRainy() => this is WeatherRainy;
-
-  WeatherRainy asRainy() => this as WeatherRainy;
-
-  WeatherRainy /*?*/ asRainyOrNull() => isRainy() ? asRainy() : null;
 
   bool isWindy() => this is WeatherWindy;
 
-  WeatherWindy asWindy() => this as WeatherWindy;
+  WeatherSunny /*!*/ asSunny() => this as WeatherSunny;
 
-  WeatherWindy /*?*/ asWindyOrNull() => isWindy() ? asWindy() : null;
+  WeatherRainy /*!*/ asRainy() => this as WeatherRainy;
+
+  WeatherWindy /*!*/ asWindy() => this as WeatherWindy;
+
+  WeatherSunny /*?*/ asSunnyOrNull() =>
+      this is WeatherSunny ? this as WeatherSunny : null;
+
+  WeatherRainy /*?*/ asRainyOrNull() =>
+      this is WeatherRainy ? this as WeatherRainy : null;
+
+  WeatherWindy /*?*/ asWindyOrNull() =>
+      this is WeatherWindy ? this as WeatherWindy : null;
 }
 
 class WeatherSunny extends Weather {}
