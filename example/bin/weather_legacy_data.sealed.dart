@@ -26,11 +26,19 @@ abstract class _Weather$ {
 
 @SealedManifest(_Weather)
 abstract class Weather extends Equatable {
-  static WeatherSunny sunny() => WeatherSunny();
+  WeatherSunny /*!*/ sunny() => WeatherSunny();
 
-  static WeatherRainy rainy() => WeatherRainy();
+  WeatherRainy /*!*/ rainy({@required int /*?*/ rain}) =>
+      WeatherRainy(rain: rain);
 
-  static WeatherWindy windy() => WeatherWindy();
+  WeatherWindy /*!*/ windy({
+    @required double /*?*/ velocity,
+    @required double /*?*/ angle,
+  }) =>
+      WeatherWindy(
+        velocity: velocity,
+        angle: angle,
+      );
 
   bool isSunny() => this is WeatherSunny;
 
@@ -55,16 +63,30 @@ abstract class Weather extends Equatable {
 }
 
 class WeatherSunny extends Weather {
+  WeatherSunny();
+
   @override
-  List<Object> get props => [];
+  List<Object /*?*/ > get props => [];
 }
 
 class WeatherRainy extends Weather {
+  WeatherRainy({@required this.rain});
+
+  final int /*?*/ rain;
+
   @override
-  List<Object> get props => [];
+  List<Object /*?*/ > get props => [];
 }
 
 class WeatherWindy extends Weather {
+  WeatherWindy({
+    @required this.velocity,
+    @required this.angle,
+  });
+
+  final double /*?*/ velocity;
+  final double /*?*/ angle;
+
   @override
-  List<Object> get props => [];
+  List<Object /*?*/ > get props => [];
 }

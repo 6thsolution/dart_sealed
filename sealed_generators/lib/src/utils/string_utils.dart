@@ -10,6 +10,16 @@ extension StringUtilsIterable on Iterable<String> {
       return join(', ') + ',';
     }
   }
+
+  String joinMethods() {
+    if (isEmpty) {
+      return '';
+    } else if (length == 1) {
+      return first;
+    } else {
+      return join('\n\n');
+    }
+  }
 }
 
 /// utilities for strings
@@ -17,6 +27,11 @@ extension StringUtils on String {
   /// add braces
   String withBraces() {
     return '{$this}';
+  }
+
+  /// add braces or not if empty
+  String withBracesOrNot() {
+    return trim().isEmpty ? '' : withBraces();
   }
 
   /// add parenthesis

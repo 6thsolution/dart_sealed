@@ -8,11 +8,23 @@ void main() {
       expect(['a'].joinArgs(), equals('a'));
       expect(['a', 'b'].joinArgs(), equals('a, b,'));
     });
+
+    test('method joinMethods', () {
+      expect(<String>[].joinMethods(), equals(''));
+      expect(['a'].joinMethods(), equals('a'));
+      expect(['a', 'b'].joinMethods(), equals('a\n\nb'));
+    });
   });
 
   group('extension StringUtils', () {
     test('method withBraces', () {
       expect('abc'.withBraces(), equals('{abc}'));
+    });
+
+    test('method withBracesOrNot', () {
+      expect('abc'.withBracesOrNot(), equals('{abc}'));
+      expect(''.withBracesOrNot(), equals(''));
+      expect(' '.withBracesOrNot(), equals(''));
     });
 
     test('method withParenthesis', () {
