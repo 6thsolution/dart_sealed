@@ -1,6 +1,8 @@
 import 'package:sealed_generators/src/manifest/manifest.dart';
 import 'package:test/test.dart';
 
+import '../../utils/exception_utils.dart';
+
 void main() {
   group('class ManifestType', () {
     test('initialization', () {
@@ -13,8 +15,8 @@ void main() {
       expect(b.isNullable, false);
 
       expect(
-        () => ManifestType(name: 'double?', isNullable: true),
-        throwsA(anything),
+            () => ManifestType(name: 'double?', isNullable: true),
+        throwsAssertion(),
       );
     });
   });
@@ -31,12 +33,12 @@ void main() {
       expect(b.type, type);
 
       expect(
-        () => ManifestField(name: '_angle', type: type),
-        throwsA(anything),
+            () => ManifestField(name: '_angle', type: type),
+        throwsAssertion(),
       );
       expect(
-        () => ManifestField(name: 'Angle', type: type),
-        throwsA(anything),
+            () => ManifestField(name: 'Angle', type: type),
+        throwsAssertion(),
       );
     });
   });
@@ -54,16 +56,16 @@ void main() {
       expect(item2.fields, contains(field1));
 
       expect(
-        () => ManifestItem(name: 'windy', fields: []),
-        throwsA(anything),
+            () => ManifestItem(name: 'windy', fields: []),
+        throwsAssertion(),
       );
       expect(
-        () => ManifestItem(name: 'Windy?', fields: [field1]),
-        throwsA(anything),
+            () => ManifestItem(name: 'Windy?', fields: [field1]),
+        throwsAssertion(),
       );
       expect(
-        () => ManifestItem(name: '_Windy', fields: [field1]),
-        throwsA(anything),
+            () => ManifestItem(name: '_Windy', fields: [field1]),
+        throwsAssertion(),
       );
     });
   });
@@ -77,20 +79,20 @@ void main() {
       expect(manifest.items, contains(item));
 
       expect(
-        () => Manifest(name: 'weather', items: [item]),
-        throwsA(anything),
+            () => Manifest(name: 'weather', items: [item]),
+        throwsAssertion(),
       );
       expect(
-        () => Manifest(name: 'Weather?', items: [item]),
-        throwsA(anything),
+            () => Manifest(name: 'Weather?', items: [item]),
+        throwsAssertion(),
       );
       expect(
-        () => Manifest(name: 'Weather', items: []),
-        throwsA(anything),
+            () => Manifest(name: 'Weather', items: []),
+        throwsAssertion(),
       );
       expect(
-        () => Manifest(name: '_Weather', items: []),
-        throwsA(anything),
+            () => Manifest(name: '_Weather', items: []),
+        throwsAssertion(),
       );
     });
   });

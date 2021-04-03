@@ -7,7 +7,7 @@ void main() {
   group('method require', () {
     group('with null argument', () {
       test('when true does not throw', () {
-        expect(() => require(true), isNot(throwsA(anything)));
+        expect(() => require(true), isNot(throwsAssertion()));
       });
 
       test('when false does throw', () {
@@ -24,7 +24,7 @@ void main() {
 
     group('with String argument', () {
       test('when true does not throw', () {
-        expect(() => require(true, 'msg'), isNot(throwsA(anything)));
+        expect(() => require(true, 'msg'), isNot(throwsAssertion()));
       });
 
       test('when false does throw', () {
@@ -42,8 +42,8 @@ void main() {
     group('with String Function() argument', () {
       test('when true does not throw and not compute function', () {
         expect(
-          () => require(true, () => throw 'should not happen!'),
-          isNot(throwsA(anything)),
+              () => require(true, () => throw 'should not happen!'),
+          isNot(throwsAssertion()),
         );
       });
 
@@ -62,8 +62,8 @@ void main() {
     group('with other argument', () {
       test('when false does throw internal', () {
         expect(
-          () => require(false, 1),
-          throwsA(anything),
+              () => require(false, 1),
+          throwsAssertion(),
         );
       });
     });

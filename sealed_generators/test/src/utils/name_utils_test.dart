@@ -1,44 +1,46 @@
 import 'package:sealed_generators/src/utils/name_utils.dart';
 import 'package:test/test.dart';
 
+import '../../utils/exception_utils.dart';
+
 void main() {
   group('extension NameUtils', () {
     test('method startWithUpper', () {
-      expect(() => ''.startsWithUpper(), throwsA(anything));
-      expect(() => ' d '.startsWithUpper(), throwsA(anything));
-      expect(() => '_A'.startsWithUpper(), throwsA(anything));
+      expect(() => ''.startsWithUpper(), throwsAssertion());
+      expect(() => ' d '.startsWithUpper(), throwsAssertion());
+      expect(() => '_A'.startsWithUpper(), throwsAssertion());
 
       expect('Apple'.startsWithUpper(), equals(true));
       expect('apple'.startsWithUpper(), equals(false));
     });
 
     test('method startWithLower', () {
-      expect(() => ''.startsWithLower(), throwsA(anything));
-      expect(() => ' d '.startsWithLower(), throwsA(anything));
-      expect(() => '_A'.startsWithLower(), throwsA(anything));
+      expect(() => ''.startsWithLower(), throwsAssertion());
+      expect(() => ' d '.startsWithLower(), throwsAssertion());
+      expect(() => '_A'.startsWithLower(), throwsAssertion());
 
       expect('Apple'.startsWithLower(), equals(false));
       expect('apple'.startsWithLower(), equals(true));
     });
 
     test('method toUpperStart', () {
-      expect(() => ''.toUpperStart(), throwsA(anything));
-      expect(() => ' d '.toUpperStart(), throwsA(anything));
-      expect(() => '_A'.toUpperStart(), throwsA(anything));
+      expect(() => ''.toUpperStart(), throwsAssertion());
+      expect(() => ' d '.toUpperStart(), throwsAssertion());
+      expect(() => '_A'.toUpperStart(), throwsAssertion());
 
-      expect(() => 'Apple'.toUpperStart(), throwsA(anything));
+      expect(() => 'Apple'.toUpperStart(), throwsAssertion());
 
       expect('apple'.toUpperStart(), equals('Apple'));
     });
 
     test('method toLowerStart', () {
-      expect(() => ''.toLowerStart(), throwsA(anything));
-      expect(() => ' d '.toLowerStart(), throwsA(anything));
-      expect(() => '_A'.toLowerStart(), throwsA(anything));
+      expect(() => ''.toLowerStart(), throwsAssertion());
+      expect(() => ' d '.toLowerStart(), throwsAssertion());
+      expect(() => '_A'.toLowerStart(), throwsAssertion());
 
       expect('Apple'.toLowerStart(), equals('apple'));
 
-      expect(() => 'apple'.toLowerStart(), throwsA(anything));
+      expect(() => 'apple'.toLowerStart(), throwsAssertion());
     });
   });
 }

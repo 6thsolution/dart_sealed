@@ -6,7 +6,9 @@ Matcher hasMessage(dynamic matcher) => _HasMessage(matcher);
 
 Matcher hasCause(dynamic matcher) => _HasCause(matcher);
 
-Matcher isSealedException() => isA<SealedException>();
+Matcher isSealedException() => const TypeMatcher<SealedException>();
+
+Matcher throwsAssertion() => throwsA(const TypeMatcher<AssertionError>());
 
 @sealed
 class _HasMessage extends CustomMatcher {
