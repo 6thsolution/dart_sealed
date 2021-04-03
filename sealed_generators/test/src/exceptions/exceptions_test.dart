@@ -1,7 +1,7 @@
 import 'package:sealed_generators/src/exceptions/exceptions.dart';
 import 'package:test/test.dart';
 
-import 'utils.dart';
+import '../../utils/exception_utils.dart';
 
 void main() {
   group('method require', () {

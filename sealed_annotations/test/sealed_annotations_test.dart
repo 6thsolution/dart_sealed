@@ -16,7 +16,7 @@ void main() {
 
   group('annotation @SealedManifest', () {
     test('initialization', () {
-      const a = SealedManifest(manifest: String);
+      const a = SealedManifest(String);
       expect(a.manifest, String);
       expect(a.toString(), stringContainsInOrder(['manifest', 'String']));
     });

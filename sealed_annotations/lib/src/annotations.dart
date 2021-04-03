@@ -63,9 +63,7 @@ class SealedManifest {
   final Type manifest;
 
   @literal
-  const SealedManifest({
-    required this.manifest,
-  });
+  const SealedManifest(this.manifest);
 
   @override
   String toString() => 'SealedManifest(manifest: $manifest)';

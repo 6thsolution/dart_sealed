@@ -23,7 +23,7 @@ abstract class _Weather$ {
 }
 // **************************************************************************
 
-@SealedManifest(manifest: _Weather)
+@SealedManifest(_Weather)
 abstract class Weather extends Equatable {
   static WeatherSunny sunny() => WeatherSunny();
 
