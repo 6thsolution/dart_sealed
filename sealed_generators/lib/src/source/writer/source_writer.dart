@@ -14,6 +14,10 @@ extension SourceWriter on Source {
   @visibleForTesting
   String get immutable => '@immutable';
 
+  /// @factory
+  @visibleForTesting
+  String get factory => '@factory';
+
   /// nullability suffix: "?" or "/*?*/"
   @visibleForTesting
   String get n => options.isNullSafe ? '?' : '/*?*/';
@@ -44,30 +48,29 @@ extension SourceWriter on Source {
 
   /// ex. isRainy()
   @visibleForTesting
-  String topCastIsItem(ManifestItem item) =>
+  String topCastIs(ManifestItem item) =>
       'bool is${short(item)}() => this is ${full(item)};';
 
   @visibleForTesting
-  Iterable<String> topCastsIs() => manifest.items.map(topCastIsItem);
+  Iterable<String> topCastsIs() => manifest.items.map(topCastIs);
 
   /// ex. asRainy()
   @visibleForTesting
-  String topCastAsItem(ManifestItem item) =>
+  String topCastAs(ManifestItem item) =>
       '${full(item)}$nn as${short(item)}() =>'
-          ' this as ${full(item)};';
+      ' this as ${full(item)};';
 
   @visibleForTesting
-  Iterable<String> topCastsAs() => manifest.items.map(topCastAsItem);
+  Iterable<String> topCastsAs() => manifest.items.map(topCastAs);
 
   /// ex. asRainyOrNull()
   @visibleForTesting
-  String topCastAsOrNullItem(ManifestItem item) =>
+  String topCastAsOrNull(ManifestItem item) =>
       '${full(item)}$n as${short(item)}OrNull() => '
       ' this is ${full(item)} ? this as ${full(item)} : null;';
 
   @visibleForTesting
-  Iterable<String> topCastsAsOrNull() =>
-      manifest.items.map(topCastAsOrNullItem);
+  Iterable<String> topCastsAsOrNull() => manifest.items.map(topCastAsOrNull);
 
   @visibleForTesting
   Iterable<String> topCasts() sync* {
@@ -87,26 +90,29 @@ extension SourceWriter on Source {
 
   /// ex. final double direction;
   @visibleForTesting
-  String subField(ManifestField field) =>
+  String subFieldDeclaration(ManifestField field) =>
       'final ${typeSL(field.type)} ${field.name};';
 
   @visibleForTesting
-  Iterable<String> subFields(ManifestItem item) => item.fields.map(subField);
+  Iterable<String> subFieldDeclarations(ManifestItem item) =>
+      item.fields.map(subFieldDeclaration);
 
   /// ex. required this.angle or @required this.angle
   @visibleForTesting
-  String subConstructorField(ManifestField field) => '$req this.${field.name}';
+  String subConstructorDeclarationPart(ManifestField field) =>
+      '$req this.${field.name}';
 
   /// ex. WeatherRainy({required this.rain, ...});
   @visibleForTesting
-  String subConstructor(ManifestItem item) =>
-      full(item) +
-      item.fields
-          .map(subConstructorField)
-          .joinArgs()
-          .withBracesOrNot()
-          .withParenthesis() +
-      ';';
+  String subConstructorDeclaration(ManifestItem item) => [
+        full(item),
+        item.fields
+            .map(subConstructorDeclarationPart)
+            .joinArgs()
+            .withBracesOrNot()
+            .withParenthesis(),
+        ';',
+      ].joinParts();
 
   /// ex. angle: angle
   @visibleForTesting
@@ -115,24 +121,28 @@ extension SourceWriter on Source {
 
   /// ex. required double? angle
   @visibleForTesting
-  String topBuilderItemArg(ManifestField field) =>
+  String topBuilderArg(ManifestField field) =>
       '$req ${typeSL(field.type)} ${field.name}';
 
   /// ex. static ... rainy() => ...
   @visibleForTesting
-  String topBuilderItem(ManifestItem item) =>
-      '${full(item)}$nn ${lower(item)}' +
-      item.fields
-          .map(topBuilderItemArg)
-          .joinArgs()
-          .withBracesOrNot()
-          .withParenthesis() +
-      ' => ${full(item)}' +
-      item.fields.map(subConstructorCallArg).joinArgs().withParenthesis() +
-      ';';
+  String topBuilder(ManifestItem item) => [
+        factory,
+        [
+          '${full(item)}$nn ${lower(item)}',
+          item.fields
+              .map(topBuilderArg)
+              .joinArgs()
+              .withBracesOrNot()
+              .withParenthesis(),
+          ' => ${full(item)}',
+          item.fields.map(subConstructorCallArg).joinArgs().withParenthesis(),
+          ';',
+        ].joinParts(),
+      ].joinLines();
 
   @visibleForTesting
-  Iterable<String> topBuilders() => manifest.items.map(topBuilderItem);
+  Iterable<String> topBuilders() => manifest.items.map(topBuilder);
 
   // todo use mockito
   // todo rename methods
@@ -173,9 +183,9 @@ extension SourceWriter on Source {
   String writeSubClass(ManifestItem item) {
     final s = StringBuffer();
     s.write('class ${full(item)} extends $top{');
-    s.writeln(subConstructor(item));
+    s.writeln(subConstructorDeclaration(item));
     s.writeln();
-    s.writeln(subFields(item).join('\n'));
+    s.writeln(subFieldDeclarations(item).joinLines());
     if (options.equality == SealedEquality.data) {
       s.writeln();
       s.writeln('@override');

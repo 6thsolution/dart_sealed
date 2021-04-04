@@ -48,13 +48,17 @@ abstract class _Result$<D extends Object?, E extends Base> {
 
 @SealedManifest(_Result)
 abstract class Result extends Equatable {
+  @factory
   ResultSuccess success({required D data}) => ResultSuccess(data: data);
 
+  @factory
   ResultError error({required E exception}) =>
       ResultError(exception: exception);
 
+  @factory
   ResultDummy dummy({required D? data}) => ResultDummy(data: data);
 
+  @factory
   ResultPartialSuccess partialSuccess({
     required D data,
     required E? exception,
@@ -64,6 +68,7 @@ abstract class Result extends Equatable {
         exception: exception,
       );
 
+  @factory
   ResultPartialError partialError({
     required E? e,
     required int code,
@@ -73,6 +78,7 @@ abstract class Result extends Equatable {
         code: code,
       );
 
+  @factory
   ResultDoubleSuccess doubleSuccess({
     required D data1,
     required D data2,
@@ -83,6 +89,7 @@ abstract class Result extends Equatable {
         data2: data2,
         code: code,
       );
+
   bool isSuccess() => this is ResultSuccess;
 
   bool isError() => this is ResultError;

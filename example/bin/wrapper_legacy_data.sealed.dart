@@ -25,8 +25,10 @@ abstract class _Wrapper$ {
 
 @SealedManifest(_Wrapper)
 abstract class Wrapper extends Equatable {
+  @factory
   WrapperWrap /*!*/ wrap({@required dynamic /*!*/ data}) =>
       WrapperWrap(data: data);
+
   bool isWrap() => this is WrapperWrap;
 
   WrapperWrap /*!*/ asWrap() => this as WrapperWrap;

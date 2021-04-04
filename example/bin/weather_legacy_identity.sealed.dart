@@ -32,11 +32,14 @@ abstract class _Weather$ {
 
 @SealedManifest(_Weather)
 abstract class Weather {
+  @factory
   WeatherSunny /*!*/ sunny() => WeatherSunny();
 
+  @factory
   WeatherRainy /*!*/ rainy({@required int /*?*/ rain}) =>
       WeatherRainy(rain: rain);
 
+  @factory
   WeatherWindy /*!*/ windy({
     @required double /*?*/ velocity,
     @required double /*?*/ angle,
@@ -45,6 +48,7 @@ abstract class Weather {
         velocity: velocity,
         angle: angle,
       );
+
   bool isSunny() => this is WeatherSunny;
 
   bool isRainy() => this is WeatherRainy;

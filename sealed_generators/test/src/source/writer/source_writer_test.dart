@@ -7,12 +7,16 @@ import '../../../utils/examples.dart';
 
 void main() {
   group('extension SourceWriter', () {
-    test('constant finalClassAnnotation', () {
+    test('constant closed', () {
       expect(source1DataSafe.closed, '@sealed');
     });
 
-    test('constant immutableClassAnnotation', () {
+    test('constant immutable', () {
       expect(source1DataSafe.immutable, '@immutable');
+    });
+
+    test('constant factory', () {
+      expect(source1DataSafe.factory, '@factory');
     });
 
     group('getter n', () {
@@ -70,12 +74,12 @@ void main() {
       expect(source.lower(item), 'sunny');
     });
 
-    test('method topCastIsItem', () {
+    test('method topCastIs', () {
       final source = source1DataSafe;
       final item = source.manifest.items[0];
 
       expect(
-        source.topCastIsItem(item).tr(),
+        source.topCastIs(item).tr(),
         'bool isSunny() => this is WeatherSunny;',
       );
     });
@@ -91,13 +95,13 @@ void main() {
       );
     });
 
-    group('method topCastAsItem', () {
+    group('method topCastAs', () {
       test('null-safe', () {
         final source = source1DataSafe;
         final item = source.manifest.items[0];
 
         expect(
-          source.topCastAsItem(item).tr(),
+          source.topCastAs(item).tr(),
           'WeatherSunny asSunny() => this as WeatherSunny;',
         );
       });
@@ -107,7 +111,7 @@ void main() {
         final item = source.manifest.items[0];
 
         expect(
-          source.topCastAsItem(item).tr(),
+          source.topCastAs(item).tr(),
           'WeatherSunny/*!*/ asSunny() => this as WeatherSunny;',
         );
       });
@@ -124,13 +128,13 @@ void main() {
       );
     });
 
-    group('method topCastAsOrNullItem', () {
+    group('method topCastAsOrNull', () {
       test('null-safe', () {
         final source = source1DataSafe;
         final item = source.manifest.items[0];
 
         expect(
-          source.topCastAsOrNullItem(item).tr(),
+          source.topCastAsOrNull(item).tr(),
           'WeatherSunny? asSunnyOrNull() => '
           'this is WeatherSunny ? this as WeatherSunny : null;',
         );
@@ -141,7 +145,7 @@ void main() {
         final item = source.manifest.items[0];
 
         expect(
-          source.topCastAsOrNullItem(item).tr(),
+          source.topCastAsOrNull(item).tr(),
           'WeatherSunny/*?*/ asSunnyOrNull() => '
           'this is WeatherSunny ? this as WeatherSunny : null;',
         );
@@ -215,7 +219,7 @@ void main() {
       });
     });
 
-    group('method subField', () {
+    group('method subFieldDeclaration', () {
       group('null-safe', () {
         final source = source1DataSafe;
         // void windy(double velocity, double? angle);
@@ -225,14 +229,14 @@ void main() {
 
         test('non-nullable field', () {
           expect(
-            source.subField(field1).tr(),
+            source.subFieldDeclaration(field1).tr(),
             'final double velocity;',
           );
         });
 
         test('nullable field', () {
           expect(
-            source.subField(field2).tr(),
+            source.subFieldDeclaration(field2).tr(),
             'final double? angle;',
           );
         });
@@ -247,27 +251,27 @@ void main() {
 
         test('non-nullable field', () {
           expect(
-            source.subField(field1).tr(),
+            source.subFieldDeclaration(field1).tr(),
             'final double/*!*/ velocity;',
           );
         });
 
         test('nullable field', () {
           expect(
-            source.subField(field2).tr(),
+            source.subFieldDeclaration(field2).tr(),
             'final double/*?*/ angle;',
           );
         });
       });
     });
 
-    test('method subFields', () {
+    test('method subFieldDeclarations', () {
       final source = source1DataSafe;
       // void windy(double velocity, double? angle);
       final item = source.manifest.items[2];
 
       expect(
-        source.subFields(item).joinMethods().tr(),
+        source.subFieldDeclarations(item).joinLines().tr(),
         stringContains([
           'final double velocity;',
           'final double? angle;',
@@ -275,7 +279,7 @@ void main() {
       );
     });
 
-    group('method subConstructorField', () {
+    group('method subConstructorDeclarationPart', () {
       group('null-safe', () {
         final source = source1DataSafe;
         // void windy(double velocity, double? angle);
@@ -285,14 +289,14 @@ void main() {
 
         test('non-nullable field', () {
           expect(
-            source.subConstructorField(field1).tr(),
+            source.subConstructorDeclarationPart(field1).tr(),
             'required this.velocity',
           );
         });
 
         test('nullable field', () {
           expect(
-            source.subConstructorField(field2).tr(),
+            source.subConstructorDeclarationPart(field2).tr(),
             'required this.angle',
           );
         });
@@ -307,21 +311,21 @@ void main() {
 
         test('non-nullable field', () {
           expect(
-            source.subConstructorField(field1).tr(),
+            source.subConstructorDeclarationPart(field1).tr(),
             '@required this.velocity',
           );
         });
 
         test('nullable field', () {
           expect(
-            source.subConstructorField(field2).tr(),
+            source.subConstructorDeclarationPart(field2).tr(),
             '@required this.angle',
           );
         });
       });
     });
 
-    test('method subConstructor', () {
+    test('method subConstructorDeclaration', () {
       final source = source1DataSafe;
       // void sunny();
       final item1 = source.manifest.items[0];
@@ -331,15 +335,15 @@ void main() {
       final item3 = source.manifest.items[2];
 
       expect(
-        source.subConstructor(item1).tr(),
+        source.subConstructorDeclaration(item1).tr(),
         'WeatherSunny();',
       );
       expect(
-        source.subConstructor(item2).tr(),
+        source.subConstructorDeclaration(item2).tr(),
         'WeatherRainy({required this.rain});',
       );
       expect(
-        source.subConstructor(item3).tr(),
+        source.subConstructorDeclaration(item3).tr(),
         'WeatherWindy({required this.velocity, required this.angle,});',
       );
     });
@@ -361,7 +365,7 @@ void main() {
       );
     });
 
-    group('method topBuilderItemArg', () {
+    group('method topBuilderArg', () {
       group('null-safe', () {
         final source = source1DataSafe;
         // void windy(double velocity, double? angle);
@@ -371,14 +375,14 @@ void main() {
 
         test('non-nullable field', () {
           expect(
-            source.topBuilderItemArg(field1).tr(),
+            source.topBuilderArg(field1).tr(),
             'required double velocity',
           );
         });
 
         test('nullable field', () {
           expect(
-            source.topBuilderItemArg(field2).tr(),
+            source.topBuilderArg(field2).tr(),
             'required double? angle',
           );
         });
@@ -393,14 +397,14 @@ void main() {
 
         test('non-nullable field', () {
           expect(
-            source.topBuilderItemArg(field1).tr(),
+            source.topBuilderArg(field1).tr(),
             '@required double/*!*/ velocity',
           );
         });
 
         test('nullable field', () {
           expect(
-            source.topBuilderItemArg(field2).tr(),
+            source.topBuilderArg(field2).tr(),
             '@required double/*?*/ angle',
           );
         });
@@ -418,16 +422,18 @@ void main() {
         final item3 = source.manifest.items[2];
 
         expect(
-          source.topBuilderItem(item1).tr(),
-          'WeatherSunny sunny() => WeatherSunny();',
+          source.topBuilder(item1).tr(),
+          '@factory' 'WeatherSunny sunny() => WeatherSunny();',
         );
         expect(
-          source.topBuilderItem(item2).tr(),
+          source.topBuilder(item2).tr(),
+          '@factory'
           'WeatherRainy rainy({required int rain}) =>'
           ' WeatherRainy(rain: rain);',
         );
         expect(
-          source.topBuilderItem(item3).tr(),
+          source.topBuilder(item3).tr(),
+          '@factory'
           'WeatherWindy windy'
           '({required double velocity, required double? angle,})'
           ' => WeatherWindy'
@@ -445,16 +451,18 @@ void main() {
         final item3 = source.manifest.items[2];
 
         expect(
-          source.topBuilderItem(item1).tr(),
-          'WeatherSunny/*!*/ sunny() => WeatherSunny();',
+          source.topBuilder(item1).tr(),
+          '@factory' 'WeatherSunny/*!*/ sunny() => WeatherSunny();',
         );
         expect(
-          source.topBuilderItem(item2).tr(),
+          source.topBuilder(item2).tr(),
+          '@factory'
           'WeatherRainy/*!*/ rainy({@required int/*!*/ rain}) =>'
           ' WeatherRainy(rain: rain);',
         );
         expect(
-          source.topBuilderItem(item3).tr(),
+          source.topBuilder(item3).tr(),
+          '@factory'
           'WeatherWindy/*!*/ windy'
           '({@required double/*!*/ velocity, @required double/*?*/ angle,})'
           ' => WeatherWindy'

@@ -31,11 +31,14 @@ abstract class _Result$<D extends Object /*?*/, E extends Base /*?*/ > {
 
 @SealedManifest(_Result)
 abstract class Result extends Equatable {
+  @factory
   ResultSuccess /*!*/ success({@required D /*?*/ data}) =>
       ResultSuccess(data: data);
 
+  @factory
   ResultError /*!*/ error({@required E /*?*/ exception}) =>
       ResultError(exception: exception);
+
   bool isSuccess() => this is ResultSuccess;
 
   bool isError() => this is ResultError;

@@ -26,6 +26,12 @@ void main() {
       expect(['a'].joinLines(), equals('a'));
       expect(['a', 'b'].joinLines(), equals('a\nb'));
     });
+
+    test('method joinParts', () {
+      expect(<String>[].joinParts(), equals(''));
+      expect(['a'].joinParts(), equals('a'));
+      expect(['a', 'b'].joinParts(), equals('ab'));
+    });
   });
 
   group('extension StringUtils', () {

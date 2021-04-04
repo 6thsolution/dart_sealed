@@ -19,6 +19,9 @@ extension StringUtilsIterable on Iterable<String> {
 
   /// add '\n' between
   String joinLines() => join('\n');
+
+  /// join simply
+  String joinParts() => join();
 }
 
 /// utilities for strings

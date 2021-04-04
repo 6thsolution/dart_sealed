@@ -30,8 +30,10 @@ abstract class _Result$<D extends Object?> {
 
 @SealedManifest(_Result)
 abstract class Result extends Equatable {
+  @factory
   ResultSuccess success({required D data}) => ResultSuccess(data: data);
 
+  @factory
   ResultError error({
     required dynamic exception,
     required int code,
@@ -40,6 +42,7 @@ abstract class Result extends Equatable {
         exception: exception,
         code: code,
       );
+
   bool isSuccess() => this is ResultSuccess;
 
   bool isError() => this is ResultError;

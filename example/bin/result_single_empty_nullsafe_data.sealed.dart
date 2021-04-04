@@ -29,11 +29,15 @@ abstract class _Result$<D extends Object> {
 
 @SealedManifest(_Result)
 abstract class Result extends Equatable {
+  @factory
   ResultSuccess success({required D data}) => ResultSuccess(data: data);
 
+  @factory
   ResultEmpty empty() => ResultEmpty();
 
+  @factory
   ResultError error({required int code}) => ResultError(code: code);
+
   bool isSuccess() => this is ResultSuccess;
 
   bool isEmpty() => this is ResultEmpty;
