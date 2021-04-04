@@ -1,7 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 // @dart=2.9
-part of 'weather_legacy_distinct.dart';
+part of 'weather_legacy_data_named_args.dart';
 
 // **************************************************************************
 // Generator: sealed_generators
@@ -16,7 +16,7 @@ part of 'weather_legacy_distinct.dart';
 // **************************************************************************
 // backward generated code:
 // language level: legacy
-@Sealed(equality: SealedEquality.distinct)
+@Sealed(equality: SealedEquality.data)
 // ignore: unused_element
 abstract class _Weather$ {
   void sunny();
@@ -31,7 +31,7 @@ abstract class _Weather$ {
 // **************************************************************************
 
 @SealedManifest(_Weather)
-abstract class Weather {
+abstract class Weather extends Equatable {
   WeatherSunny /*!*/ sunny() => WeatherSunny();
 
   WeatherRainy /*!*/ rainy({@required int /*?*/ rain}) =>
@@ -45,6 +45,7 @@ abstract class Weather {
         velocity: velocity,
         angle: angle,
       );
+
   bool isSunny() => this is WeatherSunny;
 
   bool isRainy() => this is WeatherRainy;
@@ -69,12 +70,18 @@ abstract class Weather {
 
 class WeatherSunny extends Weather {
   WeatherSunny();
+
+  @override
+  List<Object /*?*/ > get props => [];
 }
 
 class WeatherRainy extends Weather {
   WeatherRainy({@required this.rain});
 
   final int /*?*/ rain;
+
+  @override
+  List<Object /*?*/ > get props => [];
 }
 
 class WeatherWindy extends Weather {
@@ -85,4 +92,7 @@ class WeatherWindy extends Weather {
 
   final double /*?*/ velocity;
   final double /*?*/ angle;
+
+  @override
+  List<Object /*?*/ > get props => [];
 }

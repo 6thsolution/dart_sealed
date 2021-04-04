@@ -1,7 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// @dart=2.9
-part of 'weather_legacy_distinct.dart';
+part of 'weather_nullsafe_data_named_args.dart';
 
 // **************************************************************************
 // Generator: sealed_generators
@@ -9,80 +8,89 @@ part of 'weather_legacy_distinct.dart';
 
 // **************************************************************************
 // compat params generated code:
-// language level: legacy
+// language level: null-safe
 // no params identified.
 // **************************************************************************
 
 // **************************************************************************
 // backward generated code:
-// language level: legacy
-@Sealed(equality: SealedEquality.distinct)
+// language level: null-safe
+@Sealed(equality: SealedEquality.data)
 // ignore: unused_element
 abstract class _Weather$ {
   void sunny();
 
-  void rainy(int /*?*/ rain);
+  void rainy(int rain);
 
   void windy(
-    double /*?*/ velocity,
-    double /*?*/ angle,
+    double velocity,
+    double? angle,
   );
 }
 // **************************************************************************
 
 @SealedManifest(_Weather)
-abstract class Weather {
-  WeatherSunny /*!*/ sunny() => WeatherSunny();
+abstract class Weather extends Equatable {
+  WeatherSunny sunny() => WeatherSunny();
 
-  WeatherRainy /*!*/ rainy({@required int /*?*/ rain}) =>
-      WeatherRainy(rain: rain);
+  WeatherRainy rainy({required int rain}) => WeatherRainy(rain: rain);
 
-  WeatherWindy /*!*/ windy({
-    @required double /*?*/ velocity,
-    @required double /*?*/ angle,
+  WeatherWindy windy({
+    required double velocity,
+    required double? angle,
   }) =>
       WeatherWindy(
         velocity: velocity,
         angle: angle,
       );
+
   bool isSunny() => this is WeatherSunny;
 
   bool isRainy() => this is WeatherRainy;
 
   bool isWindy() => this is WeatherWindy;
 
-  WeatherSunny /*!*/ asSunny() => this as WeatherSunny;
+  WeatherSunny asSunny() => this as WeatherSunny;
 
-  WeatherRainy /*!*/ asRainy() => this as WeatherRainy;
+  WeatherRainy asRainy() => this as WeatherRainy;
 
-  WeatherWindy /*!*/ asWindy() => this as WeatherWindy;
+  WeatherWindy asWindy() => this as WeatherWindy;
 
-  WeatherSunny /*?*/ asSunnyOrNull() =>
+  WeatherSunny? asSunnyOrNull() =>
       this is WeatherSunny ? this as WeatherSunny : null;
 
-  WeatherRainy /*?*/ asRainyOrNull() =>
+  WeatherRainy? asRainyOrNull() =>
       this is WeatherRainy ? this as WeatherRainy : null;
 
-  WeatherWindy /*?*/ asWindyOrNull() =>
+  WeatherWindy? asWindyOrNull() =>
       this is WeatherWindy ? this as WeatherWindy : null;
 }
 
 class WeatherSunny extends Weather {
   WeatherSunny();
+
+  @override
+  List<Object?> get props => [];
 }
 
 class WeatherRainy extends Weather {
-  WeatherRainy({@required this.rain});
+  WeatherRainy({required this.rain});
 
-  final int /*?*/ rain;
+  final int rain;
+
+  @override
+  List<Object?> get props => [];
 }
 
 class WeatherWindy extends Weather {
   WeatherWindy({
-    @required this.velocity,
-    @required this.angle,
+    required this.velocity,
+    required this.angle,
   });
 
-  final double /*?*/ velocity;
-  final double /*?*/ angle;
+  final double velocity;
+  final double? angle;
+
+  @override
+  List<Object?> get props => [];
 }

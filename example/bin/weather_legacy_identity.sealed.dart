@@ -8,6 +8,12 @@ part of 'weather_legacy_identity.dart';
 // **************************************************************************
 
 // **************************************************************************
+// compat params generated code:
+// language level: legacy
+// no params identified.
+// **************************************************************************
+
+// **************************************************************************
 // backward generated code:
 // language level: legacy
 @Sealed(equality: SealedEquality.identity)
@@ -39,7 +45,6 @@ abstract class Weather {
         velocity: velocity,
         angle: angle,
       );
-
   bool isSunny() => this is WeatherSunny;
 
   bool isRainy() => this is WeatherRainy;

@@ -7,6 +7,12 @@ part of 'weather_nullsafe_identity.dart';
 // **************************************************************************
 
 // **************************************************************************
+// compat params generated code:
+// language level: null-safe
+// no params identified.
+// **************************************************************************
+
+// **************************************************************************
 // backward generated code:
 // language level: null-safe
 @Sealed(equality: SealedEquality.identity)
@@ -37,7 +43,6 @@ abstract class Weather {
         velocity: velocity,
         angle: angle,
       );
-
   bool isSunny() => this is WeatherSunny;
 
   bool isRainy() => this is WeatherRainy;

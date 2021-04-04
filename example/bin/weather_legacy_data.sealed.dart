@@ -8,6 +8,12 @@ part of 'weather_legacy_data.dart';
 // **************************************************************************
 
 // **************************************************************************
+// compat params generated code:
+// language level: legacy
+// no params identified.
+// **************************************************************************
+
+// **************************************************************************
 // backward generated code:
 // language level: legacy
 @Sealed(equality: SealedEquality.data)
@@ -39,7 +45,6 @@ abstract class Weather extends Equatable {
         velocity: velocity,
         angle: angle,
       );
-
   bool isSunny() => this is WeatherSunny;
 
   bool isRainy() => this is WeatherRainy;
