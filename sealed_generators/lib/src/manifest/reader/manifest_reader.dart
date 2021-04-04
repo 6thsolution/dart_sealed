@@ -39,10 +39,6 @@ class ManifestReader {
       cls.allSupertypes.length == 1,
       () => 'class($name) can only have Object as super type',
     );
-    require(
-      cls.typeParameters.isEmpty,
-      () => 'class($name) can not have type parameters',
-    );
     return cls;
   }
 

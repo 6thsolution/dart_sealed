@@ -8,14 +8,18 @@ class Manifest {
   Manifest({
     required this.name,
     required this.items,
-  })   : assert(name.isGenClassName()),
+    this.params = const <ManifestParam>[],
+  })  : assert(name.isGenClassName()),
         assert(items.isNotEmpty);
 
   /// name, for example "WeatherState".
   final String name;
 
-  /// items.
+  /// items. can not be empty.
   final List<ManifestItem> items;
+
+  /// params. can be empty.
+  final List<ManifestParam> params;
 
   @override
   String toString() => 'Manifest{name: $name, items: $items}';
@@ -60,6 +64,11 @@ class ManifestField {
 @immutable
 @sealed
 class ManifestType {
+  static final defaultSuper = ManifestType(
+    name: 'Object',
+    isNullable: false,
+  );
+
   ManifestType({
     required this.name,
     required this.isNullable,
@@ -80,4 +89,24 @@ class ManifestType {
 
   @override
   String toString() => 'Type{name: $name, isNullable: $isNullable}';
+}
+
+/// ex. 'T extends Object?'
+@immutable
+@sealed
+class ManifestParam {
+  ManifestParam({
+    required this.type,
+    required this.upper,
+  }) : assert(type.isNullable == false);
+
+  /// type param itself like 'T'.
+  /// can not be nullable.
+  final ManifestType type;
+
+  /// type param super type like 'Object?'
+  final ManifestType upper;
+
+  @override
+  String toString() => 'Param{type: $type, upper: $upper}';
 }

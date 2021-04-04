@@ -15,9 +15,38 @@ void main() {
       expect(b.isNullable, false);
 
       expect(
-            () => ManifestType(name: 'double?', isNullable: true),
+        () => ManifestType(name: 'double?', isNullable: true),
         throwsAssertion(),
       );
+    });
+
+    test('constant defaultSuper', () {
+      final type = ManifestType.defaultSuper;
+      expect(type.name, 'Object');
+      expect(type.isNullable, false);
+    });
+  });
+
+  group('class ManifestParam', () {
+    test('initialization', () {
+      final a = ManifestType(name: 'T', isNullable: false);
+      final bad = ManifestType(name: 'T', isNullable: true);
+      final u = ManifestType(name: 'num', isNullable: true);
+      final p = ManifestParam(type: a, upper: u);
+
+      expect(p.type, a);
+      expect(p.upper, u);
+
+      expect(
+        () => ManifestParam(type: bad, upper: u),
+        throwsAssertion(),
+      );
+    });
+
+    test('constant defaultSuper', () {
+      final type = ManifestType.defaultSuper;
+      expect(type.name, 'Object');
+      expect(type.isNullable, false);
     });
   });
 
@@ -74,20 +103,30 @@ void main() {
     test('initialization', () {
       final item = ManifestItem(name: 'Sunny', fields: []);
       final manifest = Manifest(name: 'Weather', items: [item]);
+      final type = ManifestType(name: 'T', isNullable: false);
+      final upper = ManifestType(name: 'num', isNullable: true);
+      final param = ManifestParam(type: type, upper: upper);
+      final manifest2 = Manifest(
+        name: 'Weather',
+        items: [item],
+        params: [param],
+      );
 
       expect(manifest.name, equals('Weather'));
       expect(manifest.items, contains(item));
+      expect(manifest.params, isEmpty);
+      expect(manifest2.params, contains(param));
 
       expect(
-            () => Manifest(name: 'weather', items: [item]),
+        () => Manifest(name: 'weather', items: [item]),
         throwsAssertion(),
       );
       expect(
-            () => Manifest(name: 'Weather?', items: [item]),
+        () => Manifest(name: 'Weather?', items: [item]),
         throwsAssertion(),
       );
       expect(
-            () => Manifest(name: 'Weather', items: []),
+        () => Manifest(name: 'Weather', items: []),
         throwsAssertion(),
       );
       expect(
