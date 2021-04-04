@@ -18,9 +18,17 @@ extension SourceWriter on Source {
   @visibleForTesting
   String get factory => '@factory';
 
+  /// @override
+  @visibleForTesting
+  String get over => '@override';
+
   /// nullability suffix: "?" or "/*?*/"
   @visibleForTesting
   String get n => options.isNullSafe ? '?' : '/*?*/';
+
+  /// only nullable in legacy
+  @visibleForTesting
+  String get nl => options.isNullSafe ? '' : '/*?*/';
 
   /// non-nullability suffix: "" or "/*!*/"
   @visibleForTesting
@@ -128,8 +136,8 @@ extension SourceWriter on Source {
   @visibleForTesting
   String topBuilder(ManifestItem item) => [
         factory,
-        [
-          '${full(item)}$nn ${lower(item)}',
+    [
+          'static ${full(item)}$nn ${lower(item)}',
           item.fields
               .map(topBuilderArg)
               .joinArgs()
@@ -144,13 +152,47 @@ extension SourceWriter on Source {
   @visibleForTesting
   Iterable<String> topBuilders() => manifest.items.map(topBuilder);
 
+  /// ex. rain: $rain
+  @visibleForTesting
+  String subToStringPart(ManifestField field) =>
+      '${field.name}: \$${field.name}';
+
+  /// ex. @override String toString() => 'Weather.rainy(rain: $rain)'
+  /// or: String/*!*/
+  @visibleForTesting
+  String subToString(ManifestItem item) => [
+        over,
+        [
+          "String$nn toString() => '$top.${lower(item)}",
+          item.fields.map(subToStringPart).joinArgsSimple().withParenthesis(),
+          "';",
+        ].joinParts(),
+      ].joinLines();
+
+  /// bool operator ==(Object other) => false;
+  @visibleForTesting
+  String topDistinctEquality() => [
+        over,
+        'bool$nn operator ==(Object$nl other) => false;',
+      ].joinLines();
+
+  /// List<Object?> get props => [a, b, ...];
+  @visibleForTesting
+  String subEquatableEquality(ManifestItem item) => [
+        over,
+        [
+          'List<Object$n>$nn get props => [',
+          item.fields.map((field) => field.name).joinArgs(),
+          '];',
+        ].joinParts(),
+      ].joinLines();
+
+  // todo : super._()
+  // todo : Weather._();
+  // todo copy constructors
   // todo use mockito
-  // todo rename methods
   // todo sub class private constructor
   // todo sub class positional constructor args ?
-  // todo null assertion for legacy ? time !!
-  // todo add line joining
-  // todo trailing comma
 
   // **** //
 
@@ -174,7 +216,13 @@ extension SourceWriter on Source {
     }
     s.writeln('{');
     s.writeln(topBuilders().joinMethods());
+    s.writeln();
     s.writeln(topCasts().joinMethods());
+    if (options.equality == SealedEquality.distinct) {
+      s.writeln();
+      s.writeln(topDistinctEquality());
+      s.writeln();
+    }
     s.writeln('}');
     return s.toString();
   }
@@ -186,14 +234,13 @@ extension SourceWriter on Source {
     s.writeln(subConstructorDeclaration(item));
     s.writeln();
     s.writeln(subFieldDeclarations(item).joinLines());
+    s.writeln();
+    s.writeln(subToString(item));
+    s.writeln();
     if (options.equality == SealedEquality.data) {
       s.writeln();
-      s.writeln('@override');
-      if (options.isNullSafe) {
-        s.writeln('List<Object?> get props => [];');
-      } else {
-        s.writeln('List<Object/*?*/> get props => [];');
-      }
+      s.writeln(subEquatableEquality(item));
+      s.writeln();
     }
     s.writeln('}');
     return s.toString();

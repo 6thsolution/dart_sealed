@@ -19,6 +19,10 @@ void main() {
       expect(source1DataSafe.factory, '@factory');
     });
 
+    test('constant over', () {
+      expect(source1DataSafe.over, '@override');
+    });
+
     group('getter n', () {
       test('null-safe', () {
         expect(source1DataSafe.n, '?');
@@ -26,6 +30,16 @@ void main() {
 
       test('legacy', () {
         expect(source1DataLegacy.n, '/*?*/');
+      });
+    });
+
+    group('getter nl', () {
+      test('null-safe', () {
+        expect(source1DataSafe.nl, '');
+      });
+
+      test('legacy', () {
+        expect(source1DataLegacy.nl, '/*?*/');
       });
     });
 
@@ -423,18 +437,18 @@ void main() {
 
         expect(
           source.topBuilder(item1).tr(),
-          '@factory' 'WeatherSunny sunny() => WeatherSunny();',
+          '@factory' 'static WeatherSunny sunny() => WeatherSunny();',
         );
         expect(
           source.topBuilder(item2).tr(),
           '@factory'
-          'WeatherRainy rainy({required int rain}) =>'
+          'static WeatherRainy rainy({required int rain}) =>'
           ' WeatherRainy(rain: rain);',
         );
         expect(
           source.topBuilder(item3).tr(),
           '@factory'
-          'WeatherWindy windy'
+          'static WeatherWindy windy'
           '({required double velocity, required double? angle,})'
           ' => WeatherWindy'
           '(velocity: velocity, angle: angle,);',
@@ -452,18 +466,18 @@ void main() {
 
         expect(
           source.topBuilder(item1).tr(),
-          '@factory' 'WeatherSunny/*!*/ sunny() => WeatherSunny();',
+          '@factory' 'static WeatherSunny/*!*/ sunny() => WeatherSunny();',
         );
         expect(
           source.topBuilder(item2).tr(),
           '@factory'
-          'WeatherRainy/*!*/ rainy({@required int/*!*/ rain}) =>'
+          'static WeatherRainy/*!*/ rainy({@required int/*!*/ rain}) =>'
           ' WeatherRainy(rain: rain);',
         );
         expect(
           source.topBuilder(item3).tr(),
           '@factory'
-          'WeatherWindy/*!*/ windy'
+          'static WeatherWindy/*!*/ windy'
           '({@required double/*!*/ velocity, @required double/*?*/ angle,})'
           ' => WeatherWindy'
           '(velocity: velocity, angle: angle,);',
@@ -475,11 +489,113 @@ void main() {
       expect(
         source1DataSafe.topBuilders().joinMethods().tr(),
         stringContains([
+          'static',
           'sunny(',
           'rainy(',
           'windy(',
         ]),
       );
+    });
+
+    test('method subToStringPart', () {
+      final source = source1DataLegacy;
+      // void rainy(int rain);
+      final item = source.manifest.items[1];
+      final field = item.fields[0];
+
+      expect(
+        source.subToStringPart(field).tr(),
+        r'rain: $rain',
+      );
+    });
+
+    group('method subToString', () {
+      test('null-safe', () {
+        final source = source1DataSafe;
+        // void sunny();
+        final item1 = source.manifest.items[0];
+        // void rainy(int rain);
+        final item2 = source.manifest.items[1];
+        // void windy(double velocity, double? angle);
+        final item3 = source.manifest.items[2];
+
+        expect(
+          source.subToString(item1).tr(),
+          '@override'
+          r"String toString() => 'Weather.sunny()';",
+        );
+        expect(
+          source.subToString(item2).tr(),
+          '@override'
+          r"String toString() => 'Weather.rainy(rain: $rain)';",
+        );
+        expect(
+          source.subToString(item3).tr(),
+          '@override'
+          "String toString() => 'Weather.windy"
+          r"(velocity: $velocity, angle: $angle)';",
+        );
+      });
+
+      test('legacy', () {
+        final source = source1DataLegacy;
+        // void rainy(int rain);
+        final item2 = source.manifest.items[1];
+
+        expect(
+          source.subToString(item2).tr(),
+          '@override'
+          r"String/*!*/ toString() => 'Weather.rainy(rain: $rain)';",
+        );
+      });
+    });
+
+    group('method topDistinctEquality', () {
+      test('null-safe', () {
+        final source = source1DataSafe;
+
+        expect(
+          source.topDistinctEquality().tr(),
+          '@override'
+          'bool operator ==(Object other) => false;',
+        );
+      });
+
+      test('legacy', () {
+        final source = source1DataLegacy;
+
+        expect(
+          source.topDistinctEquality().tr(),
+          '@override'
+          'bool/*!*/ operator ==(Object/*?*/ other) => false;',
+        );
+      });
+    });
+
+    group('method topDistinctEquality', () {
+      test('null-safe', () {
+        final source = source1DataSafe;
+        // void windy(double velocity, double? angle);
+        final item3 = source.manifest.items[2];
+
+        expect(
+          source.subEquatableEquality(item3).tr(),
+          '@override'
+          'List<Object?> get props => [velocity, angle,];',
+        );
+      });
+
+      test('legacy', () {
+        final source = source1DataLegacy;
+        // void windy(double velocity, double? angle);
+        final item3 = source.manifest.items[2];
+
+        expect(
+          source.subEquatableEquality(item3).tr(),
+          '@override'
+          'List<Object/*?*/>/*!*/ get props => [velocity, angle,];',
+        );
+      });
     });
   });
 }

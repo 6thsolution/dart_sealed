@@ -27,10 +27,10 @@ abstract class _Wrapper$ {
 @SealedManifest(_Wrapper)
 abstract class Wrapper extends Equatable {
   @factory
-  WrapperWrap wrap({required dynamic data}) => WrapperWrap(data: data);
+  static WrapperWrap wrap({required dynamic data}) => WrapperWrap(data: data);
 
   @factory
-  WrapperWrapNullable wrapNullable({required dynamic data}) =>
+  static WrapperWrapNullable wrapNullable({required dynamic data}) =>
       WrapperWrapNullable(data: data);
 
   bool isWrap() => this is WrapperWrap;
@@ -54,7 +54,10 @@ class WrapperWrap extends Wrapper {
   final dynamic data;
 
   @override
-  List<Object?> get props => [];
+  String toString() => 'Wrapper.wrap(data: $data)';
+
+  @override
+  List<Object?> get props => [data];
 }
 
 class WrapperWrapNullable extends Wrapper {
@@ -63,5 +66,8 @@ class WrapperWrapNullable extends Wrapper {
   final dynamic data;
 
   @override
-  List<Object?> get props => [];
+  String toString() => 'Wrapper.wrapNullable(data: $data)';
+
+  @override
+  List<Object?> get props => [data];
 }

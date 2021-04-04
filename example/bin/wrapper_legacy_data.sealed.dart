@@ -26,7 +26,7 @@ abstract class _Wrapper$ {
 @SealedManifest(_Wrapper)
 abstract class Wrapper extends Equatable {
   @factory
-  WrapperWrap /*!*/ wrap({@required dynamic /*!*/ data}) =>
+  static WrapperWrap /*!*/ wrap({@required dynamic /*!*/ data}) =>
       WrapperWrap(data: data);
 
   bool isWrap() => this is WrapperWrap;
@@ -43,5 +43,8 @@ class WrapperWrap extends Wrapper {
   final dynamic /*!*/ data;
 
   @override
-  List<Object /*?*/ > get props => [];
+  String /*!*/ toString() => 'Wrapper.wrap(data: $data)';
+
+  @override
+  List<Object /*?*/ > /*!*/ get props => [data];
 }

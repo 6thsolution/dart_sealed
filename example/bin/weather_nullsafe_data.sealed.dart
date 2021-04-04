@@ -32,13 +32,13 @@ abstract class _Weather$ {
 @SealedManifest(_Weather)
 abstract class Weather extends Equatable {
   @factory
-  WeatherSunny sunny() => WeatherSunny();
+  static WeatherSunny sunny() => WeatherSunny();
 
   @factory
-  WeatherRainy rainy({required int rain}) => WeatherRainy(rain: rain);
+  static WeatherRainy rainy({required int rain}) => WeatherRainy(rain: rain);
 
   @factory
-  WeatherWindy windy({
+  static WeatherWindy windy({
     required double velocity,
     required double? angle,
   }) =>
@@ -73,6 +73,9 @@ class WeatherSunny extends Weather {
   WeatherSunny();
 
   @override
+  String toString() => 'Weather.sunny()';
+
+  @override
   List<Object?> get props => [];
 }
 
@@ -82,7 +85,10 @@ class WeatherRainy extends Weather {
   final int rain;
 
   @override
-  List<Object?> get props => [];
+  String toString() => 'Weather.rainy(rain: $rain)';
+
+  @override
+  List<Object?> get props => [rain];
 }
 
 class WeatherWindy extends Weather {
@@ -95,5 +101,11 @@ class WeatherWindy extends Weather {
   final double? angle;
 
   @override
-  List<Object?> get props => [];
+  String toString() => 'Weather.windy(velocity: $velocity, angle: $angle)';
+
+  @override
+  List<Object?> get props => [
+        velocity,
+        angle,
+      ];
 }

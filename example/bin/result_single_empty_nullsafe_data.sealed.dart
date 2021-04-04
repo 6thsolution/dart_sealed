@@ -30,13 +30,13 @@ abstract class _Result$<D extends Object> {
 @SealedManifest(_Result)
 abstract class Result extends Equatable {
   @factory
-  ResultSuccess success({required D data}) => ResultSuccess(data: data);
+  static ResultSuccess success({required D data}) => ResultSuccess(data: data);
 
   @factory
-  ResultEmpty empty() => ResultEmpty();
+  static ResultEmpty empty() => ResultEmpty();
 
   @factory
-  ResultError error({required int code}) => ResultError(code: code);
+  static ResultError error({required int code}) => ResultError(code: code);
 
   bool isSuccess() => this is ResultSuccess;
 
@@ -66,11 +66,17 @@ class ResultSuccess extends Result {
   final D data;
 
   @override
-  List<Object?> get props => [];
+  String toString() => 'Result.success(data: $data)';
+
+  @override
+  List<Object?> get props => [data];
 }
 
 class ResultEmpty extends Result {
   ResultEmpty();
+
+  @override
+  String toString() => 'Result.empty()';
 
   @override
   List<Object?> get props => [];
@@ -82,5 +88,8 @@ class ResultError extends Result {
   final int code;
 
   @override
-  List<Object?> get props => [];
+  String toString() => 'Result.error(code: $code)';
+
+  @override
+  List<Object?> get props => [code];
 }

@@ -50,18 +50,19 @@ abstract class _Result$<D extends Object /*?*/, E extends Base /*?*/ > {
 @SealedManifest(_Result)
 abstract class Result extends Equatable {
   @factory
-  ResultSuccess /*!*/ success({@required D /*?*/ data}) =>
+  static ResultSuccess /*!*/ success({@required D /*?*/ data}) =>
       ResultSuccess(data: data);
 
   @factory
-  ResultError /*!*/ error({@required E /*?*/ exception}) =>
+  static ResultError /*!*/ error({@required E /*?*/ exception}) =>
       ResultError(exception: exception);
 
   @factory
-  ResultDummy /*!*/ dummy({@required D /*?*/ data}) => ResultDummy(data: data);
+  static ResultDummy /*!*/ dummy({@required D /*?*/ data}) =>
+      ResultDummy(data: data);
 
   @factory
-  ResultPartialSuccess /*!*/ partialSuccess({
+  static ResultPartialSuccess /*!*/ partialSuccess({
     @required D /*?*/ data,
     @required E /*?*/ exception,
   }) =>
@@ -71,7 +72,7 @@ abstract class Result extends Equatable {
       );
 
   @factory
-  ResultPartialError /*!*/ partialError({
+  static ResultPartialError /*!*/ partialError({
     @required E /*?*/ e,
     @required int /*?*/ code,
   }) =>
@@ -81,7 +82,7 @@ abstract class Result extends Equatable {
       );
 
   @factory
-  ResultDoubleSuccess /*!*/ doubleSuccess({
+  static ResultDoubleSuccess /*!*/ doubleSuccess({
     @required D /*?*/ data1,
     @required D /*?*/ data2,
     @required int /*?*/ code,
@@ -141,7 +142,10 @@ class ResultSuccess extends Result {
   final D /*?*/ data;
 
   @override
-  List<Object /*?*/ > get props => [];
+  String /*!*/ toString() => 'Result.success(data: $data)';
+
+  @override
+  List<Object /*?*/ > /*!*/ get props => [data];
 }
 
 class ResultError extends Result {
@@ -150,7 +154,10 @@ class ResultError extends Result {
   final E /*?*/ exception;
 
   @override
-  List<Object /*?*/ > get props => [];
+  String /*!*/ toString() => 'Result.error(exception: $exception)';
+
+  @override
+  List<Object /*?*/ > /*!*/ get props => [exception];
 }
 
 class ResultDummy extends Result {
@@ -159,7 +166,10 @@ class ResultDummy extends Result {
   final D /*?*/ data;
 
   @override
-  List<Object /*?*/ > get props => [];
+  String /*!*/ toString() => 'Result.dummy(data: $data)';
+
+  @override
+  List<Object /*?*/ > /*!*/ get props => [data];
 }
 
 class ResultPartialSuccess extends Result {
@@ -172,7 +182,14 @@ class ResultPartialSuccess extends Result {
   final E /*?*/ exception;
 
   @override
-  List<Object /*?*/ > get props => [];
+  String /*!*/ toString() =>
+      'Result.partialSuccess(data: $data, exception: $exception)';
+
+  @override
+  List<Object /*?*/ > /*!*/ get props => [
+        data,
+        exception,
+      ];
 }
 
 class ResultPartialError extends Result {
@@ -185,7 +202,13 @@ class ResultPartialError extends Result {
   final int /*?*/ code;
 
   @override
-  List<Object /*?*/ > get props => [];
+  String /*!*/ toString() => 'Result.partialError(e: $e, code: $code)';
+
+  @override
+  List<Object /*?*/ > /*!*/ get props => [
+        e,
+        code,
+      ];
 }
 
 class ResultDoubleSuccess extends Result {
@@ -200,5 +223,13 @@ class ResultDoubleSuccess extends Result {
   final int /*?*/ code;
 
   @override
-  List<Object /*?*/ > get props => [];
+  String /*!*/ toString() =>
+      'Result.doubleSuccess(data1: $data1, data2: $data2, code: $code)';
+
+  @override
+  List<Object /*?*/ > /*!*/ get props => [
+        data1,
+        data2,
+        code,
+      ];
 }

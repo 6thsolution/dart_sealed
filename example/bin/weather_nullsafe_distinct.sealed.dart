@@ -32,13 +32,13 @@ abstract class _Weather$ {
 @SealedManifest(_Weather)
 abstract class Weather {
   @factory
-  WeatherSunny sunny() => WeatherSunny();
+  static WeatherSunny sunny() => WeatherSunny();
 
   @factory
-  WeatherRainy rainy({required int rain}) => WeatherRainy(rain: rain);
+  static WeatherRainy rainy({required int rain}) => WeatherRainy(rain: rain);
 
   @factory
-  WeatherWindy windy({
+  static WeatherWindy windy({
     required double velocity,
     required double? angle,
   }) =>
@@ -67,16 +67,25 @@ abstract class Weather {
 
   WeatherWindy? asWindyOrNull() =>
       this is WeatherWindy ? this as WeatherWindy : null;
+
+  @override
+  bool operator ==(Object other) => false;
 }
 
 class WeatherSunny extends Weather {
   WeatherSunny();
+
+  @override
+  String toString() => 'Weather.sunny()';
 }
 
 class WeatherRainy extends Weather {
   WeatherRainy({required this.rain});
 
   final int rain;
+
+  @override
+  String toString() => 'Weather.rainy(rain: $rain)';
 }
 
 class WeatherWindy extends Weather {
@@ -87,4 +96,7 @@ class WeatherWindy extends Weather {
 
   final double velocity;
   final double? angle;
+
+  @override
+  String toString() => 'Weather.windy(velocity: $velocity, angle: $angle)';
 }

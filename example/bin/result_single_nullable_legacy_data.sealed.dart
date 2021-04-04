@@ -32,11 +32,11 @@ abstract class _Result$<D extends Object /*?*/ > {
 @SealedManifest(_Result)
 abstract class Result extends Equatable {
   @factory
-  ResultSuccess /*!*/ success({@required D /*?*/ data}) =>
+  static ResultSuccess /*!*/ success({@required D /*?*/ data}) =>
       ResultSuccess(data: data);
 
   @factory
-  ResultError /*!*/ error({
+  static ResultError /*!*/ error({
     @required dynamic /*!*/ exception,
     @required int /*?*/ code,
   }) =>
@@ -66,7 +66,10 @@ class ResultSuccess extends Result {
   final D /*?*/ data;
 
   @override
-  List<Object /*?*/ > get props => [];
+  String /*!*/ toString() => 'Result.success(data: $data)';
+
+  @override
+  List<Object /*?*/ > /*!*/ get props => [data];
 }
 
 class ResultError extends Result {
@@ -79,5 +82,11 @@ class ResultError extends Result {
   final int /*?*/ code;
 
   @override
-  List<Object /*?*/ > get props => [];
+  String /*!*/ toString() => 'Result.error(exception: $exception, code: $code)';
+
+  @override
+  List<Object /*?*/ > /*!*/ get props => [
+        exception,
+        code,
+      ];
 }
