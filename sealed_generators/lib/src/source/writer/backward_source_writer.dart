@@ -30,7 +30,7 @@ extension BackwardSourceWriter on Source {
       s.write('<');
       s.write(
         params.map((param) {
-          final s = param.type.name + ' extends ' + param.bound.name;
+          final s = param.name + ' extends ' + param.bound.name;
           if (options.isNullSafe) {
             return s + (param.bound.isNullable ? '?' : '');
           } else {

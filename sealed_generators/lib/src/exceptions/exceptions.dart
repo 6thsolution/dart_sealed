@@ -15,6 +15,13 @@ void require(final bool value, [final dynamic message]) {
   }
 }
 
+/// assert will be removed in production
+///
+/// these should not happen even with malformed manifest
+void check(final bool value) {
+  if (!value) throw AssertionError();
+}
+
 /// SealedException
 @immutable
 @sealed

@@ -4,6 +4,16 @@ import 'package:test/test.dart';
 import '../../utils/exception_utils.dart';
 
 void main() {
+  group('method check', () {
+    test('when true does not throw', () {
+      expect(() => check(true), isNot(throwsAssertion()));
+    });
+
+    test('when false does throw', () {
+      expect(() => check(false), throwsAssertion());
+    });
+  });
+
   group('method require', () {
     group('with null argument', () {
       test('when true does not throw', () {
@@ -29,7 +39,7 @@ void main() {
 
       test('when false does throw', () {
         expect(
-          () => require(false, 'msg'),
+              () => require(false, 'msg'),
           throwsA(allOf(
             isSealedException(),
             hasMessage(equals('msg')),
@@ -49,7 +59,7 @@ void main() {
 
       test('when false does throw and compute function', () {
         expect(
-          () => require(false, () => 'm' * 2),
+              () => require(false, () => 'm' * 2),
           throwsA(allOf(
             isSealedException(),
             hasMessage(equals('mm')),

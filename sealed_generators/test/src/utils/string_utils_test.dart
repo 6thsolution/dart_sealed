@@ -9,10 +9,22 @@ void main() {
       expect(['a', 'b'].joinArgs(), equals('a, b,'));
     });
 
+    test('method joinArgsSimple', () {
+      expect(<String>[].joinArgsSimple(), equals(''));
+      expect(['a'].joinArgsSimple(), equals('a'));
+      expect(['a', 'b'].joinArgsSimple(), equals('a, b'));
+    });
+
     test('method joinMethods', () {
       expect(<String>[].joinMethods(), equals(''));
       expect(['a'].joinMethods(), equals('a'));
       expect(['a', 'b'].joinMethods(), equals('a\n\nb'));
+    });
+
+    test('method joinLines', () {
+      expect(<String>[].joinLines(), equals(''));
+      expect(['a'].joinLines(), equals('a'));
+      expect(['a', 'b'].joinLines(), equals('a\nb'));
     });
   });
 

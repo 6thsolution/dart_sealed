@@ -48,20 +48,19 @@ class ManifestReader {
     final params = cls.typeParameters;
     final outs = <ManifestParam>[];
     for (var param in params) {
-      var name = param.name;
-      final type = ManifestType(name: name, isNullable: false);
+      final name = param.name;
       final bound = param.bound;
       if (bound != null) {
         final boundName = bound.getDisplayString(withNullability: false);
         final isNullable = bound.nullabilitySuffix != NullabilitySuffix.none;
         outs.add(ManifestParam(
-          type: type,
+          name: name,
           bound: ManifestType(name: boundName, isNullable: isNullable),
         ));
       } else {
         // default upper bound
         outs.add(ManifestParam(
-          type: type,
+          name: name,
           // for nullsafe Object and for legacy Object?
           bound: ManifestType(
             name: 'Object',

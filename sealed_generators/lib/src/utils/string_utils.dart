@@ -11,31 +11,24 @@ extension StringUtilsIterable on Iterable<String> {
     }
   }
 
-  String joinMethods() {
-    if (isEmpty) {
-      return '';
-    } else if (length == 1) {
-      return first;
-    } else {
-      return join('\n\n');
-    }
-  }
+  /// add ', ' between
+  String joinArgsSimple() => join(', ');
+
+  /// add '\n\n' between
+  String joinMethods() => join('\n\n');
+
+  /// add '\n' between
+  String joinLines() => join('\n');
 }
 
 /// utilities for strings
 extension StringUtils on String {
   /// add braces
-  String withBraces() {
-    return '{$this}';
-  }
+  String withBraces() => '{$this}';
 
   /// add braces or not if empty
-  String withBracesOrNot() {
-    return trim().isEmpty ? '' : withBraces();
-  }
+  String withBracesOrNot() => trim().isEmpty ? '' : withBraces();
 
   /// add parenthesis
-  String withParenthesis() {
-    return '($this)';
-  }
+  String withParenthesis() => '($this)';
 }

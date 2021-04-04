@@ -18,7 +18,7 @@ extension ParamCompatSourceWriter on Source {
       for (final param in manifest.params) {
         s.write('/// nullable: ');
         s.writeln(param.bound.isNullable ? 'true' : 'false');
-        s.writeln('class ${param.type.name} extends ${param.bound.name} {}');
+        s.writeln('class ${param.name} extends ${param.bound.name} {}');
       }
     } else {
       s.writeln('// no params identified.');

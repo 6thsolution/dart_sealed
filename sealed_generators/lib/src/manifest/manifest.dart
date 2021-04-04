@@ -1,4 +1,5 @@
 import 'package:meta/meta.dart';
+import 'package:sealed_generators/src/exceptions/exceptions.dart';
 import 'package:sealed_generators/src/utils/name_utils.dart';
 import 'package:sealed_generators/src/utils/type_utils.dart';
 
@@ -9,8 +10,10 @@ class Manifest {
     required this.name,
     required this.items,
     this.params = const <ManifestParam>[],
-  })  : assert(name.isGenClassName()),
-        assert(items.isNotEmpty);
+  }) {
+    check(name.isGenClassName());
+    check(items.isNotEmpty);
+  }
 
   /// name, for example "WeatherState".
   final String name;
@@ -31,7 +34,9 @@ class ManifestItem {
   ManifestItem({
     required this.name,
     required this.fields,
-  }) : assert(name.isGenClassName());
+  }) {
+    check(name.isGenClassName());
+  }
 
   /// name, for example "Rainy".
   final String name;
@@ -49,7 +54,9 @@ class ManifestField {
   ManifestField({
     required this.name,
     required this.type,
-  }) : assert(name.startsWithLower());
+  }) {
+    check(name.startsWithLower());
+  }
 
   /// name, for example "direction".
   final String name;
@@ -61,13 +68,16 @@ class ManifestField {
   String toString() => 'Field{name: $name, type: $type}';
 }
 
+/// nullable type
 @immutable
 @sealed
 class ManifestType {
   ManifestType({
     required this.name,
     required this.isNullable,
-  }) : assert(name.isGenTypeName());
+  }) {
+    check(name.isGenTypeName());
+  }
 
   /// name without any ?, ! or *
   /// and their helpers like /*!*/ or /*?*/.
@@ -92,18 +102,23 @@ class ManifestType {
 @sealed
 class ManifestParam {
   ManifestParam({
-    required this.type,
+    required this.name,
     required this.bound,
-  }) : assert(type.isNullable == false);
+  }) {
+    check(name.isGenTypeName());
+  }
 
-  /// type param itself like 'T'.
-  /// can not be nullable.
-  final ManifestType type;
+  /// generic type name without any ?, ! or *
+  /// and their helpers like /*!*/ or /*?*/.
+  ///
+  /// for example "T". but
+  /// can NOT be "T?".
+  final String name;
 
   /// type param super type like 'Object?'.
   /// can be nullable.
   final ManifestType bound;
 
   @override
-  String toString() => 'Param{type: $type, bound: $bound}';
+  String toString() => 'Param{name: $name, bound: $bound}';
 }

@@ -23,16 +23,14 @@ void main() {
 
   group('class ManifestParam', () {
     test('initialization', () {
-      final a = ManifestType(name: 'T', isNullable: false);
-      final bad = ManifestType(name: 'T', isNullable: true);
-      final u = ManifestType(name: 'num', isNullable: true);
-      final p = ManifestParam(type: a, bound: u);
+      final bound = ManifestType(name: 'num', isNullable: true);
+      final param = ManifestParam(name: 'T', bound: bound);
 
-      expect(p.type, a);
-      expect(p.bound, u);
+      expect(param.name, 'T');
+      expect(param.bound, bound);
 
       expect(
-        () => ManifestParam(type: bad, bound: u),
+        () => ManifestParam(name: 'double?', bound: bound),
         throwsAssertion(),
       );
     });
@@ -91,9 +89,8 @@ void main() {
     test('initialization', () {
       final item = ManifestItem(name: 'Sunny', fields: []);
       final manifest = Manifest(name: 'Weather', items: [item]);
-      final type = ManifestType(name: 'T', isNullable: false);
       final upper = ManifestType(name: 'num', isNullable: true);
-      final param = ManifestParam(type: type, bound: upper);
+      final param = ManifestParam(name: 'T', bound: upper);
       final manifest2 = Manifest(
         name: 'Weather',
         items: [item],
