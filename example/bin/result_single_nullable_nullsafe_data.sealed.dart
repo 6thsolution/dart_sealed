@@ -9,6 +9,7 @@ part of 'result_single_nullable_nullsafe_data.dart';
 // **************************************************************************
 // compat params generated code:
 // language level: null-safe
+/// nullable: true
 class D extends Object {}
 // **************************************************************************
 
@@ -39,7 +40,6 @@ abstract class Result extends Equatable {
         exception: exception,
         code: code,
       );
-
   bool isSuccess() => this is ResultSuccess;
 
   bool isError() => this is ResultError;

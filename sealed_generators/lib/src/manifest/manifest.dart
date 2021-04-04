@@ -64,11 +64,6 @@ class ManifestField {
 @immutable
 @sealed
 class ManifestType {
-  static final defaultSuper = ManifestType(
-    name: 'Object',
-    isNullable: false,
-  );
-
   ManifestType({
     required this.name,
     required this.isNullable,
@@ -83,7 +78,8 @@ class ManifestType {
 
   /// without considering null-safety.
   ///
-  /// by default all legacy fields are nullable.
+  /// by default all legacy fields are nullable and
+  /// this field is true.
   /// but can be overridden in future.
   final bool isNullable;
 

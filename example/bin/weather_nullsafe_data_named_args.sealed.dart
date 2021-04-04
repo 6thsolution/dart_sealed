@@ -43,7 +43,6 @@ abstract class Weather extends Equatable {
         velocity: velocity,
         angle: angle,
       );
-
   bool isSunny() => this is WeatherSunny;
 
   bool isRainy() => this is WeatherRainy;

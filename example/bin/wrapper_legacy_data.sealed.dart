@@ -27,7 +27,6 @@ abstract class _Wrapper$ {
 abstract class Wrapper extends Equatable {
   WrapperWrap /*!*/ wrap({@required dynamic /*!*/ data}) =>
       WrapperWrap(data: data);
-
   bool isWrap() => this is WrapperWrap;
 
   WrapperWrap /*!*/ asWrap() => this as WrapperWrap;

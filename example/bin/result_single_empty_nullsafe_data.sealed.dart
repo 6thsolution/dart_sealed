@@ -9,6 +9,7 @@ part of 'result_single_empty_nullsafe_data.dart';
 // **************************************************************************
 // compat params generated code:
 // language level: null-safe
+/// nullable: false
 class D extends Object {}
 // **************************************************************************
 
@@ -33,7 +34,6 @@ abstract class Result extends Equatable {
   ResultEmpty empty() => ResultEmpty();
 
   ResultError error({required int code}) => ResultError(code: code);
-
   bool isSuccess() => this is ResultSuccess;
 
   bool isEmpty() => this is ResultEmpty;

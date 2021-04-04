@@ -19,12 +19,6 @@ void main() {
         throwsAssertion(),
       );
     });
-
-    test('constant defaultSuper', () {
-      final type = ManifestType.defaultSuper;
-      expect(type.name, 'Object');
-      expect(type.isNullable, false);
-    });
   });
 
   group('class ManifestParam', () {
@@ -41,12 +35,6 @@ void main() {
         () => ManifestParam(type: bad, bound: u),
         throwsAssertion(),
       );
-    });
-
-    test('constant defaultSuper', () {
-      final type = ManifestType.defaultSuper;
-      expect(type.name, 'Object');
-      expect(type.isNullable, false);
     });
   });
 

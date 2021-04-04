@@ -5,14 +5,13 @@ import 'package:sealed_generators/src/source/source.dart';
 import 'package:source_gen/src/constants/reader.dart';
 
 class SourceReader {
-  SourceReader._() {
-    throw AssertionError();
-  }
+  const SourceReader();
 
-  static Source read(Element element, ConstantReader annotation) {
-    return Source(
-      options: OptionsReader.read(element, annotation),
-      manifest: ManifestReader.read(element),
-    );
+  Source read(Element element, ConstantReader annotation) {
+    final optionsReader = OptionsReader();
+    final options = optionsReader.read(element, annotation);
+    final manifestReader = ManifestReader(options: options);
+    final manifest = manifestReader.read(element);
+    return Source(options: options, manifest: manifest);
   }
 }

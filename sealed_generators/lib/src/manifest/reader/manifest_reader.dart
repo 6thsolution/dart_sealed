@@ -2,14 +2,15 @@ import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/element/nullability_suffix.dart';
 import 'package:sealed_generators/src/exceptions/exceptions.dart';
 import 'package:sealed_generators/src/manifest/manifest.dart';
+import 'package:sealed_generators/src/options/options.dart';
 import 'package:sealed_generators/src/utils/name_utils.dart';
 
 class ManifestReader {
-  ManifestReader._() {
-    throw AssertionError();
-  }
+  const ManifestReader({required this.options});
 
-  static Manifest read(Element element) {
+  final Options options;
+
+  Manifest read(Element element) {
     final cls = _extractClassElement(element);
     final params = _extractClassParams(cls);
     final name = _extractTopClassName(cls);
@@ -17,7 +18,7 @@ class ManifestReader {
     return Manifest(name: name, items: items, params: params);
   }
 
-  static ClassElement _extractClassElement(Element element) {
+  ClassElement _extractClassElement(Element element) {
     final name = element.name;
     require(
       element is ClassElement,
@@ -43,7 +44,7 @@ class ManifestReader {
     return cls;
   }
 
-  static List<ManifestParam> _extractClassParams(ClassElement cls) {
+  List<ManifestParam> _extractClassParams(ClassElement cls) {
     final params = cls.typeParameters;
     final outs = <ManifestParam>[];
     for (var param in params) {
@@ -58,16 +59,21 @@ class ManifestReader {
           bound: ManifestType(name: boundName, isNullable: isNullable),
         ));
       } else {
+        // default upper bound
         outs.add(ManifestParam(
           type: type,
-          bound: ManifestType.defaultSuper,
+          // for nullsafe Object and for legacy Object?
+          bound: ManifestType(
+            name: 'Object',
+            isNullable: options.isNullSafe ? false : true,
+          ),
         ));
       }
     }
     return outs;
   }
 
-  static String _extractTopClassName(ClassElement cls) {
+  String _extractTopClassName(ClassElement cls) {
     final name = cls.name;
     require(
       name != '_',
@@ -81,7 +87,7 @@ class ManifestReader {
     return topName;
   }
 
-  static List<ManifestItem> _extractManifestItems(
+  List<ManifestItem> _extractManifestItems(
     ClassElement cls,
     String name,
   ) {

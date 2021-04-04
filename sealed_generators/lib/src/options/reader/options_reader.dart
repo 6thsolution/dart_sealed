@@ -5,13 +5,11 @@ import 'package:sealed_generators/src/options/options.dart';
 import 'package:source_gen/source_gen.dart';
 
 class OptionsReader {
-  OptionsReader._() {
-    throw AssertionError();
-  }
+  const OptionsReader();
 
   static final _nullSafeVersion = Version.parse('2.12.0');
 
-  static Options read(
+  Options read(
     Element element,
     ConstantReader annotation,
   ) {

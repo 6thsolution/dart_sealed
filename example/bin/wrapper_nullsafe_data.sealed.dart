@@ -30,7 +30,6 @@ abstract class Wrapper extends Equatable {
 
   WrapperWrapNullable wrapNullable({required dynamic data}) =>
       WrapperWrapNullable(data: data);
-
   bool isWrap() => this is WrapperWrap;
 
   bool isWrapNullable() => this is WrapperWrapNullable;

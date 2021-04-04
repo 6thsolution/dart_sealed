@@ -10,8 +10,10 @@ part of 'result_legacy_data.dart';
 // **************************************************************************
 // compat params generated code:
 // language level: legacy
+/// nullable: true
 class D extends Object {}
 
+/// nullable: true
 class E extends Base {}
 // **************************************************************************
 
@@ -34,7 +36,6 @@ abstract class Result extends Equatable {
 
   ResultError /*!*/ error({@required E /*?*/ exception}) =>
       ResultError(exception: exception);
-
   bool isSuccess() => this is ResultSuccess;
 
   bool isError() => this is ResultError;

@@ -34,7 +34,7 @@ extension BackwardSourceWriter on Source {
           if (options.isNullSafe) {
             return s + (param.bound.isNullable ? '?' : '');
           } else {
-            return s + '/*?*/';
+            return s + (param.bound.isNullable ? '/*?*/' : '/*!*/');
           }
         }).join(', '),
       );
