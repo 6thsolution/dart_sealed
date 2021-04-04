@@ -25,6 +25,21 @@ extension BackwardSourceWriter on Source {
       // prevent clash with original manifest
       s.write(r'$');
     }
+    final params = manifest.params;
+    if (params.isNotEmpty) {
+      s.write('<');
+      s.write(
+        params.map((param) {
+          final s = param.type.name + ' extends ' + param.bound.name;
+          if (options.isNullSafe) {
+            return s + (param.bound.isNullable ? '?' : '');
+          } else {
+            return s + '/*?*/';
+          }
+        }).join(', '),
+      );
+      s.write('>');
+    }
     s.writeln('{');
     s.writeln();
     for (final item in manifest.items) {

@@ -97,16 +97,17 @@ class ManifestType {
 class ManifestParam {
   ManifestParam({
     required this.type,
-    required this.upper,
+    required this.bound,
   }) : assert(type.isNullable == false);
 
   /// type param itself like 'T'.
   /// can not be nullable.
   final ManifestType type;
 
-  /// type param super type like 'Object?'
-  final ManifestType upper;
+  /// type param super type like 'Object?'.
+  /// can be nullable.
+  final ManifestType bound;
 
   @override
-  String toString() => 'Param{type: $type, upper: $upper}';
+  String toString() => 'Param{type: $type, bound: $bound}';
 }

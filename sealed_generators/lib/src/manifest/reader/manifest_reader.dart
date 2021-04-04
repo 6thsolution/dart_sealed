@@ -11,9 +11,10 @@ class ManifestReader {
 
   static Manifest read(Element element) {
     final cls = _extractClassElement(element);
+    final params = _extractClassParams(cls);
     final name = _extractTopClassName(cls);
     final items = _extractManifestItems(cls, name);
-    return Manifest(name: name, items: items);
+    return Manifest(name: name, items: items, params: params);
   }
 
   static ClassElement _extractClassElement(Element element) {
@@ -40,6 +41,30 @@ class ManifestReader {
       () => 'class($name) can only have Object as super type',
     );
     return cls;
+  }
+
+  static List<ManifestParam> _extractClassParams(ClassElement cls) {
+    final params = cls.typeParameters;
+    final outs = <ManifestParam>[];
+    for (var param in params) {
+      var name = param.name;
+      final type = ManifestType(name: name, isNullable: false);
+      final bound = param.bound;
+      if (bound != null) {
+        final boundName = bound.getDisplayString(withNullability: false);
+        final isNullable = bound.nullabilitySuffix != NullabilitySuffix.none;
+        outs.add(ManifestParam(
+          type: type,
+          bound: ManifestType(name: boundName, isNullable: isNullable),
+        ));
+      } else {
+        outs.add(ManifestParam(
+          type: type,
+          bound: ManifestType.defaultSuper,
+        ));
+      }
+    }
+    return outs;
   }
 
   static String _extractTopClassName(ClassElement cls) {

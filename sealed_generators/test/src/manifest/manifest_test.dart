@@ -32,13 +32,13 @@ void main() {
       final a = ManifestType(name: 'T', isNullable: false);
       final bad = ManifestType(name: 'T', isNullable: true);
       final u = ManifestType(name: 'num', isNullable: true);
-      final p = ManifestParam(type: a, upper: u);
+      final p = ManifestParam(type: a, bound: u);
 
       expect(p.type, a);
-      expect(p.upper, u);
+      expect(p.bound, u);
 
       expect(
-        () => ManifestParam(type: bad, upper: u),
+        () => ManifestParam(type: bad, bound: u),
         throwsAssertion(),
       );
     });
@@ -105,7 +105,7 @@ void main() {
       final manifest = Manifest(name: 'Weather', items: [item]);
       final type = ManifestType(name: 'T', isNullable: false);
       final upper = ManifestType(name: 'num', isNullable: true);
-      final param = ManifestParam(type: type, upper: upper);
+      final param = ManifestParam(type: type, bound: upper);
       final manifest2 = Manifest(
         name: 'Weather',
         items: [item],
