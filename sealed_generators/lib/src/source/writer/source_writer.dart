@@ -198,6 +198,34 @@ class SourceWriter {
         ].joinParts(),
       ].joinLines();
 
+  /// ex. int? rain
+  @visibleForTesting
+  String subCopyDeclarationPart(ManifestField field) =>
+      '${field.type.name}$n ${field.name}';
+
+  /// ex. rain: rain ?? this.rain
+  @visibleForTesting
+  String subCopyCalcPart(ManifestField field) =>
+      '${field.name}: ${field.name} ?? this.${field.name}';
+
+  /// ex. WeatherRainy copy({int? rain})
+  /// => Weather.rainy(rain: rain ?? this.rain);
+  @visibleForTesting
+  String subCopyDeclaration(ManifestItem item) => [
+        factory,
+        [
+          '${full(item)}$nn copy',
+          item.fields
+              .map(subCopyDeclarationPart)
+              .joinArgs()
+              .withBracesOrNot()
+              .withParenthesis(),
+          ' => $top.${lower(item)}',
+          item.fields.map(subCopyCalcPart).joinArgs().withParenthesis(),
+          ';',
+        ].joinParts(),
+      ].joinLines();
+
   // todo : super._()
   // todo : Weather._();
   // todo copy constructors

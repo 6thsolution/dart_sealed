@@ -271,7 +271,7 @@ void main() {
       final writer = SourceWriter(source);
 
       expect(
-        writer.topManifest().tr(),
+        writer.topManifest(),
         '@SealedManifest(_Weather)',
       );
     });
@@ -327,14 +327,14 @@ void main() {
 
         test('non-nullable field', () {
           expect(
-            writer.subFieldDeclaration(field1).tr(),
+            writer.subFieldDeclaration(field1),
             'final double velocity;',
           );
         });
 
         test('nullable field', () {
           expect(
-            writer.subFieldDeclaration(field2).tr(),
+            writer.subFieldDeclaration(field2),
             'final double? angle;',
           );
         });
@@ -350,14 +350,14 @@ void main() {
 
         test('non-nullable field', () {
           expect(
-            writer.subFieldDeclaration(field1).tr(),
+            writer.subFieldDeclaration(field1),
             'final double/*!*/ velocity;',
           );
         });
 
         test('nullable field', () {
           expect(
-            writer.subFieldDeclaration(field2).tr(),
+            writer.subFieldDeclaration(field2),
             'final double/*?*/ angle;',
           );
         });
@@ -390,14 +390,14 @@ void main() {
 
         test('non-nullable field', () {
           expect(
-            writer.subConstructorDeclarationPart(field1).tr(),
+            writer.subConstructorDeclarationPart(field1),
             'required this.velocity',
           );
         });
 
         test('nullable field', () {
           expect(
-            writer.subConstructorDeclarationPart(field2).tr(),
+            writer.subConstructorDeclarationPart(field2),
             'required this.angle',
           );
         });
@@ -413,14 +413,14 @@ void main() {
 
         test('non-nullable field', () {
           expect(
-            writer.subConstructorDeclarationPart(field1).tr(),
+            writer.subConstructorDeclarationPart(field1),
             '@required this.velocity',
           );
         });
 
         test('nullable field', () {
           expect(
-            writer.subConstructorDeclarationPart(field2).tr(),
+            writer.subConstructorDeclarationPart(field2),
             '@required this.angle',
           );
         });
@@ -460,11 +460,11 @@ void main() {
       final writer = SourceWriter(source);
 
       expect(
-        writer.subConstructorCallArg(field1).tr(),
+        writer.subConstructorCallArg(field1),
         'velocity: velocity',
       );
       expect(
-        writer.subConstructorCallArg(field2).tr(),
+        writer.subConstructorCallArg(field2),
         'angle: angle',
       );
     });
@@ -480,14 +480,14 @@ void main() {
 
         test('non-nullable field', () {
           expect(
-            writer.topBuilderArg(field1).tr(),
+            writer.topBuilderArg(field1),
             'required double velocity',
           );
         });
 
         test('nullable field', () {
           expect(
-            writer.topBuilderArg(field2).tr(),
+            writer.topBuilderArg(field2),
             'required double? angle',
           );
         });
@@ -503,14 +503,14 @@ void main() {
 
         test('non-nullable field', () {
           expect(
-            writer.topBuilderArg(field1).tr(),
+            writer.topBuilderArg(field1),
             '@required double/*!*/ velocity',
           );
         });
 
         test('nullable field', () {
           expect(
-            writer.topBuilderArg(field2).tr(),
+            writer.topBuilderArg(field2),
             '@required double/*?*/ angle',
           );
         });
@@ -602,7 +602,7 @@ void main() {
       final writer = SourceWriter(source);
 
       expect(
-        writer.subToStringPart(field).tr(),
+        writer.subToStringPart(field),
         r'rain: $rain',
       );
     });
@@ -701,5 +701,100 @@ void main() {
         );
       });
     });
+
+    group('method subCopyDeclarationPart', () {
+      test('null-safe', () {
+        final source = source1DataSafe;
+        // void windy(double velocity, double? angle);
+        final item3 = source.manifest.items[2];
+        final field1 = item3.fields[0];
+        final field2 = item3.fields[1];
+        final writer = SourceWriter(source);
+
+        expect(
+          writer.subCopyDeclarationPart(field1),
+          'double? velocity',
+        );
+        expect(
+          writer.subCopyDeclarationPart(field2),
+          'double? angle',
+        );
+      });
+
+      test('legacy', () {
+        final source = source1DataLegacy;
+        // void windy(double velocity, double? angle);
+        final item3 = source.manifest.items[2];
+        final field1 = item3.fields[0];
+        final field2 = item3.fields[1];
+        final writer = SourceWriter(source);
+
+        expect(
+          writer.subCopyDeclarationPart(field1),
+          'double/*?*/ velocity',
+        );
+        expect(
+          writer.subCopyDeclarationPart(field2),
+          'double/*?*/ angle',
+        );
+      });
+    });
+
+    test('method subCopyCalcPart', () {
+      final source = source1DataSafe;
+      // void windy(double velocity, double? angle);
+      final item3 = source.manifest.items[2];
+      final field1 = item3.fields[0];
+      final field2 = item3.fields[1];
+      final writer = SourceWriter(source);
+
+      expect(
+        writer.subCopyCalcPart(field1),
+        'velocity: velocity ?? this.velocity',
+      );
+      expect(
+        writer.subCopyCalcPart(field2),
+        'angle: angle ?? this.angle',
+      );
+    });
+
+    group('method subCopyDeclaration', () {
+      test('null-safe', () {
+        final source = source1DataSafe;
+        // void sunny();
+        final item1 = source.manifest.items[0];
+        // void rainy(int rain);
+        final item2 = source.manifest.items[1];
+        final writer = SourceWriter(source);
+
+        expect(
+          writer.subCopyDeclaration(item1).tr(),
+          '@factory'
+          'WeatherSunny copy() =>'
+          ' Weather.sunny();',
+        );
+        expect(
+          writer.subCopyDeclaration(item2).tr(),
+          '@factory'
+          'WeatherRainy copy({int? rain}) =>'
+          ' Weather.rainy(rain: rain ?? this.rain);',
+        );
+      });
+
+      test('legacy', () {
+        final source = source1DataLegacy;
+        // void rainy(int rain);
+        final item2 = source.manifest.items[1];
+        final writer = SourceWriter(source);
+
+        expect(
+          writer.subCopyDeclaration(item2).tr(),
+          '@factory'
+          'WeatherRainy/*!*/ copy({int/*?*/ rain}) =>'
+          ' Weather.rainy(rain: rain ?? this.rain);',
+        );
+      });
+    });
+    // end of source writer test group
   });
 }
