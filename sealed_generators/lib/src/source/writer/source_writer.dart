@@ -136,7 +136,7 @@ extension SourceWriter on Source {
   @visibleForTesting
   String topBuilder(ManifestItem item) => [
         factory,
-    [
+        [
           'static ${full(item)}$nn ${lower(item)}',
           item.fields
               .map(topBuilderArg)
