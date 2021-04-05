@@ -309,9 +309,9 @@ void main() {
         expect(
           writer.topMatchWhen(),
           stringContainsInOrder([
-            (writer.topMatchWhenStart()),
+            writer.topMatchWhenStart(),
             '{',
-            (writer.topMatchWhenBody()),
+            writer.topMatchWhenBody(),
             '}',
           ]),
         );
@@ -324,10 +324,10 @@ void main() {
         expect(
           writer.topMatchWhen(),
           stringContainsInOrder([
-            (writer.topMatchWhenStart()),
+            writer.topMatchWhenStart(),
             '{',
-            (writer.topMatchAsserts()),
-            (writer.topMatchWhenBody()),
+            writer.topMatchAsserts(),
+            writer.topMatchWhenBody(),
             '}',
           ]),
         );
@@ -383,9 +383,9 @@ void main() {
         expect(
           writer.topMatchWhenOrElse(),
           stringContainsInOrder([
-            (writer.topMatchWhenOrElseStart()),
+            writer.topMatchWhenOrElseStart(),
             '{',
-            (writer.topMatchWhenOrElseBody()),
+            writer.topMatchWhenOrElseBody(),
             '}',
           ]),
         );
@@ -398,14 +398,27 @@ void main() {
         expect(
           writer.topMatchWhenOrElse(),
           stringContainsInOrder([
-            (writer.topMatchWhenOrElseStart()),
+            writer.topMatchWhenOrElseStart(),
             '{',
-            (writer.topMatchAssertOrElse()),
-            (writer.topMatchWhenOrElseBody()),
+            writer.topMatchAssertOrElse(),
+            writer.topMatchWhenOrElseBody(),
             '}',
           ]),
         );
       });
+    });
+
+    test('method topMatchMethods', () {
+      final source = source1DataLegacy;
+      final writer = SourceWriter(source);
+
+      expect(
+        writer.topMatchMethods(),
+        containsAllInOrder([
+          writer.topMatchWhen(),
+          writer.topMatchWhenOrElse(),
+        ]),
+      );
     });
     // end of source writer match test group
   });

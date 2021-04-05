@@ -464,10 +464,6 @@ class SourceWriter {
         if (opts.equality == SealedEquality.distinct) topDistinctEquality(),
       ];
 
-  // ****
-  // todo not tested:
-  // ****
-
   @nonVirtual
   @visibleForTesting
   Iterable<String> topMatchMethods() => [
@@ -475,40 +471,41 @@ class SourceWriter {
         topMatchWhenOrElse(),
       ];
 
-  // todo can have super class with utilities and sub specialized classes
-  // todo remove tr() usages
-  // todo we can make all returns iterables of lines
-  // todo : super._()
-  // todo : Weather._();
-  // todo copy constructors
-  // todo use mockito
-  // todo sub class private constructor
-  // todo sub class positional constructor args ?
-
-  // **** //
-
-  String write() {
-    final s = StringBuffer();
-    s.writeln(writeTopClass());
-    for (final item in man.items) {
-      s.writeln(subClass(item));
-      s.writeln();
-    }
-    return s.toString();
-  }
+  @nonVirtual
+  @visibleForTesting
+  String topClassStart() => [
+        topManifest(),
+        [
+          'abstract class $top',
+          if (opts.equality == SealedEquality.data) ' extends Equatable',
+        ].joinParts()
+      ].joinLines();
 
   @nonVirtual
   @visibleForTesting
-  String writeTopClass() {
-    final s = StringBuffer();
-    s.writeln(topManifest());
-    s.write('abstract class ${man.name}');
-    if (opts.equality == SealedEquality.data) {
-      s.write(' extends Equatable');
-    }
-    s.writeln('{');
-    s.writeln(topMethods().joinMethods());
-    s.writeln('}');
-    return s.toString();
-  }
+  String topClass() => [
+        topClassStart(),
+        '{',
+        ...topMethods(),
+        '}',
+      ].joinMethods();
+
+  @nonVirtual
+  @visibleForTesting
+  Iterable<String> subClasses() => man.items.map(subClass);
+
+  @nonVirtual
+  @visibleForTesting
+  Iterable<String> classes() => [
+        topClass(),
+        ...subClasses(),
+      ];
+
+  @nonVirtual
+  String write() => classes().joinMethods();
 }
+
+// todo can have super class with utilities and sub specialized classes
+// todo remove tr() usages
+// todo : super._() Weather._();
+// todo use mockito

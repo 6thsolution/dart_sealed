@@ -963,6 +963,92 @@ void main() {
         );
       });
     });
+
+    group('method topClassStart', () {
+      test('equality data', () {
+        final source = source1DataSafe;
+        final writer = SourceWriter(source);
+
+        expect(
+          writer.topClassStart(),
+          '@SealedManifest(_Weather)\n'
+          'abstract class Weather extends Equatable',
+        );
+      });
+
+      test('equality identity', () {
+        final source = source1IdentityLegacy;
+        final writer = SourceWriter(source);
+
+        expect(
+          writer.topClassStart(),
+          '@SealedManifest(_Weather)\n'
+          'abstract class Weather',
+        );
+      });
+
+      test('equality distinct', () {
+        final source = source1DistinctLegacy;
+        final writer = SourceWriter(source);
+
+        expect(
+          writer.topClassStart(),
+          '@SealedManifest(_Weather)\n'
+          'abstract class Weather',
+        );
+      });
+    });
+
+    test('method topClass', () {
+      final source = source1DataSafe;
+      final writer = SourceWriter(source);
+
+      expect(
+        writer.topClass(),
+        stringContainsInOrder([
+          writer.topClassStart(),
+          '{',
+          ...writer.topMethods(),
+          '}',
+        ]),
+      );
+    });
+
+    test('method subClasses', () {
+      final source = source1DataSafe;
+      final manifest = source.manifest;
+      final writer = SourceWriter(source);
+
+      expect(
+        writer.subClasses(),
+        containsAllInOrder(
+          manifest.items.map(writer.subClass).toList(),
+        ),
+      );
+    });
+
+    test('method classes', () {
+      final source = source1DataSafe;
+      final writer = SourceWriter(source);
+
+      expect(
+        writer.classes(),
+        containsAllInOrder([
+          writer.topClass(),
+          ...writer.subClasses(),
+        ]),
+      );
+    });
+
+    test('method write', () {
+      final source = source1DataSafe;
+      final writer = SourceWriter(source);
+
+      expect(
+        writer.write(),
+        writer.classes().joinMethods(),
+      );
+    });
     // end of source writer test group
   });
 }
