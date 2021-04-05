@@ -8,4 +8,28 @@ void main() {
   print(a);
   print(b);
   print(c);
+
+  final x = a.when(
+    sunny: (sunny) => '1',
+    rainy: (rainy) => '2',
+    windy: (windy) => '3',
+  );
+  assert(x is String);
+  print('$x ${x.length}');
+
+  final y = a.when(
+    sunny: (sunny) => null,
+    rainy: (rainy) => '2',
+    windy: (windy) => '3',
+  );
+  assert(y is String?);
+  assert(y is! String);
+  print('$y ${y?.length}');
+
+  final z = a.whenOrElse(
+    rainy: (rainy) => '2',
+    orElse: (weather) => '? $weather',
+  );
+  assert(z is String);
+  print('$z ${z.length}');
 }
