@@ -70,6 +70,23 @@ abstract class Weather {
 
   @override
   bool operator ==(Object other) => false;
+
+  R when<R extends Object?>({
+    required R Function(WeatherSunny sunny) sunny,
+    required R Function(WeatherRainy rainy) rainy,
+    required R Function(WeatherWindy windy) windy,
+  }) {
+    throw 0;
+  }
+
+  R whenOrElse<R extends Object?>({
+    R Function(WeatherSunny sunny)? sunny,
+    R Function(WeatherRainy rainy)? rainy,
+    R Function(WeatherWindy windy)? windy,
+    required R Function(Weather weather) orElse,
+  }) {
+    throw 0;
+  }
 }
 
 class WeatherSunny extends Weather {

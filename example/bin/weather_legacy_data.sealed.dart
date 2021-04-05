@@ -69,6 +69,27 @@ abstract class Weather extends Equatable {
 
   WeatherWindy /*?*/ asWindyOrNull() =>
       this is WeatherWindy ? this as WeatherWindy : null;
+
+  R when<R extends Object /*?*/ >({
+    @required R Function(WeatherSunny /*!*/ sunny) /*!*/ sunny,
+    @required R Function(WeatherRainy /*!*/ rainy) /*!*/ rainy,
+    @required R Function(WeatherWindy /*!*/ windy) /*!*/ windy,
+  }) {
+    assert(sunny != null);
+    assert(rainy != null);
+    assert(windy != null);
+    throw 0;
+  }
+
+  R whenOrElse<R extends Object /*?*/ >({
+    R Function(WeatherSunny /*!*/ sunny) /*?*/ sunny,
+    R Function(WeatherRainy /*!*/ rainy) /*?*/ rainy,
+    R Function(WeatherWindy /*!*/ windy) /*?*/ windy,
+    @required R Function(Weather /*!*/ weather) /*!*/ orElse,
+  }) {
+    assert(orElse != null);
+    throw 0;
+  }
 }
 
 class WeatherSunny extends Weather {

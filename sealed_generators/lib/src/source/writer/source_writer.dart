@@ -53,6 +53,10 @@ class SourceWriter {
   @visibleForTesting
   String get top => man.name;
 
+  /// top class name with lower start, ex. weather
+  @visibleForTesting
+  String get topLower => top.toLowerStart();
+
   /// short sub class name, ex. Sunny
   @visibleForTesting
   String short(ManifestItem item) => item.name;
@@ -238,6 +242,93 @@ class SourceWriter {
         '}',
       ].joinMethods();
 
+  /// <R extends Object?>
+  @visibleForTesting
+  String get topMatchParam => '<R extends Object$n>';
+
+  /// required (R Function(WeatherSunny sunny)) sunny
+  @visibleForTesting
+  String topMatchGenericNNArg(ManifestItem item) =>
+      '$req R Function(${full(item)}$nn ${lower(item)})$nn ${lower(item)}';
+
+  /// required (R Function(Weather weather)) orElse
+  @visibleForTesting
+  String topMatchGenericNNArgOrElse() =>
+      '$req R Function($top$nn $topLower)$nn orElse';
+
+  /// (R Function(WeatherSunny sunny))? sunny
+  @visibleForTesting
+  String topMatchGenericNArg(ManifestItem item) =>
+      'R Function(${full(item)}$nn ${lower(item)})$n ${lower(item)}';
+
+  /// required (void Function(WeatherSunny sunny)) sunny
+  @visibleForTesting
+  String topMatchVoidNNArg(ManifestItem item) =>
+      '$req void Function(${full(item)}$nn ${lower(item)})$nn ${lower(item)}';
+
+  /// required (void Function(Weather weather)) orElse
+  @visibleForTesting
+  String topMatchVoidNNArgOrElse() =>
+      '$req void Function($top$nn $topLower)$nn orElse';
+
+  /// (void Function(WeatherSunny sunny))? sunny
+  @visibleForTesting
+  String topMatchVoidNArg(ManifestItem item) =>
+      'void Function(${full(item)}$nn ${lower(item)})$n ${lower(item)}';
+
+  /// assert(sunny != null)
+  @visibleForTesting
+  String topMatchAssert(ManifestItem item) => 'assert(${lower(item)} != null);';
+
+  @visibleForTesting
+  String topMatchAsserts() => man.items.map(topMatchAssert).joinLines();
+
+  /// assert(orElse != null)
+  @visibleForTesting
+  String topMatchAssertOrElse() => 'assert(orElse != null);';
+
+  // ****
+  // not tested:
+  // ****
+
+  /// R when<R extends Object?>(required item...) {...}
+  @visibleForTesting
+  String topMatchWhen() => [
+        [
+          'R when$topMatchParam',
+          man.items
+              .map(topMatchGenericNNArg)
+              .joinArgs()
+              .withBraces()
+              .withParenthesis(),
+          '{',
+        ].joinParts(),
+        if (!opts.isNullSafe) topMatchAsserts(),
+        'throw 0;',
+        '}',
+      ].joinLines();
+
+  /// R whenOrElse<R extends Object?>(item..., required orElse) {...}
+  @visibleForTesting
+  String topMatchWhenOrElse() => [
+        [
+          'R whenOrElse$topMatchParam',
+          [
+            ...man.items.map(topMatchGenericNArg),
+            topMatchGenericNNArgOrElse(),
+          ].joinArgs().withBraces().withParenthesis(),
+          '{',
+        ].joinParts(),
+        if (!opts.isNullSafe) topMatchAssertOrElse(),
+        'throw 0;',
+        '}',
+      ].joinLines();
+
+  String topMatchMethods() => [
+        topMatchWhen(),
+        topMatchWhenOrElse(),
+      ].joinMethods();
+
   // todo : super._()
   // todo : Weather._();
   // todo copy constructors
@@ -274,6 +365,9 @@ class SourceWriter {
       s.writeln(topDistinctEquality());
       s.writeln();
     }
+    s.writeln();
+    s.writeln(topMatchMethods());
+    s.writeln();
     s.writeln('}');
     return s.toString();
   }

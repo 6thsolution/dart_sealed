@@ -34,4 +34,7 @@ extension StringUtils on String {
 
   /// add parenthesis
   String withParenthesis() => '($this)';
+
+  /// add <>
+  String withLtGt() => '<$this>';
 }

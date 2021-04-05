@@ -61,6 +61,27 @@ abstract class Result extends Equatable {
 
   ResultError /*?*/ asErrorOrNull() =>
       this is ResultError ? this as ResultError : null;
+
+  R when<R extends Object /*?*/ >({
+    @required R Function(ResultSuccess /*!*/ success) /*!*/ success,
+    @required R Function(ResultEmpty /*!*/ empty) /*!*/ empty,
+    @required R Function(ResultError /*!*/ error) /*!*/ error,
+  }) {
+    assert(success != null);
+    assert(empty != null);
+    assert(error != null);
+    throw 0;
+  }
+
+  R whenOrElse<R extends Object /*?*/ >({
+    R Function(ResultSuccess /*!*/ success) /*?*/ success,
+    R Function(ResultEmpty /*!*/ empty) /*?*/ empty,
+    R Function(ResultError /*!*/ error) /*?*/ error,
+    @required R Function(Result /*!*/ result) /*!*/ orElse,
+  }) {
+    assert(orElse != null);
+    throw 0;
+  }
 }
 
 class ResultSuccess extends Result {

@@ -131,6 +131,29 @@ abstract class Result extends Equatable {
 
   ResultDoubleSuccess? asDoubleSuccessOrNull() =>
       this is ResultDoubleSuccess ? this as ResultDoubleSuccess : null;
+
+  R when<R extends Object?>({
+    required R Function(ResultSuccess success) success,
+    required R Function(ResultError error) error,
+    required R Function(ResultDummy dummy) dummy,
+    required R Function(ResultPartialSuccess partialSuccess) partialSuccess,
+    required R Function(ResultPartialError partialError) partialError,
+    required R Function(ResultDoubleSuccess doubleSuccess) doubleSuccess,
+  }) {
+    throw 0;
+  }
+
+  R whenOrElse<R extends Object?>({
+    R Function(ResultSuccess success)? success,
+    R Function(ResultError error)? error,
+    R Function(ResultDummy dummy)? dummy,
+    R Function(ResultPartialSuccess partialSuccess)? partialSuccess,
+    R Function(ResultPartialError partialError)? partialError,
+    R Function(ResultDoubleSuccess doubleSuccess)? doubleSuccess,
+    required R Function(Result result) orElse,
+  }) {
+    throw 0;
+  }
 }
 
 class ResultSuccess extends Result {

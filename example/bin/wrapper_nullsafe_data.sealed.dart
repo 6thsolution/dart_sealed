@@ -46,6 +46,21 @@ abstract class Wrapper extends Equatable {
 
   WrapperWrapNullable? asWrapNullableOrNull() =>
       this is WrapperWrapNullable ? this as WrapperWrapNullable : null;
+
+  R when<R extends Object?>({
+    required R Function(WrapperWrap wrap) wrap,
+    required R Function(WrapperWrapNullable wrapNullable) wrapNullable,
+  }) {
+    throw 0;
+  }
+
+  R whenOrElse<R extends Object?>({
+    R Function(WrapperWrap wrap)? wrap,
+    R Function(WrapperWrapNullable wrapNullable)? wrapNullable,
+    required R Function(Wrapper wrapper) orElse,
+  }) {
+    throw 0;
+  }
 }
 
 class WrapperWrap extends Wrapper {

@@ -48,5 +48,9 @@ void main() {
     test('method withParenthesis', () {
       expect('abc'.withParenthesis(), equals('(abc)'));
     });
+
+    test('method withLtGt', () {
+      expect('abc'.withLtGt(), equals('<abc>'));
+    });
   });
 }

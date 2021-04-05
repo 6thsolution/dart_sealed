@@ -21,7 +21,9 @@ Matcher stringContains(List<String> substrings) => _StringContains(substrings);
 class _StringContains extends FeatureMatcher<String> {
   final List<String> _substrings;
 
-  const _StringContains(this._substrings);
+  const _StringContains(
+    this._substrings,
+  ) : assert(_substrings.length != 0);
 
   @override
   bool typedMatches(String item, Map matchState) {

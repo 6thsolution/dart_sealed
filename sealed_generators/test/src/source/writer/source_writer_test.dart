@@ -7,7 +7,7 @@ import '../../../utils/code_utils.dart';
 import '../../../utils/examples.dart';
 
 void main() {
-  group('extension SourceWriter', () {
+  group('class SourceWriter', () {
     test('getter opts', () {
       final options = optionsDataSafe;
       final manifest = manifest1;
@@ -123,6 +123,13 @@ void main() {
       final writer = SourceWriter(source);
 
       expect(writer.top, 'Weather');
+    });
+
+    test('method topLower', () {
+      final source = source1DataLegacy;
+      final writer = SourceWriter(source);
+
+      expect(writer.topLower, 'weather');
     });
 
     test('method short', () {
