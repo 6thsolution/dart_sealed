@@ -10,7 +10,7 @@ class SourceReader {
   Source read(Element element, ConstantReader annotation) {
     final optionsReader = OptionsReader();
     final options = optionsReader.read(element, annotation);
-    final manifestReader = ManifestReader(options: options);
+    final manifestReader = ManifestReader(options);
     final manifest = manifestReader.read(element);
     return Source(options: options, manifest: manifest);
   }

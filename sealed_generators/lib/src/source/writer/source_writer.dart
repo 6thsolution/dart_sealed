@@ -1,11 +1,22 @@
 import 'package:meta/meta.dart';
 import 'package:sealed_annotations/sealed_annotations.dart';
 import 'package:sealed_generators/src/manifest/manifest.dart';
+import 'package:sealed_generators/src/options/options.dart';
 import 'package:sealed_generators/src/source/source.dart';
 import 'package:sealed_generators/src/utils/name_utils.dart';
 import 'package:sealed_generators/src/utils/string_utils.dart';
 
-extension SourceWriter on Source {
+class SourceWriter {
+  SourceWriter(this.source);
+
+  final Source source;
+
+  @visibleForTesting
+  Options get opts => source.options;
+
+  @visibleForTesting
+  Manifest get man => source.manifest;
+
   /// @sealed final (closed) class
   @visibleForTesting
   String get closed => '@sealed';
@@ -24,23 +35,23 @@ extension SourceWriter on Source {
 
   /// nullability suffix: "?" or "/*?*/"
   @visibleForTesting
-  String get n => options.isNullSafe ? '?' : '/*?*/';
+  String get n => opts.isNullSafe ? '?' : '/*?*/';
 
   /// only nullable in legacy
   @visibleForTesting
-  String get nl => options.isNullSafe ? '' : '/*?*/';
+  String get nl => opts.isNullSafe ? '' : '/*?*/';
 
   /// non-nullability suffix: "" or "/*!*/"
   @visibleForTesting
-  String get nn => options.isNullSafe ? '' : '/*!*/';
+  String get nn => opts.isNullSafe ? '' : '/*!*/';
 
   /// required or @required
   @visibleForTesting
-  String get req => options.isNullSafe ? 'required' : '@required';
+  String get req => opts.isNullSafe ? 'required' : '@required';
 
   /// top class name, ex. Weather
   @visibleForTesting
-  String get top => manifest.name;
+  String get top => man.name;
 
   /// short sub class name, ex. Sunny
   @visibleForTesting
@@ -60,7 +71,7 @@ extension SourceWriter on Source {
       'bool is${short(item)}() => this is ${full(item)};';
 
   @visibleForTesting
-  Iterable<String> topCastsIs() => manifest.items.map(topCastIs);
+  Iterable<String> topCastsIs() => man.items.map(topCastIs);
 
   /// ex. asRainy()
   @visibleForTesting
@@ -69,7 +80,7 @@ extension SourceWriter on Source {
       ' this as ${full(item)};';
 
   @visibleForTesting
-  Iterable<String> topCastsAs() => manifest.items.map(topCastAs);
+  Iterable<String> topCastsAs() => man.items.map(topCastAs);
 
   /// ex. asRainyOrNull()
   @visibleForTesting
@@ -78,7 +89,7 @@ extension SourceWriter on Source {
       ' this is ${full(item)} ? this as ${full(item)} : null;';
 
   @visibleForTesting
-  Iterable<String> topCastsAsOrNull() => manifest.items.map(topCastAsOrNull);
+  Iterable<String> topCastsAsOrNull() => man.items.map(topCastAsOrNull);
 
   @visibleForTesting
   Iterable<String> topCasts() sync* {
@@ -150,7 +161,7 @@ extension SourceWriter on Source {
       ].joinLines();
 
   @visibleForTesting
-  Iterable<String> topBuilders() => manifest.items.map(topBuilder);
+  Iterable<String> topBuilders() => man.items.map(topBuilder);
 
   /// ex. rain: $rain
   @visibleForTesting
@@ -199,7 +210,7 @@ extension SourceWriter on Source {
   String write() {
     final s = StringBuffer();
     s.writeln(writeTopClass());
-    for (final item in manifest.items) {
+    for (final item in man.items) {
       s.writeln(writeSubClass(item));
       s.writeln();
     }
@@ -210,15 +221,15 @@ extension SourceWriter on Source {
   String writeTopClass() {
     final s = StringBuffer();
     s.writeln(topManifest());
-    s.write('abstract class ${manifest.name}');
-    if (options.equality == SealedEquality.data) {
+    s.write('abstract class ${man.name}');
+    if (opts.equality == SealedEquality.data) {
       s.write(' extends Equatable');
     }
     s.writeln('{');
     s.writeln(topBuilders().joinMethods());
     s.writeln();
     s.writeln(topCasts().joinMethods());
-    if (options.equality == SealedEquality.distinct) {
+    if (opts.equality == SealedEquality.distinct) {
       s.writeln();
       s.writeln(topDistinctEquality());
       s.writeln();
@@ -237,7 +248,7 @@ extension SourceWriter on Source {
     s.writeln();
     s.writeln(subToString(item));
     s.writeln();
-    if (options.equality == SealedEquality.data) {
+    if (opts.equality == SealedEquality.data) {
       s.writeln();
       s.writeln(subEquatableEquality(item));
       s.writeln();

@@ -6,7 +6,7 @@ import 'package:sealed_generators/src/options/options.dart';
 import 'package:sealed_generators/src/utils/name_utils.dart';
 
 class ManifestReader {
-  const ManifestReader({required this.options});
+  const ManifestReader(this.options);
 
   final Options options;
 

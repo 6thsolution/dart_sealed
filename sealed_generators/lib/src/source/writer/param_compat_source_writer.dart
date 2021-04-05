@@ -6,7 +6,7 @@ import 'package:sealed_generators/src/source/source.dart';
 /// generate temp classes for params
 /// todo remove this
 class ParamCompatSourceWriter {
-  ParamCompatSourceWriter({required this.source});
+  ParamCompatSourceWriter(this.source);
 
   final Source source;
 
