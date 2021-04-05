@@ -217,7 +217,7 @@ class SourceWriter {
   @visibleForTesting
   String subCopyDeclaration(ManifestItem item) => [
         factory,
-    [
+        [
           '${full(item)}$nn copy',
           item.fields
               .map(subCopyDeclarationPart)
@@ -291,6 +291,10 @@ class SourceWriter {
   // not tested:
   // ****
 
+  /// ex. final weather = this;
+  @visibleForTesting
+  String topMatchThisValue() => 'final $topLower = this;';
+
   /// R when<R extends Object?>(required item...) {...}
   @visibleForTesting
   String topMatchWhen() => [
@@ -304,13 +308,15 @@ class SourceWriter {
           '{',
         ].joinParts(),
         if (!opts.isNullSafe) topMatchAsserts(),
+        topMatchThisValue(),
         'throw 0;',
         '}',
       ].joinLines();
 
   /// R whenOrElse<R extends Object?>(item..., required orElse) {...}
   @visibleForTesting
-  String topMatchWhenOrElse() => [
+  String topMatchWhenOrElse() =>
+      [
         [
           'R whenOrElse$topMatchParam',
           [
@@ -320,6 +326,7 @@ class SourceWriter {
           '{',
         ].joinParts(),
         if (!opts.isNullSafe) topMatchAssertOrElse(),
+        topMatchThisValue(),
         'throw 0;',
         '}',
       ].joinLines();
