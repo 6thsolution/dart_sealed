@@ -42,6 +42,10 @@ class WrapperWrap extends Wrapper {
 
   final dynamic /*!*/ data;
 
+  @factory
+  WrapperWrap /*!*/ copy({dynamic /*?*/ data}) =>
+      WrapperWrap(data: data ?? this.data);
+
   @override
   String /*!*/ toString() => 'Wrapper.wrap(data: $data)';
 

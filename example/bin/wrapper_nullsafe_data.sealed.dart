@@ -53,6 +53,9 @@ class WrapperWrap extends Wrapper {
 
   final dynamic data;
 
+  @factory
+  WrapperWrap copy({dynamic? data}) => WrapperWrap(data: data ?? this.data);
+
   @override
   String toString() => 'Wrapper.wrap(data: $data)';
 
@@ -64,6 +67,10 @@ class WrapperWrapNullable extends Wrapper {
   WrapperWrapNullable({required this.data});
 
   final dynamic data;
+
+  @factory
+  WrapperWrapNullable copy({dynamic? data}) =>
+      WrapperWrapNullable(data: data ?? this.data);
 
   @override
   String toString() => 'Wrapper.wrapNullable(data: $data)';

@@ -113,8 +113,8 @@ class SourceWriter {
       'final ${typeSL(field.type)} ${field.name};';
 
   @visibleForTesting
-  Iterable<String> subFieldDeclarations(ManifestItem item) =>
-      item.fields.map(subFieldDeclaration);
+  String subFieldDeclarations(ManifestItem item) =>
+      item.fields.map(subFieldDeclaration).joinLines();
 
   /// ex. required this.angle or @required this.angle
   @visibleForTesting
@@ -209,22 +209,34 @@ class SourceWriter {
       '${field.name}: ${field.name} ?? this.${field.name}';
 
   /// ex. WeatherRainy copy({int? rain})
-  /// => Weather.rainy(rain: rain ?? this.rain);
+  /// => WeatherRainy(rain: rain ?? this.rain);
   @visibleForTesting
   String subCopyDeclaration(ManifestItem item) => [
         factory,
-        [
+    [
           '${full(item)}$nn copy',
           item.fields
               .map(subCopyDeclarationPart)
               .joinArgs()
               .withBracesOrNot()
               .withParenthesis(),
-          ' => $top.${lower(item)}',
+          ' => ${full(item)}',
           item.fields.map(subCopyCalcPart).joinArgs().withParenthesis(),
           ';',
         ].joinParts(),
       ].joinLines();
+
+  /// write subclass
+  @visibleForTesting
+  String subClass(ManifestItem item) => [
+        'class ${full(item)} extends $top{',
+        subConstructorDeclaration(item),
+        subFieldDeclarations(item),
+        subCopyDeclaration(item),
+        subToString(item),
+        if (opts.equality == SealedEquality.data) subEquatableEquality(item),
+        '}',
+      ].joinMethods();
 
   // todo : super._()
   // todo : Weather._();
@@ -239,7 +251,7 @@ class SourceWriter {
     final s = StringBuffer();
     s.writeln(writeTopClass());
     for (final item in man.items) {
-      s.writeln(writeSubClass(item));
+      s.writeln(subClass(item));
       s.writeln();
     }
     return s.toString();
@@ -260,25 +272,6 @@ class SourceWriter {
     if (opts.equality == SealedEquality.distinct) {
       s.writeln();
       s.writeln(topDistinctEquality());
-      s.writeln();
-    }
-    s.writeln('}');
-    return s.toString();
-  }
-
-  @visibleForTesting
-  String writeSubClass(ManifestItem item) {
-    final s = StringBuffer();
-    s.write('class ${full(item)} extends $top{');
-    s.writeln(subConstructorDeclaration(item));
-    s.writeln();
-    s.writeln(subFieldDeclarations(item).joinLines());
-    s.writeln();
-    s.writeln(subToString(item));
-    s.writeln();
-    if (opts.equality == SealedEquality.data) {
-      s.writeln();
-      s.writeln(subEquatableEquality(item));
       s.writeln();
     }
     s.writeln('}');

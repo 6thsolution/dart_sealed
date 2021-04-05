@@ -371,7 +371,7 @@ void main() {
       final writer = SourceWriter(source);
 
       expect(
-        writer.subFieldDeclarations(item).joinLines().tr(),
+        writer.subFieldDeclarations(item).tr(),
         stringContains([
           'final double velocity;',
           'final double? angle;',
@@ -771,13 +771,13 @@ void main() {
           writer.subCopyDeclaration(item1).tr(),
           '@factory'
           'WeatherSunny copy() =>'
-          ' Weather.sunny();',
+          ' WeatherSunny();',
         );
         expect(
           writer.subCopyDeclaration(item2).tr(),
           '@factory'
           'WeatherRainy copy({int? rain}) =>'
-          ' Weather.rainy(rain: rain ?? this.rain);',
+          ' WeatherRainy(rain: rain ?? this.rain);',
         );
       });
 
@@ -791,7 +791,61 @@ void main() {
           writer.subCopyDeclaration(item2).tr(),
           '@factory'
           'WeatherRainy/*!*/ copy({int/*?*/ rain}) =>'
-          ' Weather.rainy(rain: rain ?? this.rain);',
+          ' WeatherRainy(rain: rain ?? this.rain);',
+        );
+      });
+    });
+
+    group('method subClass', () {
+      test('equality data', () {
+        final options = optionsDataSafe;
+        final manifest = manifest1;
+        final source = Source(options: options, manifest: manifest);
+        // void rainy(int rain);
+        final item2 = source.manifest.items[1];
+        final writer = SourceWriter(source);
+
+        expect(
+          writer.subClass(item2).tr(),
+          allOf(
+            startsWith('class WeatherRainy extends Weather{'),
+            endsWith('}'),
+            stringContains([
+              'WeatherRainy({required this.rain});',
+              'final int rain;',
+              'WeatherRainy copy(',
+              'String toString(',
+              'get props'
+            ]),
+          ),
+        );
+      });
+
+      test('equality identity', () {
+        final options = optionsIdentitySafe;
+        final manifest = manifest1;
+        final source = Source(options: options, manifest: manifest);
+        // void rainy(int rain);
+        final item2 = source.manifest.items[1];
+        final writer = SourceWriter(source);
+
+        expect(
+          writer.subClass(item2).tr(),
+          isNot(stringContains(['get props'])),
+        );
+      });
+
+      test('equality distinct', () {
+        final options = optionsDistinctSafe;
+        final manifest = manifest1;
+        final source = Source(options: options, manifest: manifest);
+        // void rainy(int rain);
+        final item2 = source.manifest.items[1];
+        final writer = SourceWriter(source);
+
+        expect(
+          writer.subClass(item2).tr(),
+          isNot(stringContains(['get props'])),
         );
       });
     });

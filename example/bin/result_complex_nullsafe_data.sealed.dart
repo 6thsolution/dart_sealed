@@ -138,6 +138,9 @@ class ResultSuccess extends Result {
 
   final D data;
 
+  @factory
+  ResultSuccess copy({D? data}) => ResultSuccess(data: data ?? this.data);
+
   @override
   String toString() => 'Result.success(data: $data)';
 
@@ -150,6 +153,10 @@ class ResultError extends Result {
 
   final E exception;
 
+  @factory
+  ResultError copy({E? exception}) =>
+      ResultError(exception: exception ?? this.exception);
+
   @override
   String toString() => 'Result.error(exception: $exception)';
 
@@ -161,6 +168,9 @@ class ResultDummy extends Result {
   ResultDummy({required this.data});
 
   final D? data;
+
+  @factory
+  ResultDummy copy({D? data}) => ResultDummy(data: data ?? this.data);
 
   @override
   String toString() => 'Result.dummy(data: $data)';
@@ -177,6 +187,16 @@ class ResultPartialSuccess extends Result {
 
   final D data;
   final E? exception;
+
+  @factory
+  ResultPartialSuccess copy({
+    D? data,
+    E? exception,
+  }) =>
+      ResultPartialSuccess(
+        data: data ?? this.data,
+        exception: exception ?? this.exception,
+      );
 
   @override
   String toString() =>
@@ -198,6 +218,16 @@ class ResultPartialError extends Result {
   final E? e;
   final int code;
 
+  @factory
+  ResultPartialError copy({
+    E? e,
+    int? code,
+  }) =>
+      ResultPartialError(
+        e: e ?? this.e,
+        code: code ?? this.code,
+      );
+
   @override
   String toString() => 'Result.partialError(e: $e, code: $code)';
 
@@ -218,6 +248,18 @@ class ResultDoubleSuccess extends Result {
   final D data1;
   final D data2;
   final int code;
+
+  @factory
+  ResultDoubleSuccess copy({
+    D? data1,
+    D? data2,
+    int? code,
+  }) =>
+      ResultDoubleSuccess(
+        data1: data1 ?? this.data1,
+        data2: data2 ?? this.data2,
+        code: code ?? this.code,
+      );
 
   @override
   String toString() =>
