@@ -59,20 +59,27 @@ abstract class Weather extends Equatable {
 
   WeatherWindy asWindy() => this as WeatherWindy;
 
-  WeatherSunny? asSunnyOrNull() =>
-      this is WeatherSunny ? this as WeatherSunny : null;
+  WeatherSunny? asSunnyOrNull() {
+    final weather = this;
+    return weather is WeatherSunny ? weather : null;
+  }
 
-  WeatherRainy? asRainyOrNull() =>
-      this is WeatherRainy ? this as WeatherRainy : null;
+  WeatherRainy? asRainyOrNull() {
+    final weather = this;
+    return weather is WeatherRainy ? weather : null;
+  }
 
-  WeatherWindy? asWindyOrNull() =>
-      this is WeatherWindy ? this as WeatherWindy : null;
+  WeatherWindy? asWindyOrNull() {
+    final weather = this;
+    return weather is WeatherWindy ? weather : null;
+  }
 
   R when<R extends Object?>({
     required R Function(WeatherSunny sunny) sunny,
     required R Function(WeatherRainy rainy) rainy,
     required R Function(WeatherWindy windy) windy,
   }) {
+    final weather = this;
     throw 0;
   }
 
@@ -82,6 +89,7 @@ abstract class Weather extends Equatable {
     R Function(WeatherWindy windy)? windy,
     required R Function(Weather weather) orElse,
   }) {
+    final weather = this;
     throw 0;
   }
 }

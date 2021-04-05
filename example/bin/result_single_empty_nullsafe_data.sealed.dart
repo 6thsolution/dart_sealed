@@ -50,20 +50,27 @@ abstract class Result extends Equatable {
 
   ResultError asError() => this as ResultError;
 
-  ResultSuccess? asSuccessOrNull() =>
-      this is ResultSuccess ? this as ResultSuccess : null;
+  ResultSuccess? asSuccessOrNull() {
+    final result = this;
+    return result is ResultSuccess ? result : null;
+  }
 
-  ResultEmpty? asEmptyOrNull() =>
-      this is ResultEmpty ? this as ResultEmpty : null;
+  ResultEmpty? asEmptyOrNull() {
+    final result = this;
+    return result is ResultEmpty ? result : null;
+  }
 
-  ResultError? asErrorOrNull() =>
-      this is ResultError ? this as ResultError : null;
+  ResultError? asErrorOrNull() {
+    final result = this;
+    return result is ResultError ? result : null;
+  }
 
   R when<R extends Object?>({
     required R Function(ResultSuccess success) success,
     required R Function(ResultEmpty empty) empty,
     required R Function(ResultError error) error,
   }) {
+    final result = this;
     throw 0;
   }
 
@@ -73,6 +80,7 @@ abstract class Result extends Equatable {
     R Function(ResultError error)? error,
     required R Function(Result result) orElse,
   }) {
+    final result = this;
     throw 0;
   }
 }

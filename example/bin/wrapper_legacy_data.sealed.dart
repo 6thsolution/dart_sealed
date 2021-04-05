@@ -29,16 +29,19 @@ abstract class Wrapper extends Equatable {
   static WrapperWrap /*!*/ wrap({@required dynamic /*!*/ data}) =>
       WrapperWrap(data: data);
 
-  bool isWrap() => this is WrapperWrap;
+  bool isWrap() => this is WrapperWrap /*!*/;
 
-  WrapperWrap /*!*/ asWrap() => this as WrapperWrap;
+  WrapperWrap /*!*/ asWrap() => this as WrapperWrap /*!*/;
 
-  WrapperWrap /*?*/ asWrapOrNull() =>
-      this is WrapperWrap ? this as WrapperWrap : null;
+  WrapperWrap /*?*/ asWrapOrNull() {
+    final wrapper = this;
+    return wrapper is WrapperWrap /*!*/ ? wrapper : null;
+  }
 
   R when<R extends Object /*?*/ >(
       {@required R Function(WrapperWrap /*!*/ wrap) /*!*/ wrap}) {
     assert(wrap != null);
+    final wrapper = this;
     throw 0;
   }
 
@@ -47,6 +50,7 @@ abstract class Wrapper extends Equatable {
     @required R Function(Wrapper /*!*/ wrapper) /*!*/ orElse,
   }) {
     assert(orElse != null);
+    final wrapper = this;
     throw 0;
   }
 }

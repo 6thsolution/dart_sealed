@@ -49,26 +49,32 @@ abstract class Weather {
         angle: angle,
       );
 
-  bool isSunny() => this is WeatherSunny;
+  bool isSunny() => this is WeatherSunny /*!*/;
 
-  bool isRainy() => this is WeatherRainy;
+  bool isRainy() => this is WeatherRainy /*!*/;
 
-  bool isWindy() => this is WeatherWindy;
+  bool isWindy() => this is WeatherWindy /*!*/;
 
-  WeatherSunny /*!*/ asSunny() => this as WeatherSunny;
+  WeatherSunny /*!*/ asSunny() => this as WeatherSunny /*!*/;
 
-  WeatherRainy /*!*/ asRainy() => this as WeatherRainy;
+  WeatherRainy /*!*/ asRainy() => this as WeatherRainy /*!*/;
 
-  WeatherWindy /*!*/ asWindy() => this as WeatherWindy;
+  WeatherWindy /*!*/ asWindy() => this as WeatherWindy /*!*/;
 
-  WeatherSunny /*?*/ asSunnyOrNull() =>
-      this is WeatherSunny ? this as WeatherSunny : null;
+  WeatherSunny /*?*/ asSunnyOrNull() {
+    final weather = this;
+    return weather is WeatherSunny /*!*/ ? weather : null;
+  }
 
-  WeatherRainy /*?*/ asRainyOrNull() =>
-      this is WeatherRainy ? this as WeatherRainy : null;
+  WeatherRainy /*?*/ asRainyOrNull() {
+    final weather = this;
+    return weather is WeatherRainy /*!*/ ? weather : null;
+  }
 
-  WeatherWindy /*?*/ asWindyOrNull() =>
-      this is WeatherWindy ? this as WeatherWindy : null;
+  WeatherWindy /*?*/ asWindyOrNull() {
+    final weather = this;
+    return weather is WeatherWindy /*!*/ ? weather : null;
+  }
 
   R when<R extends Object /*?*/ >({
     @required R Function(WeatherSunny /*!*/ sunny) /*!*/ sunny,
@@ -78,6 +84,7 @@ abstract class Weather {
     assert(sunny != null);
     assert(rainy != null);
     assert(windy != null);
+    final weather = this;
     throw 0;
   }
 
@@ -88,6 +95,7 @@ abstract class Weather {
     @required R Function(Weather /*!*/ weather) /*!*/ orElse,
   }) {
     assert(orElse != null);
+    final weather = this;
     throw 0;
   }
 }

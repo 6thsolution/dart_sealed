@@ -156,13 +156,61 @@ void main() {
       expect(writer.lower(item), 'sunny');
     });
 
+    group('method isSub', () {
+      test('null-safe', () {
+        final source = source1DataSafe;
+        final item = source.manifest.items[0];
+        final writer = SourceWriter(source);
+
+        expect(
+          writer.isSub(item),
+          'is WeatherSunny',
+        );
+      });
+
+      test('legacy', () {
+        final source = source1DataLegacy;
+        final item = source.manifest.items[0];
+        final writer = SourceWriter(source);
+
+        expect(
+          writer.isSub(item),
+          'is WeatherSunny/*!*/',
+        );
+      });
+    });
+
+    group('method asSub', () {
+      test('null-safe', () {
+        final source = source1DataSafe;
+        final item = source.manifest.items[0];
+        final writer = SourceWriter(source);
+
+        expect(
+          writer.asSub(item),
+          'as WeatherSunny',
+        );
+      });
+
+      test('legacy', () {
+        final source = source1DataLegacy;
+        final item = source.manifest.items[0];
+        final writer = SourceWriter(source);
+
+        expect(
+          writer.asSub(item),
+          'as WeatherSunny/*!*/',
+        );
+      });
+    });
+
     test('method topCastIs', () {
       final source = source1DataSafe;
       final item = source.manifest.items[0];
       final writer = SourceWriter(source);
 
       expect(
-        writer.topCastIs(item).tr(),
+        writer.topCastIs(item),
         'bool isSunny() => this is WeatherSunny;',
       );
     });
@@ -188,7 +236,7 @@ void main() {
         final writer = SourceWriter(source);
 
         expect(
-          writer.topCastAs(item).tr(),
+          writer.topCastAs(item),
           'WeatherSunny asSunny() => this as WeatherSunny;',
         );
       });
@@ -199,8 +247,8 @@ void main() {
         final writer = SourceWriter(source);
 
         expect(
-          writer.topCastAs(item).tr(),
-          'WeatherSunny/*!*/ asSunny() => this as WeatherSunny;',
+          writer.topCastAs(item),
+          'WeatherSunny/*!*/ asSunny() => this as WeatherSunny/*!*/;',
         );
       });
     });
@@ -219,6 +267,16 @@ void main() {
       );
     });
 
+    test('method initThisValue', () {
+      final source = source1DataLegacy;
+      final writer = SourceWriter(source);
+
+      expect(
+        writer.initThisValue(),
+        'final weather = this;',
+      );
+    });
+
     group('method topCastAsOrNull', () {
       test('null-safe', () {
         final source = source1DataSafe;
@@ -227,8 +285,10 @@ void main() {
 
         expect(
           writer.topCastAsOrNull(item).tr(),
-          'WeatherSunny? asSunnyOrNull() => '
-          'this is WeatherSunny ? this as WeatherSunny : null;',
+          'WeatherSunny? asSunnyOrNull() {'
+          'final weather = this;'
+          'return weather is WeatherSunny ? weather : null;'
+          '}',
         );
       });
 
@@ -239,8 +299,10 @@ void main() {
 
         expect(
           writer.topCastAsOrNull(item).tr(),
-          'WeatherSunny/*?*/ asSunnyOrNull() => '
-          'this is WeatherSunny ? this as WeatherSunny : null;',
+          'WeatherSunny/*?*/ asSunnyOrNull() {'
+          'final weather = this;'
+          'return weather is WeatherSunny/*!*/ ? weather : null;'
+          '}',
         );
       });
     });
@@ -259,12 +321,12 @@ void main() {
       );
     });
 
-    test('method topCasts', () {
+    test('method topCastMethods', () {
       final source = source1DataSafe;
       final writer = SourceWriter(source);
 
       expect(
-        writer.topCasts().joinMethods().tr(),
+        writer.topCastMethods().joinMethods().tr(),
         stringContains([
           'isSunny()',
           'asRainy()',
@@ -586,12 +648,12 @@ void main() {
       });
     });
 
-    test('method topBuilders', () {
+    test('method topBuilderMethods', () {
       final source = source1DataLegacy;
       final writer = SourceWriter(source);
 
       expect(
-        writer.topBuilders().joinMethods().tr(),
+        writer.topBuilderMethods().joinMethods().tr(),
         stringContains([
           'static',
           'sunny(',

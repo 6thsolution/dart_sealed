@@ -93,47 +93,61 @@ abstract class Result extends Equatable {
         code: code,
       );
 
-  bool isSuccess() => this is ResultSuccess;
+  bool isSuccess() => this is ResultSuccess /*!*/;
 
-  bool isError() => this is ResultError;
+  bool isError() => this is ResultError /*!*/;
 
-  bool isDummy() => this is ResultDummy;
+  bool isDummy() => this is ResultDummy /*!*/;
 
-  bool isPartialSuccess() => this is ResultPartialSuccess;
+  bool isPartialSuccess() => this is ResultPartialSuccess /*!*/;
 
-  bool isPartialError() => this is ResultPartialError;
+  bool isPartialError() => this is ResultPartialError /*!*/;
 
-  bool isDoubleSuccess() => this is ResultDoubleSuccess;
+  bool isDoubleSuccess() => this is ResultDoubleSuccess /*!*/;
 
-  ResultSuccess /*!*/ asSuccess() => this as ResultSuccess;
+  ResultSuccess /*!*/ asSuccess() => this as ResultSuccess /*!*/;
 
-  ResultError /*!*/ asError() => this as ResultError;
+  ResultError /*!*/ asError() => this as ResultError /*!*/;
 
-  ResultDummy /*!*/ asDummy() => this as ResultDummy;
+  ResultDummy /*!*/ asDummy() => this as ResultDummy /*!*/;
 
-  ResultPartialSuccess /*!*/ asPartialSuccess() => this as ResultPartialSuccess;
+  ResultPartialSuccess /*!*/ asPartialSuccess() =>
+      this as ResultPartialSuccess /*!*/;
 
-  ResultPartialError /*!*/ asPartialError() => this as ResultPartialError;
+  ResultPartialError /*!*/ asPartialError() => this as ResultPartialError /*!*/;
 
-  ResultDoubleSuccess /*!*/ asDoubleSuccess() => this as ResultDoubleSuccess;
+  ResultDoubleSuccess /*!*/ asDoubleSuccess() =>
+      this as ResultDoubleSuccess /*!*/;
 
-  ResultSuccess /*?*/ asSuccessOrNull() =>
-      this is ResultSuccess ? this as ResultSuccess : null;
+  ResultSuccess /*?*/ asSuccessOrNull() {
+    final result = this;
+    return result is ResultSuccess /*!*/ ? result : null;
+  }
 
-  ResultError /*?*/ asErrorOrNull() =>
-      this is ResultError ? this as ResultError : null;
+  ResultError /*?*/ asErrorOrNull() {
+    final result = this;
+    return result is ResultError /*!*/ ? result : null;
+  }
 
-  ResultDummy /*?*/ asDummyOrNull() =>
-      this is ResultDummy ? this as ResultDummy : null;
+  ResultDummy /*?*/ asDummyOrNull() {
+    final result = this;
+    return result is ResultDummy /*!*/ ? result : null;
+  }
 
-  ResultPartialSuccess /*?*/ asPartialSuccessOrNull() =>
-      this is ResultPartialSuccess ? this as ResultPartialSuccess : null;
+  ResultPartialSuccess /*?*/ asPartialSuccessOrNull() {
+    final result = this;
+    return result is ResultPartialSuccess /*!*/ ? result : null;
+  }
 
-  ResultPartialError /*?*/ asPartialErrorOrNull() =>
-      this is ResultPartialError ? this as ResultPartialError : null;
+  ResultPartialError /*?*/ asPartialErrorOrNull() {
+    final result = this;
+    return result is ResultPartialError /*!*/ ? result : null;
+  }
 
-  ResultDoubleSuccess /*?*/ asDoubleSuccessOrNull() =>
-      this is ResultDoubleSuccess ? this as ResultDoubleSuccess : null;
+  ResultDoubleSuccess /*?*/ asDoubleSuccessOrNull() {
+    final result = this;
+    return result is ResultDoubleSuccess /*!*/ ? result : null;
+  }
 
   R when<R extends Object /*?*/ >({
     @required R Function(ResultSuccess /*!*/ success) /*!*/ success,
@@ -153,6 +167,7 @@ abstract class Result extends Equatable {
     assert(partialSuccess != null);
     assert(partialError != null);
     assert(doubleSuccess != null);
+    final result = this;
     throw 0;
   }
 
@@ -166,6 +181,7 @@ abstract class Result extends Equatable {
     @required R Function(Result /*!*/ result) /*!*/ orElse,
   }) {
     assert(orElse != null);
+    final result = this;
     throw 0;
   }
 }

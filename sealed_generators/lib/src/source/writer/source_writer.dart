@@ -69,10 +69,18 @@ class SourceWriter {
   @visibleForTesting
   String lower(ManifestItem item) => short(item).toLowerStart();
 
+  /// ex. is WeatherRainy
+  @visibleForTesting
+  String isSub(ManifestItem item) => 'is ${full(item)}$nn';
+
+  /// ex. as WeatherRainy
+  @visibleForTesting
+  String asSub(ManifestItem item) => 'as ${full(item)}$nn';
+
   /// ex. isRainy()
   @visibleForTesting
   String topCastIs(ManifestItem item) =>
-      'bool is${short(item)}() => this is ${full(item)};';
+      'bool is${short(item)}() => this ${isSub(item)};';
 
   @visibleForTesting
   Iterable<String> topCastsIs() => man.items.map(topCastIs);
@@ -81,26 +89,33 @@ class SourceWriter {
   @visibleForTesting
   String topCastAs(ManifestItem item) =>
       '${full(item)}$nn as${short(item)}() =>'
-      ' this as ${full(item)};';
+      ' this ${asSub(item)};';
 
   @visibleForTesting
   Iterable<String> topCastsAs() => man.items.map(topCastAs);
 
+  /// ex. final weather = this;
+  @visibleForTesting
+  String initThisValue() => 'final $topLower = this;';
+
   /// ex. asRainyOrNull()
   @visibleForTesting
-  String topCastAsOrNull(ManifestItem item) =>
-      '${full(item)}$n as${short(item)}OrNull() => '
-      ' this is ${full(item)} ? this as ${full(item)} : null;';
+  String topCastAsOrNull(ManifestItem item) => [
+        '${full(item)}$n as${short(item)}OrNull() {',
+        initThisValue(),
+        'return $topLower ${isSub(item)} ? $topLower : null;',
+        '}',
+      ].joinLines();
 
   @visibleForTesting
   Iterable<String> topCastsAsOrNull() => man.items.map(topCastAsOrNull);
 
   @visibleForTesting
-  Iterable<String> topCasts() sync* {
-    yield* topCastsIs();
-    yield* topCastsAs();
-    yield* topCastsAsOrNull();
-  }
+  Iterable<String> topCastMethods() => [
+        ...topCastsIs(),
+        ...topCastsAs(),
+        ...topCastsAsOrNull(),
+      ];
 
   /// ex. @SealedManifest(_Weather)
   @visibleForTesting
@@ -165,7 +180,7 @@ class SourceWriter {
       ].joinLines();
 
   @visibleForTesting
-  Iterable<String> topBuilders() => man.items.map(topBuilder);
+  Iterable<String> topBuilderMethods() => man.items.map(topBuilder);
 
   /// ex. rain: $rain
   @visibleForTesting
@@ -287,13 +302,13 @@ class SourceWriter {
   @visibleForTesting
   String topMatchAssertOrElse() => 'assert(orElse != null);';
 
-  // ****
-  // not tested:
-  // ****
-
-  /// ex. final weather = this;
+  /// ex. throw AssertionError();
   @visibleForTesting
-  String topMatchThisValue() => 'final $topLower = this;';
+  String throwAssertion() => 'throw AssertionError();';
+
+  // ****
+  // todo not tested:
+  // ****
 
   /// R when<R extends Object?>(required item...) {...}
   @visibleForTesting
@@ -308,15 +323,14 @@ class SourceWriter {
           '{',
         ].joinParts(),
         if (!opts.isNullSafe) topMatchAsserts(),
-        topMatchThisValue(),
+        initThisValue(),
         'throw 0;',
         '}',
       ].joinLines();
 
   /// R whenOrElse<R extends Object?>(item..., required orElse) {...}
   @visibleForTesting
-  String topMatchWhenOrElse() =>
-      [
+  String topMatchWhenOrElse() => [
         [
           'R whenOrElse$topMatchParam',
           [
@@ -326,15 +340,22 @@ class SourceWriter {
           '{',
         ].joinParts(),
         if (!opts.isNullSafe) topMatchAssertOrElse(),
-        topMatchThisValue(),
+        initThisValue(),
         'throw 0;',
         '}',
       ].joinLines();
 
-  String topMatchMethods() => [
+  Iterable<String> topMatchMethods() => [
         topMatchWhen(),
         topMatchWhenOrElse(),
-      ].joinMethods();
+      ];
+
+  Iterable<String> topMethods() => [
+        ...topBuilderMethods(),
+        ...topCastMethods(),
+        ...topMatchMethods(),
+        if (opts.equality == SealedEquality.distinct) topDistinctEquality(),
+      ];
 
   // todo : super._()
   // todo : Weather._();
@@ -364,17 +385,7 @@ class SourceWriter {
       s.write(' extends Equatable');
     }
     s.writeln('{');
-    s.writeln(topBuilders().joinMethods());
-    s.writeln();
-    s.writeln(topCasts().joinMethods());
-    if (opts.equality == SealedEquality.distinct) {
-      s.writeln();
-      s.writeln(topDistinctEquality());
-      s.writeln();
-    }
-    s.writeln();
-    s.writeln(topMatchMethods());
-    s.writeln();
+    s.writeln(topMethods().joinMethods());
     s.writeln('}');
     return s.toString();
   }

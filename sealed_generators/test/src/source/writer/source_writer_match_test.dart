@@ -242,6 +242,16 @@ void main() {
         ]),
       );
     });
+
+    test('method throwAssertion', () {
+      final source = source1DataLegacy;
+      final writer = SourceWriter(source);
+
+      expect(
+        writer.throwAssertion(),
+        'throw AssertionError();',
+      );
+    });
     // end of source writer match test group
   });
 }

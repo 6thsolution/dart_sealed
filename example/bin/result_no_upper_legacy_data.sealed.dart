@@ -39,19 +39,23 @@ abstract class Result extends Equatable {
   static ResultError /*!*/ error({@required E /*?*/ exception}) =>
       ResultError(exception: exception);
 
-  bool isSuccess() => this is ResultSuccess;
+  bool isSuccess() => this is ResultSuccess /*!*/;
 
-  bool isError() => this is ResultError;
+  bool isError() => this is ResultError /*!*/;
 
-  ResultSuccess /*!*/ asSuccess() => this as ResultSuccess;
+  ResultSuccess /*!*/ asSuccess() => this as ResultSuccess /*!*/;
 
-  ResultError /*!*/ asError() => this as ResultError;
+  ResultError /*!*/ asError() => this as ResultError /*!*/;
 
-  ResultSuccess /*?*/ asSuccessOrNull() =>
-      this is ResultSuccess ? this as ResultSuccess : null;
+  ResultSuccess /*?*/ asSuccessOrNull() {
+    final result = this;
+    return result is ResultSuccess /*!*/ ? result : null;
+  }
 
-  ResultError /*?*/ asErrorOrNull() =>
-      this is ResultError ? this as ResultError : null;
+  ResultError /*?*/ asErrorOrNull() {
+    final result = this;
+    return result is ResultError /*!*/ ? result : null;
+  }
 
   R when<R extends Object /*?*/ >({
     @required R Function(ResultSuccess /*!*/ success) /*!*/ success,
@@ -59,6 +63,7 @@ abstract class Result extends Equatable {
   }) {
     assert(success != null);
     assert(error != null);
+    final result = this;
     throw 0;
   }
 
@@ -68,6 +73,7 @@ abstract class Result extends Equatable {
     @required R Function(Result /*!*/ result) /*!*/ orElse,
   }) {
     assert(orElse != null);
+    final result = this;
     throw 0;
   }
 }

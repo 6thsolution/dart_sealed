@@ -114,23 +114,35 @@ abstract class Result extends Equatable {
 
   ResultDoubleSuccess asDoubleSuccess() => this as ResultDoubleSuccess;
 
-  ResultSuccess? asSuccessOrNull() =>
-      this is ResultSuccess ? this as ResultSuccess : null;
+  ResultSuccess? asSuccessOrNull() {
+    final result = this;
+    return result is ResultSuccess ? result : null;
+  }
 
-  ResultError? asErrorOrNull() =>
-      this is ResultError ? this as ResultError : null;
+  ResultError? asErrorOrNull() {
+    final result = this;
+    return result is ResultError ? result : null;
+  }
 
-  ResultDummy? asDummyOrNull() =>
-      this is ResultDummy ? this as ResultDummy : null;
+  ResultDummy? asDummyOrNull() {
+    final result = this;
+    return result is ResultDummy ? result : null;
+  }
 
-  ResultPartialSuccess? asPartialSuccessOrNull() =>
-      this is ResultPartialSuccess ? this as ResultPartialSuccess : null;
+  ResultPartialSuccess? asPartialSuccessOrNull() {
+    final result = this;
+    return result is ResultPartialSuccess ? result : null;
+  }
 
-  ResultPartialError? asPartialErrorOrNull() =>
-      this is ResultPartialError ? this as ResultPartialError : null;
+  ResultPartialError? asPartialErrorOrNull() {
+    final result = this;
+    return result is ResultPartialError ? result : null;
+  }
 
-  ResultDoubleSuccess? asDoubleSuccessOrNull() =>
-      this is ResultDoubleSuccess ? this as ResultDoubleSuccess : null;
+  ResultDoubleSuccess? asDoubleSuccessOrNull() {
+    final result = this;
+    return result is ResultDoubleSuccess ? result : null;
+  }
 
   R when<R extends Object?>({
     required R Function(ResultSuccess success) success,
@@ -140,6 +152,7 @@ abstract class Result extends Equatable {
     required R Function(ResultPartialError partialError) partialError,
     required R Function(ResultDoubleSuccess doubleSuccess) doubleSuccess,
   }) {
+    final result = this;
     throw 0;
   }
 
@@ -152,6 +165,7 @@ abstract class Result extends Equatable {
     R Function(ResultDoubleSuccess doubleSuccess)? doubleSuccess,
     required R Function(Result result) orElse,
   }) {
+    final result = this;
     throw 0;
   }
 }
