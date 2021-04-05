@@ -56,7 +56,13 @@ abstract class Wrapper extends Equatable {
     required R Function(WrapperWrapNullable wrapNullable) wrapNullable,
   }) {
     final wrapper = this;
-    throw 0;
+    if (wrapper is WrapperWrap) {
+      return wrap(wrapper);
+    } else if (wrapper is WrapperWrapNullable) {
+      return wrapNullable(wrapper);
+    } else {
+      throw AssertionError();
+    }
   }
 
   R whenOrElse<R extends Object?>({
@@ -65,7 +71,13 @@ abstract class Wrapper extends Equatable {
     required R Function(Wrapper wrapper) orElse,
   }) {
     final wrapper = this;
-    throw 0;
+    if (wrapper is WrapperWrap) {
+      return (wrap ?? orElse)(wrapper);
+    } else if (wrapper is WrapperWrapNullable) {
+      return (wrapNullable ?? orElse)(wrapper);
+    } else {
+      throw AssertionError();
+    }
   }
 }
 

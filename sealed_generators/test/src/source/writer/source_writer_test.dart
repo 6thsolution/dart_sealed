@@ -918,6 +918,51 @@ void main() {
         );
       });
     });
+
+    group('method topMethods', () {
+      test('equality data', () {
+        final source = source1DataSafe;
+        final writer = SourceWriter(source);
+
+        expect(
+          writer.topMethods(),
+          containsAll([
+            ...writer.topBuilderMethods(),
+            ...writer.topCastMethods(),
+            ...writer.topMatchMethods(),
+          ]),
+        );
+      });
+
+      test('equality identity', () {
+        final source = source1IdentityLegacy;
+        final writer = SourceWriter(source);
+
+        expect(
+          writer.topMethods(),
+          containsAll([
+            ...writer.topBuilderMethods(),
+            ...writer.topCastMethods(),
+            ...writer.topMatchMethods(),
+          ]),
+        );
+      });
+
+      test('equality distinct', () {
+        final source = source1DistinctLegacy;
+        final writer = SourceWriter(source);
+
+        expect(
+          writer.topMethods(),
+          containsAll([
+            ...writer.topBuilderMethods(),
+            ...writer.topCastMethods(),
+            ...writer.topMatchMethods(),
+            writer.topDistinctEquality(),
+          ]),
+        );
+      });
+    });
     // end of source writer test group
   });
 }

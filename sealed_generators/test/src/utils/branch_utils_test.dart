@@ -37,12 +37,12 @@ void main() {
 
     test('static method mapIf', () {
       final a = If(condition: 'cnd1', code: 'code1');
-      expect(Branch.mapIf(a), 'if(cnd1) {code1}');
+      expect(Branch.mapIf(a), 'if (cnd1) {code1}');
     });
 
     test('static method mapElseIf', () {
       final a = If(condition: 'cnd1', code: 'code1');
-      expect(Branch.mapElseIf(a), 'else if(cnd1) {code1}');
+      expect(Branch.mapElseIf(a), 'else if (cnd1) {code1}');
     });
 
     test('static method mapElse', () {
@@ -59,7 +59,7 @@ void main() {
         final branch = Branch(ifs: [a]);
         expect(
           branch.join(),
-          'if(cnd1) {code1}',
+          'if (cnd1) {code1}',
         );
       });
 
@@ -67,8 +67,8 @@ void main() {
         final branch = Branch(ifs: [a, b]);
         expect(
           branch.join(),
-          'if(cnd1) {code1}\n'
-          'else if(cnd2) {code2}',
+          'if (cnd1) {code1}\n'
+          'else if (cnd2) {code2}',
         );
       });
 
@@ -76,7 +76,7 @@ void main() {
         final branch = Branch(ifs: [a], els: e);
         expect(
           branch.join(),
-          'if(cnd1) {code1}\n'
+          'if (cnd1) {code1}\n'
           'else {code3}',
         );
       });
@@ -85,8 +85,8 @@ void main() {
         final branch = Branch(ifs: [a, b], els: e);
         expect(
           branch.join(),
-          'if(cnd1) {code1}\n'
-          'else if(cnd2) {code2}\n'
+          'if (cnd1) {code1}\n'
+          'else if (cnd2) {code2}\n'
           'else {code3}',
         );
       });

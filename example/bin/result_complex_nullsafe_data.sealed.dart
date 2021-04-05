@@ -153,7 +153,21 @@ abstract class Result extends Equatable {
     required R Function(ResultDoubleSuccess doubleSuccess) doubleSuccess,
   }) {
     final result = this;
-    throw 0;
+    if (result is ResultSuccess) {
+      return success(result);
+    } else if (result is ResultError) {
+      return error(result);
+    } else if (result is ResultDummy) {
+      return dummy(result);
+    } else if (result is ResultPartialSuccess) {
+      return partialSuccess(result);
+    } else if (result is ResultPartialError) {
+      return partialError(result);
+    } else if (result is ResultDoubleSuccess) {
+      return doubleSuccess(result);
+    } else {
+      throw AssertionError();
+    }
   }
 
   R whenOrElse<R extends Object?>({
@@ -166,7 +180,21 @@ abstract class Result extends Equatable {
     required R Function(Result result) orElse,
   }) {
     final result = this;
-    throw 0;
+    if (result is ResultSuccess) {
+      return (success ?? orElse)(result);
+    } else if (result is ResultError) {
+      return (error ?? orElse)(result);
+    } else if (result is ResultDummy) {
+      return (dummy ?? orElse)(result);
+    } else if (result is ResultPartialSuccess) {
+      return (partialSuccess ?? orElse)(result);
+    } else if (result is ResultPartialError) {
+      return (partialError ?? orElse)(result);
+    } else if (result is ResultDoubleSuccess) {
+      return (doubleSuccess ?? orElse)(result);
+    } else {
+      throw AssertionError();
+    }
   }
 }
 

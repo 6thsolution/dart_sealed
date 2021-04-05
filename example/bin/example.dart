@@ -15,7 +15,7 @@ void main() {
     windy: (windy) => '3',
   );
   assert(x is String);
-  print('$x ${x.length}');
+  assert(x.length == 1);
 
   final y = a.when(
     sunny: (sunny) => null,
@@ -24,12 +24,10 @@ void main() {
   );
   assert(y is String?);
   assert(y is! String);
-  print('$y ${y?.length}');
 
   final z = a.whenOrElse(
     rainy: (rainy) => '2',
     orElse: (weather) => '? $weather',
   );
   assert(z is String);
-  print('$z ${z.length}');
 }

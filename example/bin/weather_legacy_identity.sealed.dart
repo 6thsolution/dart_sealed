@@ -85,7 +85,15 @@ abstract class Weather {
     assert(rainy != null);
     assert(windy != null);
     final weather = this;
-    throw 0;
+    if (weather is WeatherSunny /*!*/) {
+      return sunny(weather);
+    } else if (weather is WeatherRainy /*!*/) {
+      return rainy(weather);
+    } else if (weather is WeatherWindy /*!*/) {
+      return windy(weather);
+    } else {
+      throw AssertionError();
+    }
   }
 
   R whenOrElse<R extends Object /*?*/ >({
@@ -96,7 +104,15 @@ abstract class Weather {
   }) {
     assert(orElse != null);
     final weather = this;
-    throw 0;
+    if (weather is WeatherSunny /*!*/) {
+      return (sunny ?? orElse)(weather);
+    } else if (weather is WeatherRainy /*!*/) {
+      return (rainy ?? orElse)(weather);
+    } else if (weather is WeatherWindy /*!*/) {
+      return (windy ?? orElse)(weather);
+    } else {
+      throw AssertionError();
+    }
   }
 }
 

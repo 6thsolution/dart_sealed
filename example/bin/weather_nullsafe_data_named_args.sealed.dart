@@ -80,7 +80,15 @@ abstract class Weather extends Equatable {
     required R Function(WeatherWindy windy) windy,
   }) {
     final weather = this;
-    throw 0;
+    if (weather is WeatherSunny) {
+      return sunny(weather);
+    } else if (weather is WeatherRainy) {
+      return rainy(weather);
+    } else if (weather is WeatherWindy) {
+      return windy(weather);
+    } else {
+      throw AssertionError();
+    }
   }
 
   R whenOrElse<R extends Object?>({
@@ -90,7 +98,15 @@ abstract class Weather extends Equatable {
     required R Function(Weather weather) orElse,
   }) {
     final weather = this;
-    throw 0;
+    if (weather is WeatherSunny) {
+      return (sunny ?? orElse)(weather);
+    } else if (weather is WeatherRainy) {
+      return (rainy ?? orElse)(weather);
+    } else if (weather is WeatherWindy) {
+      return (windy ?? orElse)(weather);
+    } else {
+      throw AssertionError();
+    }
   }
 }
 

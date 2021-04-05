@@ -77,7 +77,15 @@ abstract class Result extends Equatable {
     assert(empty != null);
     assert(error != null);
     final result = this;
-    throw 0;
+    if (result is ResultSuccess /*!*/) {
+      return success(result);
+    } else if (result is ResultEmpty /*!*/) {
+      return empty(result);
+    } else if (result is ResultError /*!*/) {
+      return error(result);
+    } else {
+      throw AssertionError();
+    }
   }
 
   R whenOrElse<R extends Object /*?*/ >({
@@ -88,7 +96,15 @@ abstract class Result extends Equatable {
   }) {
     assert(orElse != null);
     final result = this;
-    throw 0;
+    if (result is ResultSuccess /*!*/) {
+      return (success ?? orElse)(result);
+    } else if (result is ResultEmpty /*!*/) {
+      return (empty ?? orElse)(result);
+    } else if (result is ResultError /*!*/) {
+      return (error ?? orElse)(result);
+    } else {
+      throw AssertionError();
+    }
   }
 }
 

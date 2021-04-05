@@ -3,6 +3,7 @@ import 'package:sealed_annotations/sealed_annotations.dart';
 import 'package:sealed_generators/src/manifest/manifest.dart';
 import 'package:sealed_generators/src/options/options.dart';
 import 'package:sealed_generators/src/source/source.dart';
+import 'package:sealed_generators/src/utils/branch_utils.dart';
 import 'package:sealed_generators/src/utils/name_utils.dart';
 import 'package:sealed_generators/src/utils/string_utils.dart';
 
@@ -306,50 +307,89 @@ class SourceWriter {
   @visibleForTesting
   String throwAssertion() => 'throw AssertionError();';
 
-  // ****
-  // todo not tested:
-  // ****
+  /// else clause with throw
+  @visibleForTesting
+  Else throwingElse() => Else(
+        code: throwAssertion(),
+      );
 
-  /// R when<R extends Object?>(required item...) {...}
+  /// ex. if (weather is WeatherSunny) { return sunny(weather); }
+  @visibleForTesting
+  If topMatchWhenIfs(ManifestItem item) => If(
+        condition: '$topLower ${isSub(item)}',
+        code: 'return ${lower(item)}($topLower);',
+      );
+
+  /// body of when method
+  @visibleForTesting
+  String topMatchWhenBody() => [
+        initThisValue(),
+        Branch(
+          ifs: man.items.map(topMatchWhenIfs).toList(),
+          els: throwingElse(),
+        ).join(),
+      ].joinLines();
+
+  /// start of when method
+  @visibleForTesting
+  String topMatchWhenStart() => [
+        'R when$topMatchParam',
+        man.items
+            .map(topMatchGenericNNArg)
+            .joinArgs()
+            .withBraces()
+            .withParenthesis(),
+      ].joinParts();
+
+  /// R when<R extends Object?>(required item...)
+  /// {...}
   @visibleForTesting
   String topMatchWhen() => [
-        [
-          'R when$topMatchParam',
-          man.items
-              .map(topMatchGenericNNArg)
-              .joinArgs()
-              .withBraces()
-              .withParenthesis(),
-          '{',
-        ].joinParts(),
+        topMatchWhenStart(),
+        '{',
         if (!opts.isNullSafe) topMatchAsserts(),
-        initThisValue(),
-        'throw 0;',
+        topMatchWhenBody(),
         '}',
       ].joinLines();
+
+  /// ex. if (weather is WeatherSunny) { return sunny(weather); }
+  @visibleForTesting
+  If topMatchWhenOrElseIfs(ManifestItem item) => If(
+        condition: '$topLower ${isSub(item)}',
+        code: 'return (${lower(item)} ?? orElse)($topLower);',
+      );
+
+  /// body of when method
+  @visibleForTesting
+  String topMatchWhenOrElseBody() => [
+        initThisValue(),
+        Branch(
+          ifs: man.items.map(topMatchWhenOrElseIfs).toList(),
+          els: throwingElse(),
+        ).join(),
+      ].joinLines();
+
+  /// start of when method
+  @visibleForTesting
+  String topMatchWhenOrElseStart() => [
+        'R whenOrElse$topMatchParam',
+        [
+          ...man.items.map(topMatchGenericNArg),
+          topMatchGenericNNArgOrElse(),
+        ].joinArgs().withBraces().withParenthesis(),
+      ].joinParts();
 
   /// R whenOrElse<R extends Object?>(item..., required orElse) {...}
   @visibleForTesting
   String topMatchWhenOrElse() => [
-        [
-          'R whenOrElse$topMatchParam',
-          [
-            ...man.items.map(topMatchGenericNArg),
-            topMatchGenericNNArgOrElse(),
-          ].joinArgs().withBraces().withParenthesis(),
-          '{',
-        ].joinParts(),
+        topMatchWhenOrElseStart(),
+        '{',
         if (!opts.isNullSafe) topMatchAssertOrElse(),
-        initThisValue(),
-        'throw 0;',
+        topMatchWhenOrElseBody(),
         '}',
       ].joinLines();
 
-  Iterable<String> topMatchMethods() => [
-        topMatchWhen(),
-        topMatchWhenOrElse(),
-      ];
-
+  @visibleForTesting
   Iterable<String> topMethods() => [
         ...topBuilderMethods(),
         ...topCastMethods(),
@@ -357,6 +397,19 @@ class SourceWriter {
         if (opts.equality == SealedEquality.distinct) topDistinctEquality(),
       ];
 
+  // ****
+  // todo not tested:
+  // ****
+
+  @visibleForTesting
+  Iterable<String> topMatchMethods() => [
+        topMatchWhen(),
+        topMatchWhenOrElse(),
+      ];
+
+  // todo can have super class with utilities and sub specialized classes
+  // todo remove tr() usages
+  // todo we can make all returns iterables of lines
   // todo : super._()
   // todo : Weather._();
   // todo copy constructors

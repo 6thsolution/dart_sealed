@@ -10,11 +10,11 @@ class Branch {
   final List<If> ifs;
   final Else? els;
 
-  /// if(condition){code}
+  /// if (condition) {code}
   @visibleForTesting
-  static String mapIf(If i) => 'if(${i.condition}) {${i.code}}';
+  static String mapIf(If i) => 'if (${i.condition}) {${i.code}}';
 
-  /// else if(condition){code}
+  /// else if (condition) {code}
   @visibleForTesting
   static String mapElseIf(If i) => 'else ${mapIf(i)}';
 
@@ -22,20 +22,16 @@ class Branch {
   @visibleForTesting
   static String mapElse(Else e) => 'else {${e.code}}';
 
-  /// if(cnd1){code1}
+  /// if (cnd1) {code1}
   ///
-  /// else if(cnd2){code2}
+  /// else if(cnd2) {code2}
   ///
-  /// else{code3}
-  String join() {
-    final if1 = ifs.first;
-    final others = ifs.skip(1);
-    return [
-      mapIf(if1),
-      ...others.map(mapElseIf),
-      if (els != null) mapElse(els!),
-    ].joinLines();
-  }
+  /// else {code3}
+  String join() => [
+        mapIf(ifs.first),
+        ...ifs.skip(1).map(mapElseIf),
+        if (els != null) mapElse(els!),
+      ].joinLines();
 
   @override
   String toString() => 'Branch{ifs: $ifs, else: $els}';
