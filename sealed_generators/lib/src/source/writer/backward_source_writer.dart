@@ -6,6 +6,8 @@ import 'package:sealed_generators/src/utils/name_utils.dart';
 
 /// mimic original manifest code.
 /// used only for debug and test.
+@sealed
+@immutable
 class BackwardSourceWriter {
   BackwardSourceWriter(this.source);
 

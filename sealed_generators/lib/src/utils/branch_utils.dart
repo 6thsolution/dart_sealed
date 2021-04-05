@@ -1,6 +1,8 @@
 import 'package:meta/meta.dart';
 import 'package:sealed_generators/src/utils/string_utils.dart';
 
+@sealed
+@immutable
 class Branch {
   const Branch({
     required this.ifs,
@@ -28,10 +30,10 @@ class Branch {
   ///
   /// else {code3}
   String join() => [
-        mapIf(ifs.first),
-        ...ifs.skip(1).map(mapElseIf),
-        if (els != null) mapElse(els!),
-      ].joinLines();
+    mapIf(ifs.first),
+    ...ifs.skip(1).map(mapElseIf),
+    if (els != null) mapElse(els!),
+  ].joinLines();
 
   @override
   String toString() => 'Branch{ifs: $ifs, else: $els}';

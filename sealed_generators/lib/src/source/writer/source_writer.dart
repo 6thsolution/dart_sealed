@@ -7,6 +7,9 @@ import 'package:sealed_generators/src/utils/branch_utils.dart';
 import 'package:sealed_generators/src/utils/name_utils.dart';
 import 'package:sealed_generators/src/utils/string_utils.dart';
 
+/// source writer
+@sealed
+@immutable
 class SourceWriter {
   SourceWriter(this.source);
 
@@ -90,7 +93,7 @@ class SourceWriter {
   @visibleForTesting
   String topCastAs(ManifestItem item) =>
       '${full(item)}$nn as${short(item)}() =>'
-      ' this ${asSub(item)};';
+          ' this ${asSub(item)};';
 
   @visibleForTesting
   Iterable<String> topCastsAs() => man.items.map(topCastAs);
@@ -102,21 +105,21 @@ class SourceWriter {
   /// ex. asRainyOrNull()
   @visibleForTesting
   String topCastAsOrNull(ManifestItem item) => [
-        '${full(item)}$n as${short(item)}OrNull() {',
-        initThisValue(),
-        'return $topLower ${isSub(item)} ? $topLower : null;',
-        '}',
-      ].joinLines();
+    '${full(item)}$n as${short(item)}OrNull() {',
+    initThisValue(),
+    'return $topLower ${isSub(item)} ? $topLower : null;',
+    '}',
+  ].joinLines();
 
   @visibleForTesting
   Iterable<String> topCastsAsOrNull() => man.items.map(topCastAsOrNull);
 
   @visibleForTesting
   Iterable<String> topCastMethods() => [
-        ...topCastsIs(),
-        ...topCastsAs(),
-        ...topCastsAsOrNull(),
-      ];
+    ...topCastsIs(),
+    ...topCastsAs(),
+    ...topCastsAsOrNull(),
+  ];
 
   /// ex. @SealedManifest(_Weather)
   @visibleForTesting
@@ -144,14 +147,14 @@ class SourceWriter {
   /// ex. WeatherRainy({required this.rain, ...});
   @visibleForTesting
   String subConstructorDeclaration(ManifestItem item) => [
-        full(item),
-        item.fields
-            .map(subConstructorDeclarationPart)
-            .joinArgs()
-            .withBracesOrNot()
-            .withParenthesis(),
-        ';',
-      ].joinParts();
+    full(item),
+    item.fields
+        .map(subConstructorDeclarationPart)
+        .joinArgs()
+        .withBracesOrNot()
+        .withParenthesis(),
+    ';',
+  ].joinParts();
 
   /// ex. angle: angle
   @visibleForTesting
@@ -166,19 +169,19 @@ class SourceWriter {
   /// ex. static ... rainy() => ...
   @visibleForTesting
   String topBuilder(ManifestItem item) => [
-        factory,
-        [
-          'static ${full(item)}$nn ${lower(item)}',
-          item.fields
-              .map(topBuilderArg)
-              .joinArgs()
-              .withBracesOrNot()
-              .withParenthesis(),
-          ' => ${full(item)}',
-          item.fields.map(subConstructorCallArg).joinArgs().withParenthesis(),
-          ';',
-        ].joinParts(),
-      ].joinLines();
+    factory,
+    [
+      'static ${full(item)}$nn ${lower(item)}',
+      item.fields
+          .map(topBuilderArg)
+          .joinArgs()
+          .withBracesOrNot()
+          .withParenthesis(),
+      ' => ${full(item)}',
+      item.fields.map(subConstructorCallArg).joinArgs().withParenthesis(),
+      ';',
+    ].joinParts(),
+  ].joinLines();
 
   @visibleForTesting
   Iterable<String> topBuilderMethods() => man.items.map(topBuilder);
@@ -192,31 +195,31 @@ class SourceWriter {
   /// or: String/*!*/
   @visibleForTesting
   String subToString(ManifestItem item) => [
-        over,
-        [
-          "String$nn toString() => '$top.${lower(item)}",
-          item.fields.map(subToStringPart).joinArgsSimple().withParenthesis(),
-          "';",
-        ].joinParts(),
-      ].joinLines();
+    over,
+    [
+      "String$nn toString() => '$top.${lower(item)}",
+      item.fields.map(subToStringPart).joinArgsSimple().withParenthesis(),
+      "';",
+    ].joinParts(),
+  ].joinLines();
 
   /// bool operator ==(Object other) => false;
   @visibleForTesting
   String topDistinctEquality() => [
-        over,
-        'bool$nn operator ==(Object$nl other) => false;',
-      ].joinLines();
+    over,
+    'bool$nn operator ==(Object$nl other) => false;',
+  ].joinLines();
 
   /// List<Object?> get props => [a, b, ...];
   @visibleForTesting
   String subEquatableEquality(ManifestItem item) => [
-        over,
-        [
-          'List<Object$n>$nn get props => [',
-          item.fields.map((field) => field.name).joinArgs(),
-          '];',
-        ].joinParts(),
-      ].joinLines();
+    over,
+    [
+      'List<Object$n>$nn get props => [',
+      item.fields.map((field) => field.name).joinArgs(),
+      '];',
+    ].joinParts(),
+  ].joinLines();
 
   /// ex. int? rain
   @visibleForTesting
@@ -232,31 +235,31 @@ class SourceWriter {
   /// => WeatherRainy(rain: rain ?? this.rain);
   @visibleForTesting
   String subCopyDeclaration(ManifestItem item) => [
-        factory,
-        [
-          '${full(item)}$nn copy',
-          item.fields
-              .map(subCopyDeclarationPart)
-              .joinArgs()
-              .withBracesOrNot()
-              .withParenthesis(),
-          ' => ${full(item)}',
-          item.fields.map(subCopyCalcPart).joinArgs().withParenthesis(),
-          ';',
-        ].joinParts(),
-      ].joinLines();
+    factory,
+    [
+      '${full(item)}$nn copy',
+      item.fields
+          .map(subCopyDeclarationPart)
+          .joinArgs()
+          .withBracesOrNot()
+          .withParenthesis(),
+      ' => ${full(item)}',
+      item.fields.map(subCopyCalcPart).joinArgs().withParenthesis(),
+      ';',
+    ].joinParts(),
+  ].joinLines();
 
   /// write subclass
   @visibleForTesting
   String subClass(ManifestItem item) => [
-        'class ${full(item)} extends $top{',
-        subConstructorDeclaration(item),
-        subFieldDeclarations(item),
-        subCopyDeclaration(item),
-        subToString(item),
-        if (opts.equality == SealedEquality.data) subEquatableEquality(item),
-        '}',
-      ].joinMethods();
+    'class ${full(item)} extends $top{',
+    subConstructorDeclaration(item),
+    subFieldDeclarations(item),
+    subCopyDeclaration(item),
+    subToString(item),
+    if (opts.equality == SealedEquality.data) subEquatableEquality(item),
+    '}',
+  ].joinMethods();
 
   /// <R extends Object?>
   @visibleForTesting
@@ -310,92 +313,92 @@ class SourceWriter {
   /// else clause with throw
   @visibleForTesting
   Else throwingElse() => Else(
-        code: throwAssertion(),
-      );
+    code: throwAssertion(),
+  );
 
   /// ex. if (weather is WeatherSunny) { return sunny(weather); }
   @visibleForTesting
   If topMatchWhenIfs(ManifestItem item) => If(
-        condition: '$topLower ${isSub(item)}',
-        code: 'return ${lower(item)}($topLower);',
-      );
+    condition: '$topLower ${isSub(item)}',
+    code: 'return ${lower(item)}($topLower);',
+  );
 
   /// body of when method
   @visibleForTesting
   String topMatchWhenBody() => [
-        initThisValue(),
-        Branch(
-          ifs: man.items.map(topMatchWhenIfs).toList(),
-          els: throwingElse(),
-        ).join(),
-      ].joinLines();
+    initThisValue(),
+    Branch(
+      ifs: man.items.map(topMatchWhenIfs).toList(),
+      els: throwingElse(),
+    ).join(),
+  ].joinLines();
 
   /// start of when method
   @visibleForTesting
   String topMatchWhenStart() => [
-        'R when$topMatchParam',
-        man.items
-            .map(topMatchGenericNNArg)
-            .joinArgs()
-            .withBraces()
-            .withParenthesis(),
-      ].joinParts();
+    'R when$topMatchParam',
+    man.items
+        .map(topMatchGenericNNArg)
+        .joinArgs()
+        .withBraces()
+        .withParenthesis(),
+  ].joinParts();
 
   /// R when<R extends Object?>(required item...)
   /// {...}
   @visibleForTesting
   String topMatchWhen() => [
-        topMatchWhenStart(),
-        '{',
-        if (!opts.isNullSafe) topMatchAsserts(),
-        topMatchWhenBody(),
-        '}',
-      ].joinLines();
+    topMatchWhenStart(),
+    '{',
+    if (!opts.isNullSafe) topMatchAsserts(),
+    topMatchWhenBody(),
+    '}',
+  ].joinLines();
 
   /// ex. if (weather is WeatherSunny) { return sunny(weather); }
   @visibleForTesting
   If topMatchWhenOrElseIfs(ManifestItem item) => If(
-        condition: '$topLower ${isSub(item)}',
-        code: 'return (${lower(item)} ?? orElse)($topLower);',
-      );
+    condition: '$topLower ${isSub(item)}',
+    code: 'return (${lower(item)} ?? orElse)($topLower);',
+  );
 
   /// body of when method
   @visibleForTesting
   String topMatchWhenOrElseBody() => [
-        initThisValue(),
-        Branch(
-          ifs: man.items.map(topMatchWhenOrElseIfs).toList(),
-          els: throwingElse(),
-        ).join(),
-      ].joinLines();
+    initThisValue(),
+    Branch(
+      ifs: man.items.map(topMatchWhenOrElseIfs).toList(),
+      els: throwingElse(),
+    ).join(),
+  ].joinLines();
 
   /// start of when method
   @visibleForTesting
   String topMatchWhenOrElseStart() => [
-        'R whenOrElse$topMatchParam',
-        [
-          ...man.items.map(topMatchGenericNArg),
-          topMatchGenericNNArgOrElse(),
-        ].joinArgs().withBraces().withParenthesis(),
-      ].joinParts();
+    'R whenOrElse$topMatchParam',
+    [
+      ...man.items.map(topMatchGenericNArg),
+      topMatchGenericNNArgOrElse(),
+    ].joinArgs().withBraces().withParenthesis(),
+  ].joinParts();
 
   /// R whenOrElse<R extends Object?>(item..., required orElse) {...}
   @visibleForTesting
   String topMatchWhenOrElse() => [
-        topMatchWhenOrElseStart(),
-        '{',
-        if (!opts.isNullSafe) topMatchAssertOrElse(),
-        topMatchWhenOrElseBody(),
-        '}',
-      ].joinLines();
+    topMatchWhenOrElseStart(),
+    '{',
+    if (!opts.isNullSafe) topMatchAssertOrElse(),
+    topMatchWhenOrElseBody(),
+    '}',
+  ].joinLines();
 
   @visibleForTesting
   Iterable<String> topMethods() => [
-        ...topBuilderMethods(),
-        ...topCastMethods(),
-        ...topMatchMethods(),
-        if (opts.equality == SealedEquality.distinct) topDistinctEquality(),
-      ];
+    ...topBuilderMethods(),
+    ...topCastMethods(),
+    ...topMatchMethods(),
+    if (opts.equality == SealedEquality.distinct) topDistinctEquality(),
+  ];
 
   // ****
   // todo not tested:
@@ -403,9 +406,9 @@ class SourceWriter {
 
   @visibleForTesting
   Iterable<String> topMatchMethods() => [
-        topMatchWhen(),
-        topMatchWhenOrElse(),
-      ];
+    topMatchWhen(),
+    topMatchWhenOrElse(),
+  ];
 
   // todo can have super class with utilities and sub specialized classes
   // todo remove tr() usages

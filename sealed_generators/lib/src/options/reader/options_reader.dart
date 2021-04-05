@@ -4,6 +4,8 @@ import 'package:sealed_annotations/sealed_annotations.dart';
 import 'package:sealed_generators/src/options/options.dart';
 import 'package:source_gen/source_gen.dart';
 
+@sealed
+@immutable
 class OptionsReader {
   const OptionsReader();
 

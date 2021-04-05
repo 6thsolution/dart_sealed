@@ -5,6 +5,8 @@ import 'package:sealed_generators/src/source/source.dart';
 
 /// generate temp classes for params
 /// todo remove this
+@sealed
+@immutable
 class ParamCompatSourceWriter {
   ParamCompatSourceWriter(this.source);
 
