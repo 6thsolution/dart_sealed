@@ -2,6 +2,7 @@ import 'package:sealed_annotations/sealed_annotations.dart';
 import 'package:sealed_generators/src/manifest/manifest.dart';
 import 'package:sealed_generators/src/options/options.dart';
 import 'package:sealed_generators/src/source/source.dart';
+import 'package:sealed_generators/src/source/writer/backward/backward_writer.dart';
 
 final manifest1 = Manifest(
   name: 'Weather',
@@ -39,27 +40,22 @@ const optionsDataSafe = Options(
   equality: SealedEquality.data,
   isNullSafe: true,
 );
-
 const optionsIdentitySafe = Options(
   equality: SealedEquality.identity,
   isNullSafe: true,
 );
-
 const optionsDistinctSafe = Options(
   equality: SealedEquality.distinct,
   isNullSafe: true,
 );
-
 const optionsDataLegacy = Options(
   equality: SealedEquality.data,
   isNullSafe: false,
 );
-
 const optionsIdentityLegacy = Options(
   equality: SealedEquality.identity,
   isNullSafe: false,
 );
-
 const optionsDistinctLegacy = Options(
   equality: SealedEquality.distinct,
   isNullSafe: false,
@@ -69,39 +65,54 @@ final source1DataSafe = Source(
   options: optionsDataSafe,
   manifest: manifest1,
 );
-
 final source1IdentitySafe = Source(
   options: optionsIdentitySafe,
   manifest: manifest1,
 );
-
 final source1DistinctSafe = Source(
   options: optionsDistinctSafe,
   manifest: manifest1,
 );
-
 final source1DataLegacy = Source(
   options: optionsDataLegacy,
   manifest: manifest1,
 );
-
 final source1IdentityLegacy = Source(
   options: optionsIdentityLegacy,
   manifest: manifest1,
 );
-
 final source1DistinctLegacy = Source(
   options: optionsDistinctLegacy,
   manifest: manifest1,
 );
 
-String code1(String str) => '''
-@Sealed($str)
-abstract class _Weather {
-  void sunny();
+final code1Default = code1('');
+final code1Data = code1('equality: SealedEquality.data');
+final code1Identity = code1('equality: SealedEquality.identity');
+final code1Distinct = code1('equality: SealedEquality.distinct');
 
-  void rainy(int rain);
+const _conflict = BackwardWriter.avoidConflict ? '\$' : '';
 
-  void windy(double velocity, double? angle);
-}
-''';
+String code1(String str) => '''@Sealed($str)
+abstract class _Weather$_conflict
+{
+void sunny();
+void rainy(int rain);
+void windy(double velocity, double? angle);
+}''';
+
+final doc1Data = doc1('data');
+final doc1Identity = doc1('identity');
+final doc1Distinct = doc1('distinct');
+
+String doc1(String equality) => '''/// Weather {
+/// 
+/// Sunny()
+/// 
+/// Rainy(int rain)
+/// 
+/// Windy(double velocity, double? angle)
+/// 
+/// }
+/// 
+/// with $equality equality.''';

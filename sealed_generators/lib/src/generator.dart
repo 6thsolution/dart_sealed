@@ -18,12 +18,12 @@ class SealedGenerator extends GeneratorForAnnotation<Sealed> {
   ) {
     final reader = SourceReader();
     final source = reader.read(element, annotation);
-    final paramCompatWriter = CompatWriter(source);
+    final compatWriter = CompatWriter(source);
     final docWriter = DocWriter(source);
     final writer = SourceWriter(source);
 
     final s = StringBuffer();
-    s.writeln(paramCompatWriter.write());
+    s.writeln(compatWriter.write());
     s.writeln(docWriter.write());
     s.writeln(writer.write());
     return s.toString();
