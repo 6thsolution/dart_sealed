@@ -1,15 +1,15 @@
-import 'package:sealed_generators/src/source/writer/source_writer.dart';
+import 'package:sealed_generators/src/source/writer/top_match_writer.dart';
 import 'package:test/test.dart';
 
 import '../../../utils/code_utils.dart';
 import '../../../utils/examples.dart';
 
 void main() {
-  group('class SourceWriter match', () {
+  group('class TopMatchWriter', () {
     group('method topMatchParam', () {
       test('null-safe', () {
         final source = source1DataSafe;
-        final writer = SourceWriter(source);
+        final writer = TopMatchWriter(source);
 
         expect(
           writer.topMatchParam,
@@ -19,7 +19,7 @@ void main() {
 
       test('legacy', () {
         final source = source1DataLegacy;
-        final writer = SourceWriter(source);
+        final writer = TopMatchWriter(source);
 
         expect(
           writer.topMatchParam,
@@ -34,7 +34,7 @@ void main() {
         final manifest = source.manifest;
         // sunny
         final item1 = manifest.items[0];
-        final writer = SourceWriter(source);
+        final writer = TopMatchWriter(source);
 
         expect(
           writer.topMatchGenericNNArg(item1),
@@ -47,7 +47,7 @@ void main() {
         final manifest = source.manifest;
         // sunny
         final item1 = manifest.items[0];
-        final writer = SourceWriter(source);
+        final writer = TopMatchWriter(source);
 
         expect(
           writer.topMatchGenericNNArg(item1),
@@ -59,7 +59,7 @@ void main() {
     group('method topMatchGenericNNArgOrElse', () {
       test('null-safe', () {
         final source = source1DataSafe;
-        final writer = SourceWriter(source);
+        final writer = TopMatchWriter(source);
 
         expect(
           writer.topMatchGenericNNArgOrElse(),
@@ -69,7 +69,7 @@ void main() {
 
       test('legacy', () {
         final source = source1DataLegacy;
-        final writer = SourceWriter(source);
+        final writer = TopMatchWriter(source);
 
         expect(
           writer.topMatchGenericNNArgOrElse(),
@@ -84,7 +84,7 @@ void main() {
         final manifest = source.manifest;
         // sunny
         final item1 = manifest.items[0];
-        final writer = SourceWriter(source);
+        final writer = TopMatchWriter(source);
 
         expect(
           writer.topMatchGenericNArg(item1),
@@ -97,7 +97,7 @@ void main() {
         final manifest = source.manifest;
         // sunny
         final item1 = manifest.items[0];
-        final writer = SourceWriter(source);
+        final writer = TopMatchWriter(source);
 
         expect(
           writer.topMatchGenericNArg(item1),
@@ -109,7 +109,7 @@ void main() {
     group('method topMatchGenericReturn', () {
       test('null-safe', () {
         final source = source1DataSafe;
-        final writer = SourceWriter(source);
+        final writer = TopMatchWriter(source);
 
         expect(
           writer.topMatchParam,
@@ -119,7 +119,7 @@ void main() {
 
       test('legacy', () {
         final source = source1DataLegacy;
-        final writer = SourceWriter(source);
+        final writer = TopMatchWriter(source);
 
         expect(
           writer.topMatchParam,
@@ -134,7 +134,7 @@ void main() {
         final manifest = source.manifest;
         // sunny
         final item1 = manifest.items[0];
-        final writer = SourceWriter(source);
+        final writer = TopMatchWriter(source);
 
         expect(
           writer.topMatchVoidNNArg(item1),
@@ -147,7 +147,7 @@ void main() {
         final manifest = source.manifest;
         // sunny
         final item1 = manifest.items[0];
-        final writer = SourceWriter(source);
+        final writer = TopMatchWriter(source);
 
         expect(
           writer.topMatchVoidNNArg(item1),
@@ -159,7 +159,7 @@ void main() {
     group('method topMatchVoidNNArgOrElse', () {
       test('null-safe', () {
         final source = source1DataSafe;
-        final writer = SourceWriter(source);
+        final writer = TopMatchWriter(source);
 
         expect(
           writer.topMatchVoidNNArgOrElse(),
@@ -169,7 +169,7 @@ void main() {
 
       test('legacy', () {
         final source = source1DataLegacy;
-        final writer = SourceWriter(source);
+        final writer = TopMatchWriter(source);
 
         expect(
           writer.topMatchVoidNNArgOrElse(),
@@ -184,7 +184,7 @@ void main() {
         final manifest = source.manifest;
         // sunny
         final item1 = manifest.items[0];
-        final writer = SourceWriter(source);
+        final writer = TopMatchWriter(source);
 
         expect(
           writer.topMatchVoidNArg(item1),
@@ -197,7 +197,7 @@ void main() {
         final manifest = source.manifest;
         // sunny
         final item1 = manifest.items[0];
-        final writer = SourceWriter(source);
+        final writer = TopMatchWriter(source);
 
         expect(
           writer.topMatchVoidNArg(item1),
@@ -211,7 +211,7 @@ void main() {
       final manifest = source.manifest;
       // sunny
       final item1 = manifest.items[0];
-      final writer = SourceWriter(source);
+      final writer = TopMatchWriter(source);
 
       expect(
         writer.topMatchAssert(item1),
@@ -221,7 +221,7 @@ void main() {
 
     test('method topMatchAssertOrElse', () {
       final source = source1DataLegacy;
-      final writer = SourceWriter(source);
+      final writer = TopMatchWriter(source);
 
       expect(
         writer.topMatchAssertOrElse(),
@@ -231,7 +231,7 @@ void main() {
 
     test('method topMatchAsserts', () {
       final source = source1DataLegacy;
-      final writer = SourceWriter(source);
+      final writer = TopMatchWriter(source);
 
       expect(
         writer.topMatchAsserts().tr(),
@@ -245,7 +245,7 @@ void main() {
 
     test('method throwAssertion', () {
       final source = source1DataSafe;
-      final writer = SourceWriter(source);
+      final writer = TopMatchWriter(source);
 
       expect(
         writer.throwAssertion(),
@@ -255,7 +255,7 @@ void main() {
 
     test('method throwingElse', () {
       final source = source1DataSafe;
-      final writer = SourceWriter(source);
+      final writer = TopMatchWriter(source);
       final e = writer.throwingElse();
 
       expect(e.code, 'throw AssertionError();');
@@ -266,7 +266,7 @@ void main() {
       final manifest = source.manifest;
       // sunny
       final item1 = manifest.items[0];
-      final writer = SourceWriter(source);
+      final writer = TopMatchWriter(source);
       final i = writer.topMatchWhenIfs(item1);
 
       expect(i.condition, 'weather is WeatherSunny');
@@ -275,7 +275,7 @@ void main() {
 
     test('method topMatchWhenBody', () {
       final source = source1DataSafe;
-      final writer = SourceWriter(source);
+      final writer = TopMatchWriter(source);
 
       expect(
         writer.topMatchWhenBody(),
@@ -289,7 +289,7 @@ void main() {
 
     test('method topMatchWhenStart', () {
       final source = source1DataSafe;
-      final writer = SourceWriter(source);
+      final writer = TopMatchWriter(source);
 
       expect(
         writer.topMatchWhenStart(),
@@ -304,7 +304,7 @@ void main() {
     group('method topMatchWhen', () {
       test('null-safe', () {
         final source = source1DataSafe;
-        final writer = SourceWriter(source);
+        final writer = TopMatchWriter(source);
 
         expect(
           writer.topMatchWhen(),
@@ -319,7 +319,7 @@ void main() {
 
       test('legacy', () {
         final source = source1DataLegacy;
-        final writer = SourceWriter(source);
+        final writer = TopMatchWriter(source);
 
         expect(
           writer.topMatchWhen(),
@@ -339,7 +339,7 @@ void main() {
       final manifest = source.manifest;
       // sunny
       final item1 = manifest.items[0];
-      final writer = SourceWriter(source);
+      final writer = TopMatchWriter(source);
       final i = writer.topMatchWhenOrElseIfs(item1);
 
       expect(i.condition, 'weather is WeatherSunny');
@@ -348,7 +348,7 @@ void main() {
 
     test('method topMatchWhenOrElseBody', () {
       final source = source1DataSafe;
-      final writer = SourceWriter(source);
+      final writer = TopMatchWriter(source);
 
       expect(
         writer.topMatchWhenOrElseBody(),
@@ -362,7 +362,7 @@ void main() {
 
     test('method topMatchWhenOrElseStart', () {
       final source = source1DataSafe;
-      final writer = SourceWriter(source);
+      final writer = TopMatchWriter(source);
 
       expect(
         writer.topMatchWhenOrElseStart(),
@@ -378,7 +378,7 @@ void main() {
     group('method topMatchWhenOrElse', () {
       test('null-safe', () {
         final source = source1DataSafe;
-        final writer = SourceWriter(source);
+        final writer = TopMatchWriter(source);
 
         expect(
           writer.topMatchWhenOrElse(),
@@ -393,7 +393,7 @@ void main() {
 
       test('legacy', () {
         final source = source1DataLegacy;
-        final writer = SourceWriter(source);
+        final writer = TopMatchWriter(source);
 
         expect(
           writer.topMatchWhenOrElse(),
@@ -410,7 +410,7 @@ void main() {
 
     test('method topMatchMethods', () {
       final source = source1DataLegacy;
-      final writer = SourceWriter(source);
+      final writer = TopMatchWriter(source);
 
       expect(
         writer.topMatchMethods(),

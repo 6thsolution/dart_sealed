@@ -12,21 +12,21 @@ class TopBuilderWriter extends BaseUtilsWriter {
   const TopBuilderWriter(Source source) : super(source);
 
   /// ex. angle: angle
-  @protected
+
   @nonVirtual
   @visibleForTesting
   String subConstructorCallArg(ManifestField field) =>
       '${field.name}: ${field.name}';
 
   /// ex. required double? angle
-  @protected
+
   @nonVirtual
   @visibleForTesting
   String topBuilderArg(ManifestField field) =>
       '$req ${typeSL(field.type)} ${field.name}';
 
   /// ex. static ... rainy() => ...
-  @protected
+
   @nonVirtual
   @visibleForTesting
   String topBuilder(ManifestItem item) => [
@@ -44,8 +44,6 @@ class TopBuilderWriter extends BaseUtilsWriter {
         ].joinParts(),
       ].joinLines();
 
-  @protected
   @nonVirtual
-  @visibleForTesting
   Iterable<String> topBuilderMethods() => manifest.items.map(topBuilder);
 }

@@ -46,6 +46,7 @@ class D<T extends num> {
       //  'num' because 'num?' is nullable and 'num' isn't.
       // y = x;
 
+      // ignore: unnecessary_cast
       y = x as num;
     } else {
       y = this.x;

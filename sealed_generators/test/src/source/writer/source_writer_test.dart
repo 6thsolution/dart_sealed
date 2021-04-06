@@ -15,16 +15,6 @@ void main() {
       expect(writer.source, source);
     });
 
-    test('method topManifest', () {
-      final source = source1DataSafe;
-      final writer = SourceWriter(source);
-
-      expect(
-        writer.topManifest(),
-        '@SealedManifest(_Weather)',
-      );
-    });
-
     group('method subFieldDeclaration', () {
       group('null-safe', () {
         final source = source1DataSafe;
@@ -219,30 +209,6 @@ void main() {
     group('method topDistinctEquality', () {
       test('null-safe', () {
         final source = source1DataSafe;
-        final writer = SourceWriter(source);
-
-        expect(
-          writer.topDistinctEquality().tr(),
-          '@override'
-          'bool operator ==(Object other) => false;',
-        );
-      });
-
-      test('legacy', () {
-        final source = source1DataLegacy;
-        final writer = SourceWriter(source);
-
-        expect(
-          writer.topDistinctEquality().tr(),
-          '@override'
-          'bool/*!*/ operator ==(Object/*?*/ other) => false;',
-        );
-      });
-    });
-
-    group('method topDistinctEquality', () {
-      test('null-safe', () {
-        final source = source1DataSafe;
         // void windy(double velocity, double? angle);
         final item3 = source.manifest.items[2];
         final writer = SourceWriter(source);
@@ -416,101 +382,6 @@ void main() {
       });
     });
 
-    group('method topMethods', () {
-      test('equality data', () {
-        final source = source1DataSafe;
-        final writer = SourceWriter(source);
-
-        expect(
-          writer.topMethods(),
-          containsAll([
-            ...writer.topBuilderWriter.topBuilderMethods(),
-            ...writer.topCastWriter.topCastMethods(),
-            ...writer.topMatchMethods(),
-          ]),
-        );
-      });
-
-      test('equality identity', () {
-        final source = source1IdentityLegacy;
-        final writer = SourceWriter(source);
-
-        expect(
-          writer.topMethods(),
-          containsAll([
-            ...writer.topBuilderWriter.topBuilderMethods(),
-            ...writer.topCastWriter.topCastMethods(),
-            ...writer.topMatchMethods(),
-          ]),
-        );
-      });
-
-      test('equality distinct', () {
-        final source = source1DistinctLegacy;
-        final writer = SourceWriter(source);
-
-        expect(
-          writer.topMethods(),
-          containsAll([
-            ...writer.topBuilderWriter.topBuilderMethods(),
-            ...writer.topCastWriter.topCastMethods(),
-            ...writer.topMatchMethods(),
-            writer.topDistinctEquality(),
-          ]),
-        );
-      });
-    });
-
-    group('method topClassStart', () {
-      test('equality data', () {
-        final source = source1DataSafe;
-        final writer = SourceWriter(source);
-
-        expect(
-          writer.topClassStart(),
-          '@SealedManifest(_Weather)\n'
-          'abstract class Weather extends Equatable',
-        );
-      });
-
-      test('equality identity', () {
-        final source = source1IdentityLegacy;
-        final writer = SourceWriter(source);
-
-        expect(
-          writer.topClassStart(),
-          '@SealedManifest(_Weather)\n'
-          'abstract class Weather',
-        );
-      });
-
-      test('equality distinct', () {
-        final source = source1DistinctLegacy;
-        final writer = SourceWriter(source);
-
-        expect(
-          writer.topClassStart(),
-          '@SealedManifest(_Weather)\n'
-          'abstract class Weather',
-        );
-      });
-    });
-
-    test('method topClass', () {
-      final source = source1DataSafe;
-      final writer = SourceWriter(source);
-
-      expect(
-        writer.topClass(),
-        stringContainsInOrder([
-          writer.topClassStart(),
-          '{',
-          ...writer.topMethods(),
-          '}',
-        ]),
-      );
-    });
-
     test('method subClasses', () {
       final source = source1DataSafe;
       final manifest = source.manifest;
@@ -531,7 +402,7 @@ void main() {
       expect(
         writer.classes(),
         containsAllInOrder([
-          writer.topClass(),
+          writer.topWriter.topClass(),
           ...writer.subClasses(),
         ]),
       );

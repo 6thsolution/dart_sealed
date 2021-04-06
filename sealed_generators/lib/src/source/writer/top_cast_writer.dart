@@ -46,9 +46,7 @@ class TopCastWriter extends BaseCastUtilsWriter {
   @visibleForTesting
   Iterable<String> topCastsAsOrNull() => manifest.items.map(topCastAsOrNull);
 
-  @protected
   @nonVirtual
-  @visibleForTesting
   Iterable<String> topCastMethods() => [
         ...topCastsIs(),
         ...topCastsAs(),
