@@ -1,5 +1,5 @@
 import 'package:sealed_generators/src/source/source.dart';
-import 'package:sealed_generators/src/source/writer/writer.dart';
+import 'package:sealed_generators/src/source/writer/source_writer.dart';
 import 'package:sealed_generators/src/utils/string_utils.dart';
 import 'package:test/test.dart';
 

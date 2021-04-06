@@ -2,9 +2,9 @@ import 'package:meta/meta.dart';
 import 'package:sealed_annotations/sealed_annotations.dart';
 import 'package:sealed_generators/src/manifest/manifest.dart';
 import 'package:sealed_generators/src/source/source.dart';
-import 'package:sealed_generators/src/source/writer/base_cast_utils.dart';
-import 'package:sealed_generators/src/source/writer/top_builder.dart';
-import 'package:sealed_generators/src/source/writer/top_cast.dart';
+import 'package:sealed_generators/src/source/writer/base_cast_utils_writer.dart';
+import 'package:sealed_generators/src/source/writer/top_builder_writer.dart';
+import 'package:sealed_generators/src/source/writer/top_cast_writer.dart';
 import 'package:sealed_generators/src/utils/branch_utils.dart';
 import 'package:sealed_generators/src/utils/string_utils.dart';
 

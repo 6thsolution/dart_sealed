@@ -1,4 +1,4 @@
-import 'package:sealed_generators/src/source/writer/writer.dart';
+import 'package:sealed_generators/src/source/writer/source_writer.dart';
 import 'package:test/test.dart';
 
 import '../../../utils/code_utils.dart';

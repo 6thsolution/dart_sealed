@@ -4,7 +4,7 @@ import 'package:sealed_annotations/sealed_annotations.dart';
 import 'package:sealed_generators/src/source/reader/source_reader.dart';
 import 'package:sealed_generators/src/source/writer/compat/compat_writer.dart';
 import 'package:sealed_generators/src/source/writer/doc/doc_writer.dart';
-import 'package:sealed_generators/src/source/writer/writer.dart';
+import 'package:sealed_generators/src/source/writer/source_writer.dart';
 import 'package:source_gen/source_gen.dart';
 
 class SealedGenerator extends GeneratorForAnnotation<Sealed> {

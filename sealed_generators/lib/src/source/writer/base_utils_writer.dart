@@ -3,7 +3,7 @@ import 'package:sealed_annotations/sealed_annotations.dart';
 import 'package:sealed_generators/src/manifest/manifest.dart';
 import 'package:sealed_generators/src/options/options.dart';
 import 'package:sealed_generators/src/source/source.dart';
-import 'package:sealed_generators/src/source/writer/base.dart';
+import 'package:sealed_generators/src/source/writer/base_writer.dart';
 import 'package:sealed_generators/src/utils/name_utils.dart';
 
 /// base writer utilities

@@ -1,4 +1,4 @@
-import 'package:sealed_generators/src/source/writer/top_builder.dart';
+import 'package:sealed_generators/src/source/writer/top_builder_writer.dart';
 import 'package:sealed_generators/src/utils/string_utils.dart';
 import 'package:test/test.dart';
 

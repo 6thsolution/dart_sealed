@@ -8,7 +8,7 @@ import 'package:sealed_generators/src/utils/string_utils.dart';
 @sealed
 @immutable
 class DocWriter {
-  DocWriter(this.source);
+  const DocWriter(this.source);
 
   final Source source;
 
