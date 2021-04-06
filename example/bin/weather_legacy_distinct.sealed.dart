@@ -7,29 +7,17 @@ part of 'weather_legacy_distinct.dart';
 // Generator: sealed_generators
 // **************************************************************************
 
-// **************************************************************************
-// compat params generated code:
-// language level: legacy
-// no params identified.
-// **************************************************************************
-
-// **************************************************************************
-// backward generated code:
-// language level: legacy
-@Sealed(equality: SealedEquality.distinct)
-// ignore: unused_element
-abstract class _Weather$ {
-  void sunny();
-
-  void rainy(int /*?*/ rain);
-
-  void windy(
-    double /*?*/ velocity,
-    double /*?*/ angle,
-  );
-}
-// **************************************************************************
-
+/// Weather {
+///
+/// Sunny()
+///
+/// Rainy(int? rain)
+///
+/// Windy(double? velocity, double? angle)
+///
+/// }
+///
+/// with distinct equality.
 @SealedManifest(_Weather)
 abstract class Weather {
   @factory

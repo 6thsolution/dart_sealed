@@ -6,24 +6,15 @@ part of 'wrapper_nullsafe_data.dart';
 // Generator: sealed_generators
 // **************************************************************************
 
-// **************************************************************************
-// compat params generated code:
-// language level: null-safe
-// no params identified.
-// **************************************************************************
-
-// **************************************************************************
-// backward generated code:
-// language level: null-safe
-@Sealed(equality: SealedEquality.data)
-// ignore: unused_element
-abstract class _Wrapper$ {
-  void wrap(dynamic data);
-
-  void wrapNullable(dynamic data);
-}
-// **************************************************************************
-
+/// Wrapper {
+///
+/// Wrap(dynamic data)
+///
+/// WrapNullable(dynamic data)
+///
+/// }
+///
+/// with data equality.
 @SealedManifest(_Wrapper)
 abstract class Wrapper extends Equatable {
   @factory

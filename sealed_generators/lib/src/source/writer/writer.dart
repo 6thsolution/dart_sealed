@@ -1,184 +1,64 @@
 import 'package:meta/meta.dart';
 import 'package:sealed_annotations/sealed_annotations.dart';
 import 'package:sealed_generators/src/manifest/manifest.dart';
-import 'package:sealed_generators/src/options/options.dart';
 import 'package:sealed_generators/src/source/source.dart';
+import 'package:sealed_generators/src/source/writer/base_cast_utils.dart';
+import 'package:sealed_generators/src/source/writer/top_builder.dart';
+import 'package:sealed_generators/src/source/writer/top_cast.dart';
 import 'package:sealed_generators/src/utils/branch_utils.dart';
-import 'package:sealed_generators/src/utils/name_utils.dart';
 import 'package:sealed_generators/src/utils/string_utils.dart';
 
 /// source writer
 @sealed
 @immutable
-class SourceWriter {
-  SourceWriter(this.source);
+class SourceWriter extends BaseCastUtilsWriter {
+  SourceWriter(Source source)
+      : topBuilderWriter = TopBuilderWriter(source),
+        topCastWriter = TopCastWriter(source),
+        super(source);
 
-  final Source source;
-
+  @protected
   @nonVirtual
   @visibleForTesting
-  Options get opts => source.options;
+  final topBuilderWriter;
 
+  @protected
   @nonVirtual
   @visibleForTesting
-  Manifest get man => source.manifest;
-
-  /// @sealed final (closed) class
-  @nonVirtual
-  @visibleForTesting
-  String get closed => '@sealed';
-
-  /// @immutable
-  @nonVirtual
-  @visibleForTesting
-  String get immutable => '@immutable';
-
-  /// @factory
-  @nonVirtual
-  @visibleForTesting
-  String get factory => '@factory';
-
-  /// @override
-  @nonVirtual
-  @visibleForTesting
-  String get over => '@override';
-
-  /// nullability suffix: "?" or "/*?*/"
-  @nonVirtual
-  @visibleForTesting
-  String get n => opts.isNullSafe ? '?' : '/*?*/';
-
-  /// only nullable in legacy
-  @nonVirtual
-  @visibleForTesting
-  String get nl => opts.isNullSafe ? '' : '/*?*/';
-
-  /// non-nullability suffix: "" or "/*!*/"
-  @nonVirtual
-  @visibleForTesting
-  String get nn => opts.isNullSafe ? '' : '/*!*/';
-
-  /// required or @required
-  @nonVirtual
-  @visibleForTesting
-  String get req => opts.isNullSafe ? 'required' : '@required';
-
-  /// top class name, ex. Weather
-  @nonVirtual
-  @visibleForTesting
-  String get top => man.name;
-
-  /// top class name with lower start, ex. weather
-  @nonVirtual
-  @visibleForTesting
-  String get topLower => top.toLowerStart();
-
-  /// short sub class name, ex. Sunny
-  @nonVirtual
-  @visibleForTesting
-  String short(ManifestItem item) => item.name;
-
-  /// sub class name, ex. WeatherSunny
-  @nonVirtual
-  @visibleForTesting
-  String full(ManifestItem item) => '$top${short(item)}';
-
-  /// lower start short sub class name, ex. sunny
-  @nonVirtual
-  @visibleForTesting
-  String lower(ManifestItem item) => short(item).toLowerStart();
-
-  /// ex. is WeatherRainy
-  @nonVirtual
-  @visibleForTesting
-  String isSub(ManifestItem item) => 'is ${full(item)}$nn';
-
-  /// ex. as WeatherRainy
-  @nonVirtual
-  @visibleForTesting
-  String asSub(ManifestItem item) => 'as ${full(item)}$nn';
-
-  /// ex. isRainy()
-  @nonVirtual
-  @visibleForTesting
-  String topCastIs(ManifestItem item) =>
-      'bool is${short(item)}() => this ${isSub(item)};';
-
-  @nonVirtual
-  @visibleForTesting
-  Iterable<String> topCastsIs() => man.items.map(topCastIs);
-
-  /// ex. asRainy()
-  @nonVirtual
-  @visibleForTesting
-  String topCastAs(ManifestItem item) =>
-      '${full(item)}$nn as${short(item)}() =>'
-      ' this ${asSub(item)};';
-
-  @nonVirtual
-  @visibleForTesting
-  Iterable<String> topCastsAs() => man.items.map(topCastAs);
-
-  /// ex. final weather = this;
-  @nonVirtual
-  @visibleForTesting
-  String initThisValue() => 'final $topLower = this;';
-
-  /// ex. asRainyOrNull()
-  @nonVirtual
-  @visibleForTesting
-  String topCastAsOrNull(ManifestItem item) => [
-        '${full(item)}$n as${short(item)}OrNull() {',
-        initThisValue(),
-        'return $topLower ${isSub(item)} ? $topLower : null;',
-        '}',
-      ].joinLines();
-
-  @nonVirtual
-  @visibleForTesting
-  Iterable<String> topCastsAsOrNull() => man.items.map(topCastAsOrNull);
-
-  @nonVirtual
-  @visibleForTesting
-  Iterable<String> topCastMethods() => [
-        ...topCastsIs(),
-        ...topCastsAs(),
-        ...topCastsAsOrNull(),
-      ];
+  final topCastWriter;
 
   /// ex. @SealedManifest(_Weather)
+  @protected
   @nonVirtual
   @visibleForTesting
   String topManifest() => '@SealedManifest(_$top)';
 
-  /// ex. double or double/*!*/, double? or double/*?*/
-  @nonVirtual
-  @visibleForTesting
-  String typeSL(ManifestType type) =>
-      type.isNullable ? '${type.name}$n' : '${type.name}$nn';
-
   /// ex. final double direction;
+  @protected
   @nonVirtual
   @visibleForTesting
   String subFieldDeclaration(ManifestField field) =>
       'final ${typeSL(field.type)} ${field.name};';
 
+  @protected
   @nonVirtual
   @visibleForTesting
   String subFieldDeclarations(ManifestItem item) =>
       item.fields.map(subFieldDeclaration).joinLines();
 
   /// ex. required this.angle or @required this.angle
+  @protected
   @nonVirtual
   @visibleForTesting
   String subConstructorDeclarationPart(ManifestField field) =>
       '$req this.${field.name}';
 
   /// ex. WeatherRainy({required this.rain, ...});
+  @protected
   @nonVirtual
   @visibleForTesting
   String subConstructorDeclaration(ManifestItem item) => [
-        full(item),
+        subFull(item),
         item.fields
             .map(subConstructorDeclarationPart)
             .joinArgs()
@@ -187,41 +67,8 @@ class SourceWriter {
         ';',
       ].joinParts();
 
-  /// ex. angle: angle
-  @nonVirtual
-  @visibleForTesting
-  String subConstructorCallArg(ManifestField field) =>
-      '${field.name}: ${field.name}';
-
-  /// ex. required double? angle
-  @nonVirtual
-  @visibleForTesting
-  String topBuilderArg(ManifestField field) =>
-      '$req ${typeSL(field.type)} ${field.name}';
-
-  /// ex. static ... rainy() => ...
-  @nonVirtual
-  @visibleForTesting
-  String topBuilder(ManifestItem item) => [
-        factory,
-        [
-          'static ${full(item)}$nn ${lower(item)}',
-          item.fields
-              .map(topBuilderArg)
-              .joinArgs()
-              .withBracesOrNot()
-              .withParenthesis(),
-          ' => ${full(item)}',
-          item.fields.map(subConstructorCallArg).joinArgs().withParenthesis(),
-          ';',
-        ].joinParts(),
-      ].joinLines();
-
-  @nonVirtual
-  @visibleForTesting
-  Iterable<String> topBuilderMethods() => man.items.map(topBuilder);
-
   /// ex. rain: $rain
+  @protected
   @nonVirtual
   @visibleForTesting
   String subToStringPart(ManifestField field) =>
@@ -229,30 +76,33 @@ class SourceWriter {
 
   /// ex. @override String toString() => 'Weather.rainy(rain: $rain)'
   /// or: String/*!*/
+  @protected
   @nonVirtual
   @visibleForTesting
   String subToString(ManifestItem item) => [
-        over,
+        annotationOverride,
         [
-          "String$nn toString() => '$top.${lower(item)}",
+          "String$nn toString() => '$top.${subLower(item)}",
           item.fields.map(subToStringPart).joinArgsSimple().withParenthesis(),
           "';",
         ].joinParts(),
       ].joinLines();
 
   /// bool operator ==(Object other) => false;
+  @protected
   @nonVirtual
   @visibleForTesting
   String topDistinctEquality() => [
-        over,
+        annotationOverride,
         'bool$nn operator ==(Object$nl other) => false;',
       ].joinLines();
 
   /// List<Object?> get props => [a, b, ...];
+  @protected
   @nonVirtual
   @visibleForTesting
   String subEquatableEquality(ManifestItem item) => [
-        over,
+        annotationOverride,
         [
           'List<Object$n>$nn get props => [',
           item.fields.map((field) => field.name).joinArgs(),
@@ -261,12 +111,14 @@ class SourceWriter {
       ].joinLines();
 
   /// ex. int? rain
+  @protected
   @nonVirtual
   @visibleForTesting
   String subCopyDeclarationPart(ManifestField field) =>
       '${field.type.name}$n ${field.name}';
 
   /// ex. rain: rain ?? this.rain
+  @protected
   @nonVirtual
   @visibleForTesting
   String subCopyCalcPart(ManifestField field) =>
@@ -274,97 +126,112 @@ class SourceWriter {
 
   /// ex. WeatherRainy copy({int? rain})
   /// => WeatherRainy(rain: rain ?? this.rain);
+  @protected
   @nonVirtual
   @visibleForTesting
   String subCopyDeclaration(ManifestItem item) => [
-        factory,
+        annotationFactory,
         [
-          '${full(item)}$nn copy',
+          '${subFull(item)}$nn copy',
           item.fields
               .map(subCopyDeclarationPart)
               .joinArgs()
               .withBracesOrNot()
               .withParenthesis(),
-          ' => ${full(item)}',
+          ' => ${subFull(item)}',
           item.fields.map(subCopyCalcPart).joinArgs().withParenthesis(),
           ';',
         ].joinParts(),
       ].joinLines();
 
   /// write subclass
+  @protected
   @nonVirtual
   @visibleForTesting
   String subClass(ManifestItem item) => [
-        'class ${full(item)} extends $top{',
+        'class ${subFull(item)} extends $top{',
         subConstructorDeclaration(item),
         subFieldDeclarations(item),
         subCopyDeclaration(item),
         subToString(item),
-        if (opts.equality == SealedEquality.data) subEquatableEquality(item),
+        if (options.equality == SealedEquality.data) subEquatableEquality(item),
         '}',
       ].joinMethods();
 
   /// <R extends Object?>
+  @protected
   @nonVirtual
   @visibleForTesting
   String get topMatchParam => '<R extends Object$n>';
 
   /// required (R Function(WeatherSunny sunny)) sunny
+  @protected
   @nonVirtual
   @visibleForTesting
-  String topMatchGenericNNArg(ManifestItem item) =>
-      '$req R Function(${full(item)}$nn ${lower(item)})$nn ${lower(item)}';
+  String topMatchGenericNNArg(ManifestItem item) => '$req R Function'
+      '(${subFull(item)}$nn ${subLower(item)})$nn ${subLower(item)}';
 
   /// required (R Function(Weather weather)) orElse
+  @protected
   @nonVirtual
   @visibleForTesting
-  String topMatchGenericNNArgOrElse() =>
-      '$req R Function($top$nn $topLower)$nn orElse';
+  String topMatchGenericNNArgOrElse() => '$req R Function'
+      '($top$nn $topLower)$nn orElse';
 
   /// (R Function(WeatherSunny sunny))? sunny
+  @protected
   @nonVirtual
   @visibleForTesting
-  String topMatchGenericNArg(ManifestItem item) =>
-      'R Function(${full(item)}$nn ${lower(item)})$n ${lower(item)}';
+  String topMatchGenericNArg(ManifestItem item) => 'R Function'
+      '(${subFull(item)}$nn ${subLower(item)})$n ${subLower(item)}';
 
   /// required (void Function(WeatherSunny sunny)) sunny
+  @protected
   @nonVirtual
   @visibleForTesting
-  String topMatchVoidNNArg(ManifestItem item) =>
-      '$req void Function(${full(item)}$nn ${lower(item)})$nn ${lower(item)}';
+  String topMatchVoidNNArg(ManifestItem item) => '$req void Function'
+      '(${subFull(item)}$nn ${subLower(item)})$nn ${subLower(item)}';
 
   /// required (void Function(Weather weather)) orElse
+  @protected
   @nonVirtual
   @visibleForTesting
-  String topMatchVoidNNArgOrElse() =>
-      '$req void Function($top$nn $topLower)$nn orElse';
+  String topMatchVoidNNArgOrElse() => '$req void Function'
+      '($top$nn $topLower)$nn orElse';
 
   /// (void Function(WeatherSunny sunny))? sunny
+  @protected
   @nonVirtual
   @visibleForTesting
-  String topMatchVoidNArg(ManifestItem item) =>
-      'void Function(${full(item)}$nn ${lower(item)})$n ${lower(item)}';
+  String topMatchVoidNArg(ManifestItem item) => 'void Function'
+      '(${subFull(item)}$nn ${subLower(item)})$n ${subLower(item)}';
 
   /// assert(sunny != null)
+  @protected
   @nonVirtual
   @visibleForTesting
-  String topMatchAssert(ManifestItem item) => 'assert(${lower(item)} != null);';
+  String topMatchAssert(ManifestItem item) =>
+      'assert(${subLower(item)} != null);';
 
+  @protected
   @nonVirtual
   @visibleForTesting
-  String topMatchAsserts() => man.items.map(topMatchAssert).joinLines();
+  String topMatchAsserts() => manifest.items.map(topMatchAssert).joinLines();
 
   /// assert(orElse != null)
+  @protected
   @nonVirtual
   @visibleForTesting
   String topMatchAssertOrElse() => 'assert(orElse != null);';
 
   /// ex. throw AssertionError();
+  @protected
   @nonVirtual
   @visibleForTesting
   String throwAssertion() => 'throw AssertionError();';
 
   /// else clause with throw
+  @protected
   @nonVirtual
   @visibleForTesting
   Else throwingElse() => Else(
@@ -372,30 +239,33 @@ class SourceWriter {
       );
 
   /// ex. if (weather is WeatherSunny) { return sunny(weather); }
+  @protected
   @nonVirtual
   @visibleForTesting
   If topMatchWhenIfs(ManifestItem item) => If(
         condition: '$topLower ${isSub(item)}',
-        code: 'return ${lower(item)}($topLower);',
+        code: 'return ${subLower(item)}($topLower);',
       );
 
   /// body of when method
+  @protected
   @nonVirtual
   @visibleForTesting
   String topMatchWhenBody() => [
         initThisValue(),
         Branch(
-          ifs: man.items.map(topMatchWhenIfs).toList(),
+          ifs: manifest.items.map(topMatchWhenIfs).toList(),
           els: throwingElse(),
         ).join(),
       ].joinLines();
 
   /// start of when method
+  @protected
   @nonVirtual
   @visibleForTesting
   String topMatchWhenStart() => [
         'R when$topMatchParam',
-        man.items
+        manifest.items
             .map(topMatchGenericNNArg)
             .joinArgs()
             .withBraces()
@@ -404,66 +274,73 @@ class SourceWriter {
 
   /// R when<R extends Object?>(required item...)
   /// {...}
+  @protected
   @nonVirtual
   @visibleForTesting
   String topMatchWhen() => [
         topMatchWhenStart(),
         '{',
-        if (!opts.isNullSafe) topMatchAsserts(),
+        if (!options.isNullSafe) topMatchAsserts(),
         topMatchWhenBody(),
         '}',
       ].joinLines();
 
   /// ex. if (weather is WeatherSunny) { return sunny(weather); }
+  @protected
   @nonVirtual
   @visibleForTesting
   If topMatchWhenOrElseIfs(ManifestItem item) => If(
         condition: '$topLower ${isSub(item)}',
-        code: 'return (${lower(item)} ?? orElse)($topLower);',
+        code: 'return (${subLower(item)} ?? orElse)($topLower);',
       );
 
   /// body of when method
+  @protected
   @nonVirtual
   @visibleForTesting
   String topMatchWhenOrElseBody() => [
         initThisValue(),
         Branch(
-          ifs: man.items.map(topMatchWhenOrElseIfs).toList(),
+          ifs: manifest.items.map(topMatchWhenOrElseIfs).toList(),
           els: throwingElse(),
         ).join(),
       ].joinLines();
 
   /// start of when method
+  @protected
   @nonVirtual
   @visibleForTesting
   String topMatchWhenOrElseStart() => [
         'R whenOrElse$topMatchParam',
         [
-          ...man.items.map(topMatchGenericNArg),
+          ...manifest.items.map(topMatchGenericNArg),
           topMatchGenericNNArgOrElse(),
         ].joinArgs().withBraces().withParenthesis(),
       ].joinParts();
 
   /// R whenOrElse<R extends Object?>(item..., required orElse) {...}
+  @protected
   @nonVirtual
   @visibleForTesting
   String topMatchWhenOrElse() => [
         topMatchWhenOrElseStart(),
         '{',
-        if (!opts.isNullSafe) topMatchAssertOrElse(),
+        if (!options.isNullSafe) topMatchAssertOrElse(),
         topMatchWhenOrElseBody(),
         '}',
       ].joinLines();
 
+  @protected
   @nonVirtual
   @visibleForTesting
   Iterable<String> topMethods() => [
-        ...topBuilderMethods(),
-        ...topCastMethods(),
+        ...topBuilderWriter.topBuilderMethods(),
+        ...topCastWriter.topCastMethods(),
         ...topMatchMethods(),
-        if (opts.equality == SealedEquality.distinct) topDistinctEquality(),
+        if (options.equality == SealedEquality.distinct) topDistinctEquality(),
       ];
 
+  @protected
   @nonVirtual
   @visibleForTesting
   Iterable<String> topMatchMethods() => [
@@ -471,16 +348,18 @@ class SourceWriter {
         topMatchWhenOrElse(),
       ];
 
+  @protected
   @nonVirtual
   @visibleForTesting
   String topClassStart() => [
         topManifest(),
         [
           'abstract class $top',
-          if (opts.equality == SealedEquality.data) ' extends Equatable',
+          if (options.equality == SealedEquality.data) ' extends Equatable',
         ].joinParts()
       ].joinLines();
 
+  @protected
   @nonVirtual
   @visibleForTesting
   String topClass() => [
@@ -490,10 +369,12 @@ class SourceWriter {
         '}',
       ].joinMethods();
 
+  @protected
   @nonVirtual
   @visibleForTesting
-  Iterable<String> subClasses() => man.items.map(subClass);
+  Iterable<String> subClasses() => manifest.items.map(subClass);
 
+  @protected
   @nonVirtual
   @visibleForTesting
   Iterable<String> classes() => [

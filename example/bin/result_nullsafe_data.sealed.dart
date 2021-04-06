@@ -6,28 +6,19 @@ part of 'result_nullsafe_data.dart';
 // Generator: sealed_generators
 // **************************************************************************
 
-// **************************************************************************
-// compat params generated code:
-// language level: null-safe
-/// nullable: false
 class D extends Object {}
 
-/// nullable: false
 class E extends Base {}
-// **************************************************************************
 
-// **************************************************************************
-// backward generated code:
-// language level: null-safe
-@Sealed(equality: SealedEquality.data)
-// ignore: unused_element
-abstract class _Result$<D extends Object, E extends Base> {
-  void success(D? data);
-
-  void error(E exception);
-}
-// **************************************************************************
-
+/// Result<D extends Object, E extends Base> {
+///
+/// Success(D? data)
+///
+/// Error(E exception)
+///
+/// }
+///
+/// with data equality.
 @SealedManifest(_Result)
 abstract class Result extends Equatable {
   @factory

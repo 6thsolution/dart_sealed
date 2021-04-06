@@ -7,29 +7,17 @@ part of 'weather_legacy_identity.dart';
 // Generator: sealed_generators
 // **************************************************************************
 
-// **************************************************************************
-// compat params generated code:
-// language level: legacy
-// no params identified.
-// **************************************************************************
-
-// **************************************************************************
-// backward generated code:
-// language level: legacy
-@Sealed(equality: SealedEquality.identity)
-// ignore: unused_element
-abstract class _Weather$ {
-  void sunny();
-
-  void rainy(int /*?*/ rain);
-
-  void windy(
-    double /*?*/ velocity,
-    double /*?*/ angle,
-  );
-}
-// **************************************************************************
-
+/// Weather {
+///
+/// Sunny()
+///
+/// Rainy(int? rain)
+///
+/// Windy(double? velocity, double? angle)
+///
+/// }
+///
+/// with identity equality.
 @SealedManifest(_Weather)
 abstract class Weather {
   @factory

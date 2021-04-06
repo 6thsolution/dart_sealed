@@ -1,5 +1,7 @@
+
+
 /// utilities for string iterables
-extension StringUtilsIterable on Iterable<String> {
+extension StringIterableUtils on Iterable<String> {
   /// if more than one element add trailing ','
   String joinArgs() {
     if (isEmpty) {
@@ -22,6 +24,18 @@ extension StringUtilsIterable on Iterable<String> {
 
   /// join simply
   String joinParts() => join();
+
+  /// add '// '
+  Iterable<String> addComments() => map((str) => str.addComment());
+
+  /// add '/// '
+  Iterable<String> addDocComments() => map((str) => str.addDocComment());
+
+  /// add empty lines between
+  Iterable<String> insertEmptyLinesBetween() =>
+      expand((str) => [str, ''])._removeLast();
+
+  Iterable<String> _removeLast() => isNotEmpty ? take(length - 1) : this;
 }
 
 /// utilities for strings
@@ -37,4 +51,13 @@ extension StringUtils on String {
 
   /// add <>
   String withLtGt() => '<$this>';
+
+  /// add <> or not if empty
+  String withLtGtOrNot() => trim().isEmpty ? '' : withLtGt();
+
+  /// add '// '
+  String addComment() => '// $this';
+
+  /// add '/// '
+  String addDocComment() => '/// $this';
 }

@@ -2,9 +2,9 @@ import 'package:analyzer/dart/element/element.dart';
 import 'package:build/build.dart';
 import 'package:sealed_annotations/sealed_annotations.dart';
 import 'package:sealed_generators/src/source/reader/source_reader.dart';
-import 'package:sealed_generators/src/source/writer/backward_source_writer.dart';
-import 'package:sealed_generators/src/source/writer/param_compat_source_writer.dart';
-import 'package:sealed_generators/src/source/writer/source_writer.dart';
+import 'package:sealed_generators/src/source/writer/compat/compat_writer.dart';
+import 'package:sealed_generators/src/source/writer/doc/doc_writer.dart';
+import 'package:sealed_generators/src/source/writer/writer.dart';
 import 'package:source_gen/source_gen.dart';
 
 class SealedGenerator extends GeneratorForAnnotation<Sealed> {
@@ -18,13 +18,13 @@ class SealedGenerator extends GeneratorForAnnotation<Sealed> {
   ) {
     final reader = SourceReader();
     final source = reader.read(element, annotation);
-    final backwardWriter = BackwardSourceWriter(source);
-    final paramCompatWriter = ParamCompatSourceWriter(source);
+    final paramCompatWriter = CompatWriter(source);
+    final docWriter = DocWriter(source);
     final writer = SourceWriter(source);
 
     final s = StringBuffer();
-    s.writeln(paramCompatWriter.write(debug: true));
-    s.writeln(backwardWriter.write(debug: true));
+    s.writeln(paramCompatWriter.write());
+    s.writeln(docWriter.write());
     s.writeln(writer.write());
     return s.toString();
   }

@@ -7,22 +7,13 @@ part of 'wrapper_legacy_data.dart';
 // Generator: sealed_generators
 // **************************************************************************
 
-// **************************************************************************
-// compat params generated code:
-// language level: legacy
-// no params identified.
-// **************************************************************************
-
-// **************************************************************************
-// backward generated code:
-// language level: legacy
-@Sealed(equality: SealedEquality.data)
-// ignore: unused_element
-abstract class _Wrapper$ {
-  void wrap(dynamic data);
-}
-// **************************************************************************
-
+/// Wrapper {
+///
+/// Wrap(dynamic data)
+///
+/// }
+///
+/// with data equality.
 @SealedManifest(_Wrapper)
 abstract class Wrapper extends Equatable {
   @factory

@@ -32,6 +32,20 @@ void main() {
       expect(['a'].joinParts(), equals('a'));
       expect(['a', 'b'].joinParts(), equals('ab'));
     });
+
+    test('method addComments', () {
+      expect(['a'].addComments(), equals(['// a']));
+    });
+
+    test('method addDocComments', () {
+      expect(['a'].addDocComments(), equals(['/// a']));
+    });
+
+    test('method insertEmptyLinesBetween', () {
+      expect(<String>[].insertEmptyLinesBetween(), equals([]));
+      expect(['a'].insertEmptyLinesBetween(), equals(['a']));
+      expect(['a', 'b'].insertEmptyLinesBetween(), equals(['a', '', 'b']));
+    });
   });
 
   group('extension StringUtils', () {
@@ -51,6 +65,20 @@ void main() {
 
     test('method withLtGt', () {
       expect('abc'.withLtGt(), equals('<abc>'));
+    });
+
+    test('method withLtGtOrNot', () {
+      expect('abc'.withLtGtOrNot(), equals('<abc>'));
+      expect(''.withLtGtOrNot(), equals(''));
+      expect(' '.withLtGtOrNot(), equals(''));
+    });
+
+    test('method addComment', () {
+      expect('a'.addComment(), equals('// a'));
+    });
+
+    test('method addDocComment', () {
+      expect('a'.addDocComment(), equals('/// a'));
     });
   });
 }

@@ -7,46 +7,27 @@ part of 'result_complex_legacy_data.dart';
 // Generator: sealed_generators
 // **************************************************************************
 
-// **************************************************************************
-// compat params generated code:
-// language level: legacy
-/// nullable: true
 class D extends Object {}
 
-/// nullable: true
 class E extends Base {}
-// **************************************************************************
 
-// **************************************************************************
-// backward generated code:
-// language level: legacy
-@Sealed(equality: SealedEquality.data)
-// ignore: unused_element
-abstract class _Result$<D extends Object /*?*/, E extends Base /*?*/ > {
-  void success(D /*?*/ data);
-
-  void error(E /*?*/ exception);
-
-  void dummy(D /*?*/ data);
-
-  void partialSuccess(
-    D /*?*/ data,
-    E /*?*/ exception,
-  );
-
-  void partialError(
-    E /*?*/ e,
-    int /*?*/ code,
-  );
-
-  void doubleSuccess(
-    D /*?*/ data1,
-    D /*?*/ data2,
-    int /*?*/ code,
-  );
-}
-// **************************************************************************
-
+/// Result<D extends Object?, E extends Base?> {
+///
+/// Success(D? data)
+///
+/// Error(E? exception)
+///
+/// Dummy(D? data)
+///
+/// PartialSuccess(D? data, E? exception)
+///
+/// PartialError(E? e, int? code)
+///
+/// DoubleSuccess(D? data1, D? data2, int? code)
+///
+/// }
+///
+/// with data equality.
 @SealedManifest(_Result)
 abstract class Result extends Equatable {
   @factory
