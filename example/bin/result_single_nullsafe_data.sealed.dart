@@ -85,9 +85,6 @@ class ResultSuccess extends Result {
 
   final D? data;
 
-  @factory
-  ResultSuccess copy({D? data}) => ResultSuccess(data: data ?? this.data);
-
   @override
   String toString() => 'Result.success(data: $data)';
 

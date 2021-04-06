@@ -11,6 +11,13 @@ import 'package:sealed_generators/src/utils/string_utils.dart';
 class SubWriter extends BaseUtilsWriter {
   const SubWriter(Source source) : super(source);
 
+  /// has nullable fields
+  @protected
+  @nonVirtual
+  @visibleForTesting
+  bool hasNullable(ManifestItem item) =>
+      item.fields.map((field) => field.type).any((type) => type.isNullable);
+
   /// ex. final double direction;
   @protected
   @nonVirtual
@@ -118,10 +125,11 @@ class SubWriter extends BaseUtilsWriter {
   @nonVirtual
   @visibleForTesting
   String subClass(ManifestItem item) => [
-        'class ${subFull(item)} extends $top{',
+        'class ${subFull(item)} extends $top',
+        '{',
         subConstructorDeclaration(item),
         subFieldDeclarations(item),
-        subCopyDeclaration(item),
+        if (!hasNullable(item)) subCopyDeclaration(item),
         subToString(item),
         if (options.equality == SealedEquality.data) subEquatableEquality(item),
         '}',

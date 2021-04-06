@@ -122,10 +122,6 @@ class WeatherRainy extends Weather {
 
   final int /*?*/ rain;
 
-  @factory
-  WeatherRainy /*!*/ copy({int /*?*/ rain}) =>
-      WeatherRainy(rain: rain ?? this.rain);
-
   @override
   String /*!*/ toString() => 'Weather.rainy(rain: $rain)';
 
@@ -141,16 +137,6 @@ class WeatherWindy extends Weather {
 
   final double /*?*/ velocity;
   final double /*?*/ angle;
-
-  @factory
-  WeatherWindy /*!*/ copy({
-    double /*?*/ velocity,
-    double /*?*/ angle,
-  }) =>
-      WeatherWindy(
-        velocity: velocity ?? this.velocity,
-        angle: angle ?? this.angle,
-      );
 
   @override
   String /*!*/ toString() =>

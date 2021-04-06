@@ -33,6 +33,13 @@ void main() {
 
         expect(writer.write(), code1Distinct);
       });
+
+      test('data equality generic', () {
+        final source = source2DataSafe;
+        final writer = BackwardWriter(source);
+
+        expect(writer.write(), code2Data);
+      });
     });
   });
 }

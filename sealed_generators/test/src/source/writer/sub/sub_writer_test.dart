@@ -14,6 +14,22 @@ void main() {
       expect(writer.source, source);
     });
 
+    test('method hasNullable', () {
+      final source = source1DataSafe;
+      // void sunny();
+      final manifest = source.manifest;
+      final item1 = manifest.items[0];
+      // void rainy(int rain);
+      final item2 = manifest.items[1];
+      // void windy(double velocity, double? angle);
+      final item3 = manifest.items[2];
+      final writer = SubWriter(source);
+
+      expect(writer.hasNullable(item1), false);
+      expect(writer.hasNullable(item2), false);
+      expect(writer.hasNullable(item3), true);
+    });
+
     group('method subFieldDeclaration', () {
       group('null-safe', () {
         final source = source1DataSafe;
@@ -339,9 +355,10 @@ void main() {
         expect(
           writer.subClass(item2).tr(),
           allOf(
-            startsWith('class WeatherRainy extends Weather{'),
+            startsWith('class WeatherRainy extends Weather'),
             endsWith('}'),
-            stringContains([
+            stringContainsInOrder([
+              '{',
               'WeatherRainy({required this.rain});',
               'final int rain;',
               'WeatherRainy copy(',
@@ -349,6 +366,20 @@ void main() {
               'get props'
             ]),
           ),
+        );
+      });
+
+      test('equality data with nullable', () {
+        final options = optionsDataSafe;
+        final manifest = manifest1;
+        final source = Source(options: options, manifest: manifest);
+        // void windy(double velocity, double? angle);
+        final item3 = source.manifest.items[2];
+        final writer = SubWriter(source);
+
+        expect(
+          writer.subClass(item3).tr(),
+          isNot(stringContainsInOrder(['copy('])),
         );
       });
 

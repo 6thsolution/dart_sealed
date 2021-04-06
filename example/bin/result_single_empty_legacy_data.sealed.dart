@@ -105,10 +105,6 @@ class ResultSuccess extends Result {
 
   final D /*?*/ data;
 
-  @factory
-  ResultSuccess /*!*/ copy({D /*?*/ data}) =>
-      ResultSuccess(data: data ?? this.data);
-
   @override
   String /*!*/ toString() => 'Result.success(data: $data)';
 
@@ -133,10 +129,6 @@ class ResultError extends Result {
   ResultError({@required this.code});
 
   final int /*?*/ code;
-
-  @factory
-  ResultError /*!*/ copy({int /*?*/ code}) =>
-      ResultError(code: code ?? this.code);
 
   @override
   String /*!*/ toString() => 'Result.error(code: $code)';

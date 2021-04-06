@@ -33,10 +33,6 @@ void main() {
 
   final a1 = a.copy();
   final b1 = b.copy(rain: 1);
-  final c1 = c.copy(velocity: 18.6);
-  final c2 = c.copy(angle: 55.3);
   print(a1);
   print(b1);
-  print(c1);
-  print(c2);
 }

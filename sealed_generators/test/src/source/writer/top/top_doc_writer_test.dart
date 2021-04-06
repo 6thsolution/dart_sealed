@@ -33,6 +33,13 @@ void main() {
 
         expect(writer.write(), doc1Distinct);
       });
+
+      test('data equality generic', () {
+        final source = source2DataSafe;
+        final writer = TopDocWriter(source);
+
+        expect(writer.write(), doc2Data);
+      });
     });
   });
 }

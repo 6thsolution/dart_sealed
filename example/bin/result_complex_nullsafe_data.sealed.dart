@@ -215,9 +215,6 @@ class ResultDummy extends Result {
 
   final D? data;
 
-  @factory
-  ResultDummy copy({D? data}) => ResultDummy(data: data ?? this.data);
-
   @override
   String toString() => 'Result.dummy(data: $data)';
 
@@ -233,16 +230,6 @@ class ResultPartialSuccess extends Result {
 
   final D data;
   final E? exception;
-
-  @factory
-  ResultPartialSuccess copy({
-    D? data,
-    E? exception,
-  }) =>
-      ResultPartialSuccess(
-        data: data ?? this.data,
-        exception: exception ?? this.exception,
-      );
 
   @override
   String toString() =>
@@ -263,16 +250,6 @@ class ResultPartialError extends Result {
 
   final E? e;
   final int code;
-
-  @factory
-  ResultPartialError copy({
-    E? e,
-    int? code,
-  }) =>
-      ResultPartialError(
-        e: e ?? this.e,
-        code: code ?? this.code,
-      );
 
   @override
   String toString() => 'Result.partialError(e: $e, code: $code)';

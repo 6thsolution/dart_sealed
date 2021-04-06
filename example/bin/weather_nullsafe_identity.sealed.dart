@@ -129,16 +129,6 @@ class WeatherWindy extends Weather {
   final double velocity;
   final double? angle;
 
-  @factory
-  WeatherWindy copy({
-    double? velocity,
-    double? angle,
-  }) =>
-      WeatherWindy(
-        velocity: velocity ?? this.velocity,
-        angle: angle ?? this.angle,
-      );
-
   @override
   String toString() => 'Weather.windy(velocity: $velocity, angle: $angle)';
 }
