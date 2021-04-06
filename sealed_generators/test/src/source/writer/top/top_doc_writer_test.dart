@@ -1,7 +1,7 @@
-import 'package:sealed_generators/src/source/writer/top_doc_writer.dart';
+import 'package:sealed_generators/src/source/writer/top/top_doc_writer.dart';
 import 'package:test/test.dart';
 
-import '../../../utils/examples.dart';
+import '../../../../utils/examples.dart';
 
 void main() {
   group('class DocWriter', () {

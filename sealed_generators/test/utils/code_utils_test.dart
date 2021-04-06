@@ -1,6 +1,6 @@
 import 'package:test/test.dart';
 
-import '../../utils/code_utils.dart';
+import 'code_utils.dart';
 
 void main() {
   group('extension CodeUtils', () {

@@ -1,8 +1,8 @@
-import 'package:sealed_generators/src/source/writer/top_match_writer.dart';
+import 'package:sealed_generators/src/source/writer/top/top_match_writer.dart';
 import 'package:test/test.dart';
 
-import '../../../utils/code_utils.dart';
-import '../../../utils/examples.dart';
+import '../../../../utils/code_utils.dart';
+import '../../../../utils/examples.dart';
 
 void main() {
   group('class TopMatchWriter', () {

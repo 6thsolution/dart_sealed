@@ -1,8 +1,8 @@
 import 'package:sealed_generators/src/source/source.dart';
-import 'package:sealed_generators/src/source/writer/base_utils_writer.dart';
+import 'package:sealed_generators/src/source/writer/base/base_utils_writer.dart';
 import 'package:test/test.dart';
 
-import '../../../utils/examples.dart';
+import '../../../../utils/examples.dart';
 
 class _Writer extends BaseUtilsWriter {
   const _Writer(Source source) : super(source);
