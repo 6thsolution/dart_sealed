@@ -13,6 +13,7 @@ import 'package:sealed_generators/src/utils/string_utils.dart';
 class TopDocWriter extends BaseWriter {
   const TopDocWriter(Source source) : super(source);
 
+  @nonVirtual
   String write() => [
         '${_topDoc()} {',
         ...source.manifest.items.map(_itemDoc),

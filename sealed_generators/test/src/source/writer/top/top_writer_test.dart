@@ -1,7 +1,6 @@
 import 'package:sealed_generators/src/source/writer/top/top_writer.dart';
 import 'package:test/test.dart';
 
-import '../../../../utils/code_utils.dart';
 import '../../../../utils/examples.dart';
 
 void main() {
@@ -29,8 +28,8 @@ void main() {
         final writer = TopWriter(source);
 
         expect(
-          writer.topDistinctEquality().tr(),
-          '@override'
+          writer.topDistinctEquality(),
+          '@override\n'
           'bool operator ==(Object other) => false;',
         );
       });
@@ -40,9 +39,9 @@ void main() {
         final writer = TopWriter(source);
 
         expect(
-          writer.topDistinctEquality().tr(),
-          '@override'
-          'bool/*!*/ operator ==(Object/*?*/ other) => false;',
+          writer.topDistinctEquality(),
+          '@override\n'
+          'bool/*!*/ operator ==(Object other) => false;',
         );
       });
     });

@@ -17,11 +17,21 @@ class SubCopyWriter extends BaseUtilsWriter {
   String subCopyDeclarationPart(ManifestField field) =>
       '${field.type.name}$n ${field.name}';
 
+  @nonVirtual
+  @visibleForTesting
+  Iterable<String> subCopyDeclarationParts(ManifestItem item) =>
+      item.fields.map(subCopyDeclarationPart);
+
   /// ex. rain: rain ?? this.rain
   @nonVirtual
   @visibleForTesting
   String subCopyCalcPart(ManifestField field) =>
       '${field.name}: ${field.name} ?? this.${field.name}';
+
+  @nonVirtual
+  @visibleForTesting
+  Iterable<String> subCopyCalcParts(ManifestItem item) =>
+      item.fields.map(subCopyCalcPart);
 
   /// ex. WeatherRainy copy({int? rain})
   /// => WeatherRainy(rain: rain ?? this.rain);
@@ -30,13 +40,12 @@ class SubCopyWriter extends BaseUtilsWriter {
         annotationFactory,
         [
           '${subFull(item)}$nn copy',
-          item.fields
-              .map(subCopyDeclarationPart)
+          subCopyDeclarationParts(item)
               .joinArgs()
               .withBracesOrNot()
               .withParenthesis(),
           ' => ${subFull(item)}',
-          item.fields.map(subCopyCalcPart).joinArgs().withParenthesis(),
+          subCopyCalcParts(item).joinArgs().withParenthesis(),
           ';',
         ].joinParts(),
       ].joinLines();

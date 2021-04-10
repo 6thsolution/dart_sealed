@@ -104,7 +104,7 @@ abstract class Weather {
   }
 
   @override
-  bool /*!*/ operator ==(Object /*?*/ other) => false;
+  bool /*!*/ operator ==(Object other) => false;
 }
 
 class WeatherSunny extends Weather {

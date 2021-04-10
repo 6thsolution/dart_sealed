@@ -51,6 +51,18 @@ void main() {
       });
     });
 
+    test('method subCopyDeclarationParts', () {
+      final source = source1DataSafe;
+      // void windy(double velocity, double? angle);
+      final item3 = source.manifest.items[2];
+      final writer = SubCopyWriter(source);
+
+      expect(
+        writer.subCopyDeclarationParts(item3),
+        item3.fields.map(writer.subCopyDeclarationPart),
+      );
+    });
+
     test('method subCopyCalcPart', () {
       final source = source1DataSafe;
       // void windy(double velocity, double? angle);
@@ -66,6 +78,18 @@ void main() {
       expect(
         writer.subCopyCalcPart(field2),
         'angle: angle ?? this.angle',
+      );
+    });
+
+    test('method subCopyCalcParts', () {
+      final source = source1DataSafe;
+      // void windy(double velocity, double? angle);
+      final item3 = source.manifest.items[2];
+      final writer = SubCopyWriter(source);
+
+      expect(
+        writer.subCopyCalcParts(item3),
+        item3.fields.map(writer.subCopyCalcPart),
       );
     });
 

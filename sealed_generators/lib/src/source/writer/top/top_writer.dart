@@ -47,7 +47,7 @@ class TopWriter extends BaseUtilsWriter {
   @visibleForTesting
   String topDistinctEquality() => [
         annotationOverride,
-        'bool$nn operator ==(Object$nl other) => false;',
+        'bool$nn operator ==(Object other) => false;',
       ].joinLines();
 
   @nonVirtual
