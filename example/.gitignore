@@ -9,3 +9,5 @@ build/
 doc/api/
 
 .idea/
+
+coverage/
