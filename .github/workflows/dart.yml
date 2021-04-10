@@ -1,0 +1,54 @@
+name: Dart
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: dart-lang/setup-dart@stable
+      - name: sealed_annotations init
+        working-directory: ./sealed_annotations
+        run: dart pub get
+      - name: sealed_annotations format
+        working-directory: ./sealed_annotations
+        run: dart format --output=none --set-exit-if-changed ./example ./lib ./test
+      - name: sealed_annotations analyze
+        working-directory: ./sealed_annotations
+        run: dart analyze
+      - name: sealed_annotations test
+        working-directory: ./sealed_annotations
+        run: dart test
+      - name: sealed_annotations run example
+        working-directory: ./sealed_annotations/example
+        run: dart run sealed_generators_example.dart
+      - name: sealed_generators init
+        working-directory: ./sealed_generators
+        run: dart pub get
+      - name: sealed_generators format
+        working-directory: ./sealed_generators
+        run: dart format --output=none --set-exit-if-changed ./example ./lib ./test
+      - name: sealed_generators analyze
+        working-directory: ./sealed_generators
+        run: dart analyze
+      - name: sealed_generators test
+        working-directory: ./sealed_generators
+        run: dart test
+      - name: sealed_generators run example
+        working-directory: ./sealed_generators/example
+        run: dart run sealed_generators_example.dart
+      - name: example init
+        working-directory: ./example
+        run: dart pub get
+      - name: example build
+        working-directory: ./example
+        run: dart run build_runner build
+      - name: example run
+        working-directory: ./example
+        run: dart run
