@@ -10,10 +10,6 @@ void main() {
       expect(a.name, 'double');
       expect(a.isNullable, true);
 
-      final b = ManifestType(name: '_Object', isNullable: false);
-      expect(b.name, '_Object');
-      expect(b.isNullable, false);
-
       expect(
         () => ManifestType(name: 'double?', isNullable: true),
         throwsAssertion(),
@@ -48,11 +44,11 @@ void main() {
       expect(b.type, type);
 
       expect(
-            () => ManifestField(name: '_angle', type: type),
+        () => ManifestField(name: '_angle', type: type),
         throwsAssertion(),
       );
       expect(
-            () => ManifestField(name: 'Angle', type: type),
+        () => ManifestField(name: 'Angle', type: type),
         throwsAssertion(),
       );
     });
@@ -71,15 +67,15 @@ void main() {
       expect(item2.fields, contains(field1));
 
       expect(
-            () => ManifestItem(name: 'windy', fields: []),
+        () => ManifestItem(name: 'windy', fields: []),
         throwsAssertion(),
       );
       expect(
-            () => ManifestItem(name: 'Windy?', fields: [field1]),
+        () => ManifestItem(name: 'Windy?', fields: [field1]),
         throwsAssertion(),
       );
       expect(
-            () => ManifestItem(name: '_Windy', fields: [field1]),
+        () => ManifestItem(name: '_Windy', fields: [field1]),
         throwsAssertion(),
       );
     });
@@ -115,7 +111,7 @@ void main() {
         throwsAssertion(),
       );
       expect(
-            () => Manifest(name: '_Weather', items: []),
+        () => Manifest(name: '_Weather', items: []),
         throwsAssertion(),
       );
     });

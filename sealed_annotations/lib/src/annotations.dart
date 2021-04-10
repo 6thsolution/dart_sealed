@@ -82,7 +82,7 @@ class SealedManifest {
 /// see: [SealedType], [Sealed]
 @sealed
 @Target({TargetKind.method})
-class SealedTypeOverride {
+class SealedOverride {
   /// map all dynamic types
   final SealedType? type;
 
@@ -90,14 +90,14 @@ class SealedTypeOverride {
   final Map<String, SealedType>? map;
 
   @literal
-  const SealedTypeOverride.named(Map<String, SealedType> map)
+  const SealedOverride.named(Map<String, SealedType> map)
       // ignore: unnecessary_null_comparison
       : assert(map != null),
         map = map,
         type = null;
 
   @literal
-  const SealedTypeOverride.allDynamic(SealedType type)
+  const SealedOverride.allDynamic(SealedType type)
       // ignore: unnecessary_null_comparison
       : assert(type != null),
         map = null,
@@ -111,7 +111,7 @@ class SealedTypeOverride {
 ///
 /// example: `SealedType.nonNull('Result<String, Exception)')`
 ///
-/// see: [SealedTypeOverride], [Sealed]
+/// see: [SealedOverride], [Sealed]
 @sealed
 class SealedType {
   /// type name without any nullability suffix.

@@ -8,7 +8,7 @@ part of 'mixed.dart';
 
 /// Apple {
 ///
-/// Hold(dynamic banana)
+/// Hold(Banana banana)
 ///
 /// }
 ///
@@ -16,7 +16,7 @@ part of 'mixed.dart';
 @SealedManifest(_Apple)
 abstract class Apple extends Equatable {
   @factory
-  static AppleHold hold({required dynamic banana}) => AppleHold(banana: banana);
+  static AppleHold hold({required Banana banana}) => AppleHold(banana: banana);
 
   bool isHold() => this is AppleHold;
 
@@ -52,10 +52,10 @@ abstract class Apple extends Equatable {
 class AppleHold extends Apple {
   AppleHold({required this.banana});
 
-  final dynamic banana;
+  final Banana banana;
 
   @factory
-  AppleHold copy({dynamic? banana}) => AppleHold(banana: banana ?? this.banana);
+  AppleHold copy({Banana? banana}) => AppleHold(banana: banana ?? this.banana);
 
   @override
   String toString() => 'Apple.hold(banana: $banana)';
@@ -66,7 +66,7 @@ class AppleHold extends Apple {
 
 /// Banana {
 ///
-/// Hold(dynamic apple)
+/// Hold(Apple? apple)
 ///
 /// }
 ///
@@ -74,7 +74,7 @@ class AppleHold extends Apple {
 @SealedManifest(_Banana)
 abstract class Banana extends Equatable {
   @factory
-  static BananaHold hold({required dynamic apple}) => BananaHold(apple: apple);
+  static BananaHold hold({required Apple? apple}) => BananaHold(apple: apple);
 
   bool isHold() => this is BananaHold;
 
@@ -110,10 +110,7 @@ abstract class Banana extends Equatable {
 class BananaHold extends Banana {
   BananaHold({required this.apple});
 
-  final dynamic apple;
-
-  @factory
-  BananaHold copy({dynamic? apple}) => BananaHold(apple: apple ?? this.apple);
+  final Apple? apple;
 
   @override
   String toString() => 'Banana.hold(apple: $apple)';
@@ -124,11 +121,11 @@ class BananaHold extends Banana {
 
 /// Coconut {
 ///
-/// Test1(dynamic x, double y)
+/// Test1(int? x, double y)
 ///
-/// Test2(double x, double y)
+/// Test2(int x, double y)
 ///
-/// Hold(dynamic apple, dynamic banana, int count)
+/// Hold(Apple? apple, Banana? banana, int count)
 ///
 /// }
 ///
@@ -137,7 +134,7 @@ class BananaHold extends Banana {
 abstract class Coconut extends Equatable {
   @factory
   static CoconutTest1 test1({
-    required dynamic x,
+    required int? x,
     required double y,
   }) =>
       CoconutTest1(
@@ -147,7 +144,7 @@ abstract class Coconut extends Equatable {
 
   @factory
   static CoconutTest2 test2({
-    required double x,
+    required int x,
     required double y,
   }) =>
       CoconutTest2(
@@ -157,8 +154,8 @@ abstract class Coconut extends Equatable {
 
   @factory
   static CoconutHold hold({
-    required dynamic apple,
-    required dynamic banana,
+    required Apple? apple,
+    required Banana? banana,
     required int count,
   }) =>
       CoconutHold(
@@ -236,18 +233,8 @@ class CoconutTest1 extends Coconut {
     required this.y,
   });
 
-  final dynamic x;
+  final int? x;
   final double y;
-
-  @factory
-  CoconutTest1 copy({
-    dynamic? x,
-    double? y,
-  }) =>
-      CoconutTest1(
-        x: x ?? this.x,
-        y: y ?? this.y,
-      );
 
   @override
   String toString() => 'Coconut.test1(x: $x, y: $y)';
@@ -265,12 +252,12 @@ class CoconutTest2 extends Coconut {
     required this.y,
   });
 
-  final double x;
+  final int x;
   final double y;
 
   @factory
   CoconutTest2 copy({
-    double? x,
+    int? x,
     double? y,
   }) =>
       CoconutTest2(
@@ -295,21 +282,9 @@ class CoconutHold extends Coconut {
     required this.count,
   });
 
-  final dynamic apple;
-  final dynamic banana;
+  final Apple? apple;
+  final Banana? banana;
   final int count;
-
-  @factory
-  CoconutHold copy({
-    dynamic? apple,
-    dynamic? banana,
-    int? count,
-  }) =>
-      CoconutHold(
-        apple: apple ?? this.apple,
-        banana: banana ?? this.banana,
-        count: count ?? this.count,
-      );
 
   @override
   String toString() =>

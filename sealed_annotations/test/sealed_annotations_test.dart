@@ -35,11 +35,11 @@ void main() {
   group('annotation @SealedTypeOverride', () {
     test('initialization', () {
       const t = SealedType.nonNull('type');
-      const a = SealedTypeOverride.named({'name': t});
+      const a = SealedOverride.named({'name': t});
       expect(a.map, equals({'name': t}));
       expect(a.type, isNull);
 
-      const b = SealedTypeOverride.allDynamic(t);
+      const b = SealedOverride.allDynamic(t);
       expect(b.map, isNull);
       expect(b.type, equals(t));
     });
