@@ -1,4 +1,4 @@
-import 'weather_nullsafe_data.dart';
+import 'sealed/nullsafe/data/simple/weather.dart';
 
 void main() {
   print('Hello, world!');
