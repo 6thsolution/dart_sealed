@@ -6,6 +6,8 @@ import 'package:sealed_generators/src/source/writer/base/base_writer.dart';
 import 'package:sealed_generators/src/utils/string_utils.dart';
 
 /// write docs for base class
+///
+/// todo test methods
 @sealed
 @immutable
 class TopDocWriter extends BaseWriter {

@@ -3,13 +3,20 @@ import 'package:sealed_annotations/sealed_annotations.dart';
 import 'package:sealed_generators/src/manifest/manifest.dart';
 import 'package:sealed_generators/src/source/source.dart';
 import 'package:sealed_generators/src/source/writer/base/base_utils_writer.dart';
+import 'package:sealed_generators/src/source/writer/sub/sub_copy_writer.dart';
 import 'package:sealed_generators/src/utils/string_utils.dart';
 
 /// source writer
 @sealed
 @immutable
 class SubWriter extends BaseUtilsWriter {
-  const SubWriter(Source source) : super(source);
+  SubWriter(Source source)
+      : subCopyWriter = SubCopyWriter(source),
+        super(source);
+
+  @nonVirtual
+  @visibleForTesting
+  final SubCopyWriter subCopyWriter;
 
   /// has nullable fields
   @protected
@@ -86,40 +93,6 @@ class SubWriter extends BaseUtilsWriter {
         ].joinParts(),
       ].joinLines();
 
-  /// ex. int? rain
-  @protected
-  @nonVirtual
-  @visibleForTesting
-  String subCopyDeclarationPart(ManifestField field) =>
-      '${field.type.name}$n ${field.name}';
-
-  /// ex. rain: rain ?? this.rain
-  @protected
-  @nonVirtual
-  @visibleForTesting
-  String subCopyCalcPart(ManifestField field) =>
-      '${field.name}: ${field.name} ?? this.${field.name}';
-
-  /// ex. WeatherRainy copy({int? rain})
-  /// => WeatherRainy(rain: rain ?? this.rain);
-  @protected
-  @nonVirtual
-  @visibleForTesting
-  String subCopyDeclaration(ManifestItem item) => [
-        annotationFactory,
-        [
-          '${subFull(item)}$nn copy',
-          item.fields
-              .map(subCopyDeclarationPart)
-              .joinArgs()
-              .withBracesOrNot()
-              .withParenthesis(),
-          ' => ${subFull(item)}',
-          item.fields.map(subCopyCalcPart).joinArgs().withParenthesis(),
-          ';',
-        ].joinParts(),
-      ].joinLines();
-
   /// write subclass
   @protected
   @nonVirtual
@@ -129,7 +102,7 @@ class SubWriter extends BaseUtilsWriter {
         '{',
         subConstructorDeclaration(item),
         subFieldDeclarations(item),
-        if (!hasNullable(item)) subCopyDeclaration(item),
+        if (!hasNullable(item)) subCopyWriter.subCopyDeclaration(item),
         subToString(item),
         if (options.equality == SealedEquality.data) subEquatableEquality(item),
         '}',

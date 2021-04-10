@@ -12,6 +12,10 @@
       <excludeFolder url="file://$MODULE_DIR$/example/build" />
       <excludeFolder url="file://$MODULE_DIR$/example/.pub" />
       <excludeFolder url="file://$MODULE_DIR$/example/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/libraries" />
+      <excludeFolder url="file://$MODULE_DIR$/example/.idea/libraries" />
+      <excludeFolder url="file://$MODULE_DIR$/sealed_annotations/.idea/libraries" />
+      <excludeFolder url="file://$MODULE_DIR$/sealed_generators/.idea/libraries" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

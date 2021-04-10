@@ -35,6 +35,6 @@ void main() {
         writer.classes().joinMethods(),
       );
     });
-    // end of source writer test group
+    // end of group SourceWriter
   });
 }
