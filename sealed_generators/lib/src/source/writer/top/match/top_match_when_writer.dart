@@ -15,10 +15,14 @@ class TopMatchWhenWriter extends TopMatchBaseWriter {
   /// ex. if (weather is WeatherSunny) { return sunny(weather); }
   @nonVirtual
   @visibleForTesting
-  If topMatchWhenIfs(ManifestItem item) => If(
+  If topMatchWhenIf(ManifestItem item) => If(
         condition: '$topLower ${isSub(item)}',
         code: 'return ${subLower(item)}($topLower);',
       );
+
+  @nonVirtual
+  @visibleForTesting
+  List<If> topMatchWhenIfs() => manifest.items.map(topMatchWhenIf).toList();
 
   /// body of when method
   @nonVirtual
@@ -26,21 +30,22 @@ class TopMatchWhenWriter extends TopMatchBaseWriter {
   String topMatchWhenBody() => [
         initThisValue(),
         Branch(
-          ifs: manifest.items.map(topMatchWhenIfs).toList(),
+          ifs: topMatchWhenIfs(),
           els: throwingElse(),
         ).join(),
       ].joinLines();
+
+  @nonVirtual
+  @visibleForTesting
+  Iterable<String> topMatchWhenArgs() =>
+      manifest.items.map(topMatchGenericNNArg);
 
   /// start of when method
   @nonVirtual
   @visibleForTesting
   String topMatchWhenStart() => [
         'R when$topMatchParam',
-        manifest.items
-            .map(topMatchGenericNNArg)
-            .joinArgs()
-            .withBraces()
-            .withParenthesis(),
+        topMatchWhenArgs().joinArgs().withBraces().withParenthesis(),
       ].joinParts();
 
   /// R when<R extends Object?>(required item...)

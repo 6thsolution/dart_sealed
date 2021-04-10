@@ -42,7 +42,7 @@ class Branch {
 @immutable
 @sealed
 class If {
-  If({
+  const If({
     required this.condition,
     required this.code,
   });
@@ -57,7 +57,7 @@ class If {
 @immutable
 @sealed
 class Else {
-  Else({
+  const Else({
     required this.code,
   });
 

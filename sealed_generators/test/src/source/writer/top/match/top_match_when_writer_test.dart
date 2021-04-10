@@ -12,16 +12,42 @@ void main() {
       expect(writer.source, source);
     });
 
-    test('method topMatchWhenIfs', () {
+    test('method topMatchWhenIf', () {
       final source = source1DataSafe;
       final manifest = source.manifest;
       // sunny
       final item1 = manifest.items[0];
       final writer = TopMatchWhenWriter(source);
-      final i = writer.topMatchWhenIfs(item1);
+      final i = writer.topMatchWhenIf(item1);
 
       expect(i.condition, 'weather is WeatherSunny');
       expect(i.code, 'return sunny(weather);');
+    });
+
+    test('method topMatchWhenArgs', () {
+      final source = source1DataSafe;
+      final manifest = source.manifest;
+      final items = manifest.items;
+      final writer = TopMatchWhenWriter(source);
+
+      expect(
+        writer.topMatchWhenArgs(),
+        items.map(writer.topMatchGenericNNArg),
+      );
+    });
+
+    test('method topMatchWhenIfs', () {
+      final source = source1DataSafe;
+      final manifest = source.manifest;
+      final items = manifest.items;
+      final writer = TopMatchWhenWriter(source);
+      final ifs = writer.topMatchWhenIfs();
+      final a = ifs[0];
+      final b = writer.topMatchWhenIf(items[0]);
+
+      expect(ifs, hasLength(equals(items.length)));
+      expect(a.code, b.code);
+      expect(a.condition, b.condition);
     });
 
     test('method topMatchWhenBody', () {

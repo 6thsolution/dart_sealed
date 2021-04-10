@@ -15,10 +15,15 @@ class TopMatchWhenOrElseWriter extends TopMatchBaseWriter {
   /// ex. if (weather is WeatherSunny) { return sunny(weather); }
   @nonVirtual
   @visibleForTesting
-  If topMatchWhenOrElseIfs(ManifestItem item) => If(
+  If topMatchWhenOrElseIf(ManifestItem item) => If(
         condition: '$topLower ${isSub(item)}',
         code: 'return (${subLower(item)} ?? orElse)($topLower);',
       );
+
+  @nonVirtual
+  @visibleForTesting
+  List<If> topMatchWhenOrElseIfs() =>
+      manifest.items.map(topMatchWhenOrElseIf).toList();
 
   /// body of when method
   @nonVirtual
@@ -26,20 +31,29 @@ class TopMatchWhenOrElseWriter extends TopMatchBaseWriter {
   String topMatchWhenOrElseBody() => [
         initThisValue(),
         Branch(
-          ifs: manifest.items.map(topMatchWhenOrElseIfs).toList(),
+          ifs: topMatchWhenOrElseIfs(),
           els: throwingElse(),
         ).join(),
       ].joinLines();
+
+  @nonVirtual
+  @visibleForTesting
+  Iterable<String> topMatchWhenOrElseItemArgs() =>
+      manifest.items.map(topMatchGenericNArg);
+
+  @nonVirtual
+  @visibleForTesting
+  List<String> topMatchWhenOrElseArgs() => [
+        ...topMatchWhenOrElseItemArgs(),
+        topMatchGenericNNArgOrElse(),
+      ];
 
   /// start of when method
   @nonVirtual
   @visibleForTesting
   String topMatchWhenOrElseStart() => [
         'R whenOrElse$topMatchParam',
-        [
-          ...manifest.items.map(topMatchGenericNArg),
-          topMatchGenericNNArgOrElse(),
-        ].joinArgs().withBraces().withParenthesis(),
+        topMatchWhenOrElseArgs().joinArgs().withBraces().withParenthesis(),
       ].joinParts();
 
   /// R whenOrElse<R extends Object?>(item..., required orElse) {...}

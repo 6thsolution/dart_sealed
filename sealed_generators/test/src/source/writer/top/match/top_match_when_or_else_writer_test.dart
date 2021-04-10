@@ -12,16 +12,55 @@ void main() {
       expect(writer.source, source);
     });
 
-    test('method topMatchWhenOrElseIfs', () {
+    test('method topMatchWhenOrElseIf', () {
       final source = source1DataSafe;
       final manifest = source.manifest;
       // sunny
       final item1 = manifest.items[0];
       final writer = TopMatchWhenOrElseWriter(source);
-      final i = writer.topMatchWhenOrElseIfs(item1);
+      final i = writer.topMatchWhenOrElseIf(item1);
 
       expect(i.condition, 'weather is WeatherSunny');
       expect(i.code, 'return (sunny ?? orElse)(weather);');
+    });
+
+    test('method topMatchWhenOrElseItemArgs', () {
+      final source = source1DataSafe;
+      final manifest = source.manifest;
+      final items = manifest.items;
+      final writer = TopMatchWhenOrElseWriter(source);
+
+      expect(
+        writer.topMatchWhenOrElseItemArgs(),
+        items.map(writer.topMatchGenericNArg),
+      );
+    });
+
+    test('method topMatchWhenOrElseArgs', () {
+      final source = source1DataSafe;
+      final writer = TopMatchWhenOrElseWriter(source);
+
+      expect(
+        writer.topMatchWhenOrElseArgs(),
+        allOf(
+          containsAll(writer.topMatchWhenOrElseItemArgs()),
+          contains(writer.topMatchGenericNNArgOrElse()),
+        ),
+      );
+    });
+
+    test('method topMatchWhenOrElseIfs', () {
+      final source = source1DataSafe;
+      final manifest = source.manifest;
+      final items = manifest.items;
+      final writer = TopMatchWhenOrElseWriter(source);
+      final ifs = writer.topMatchWhenOrElseIfs();
+      final a = ifs[0];
+      final b = writer.topMatchWhenOrElseIf(items[0]);
+
+      expect(ifs, hasLength(equals(items.length)));
+      expect(a.code, b.code);
+      expect(a.condition, b.condition);
     });
 
     test('method topMatchWhenOrElseBody', () {
