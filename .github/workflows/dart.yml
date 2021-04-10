@@ -28,8 +28,8 @@ jobs:
         working-directory: ./sealed_annotations
         run: dart test
       - name: sealed_annotations run example
-        working-directory: ./sealed_annotations/example
-        run: dart run sealed_generators_example.dart
+        working-directory: ./sealed_annotations
+        run: dart run .example/sealed_generators_example.dart
       - name: sealed_generators init
         working-directory: ./sealed_generators
         run: dart pub get
@@ -43,8 +43,8 @@ jobs:
         working-directory: ./sealed_generators
         run: dart test
       - name: sealed_generators run example
-        working-directory: ./sealed_generators/example
-        run: dart run sealed_generators_example.dart
+        working-directory: ./sealed_generators
+        run: dart run ./example/sealed_generators_example.dart
       - name: example init
         working-directory: ./example
         run: dart pub get
