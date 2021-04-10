@@ -40,6 +40,7 @@ import 'package:sealed_annotations/sealed_annotations.dart';
 @sealed
 @Target({TargetKind.classType})
 class Sealed {
+  /// equality strategy
   final SealedEquality equality;
 
   @literal
@@ -67,6 +68,78 @@ class SealedManifest {
 
   @override
   String toString() => 'SealedManifest(manifest: $manifest)';
+}
+
+/// used to override specified type.
+/// this is needed when you are using one sealed generated type
+/// in another.
+///
+/// if you don't specify field name then
+/// all [dynamic] fields will be overridden.
+/// if you specify a sealed type in another it will be
+/// automatically dynamic.
+///
+/// see: [SealedType], [Sealed]
+@sealed
+@Target({TargetKind.method})
+class SealedTypeOverride {
+  /// map all dynamic types
+  final SealedType? type;
+
+  /// map field names to types
+  final Map<String, SealedType>? map;
+
+  @literal
+  const SealedTypeOverride.named(Map<String, SealedType> map)
+      // ignore: unnecessary_null_comparison
+      : assert(map != null),
+        map = map,
+        type = null;
+
+  @literal
+  const SealedTypeOverride.allDynamic(SealedType type)
+      // ignore: unnecessary_null_comparison
+      : assert(type != null),
+        map = null,
+        type = type;
+
+  @override
+  String toString() => 'SealedTypeOverride(type: $type, map: $map)';
+}
+
+/// used to specify a type by it's name and nullability.
+///
+/// example: `SealedType.nonNull('Result<String, Exception)')`
+///
+/// see: [SealedTypeOverride], [Sealed]
+@sealed
+class SealedType {
+  /// type name without any nullability suffix.
+  final String name;
+
+  /// whether type is nullable or not.
+  final bool isNullable;
+
+  /// nullable types.
+  ///
+  /// this SHOULD be used in legacy projects.
+  @literal
+  const SealedType.nullable(String name)
+      : name = name,
+        isNullable = true;
+
+  /// non-nullable types.
+  ///
+  /// this can NOT be used in legacy projects.
+  @literal
+  @literal
+  const SealedType.nonNull(String name)
+      : name = name,
+        isNullable = false;
+
+  @override
+  String toString() =>
+      'SealedTypeOverride(name: $name, isNullable: $isNullable)';
 }
 
 /// different equality (and hash code) implementations
