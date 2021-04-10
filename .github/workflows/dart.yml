@@ -12,7 +12,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - uses: dart-lang/setup-dart@stable
+      - uses: dart-lang/setup-dart@v1
+        with:
+          sdk: stable
       - name: sealed_annotations init
         working-directory: ./sealed_annotations
         run: dart pub get
