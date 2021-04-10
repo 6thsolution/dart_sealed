@@ -1,0 +1,90 @@
+import 'package:sealed_generators/src/source/writer/top/match/top_match_when_or_else_writer.dart';
+import 'package:test/test.dart';
+
+import '../../../../../utils/examples.dart';
+
+void main() {
+  group('class TopMatchWhenOrElseWriter', () {
+    test('initialization', () {
+      final source = source1DataSafe;
+      final writer = TopMatchWhenOrElseWriter(source);
+
+      expect(writer.source, source);
+    });
+
+    test('method topMatchWhenOrElseIfs', () {
+      final source = source1DataSafe;
+      final manifest = source.manifest;
+      // sunny
+      final item1 = manifest.items[0];
+      final writer = TopMatchWhenOrElseWriter(source);
+      final i = writer.topMatchWhenOrElseIfs(item1);
+
+      expect(i.condition, 'weather is WeatherSunny');
+      expect(i.code, 'return (sunny ?? orElse)(weather);');
+    });
+
+    test('method topMatchWhenOrElseBody', () {
+      final source = source1DataSafe;
+      final writer = TopMatchWhenOrElseWriter(source);
+
+      expect(
+        writer.topMatchWhenOrElseBody(),
+        'final weather = this;\n'
+        'if (weather is WeatherSunny) {return (sunny ?? orElse)(weather);}\n'
+        'else if (weather is WeatherRainy) {return (rainy ?? orElse)(weather);}\n'
+        'else if (weather is WeatherWindy) {return (windy ?? orElse)(weather);}\n'
+        'else {throw AssertionError();}',
+      );
+    });
+
+    test('method topMatchWhenOrElseStart', () {
+      final source = source1DataSafe;
+      final writer = TopMatchWhenOrElseWriter(source);
+
+      expect(
+        writer.topMatchWhenOrElseStart(),
+        'R whenOrElse<R extends Object?>({'
+        'R Function(WeatherSunny sunny)? sunny,'
+        ' R Function(WeatherRainy rainy)? rainy,'
+        ' R Function(WeatherWindy windy)? windy,'
+        ' required R Function(Weather weather) orElse,'
+        '})',
+      );
+    });
+
+    group('method topMatchWhenOrElse', () {
+      test('null-safe', () {
+        final source = source1DataSafe;
+        final writer = TopMatchWhenOrElseWriter(source);
+
+        expect(
+          writer.topMatchWhenOrElse(),
+          stringContainsInOrder([
+            writer.topMatchWhenOrElseStart(),
+            '{',
+            writer.topMatchWhenOrElseBody(),
+            '}',
+          ]),
+        );
+      });
+
+      test('legacy', () {
+        final source = source1DataLegacy;
+        final writer = TopMatchWhenOrElseWriter(source);
+
+        expect(
+          writer.topMatchWhenOrElse(),
+          stringContainsInOrder([
+            writer.topMatchWhenOrElseStart(),
+            '{',
+            writer.topMatchAssertOrElse(),
+            writer.topMatchWhenOrElseBody(),
+            '}',
+          ]),
+        );
+      });
+    });
+    // end of group TopMatchWhenOrElseWriter
+  });
+}
