@@ -29,7 +29,7 @@ jobs:
         run: dart test
       - name: sealed_annotations run example
         working-directory: ./sealed_annotations
-        run: dart run .example/sealed_generators_example.dart
+        run: dart run ./example/sealed_generators_example.dart
       - name: sealed_generators init
         working-directory: ./sealed_generators
         run: dart pub get
