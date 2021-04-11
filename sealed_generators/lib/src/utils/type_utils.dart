@@ -1,4 +1,3 @@
-import 'package:meta/meta.dart';
 import 'package:sealed_generators/src/exceptions/exceptions.dart';
 import 'package:sealed_generators/src/manifest/manifest.dart';
 import 'package:sealed_generators/src/utils/name_utils.dart';
@@ -7,13 +6,13 @@ import 'package:sealed_generators/src/utils/name_utils.dart';
 ///
 /// should not contain white space.
 extension TypeUtils on String {
-  @visibleForTesting
+  /// starts with '_'
   bool isPrivate() {
     if (isEmpty || trim() != this || contains(' ')) return false;
     return startsWith('_');
   }
 
-  @visibleForTesting
+  /// not starts with '_'
   bool isPublic() {
     if (isEmpty || trim() != this || contains(' ')) return false;
     return !startsWith('_');

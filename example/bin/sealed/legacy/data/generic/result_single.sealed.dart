@@ -13,7 +13,7 @@ class D extends Object {}
 ///
 /// Success(D? data)
 ///
-/// Error(dynamic exception, int? code)
+/// Error(dynamic? exception, int? code)
 ///
 /// }
 ///
@@ -26,7 +26,7 @@ abstract class Result extends Equatable {
 
   @factory
   static ResultError /*!*/ error({
-    @required dynamic /*!*/ exception,
+    @required dynamic /*?*/ exception,
     @required int /*?*/ code,
   }) =>
       ResultError(
@@ -103,7 +103,7 @@ class ResultError extends Result {
     @required this.code,
   });
 
-  final dynamic /*!*/ exception;
+  final dynamic /*?*/ exception;
   final int /*?*/ code;
 
   @override

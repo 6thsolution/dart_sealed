@@ -1,5 +1,6 @@
 import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/element/nullability_suffix.dart';
+import 'package:analyzer/dart/element/type.dart';
 import 'package:meta/meta.dart';
 import 'package:sealed_generators/src/exceptions/exceptions.dart';
 import 'package:sealed_generators/src/manifest/manifest.dart';
@@ -9,6 +10,7 @@ import 'package:sealed_generators/src/manifest/reader/override/named/overrider.d
 import 'package:sealed_generators/src/manifest/reader/override/named/reader.dart';
 import 'package:sealed_generators/src/options/options.dart';
 import 'package:sealed_generators/src/utils/name_utils.dart';
+import 'package:sealed_generators/src/utils/type_utils.dart';
 
 /// todo test read
 @sealed
@@ -18,128 +20,174 @@ class ManifestReader {
       : todReader = TypeOverrideDynamicReader(options),
         tonReader = TypeOverrideNamedReader(options);
 
+  @nonVirtual
   final Options options;
+
+  @nonVirtual
+  @visibleForTesting
   final TypeOverrideDynamicReader todReader;
+
+  @nonVirtual
+  @visibleForTesting
   final TypeOverrideNamedReader tonReader;
 
-  Manifest read(Element element) {
-    final cls = _extractClassElement(element);
-    final params = _extractClassParams(cls);
-    final name = _extractTopClassName(cls);
-    final items = _extractManifestItems(cls, name);
-    return Manifest(name: name, items: items, params: params);
-  }
+  Manifest read(Element element) => _extractManifest(
+        _extractClassElement(element),
+      );
 
-  ClassElement _extractClassElement(Element element) {
-    final name = element.name;
+  /// extract class element
+  ClassElement _extractClassElement(Element e) {
     require(
-      element is ClassElement,
-      () => 'element($name) should be a class',
+      e is ClassElement,
+      'element should be a class',
     );
-    final cls = element as ClassElement;
+    final cls = e as ClassElement;
     require(
       !cls.isEnum && !cls.isMixin && !cls.isMixinApplication,
-      () => 'element($name) should be a Class',
+      'element should be a Class',
     );
     require(
-      cls.isPrivate,
-      () => 'class($name) should be private',
-    );
-    require(
-      cls.isAbstract,
-      () => 'class($name) should be abstract',
+      cls.isPrivate && cls.name.isPrivate(),
+      'class should be private',
     );
     require(
       cls.allSupertypes.length == 1,
-      () => 'class($name) can only have Object as super type',
+      'class can only have Object as super type',
     );
     return cls;
   }
 
-  List<ManifestParam> _extractClassParams(ClassElement cls) {
-    final params = cls.typeParameters;
-    final outs = <ManifestParam>[];
-    for (var param in params) {
-      final name = param.name;
-      final bound = param.bound;
-      if (bound != null) {
-        final boundName = bound.getDisplayString(withNullability: false);
-        final isNullable = bound.nullabilitySuffix != NullabilitySuffix.none;
-        outs.add(ManifestParam(
-          name: name,
-          bound: ManifestType(name: boundName, isNullable: isNullable),
-        ));
-      } else {
-        // default upper bound
-        outs.add(ManifestParam(
-          name: name,
-          // for nullsafe Object and for legacy Object?
-          bound: ManifestType(
-            name: 'Object',
-            isNullable: options.isNullSafe ? false : true,
-          ),
-        ));
-      }
-    }
-    return outs;
-  }
+  /// extract manifest from class element
+  Manifest _extractManifest(ClassElement cls) => Manifest(
+        name: _extractTopName(cls),
+        params: _extractParams(cls),
+        items: _extractItems(cls),
+      );
 
-  String _extractTopClassName(ClassElement cls) {
+  /// extract top class name
+  String _extractTopName(ClassElement cls) {
     final name = cls.name;
     require(
-      name != '_',
-      () => 'class($name) name should not be a single "_"',
+      name.isGenTypeName() && name.isPrivate(),
+      () => 'malformed class name "$name"',
     );
-    final topName = name.substring(1);
-    require(
-      !topName.contains('_'),
-      () => 'class($name) name can not have multiple "_"s',
-    );
-    return topName;
+    return name.substring(1);
   }
 
-  ManifestItem _extractManifestItem(MethodElement method, String name) {
-    final methodName = method.name;
+  /// extract  class param
+  ///
+  /// default bound: for nullsafe Object and for legacy Object?
+  ManifestParam _extractParam(TypeParameterElement p) {
+    final bound = p.bound;
+    return ManifestParam(
+      name: p.name,
+      bound: bound != null ? _extractManifestType(bound) : _defaultUpperBound(),
+    );
+  }
+
+  /// extract class params
+  List<ManifestParam> _extractParams(ClassElement cls) =>
+      cls.typeParameters.map(_extractParam).toList();
+
+  /// extract sub class name
+  String _extractSubName(MethodElement method) {
     require(
-      method.isPublic,
-      () => 'method($name.$methodName) should be pubic',
+      method.name.isGenFieldName(),
+      () => 'malformed method name "${method.name}"',
+    );
+    return method.name.toUpperStart();
+  }
+
+  /// extract field from method argument without overrides
+  ///
+  /// assume legacy types as nullable
+  ManifestField _extractFieldBase(ParameterElement arg) {
+    require(
+      arg.name.isGenFieldName(),
+      () => 'malformed method argument name "${arg.name}"',
+    );
+    return ManifestField(
+      name: arg.name,
+      type: _extractManifestType(arg.type),
+    );
+  }
+
+  /// extract fields from method without overrides
+  List<ManifestField> _extractFieldsBase(MethodElement method) =>
+      method.parameters.map(_extractFieldBase).toList();
+
+  /// extract and apply dynamic overrides to fields if needed
+  List<ManifestField> _applyFieldsDynamicOverrides(
+    MethodElement method,
+    List<ManifestField> fields,
+  ) {
+    final tod = todReader.readOrNull(method);
+    return tod != null ? TypeOverriderDynamic(tod).apply(fields) : fields;
+  }
+
+  /// extract and apply named overrides to fields if needed
+  List<ManifestField> _applyFieldsNamedOverrides(
+    MethodElement method,
+    List<ManifestField> fields,
+  ) {
+    final ton = tonReader.readOrNull(method);
+    return ton != null ? TypeOverriderNamed(ton).apply(fields) : fields;
+  }
+
+  /// extract fields from method
+  List<ManifestField> _extractFields(MethodElement method) =>
+      _applyFieldsNamedOverrides(
+        method,
+        _applyFieldsDynamicOverrides(
+          method,
+          _extractFieldsBase(method),
+        ),
+      );
+
+  /// extract item from method
+  ManifestItem _extractItem(MethodElement method) {
+    require(
+      method.isPublic && method.name.isPublic(),
+      () => 'method "${method.name}" should be pubic',
+    );
+    require(
+      method.name.startsWithLower(),
+      () => 'method "${method.name}" should start with lower case letter',
     );
     require(
       method.typeParameters.isEmpty,
-      () => 'method($name.$methodName) can not have type parameters',
+      () => 'method "${method.name}" can not have type parameters',
     );
-    require(
-      RegExp(r'[a-z].*').hasMatch(methodName),
-      () => 'method($name.$methodName) should start with lower case letter',
+    return ManifestItem(
+      name: _extractSubName(method),
+      fields: _extractFields(method),
     );
-    final subName = methodName.toUpperStart();
-    var fields = <ManifestField>[];
-    for (final arg in method.parameters) {
-      final argName = arg.name;
-      final argType = arg.type;
-      final argTypeName = argType.getDisplayString(withNullability: false);
-      // assume legacy types as nullable
-      final isNullable = argType.nullabilitySuffix != NullabilitySuffix.none;
-      fields.add(ManifestField(
-        name: argName,
-        type: ManifestType(name: argTypeName, isNullable: isNullable),
-      ));
-    }
-
-    final tod = todReader.readOrNull(method);
-    if (tod != null) fields = TypeOverriderDynamic(tod).apply(fields);
-
-    final ton = tonReader.readOrNull(method);
-    if (ton != null) fields = TypeOverriderNamed(ton).apply(fields);
-
-    return ManifestItem(name: subName, fields: fields);
   }
 
-  List<ManifestItem> _extractManifestItems(ClassElement cls, String name) {
-    final items = <ManifestItem>[];
-    for (final method in cls.methods) {
-      items.add(_extractManifestItem(method, name));
-    }
-    return items;
-  }
+  /// extract items from class element
+  List<ManifestItem> _extractItems(ClassElement cls) =>
+      cls.methods.map(_extractItem).toList();
+
+  /// type name without any nullability sign
+  String _extractTypeName(DartType type) =>
+      type.getDisplayString(withNullability: false);
+
+  /// type is nullable?
+  ///
+  /// will be nullable in legacy projects
+  bool _extractTypeIsNullable(DartType type) =>
+      !options.isNullSafe || type.nullabilitySuffix != NullabilitySuffix.none;
+
+  /// extract manifest type
+  ManifestType _extractManifestType(DartType type) => ManifestType(
+        name: _extractTypeName(type),
+        isNullable: _extractTypeIsNullable(type),
+      );
+
+  // todo bad design
+  /// default upper bound
+  ManifestType _defaultUpperBound() => ManifestType(
+        name: 'Object',
+        isNullable: options.isNullSafe ? false : true,
+      );
 }

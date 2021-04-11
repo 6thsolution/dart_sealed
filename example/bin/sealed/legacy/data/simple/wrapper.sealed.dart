@@ -9,7 +9,7 @@ part of 'wrapper.dart';
 
 /// Wrapper {
 ///
-/// Wrap(dynamic data)
+/// Wrap(dynamic? data)
 ///
 /// }
 ///
@@ -17,7 +17,7 @@ part of 'wrapper.dart';
 @SealedManifest(_Wrapper)
 abstract class Wrapper extends Equatable {
   @factory
-  static WrapperWrap /*!*/ wrap({@required dynamic /*!*/ data}) =>
+  static WrapperWrap /*!*/ wrap({@required dynamic /*?*/ data}) =>
       WrapperWrap(data: data);
 
   bool isWrap() => this is WrapperWrap /*!*/;
@@ -57,11 +57,7 @@ abstract class Wrapper extends Equatable {
 class WrapperWrap extends Wrapper {
   WrapperWrap({@required this.data});
 
-  final dynamic /*!*/ data;
-
-  @factory
-  WrapperWrap /*!*/ copy({dynamic /*?*/ data}) =>
-      WrapperWrap(data: data ?? this.data);
+  final dynamic /*?*/ data;
 
   @override
   String /*!*/ toString() => 'Wrapper.wrap(data: $data)';

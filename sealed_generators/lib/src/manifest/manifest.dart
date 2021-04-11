@@ -1,6 +1,5 @@
 import 'package:meta/meta.dart';
 import 'package:sealed_generators/src/exceptions/exceptions.dart';
-import 'package:sealed_generators/src/utils/name_utils.dart';
 import 'package:sealed_generators/src/utils/type_utils.dart';
 
 @immutable
@@ -55,7 +54,7 @@ class ManifestField {
     required this.name,
     required this.type,
   }) {
-    check(name.startsWithLower());
+    check(name.isGenFieldName());
   }
 
   /// name, for example "direction".
