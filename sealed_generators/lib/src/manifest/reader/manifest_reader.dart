@@ -10,6 +10,7 @@ import 'package:sealed_generators/src/manifest/reader/override/named/reader.dart
 import 'package:sealed_generators/src/options/options.dart';
 import 'package:sealed_generators/src/utils/name_utils.dart';
 
+/// todo test read
 @sealed
 @immutable
 class ManifestReader {

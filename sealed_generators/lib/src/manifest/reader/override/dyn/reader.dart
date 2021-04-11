@@ -9,14 +9,18 @@ import 'package:sealed_generators/src/utils/type_utils.dart';
 import 'package:source_gen/source_gen.dart';
 
 /// apply to manifest
+///
+/// todo test read
 @sealed
 @immutable
 class TypeOverrideDynamicReader {
   static const String metaClassName = 'SealedOverrideDynamic';
 
+  @nonVirtual
   final Options options;
 
   @visibleForTesting
+  @nonVirtual
   final OverrideDynamicLegacyFixer fixer;
 
   const TypeOverrideDynamicReader(this.options)
@@ -28,12 +32,14 @@ class TypeOverrideDynamicReader {
       return null;
     } else {
       final type = _readType(reader);
-      final override = _mapOverride(type);
+      final override = mapOverride(type);
       return options.isNullSafe ? override : fixer.fix(override);
     }
   }
 
-  TypeOverrideDynamic _mapOverride(String type) => TypeOverrideDynamic(
+  @nonVirtual
+  @visibleForTesting
+  TypeOverrideDynamic mapOverride(String type) => TypeOverrideDynamic(
         type: type.readType(),
       );
 

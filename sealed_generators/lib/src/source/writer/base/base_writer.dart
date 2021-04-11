@@ -7,5 +7,6 @@ import 'package:sealed_generators/src/source/source.dart';
 abstract class BaseWriter {
   const BaseWriter(this.source);
 
+  @nonVirtual
   final Source source;
 }

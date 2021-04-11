@@ -9,14 +9,18 @@ import 'package:sealed_generators/src/utils/type_utils.dart';
 import 'package:source_gen/source_gen.dart';
 
 /// apply to manifest
+///
+/// todo test read
 @sealed
 @immutable
 class TypeOverrideNamedReader {
   static const String metaClassName = 'SealedOverrideNamed';
 
+  @nonVirtual
   final Options options;
 
   @visibleForTesting
+  @nonVirtual
   final OverrideNamedLegacyFixer fixer;
 
   const TypeOverrideNamedReader(this.options)
@@ -28,12 +32,14 @@ class TypeOverrideNamedReader {
       return null;
     } else {
       final map = _readMap(reader);
-      final override = _mapOverride(map);
+      final override = mapOverride(map);
       return options.isNullSafe ? override : fixer.fix(override);
     }
   }
 
-  TypeOverrideNamed _mapOverride(Map<String, String> map) => TypeOverrideNamed(
+  @visibleForTesting
+  @nonVirtual
+  TypeOverrideNamed mapOverride(Map<String, String> map) => TypeOverrideNamed(
         map: map.map(
           (k, v) => MapEntry(k, v.readType()),
         ),

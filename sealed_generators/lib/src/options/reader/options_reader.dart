@@ -4,6 +4,7 @@ import 'package:sealed_annotations/sealed_annotations.dart';
 import 'package:sealed_generators/src/options/options.dart';
 import 'package:source_gen/source_gen.dart';
 
+/// todo test read
 @sealed
 @immutable
 class OptionsReader {

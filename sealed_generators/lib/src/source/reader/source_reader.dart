@@ -5,6 +5,7 @@ import 'package:sealed_generators/src/options/reader/options_reader.dart';
 import 'package:sealed_generators/src/source/source.dart';
 import 'package:source_gen/src/constants/reader.dart';
 
+/// todo test read
 @sealed
 @immutable
 class SourceReader {

@@ -7,11 +7,14 @@ import 'package:sealed_generators/src/manifest/reader/override/named/model.dart'
 @immutable
 class TypeOverriderNamed {
   @visibleForTesting
+  @nonVirtual
   final TypeOverrideNamed override;
 
   const TypeOverriderNamed(this.override);
 
-  ManifestField _mapField(ManifestField field) {
+  @visibleForTesting
+  @nonVirtual
+  ManifestField mapField(ManifestField field) {
     final name = field.name;
     final overrideType = override.map[name];
     return overrideType != null
@@ -19,6 +22,7 @@ class TypeOverriderNamed {
         : field;
   }
 
+  @nonVirtual
   List<ManifestField> apply(List<ManifestField> fields) =>
-      fields.map(_mapField).toList();
+      fields.map(mapField).toList();
 }
