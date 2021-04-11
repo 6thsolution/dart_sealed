@@ -1,76 +1,112 @@
 import 'package:sealed_generators/src/utils/type_utils.dart';
 import 'package:test/test.dart';
 
+import '../../utils/exception_utils.dart';
+
 void main() {
   group('extension TypeUtils', () {
     test('method isPrivate', () {
-      expect('_hello'.isPrivate(), equals(true));
-      expect('_Hello'.isPrivate(), equals(true));
-      expect('hello'.isPrivate(), equals(false));
-      expect('Hello'.isPrivate(), equals(false));
+      expect('_hello'.isPrivate(), isTrue);
+      expect('_Hello'.isPrivate(), isTrue);
+      expect('hello'.isPrivate(), isFalse);
+      expect('Hello'.isPrivate(), isFalse);
 
-      expect(''.isPrivate(), equals(false));
-      expect('a '.isPrivate(), equals(false));
-      expect('a b'.isPrivate(), equals(false));
+      expect(''.isPrivate(), isFalse);
+      expect('a '.isPrivate(), isFalse);
+      expect('a b'.isPrivate(), isFalse);
     });
 
     test('method isPublic', () {
-      expect('_hello'.isPublic(), equals(false));
-      expect('_Hello'.isPublic(), equals(false));
-      expect('hello'.isPublic(), equals(true));
-      expect('Hello'.isPublic(), equals(true));
+      expect('_hello'.isPublic(), isFalse);
+      expect('_Hello'.isPublic(), isFalse);
+      expect('hello'.isPublic(), isTrue);
+      expect('Hello'.isPublic(), isTrue);
 
-      expect(''.isPublic(), equals(false));
-      expect('a '.isPublic(), equals(false));
-      expect('a b'.isPublic(), equals(false));
+      expect(''.isPublic(), isFalse);
+      expect('a '.isPublic(), isFalse);
+      expect('a b'.isPublic(), isFalse);
     });
 
     test('method isGenTypeName', () {
-      expect('_hello'.isGenTypeName(), equals(true));
-      expect('_Hello'.isGenTypeName(), equals(true));
-      expect('hello'.isGenTypeName(), equals(true));
-      expect('Hello'.isGenTypeName(), equals(true));
+      expect('_hello'.isGenTypeName(), isTrue);
+      expect('_Hello'.isGenTypeName(), isTrue);
+      expect('hello'.isGenTypeName(), isTrue);
+      expect('Hello'.isGenTypeName(), isTrue);
 
-      expect('Hello*'.isGenTypeName(), equals(false));
-      expect('Hello?'.isGenTypeName(), equals(false));
-      expect('Hello/*!*/'.isGenTypeName(), equals(false));
-      expect('Hello/*?*/'.isGenTypeName(), equals(false));
+      expect('Hello*'.isGenTypeName(), isFalse);
+      expect('Hello?'.isGenTypeName(), isFalse);
+      expect('Hello/*!*/'.isGenTypeName(), isFalse);
+      expect('Hello/*?*/'.isGenTypeName(), isFalse);
 
-      expect(''.isGenTypeName(), equals(false));
-      expect('A '.isGenTypeName(), equals(false));
-      expect('A b'.isGenTypeName(), equals(false));
+      expect(''.isGenTypeName(), isFalse);
+      expect('A '.isGenTypeName(), isFalse);
+      expect('A b'.isGenTypeName(), isFalse);
     });
 
     test('method isGenFieldName', () {
-      expect('_hello'.isGenFieldName(), equals(false));
-      expect('_Hello'.isGenFieldName(), equals(false));
-      expect('hello'.isGenFieldName(), equals(true));
-      expect('Hello'.isGenFieldName(), equals(false));
+      expect('_hello'.isGenFieldName(), isFalse);
+      expect('_Hello'.isGenFieldName(), isFalse);
+      expect('hello'.isGenFieldName(), isTrue);
+      expect('Hello'.isGenFieldName(), isFalse);
 
-      expect('Hello*'.isGenFieldName(), equals(false));
-      expect('Hello?'.isGenFieldName(), equals(false));
-      expect('Hello/*!*/'.isGenFieldName(), equals(false));
-      expect('Hello/*?*/'.isGenFieldName(), equals(false));
+      expect('Hello*'.isGenFieldName(), isFalse);
+      expect('Hello?'.isGenFieldName(), isFalse);
+      expect('Hello/*!*/'.isGenFieldName(), isFalse);
+      expect('Hello/*?*/'.isGenFieldName(), isFalse);
 
-      expect(''.isGenFieldName(), equals(false));
-      expect('a '.isGenFieldName(), equals(false));
-      expect('a b'.isGenFieldName(), equals(false));
+      expect(''.isGenFieldName(), isFalse);
+      expect('a '.isGenFieldName(), isFalse);
+      expect('a b'.isGenFieldName(), isFalse);
     });
 
     test('method isGenClassName', () {
-      expect('_hello'.isGenClassName(), equals(false));
-      expect('_Hello'.isGenClassName(), equals(false));
-      expect('hello'.isGenClassName(), equals(false));
-      expect('Hello'.isGenClassName(), equals(true));
+      expect('_hello'.isGenClassName(), isFalse);
+      expect('_Hello'.isGenClassName(), isFalse);
+      expect('hello'.isGenClassName(), isFalse);
+      expect('Hello'.isGenClassName(), isTrue);
 
-      expect('Hello*'.isGenClassName(), equals(false));
-      expect('Hello?'.isGenClassName(), equals(false));
-      expect('Hello/*!*/'.isGenClassName(), equals(false));
-      expect('Hello/*?*/'.isGenClassName(), equals(false));
+      expect('Hello*'.isGenClassName(), isFalse);
+      expect('Hello?'.isGenClassName(), isFalse);
+      expect('Hello/*!*/'.isGenClassName(), isFalse);
+      expect('Hello/*?*/'.isGenClassName(), isFalse);
 
-      expect(''.isGenTypeName(), equals(false));
-      expect('A '.isGenTypeName(), equals(false));
-      expect('A b'.isGenTypeName(), equals(false));
+      expect(''.isGenTypeName(), isFalse);
+      expect('A '.isGenTypeName(), isFalse);
+      expect('A b'.isGenTypeName(), isFalse);
+    });
+
+    test('method isSimpleOrNullableTypeName', () {
+      expect('_hello'.isSimpleOrNullableTypeName(), isTrue);
+      expect('_Hello'.isSimpleOrNullableTypeName(), isTrue);
+      expect('hello'.isSimpleOrNullableTypeName(), isTrue);
+      expect('Hello'.isSimpleOrNullableTypeName(), isTrue);
+
+      expect('Hello?'.isSimpleOrNullableTypeName(), isTrue);
+
+      expect('Hello*'.isSimpleOrNullableTypeName(), isFalse);
+      expect('Hello/*!*/'.isSimpleOrNullableTypeName(), isFalse);
+      expect('Hello/*?*/'.isSimpleOrNullableTypeName(), isFalse);
+
+      expect(''.isSimpleOrNullableTypeName(), isFalse);
+      expect('A '.isSimpleOrNullableTypeName(), isFalse);
+      expect('A b'.isSimpleOrNullableTypeName(), isFalse);
+    });
+
+    test('method readType', () {
+      final t1 = 'double'.readType();
+      expect(t1.name, equals('double'));
+      expect(t1.isNullable, isFalse);
+
+      final t2 = 'double?'.readType();
+      expect(t2.name, equals('double'));
+      expect(t2.isNullable, isTrue);
+
+      expect(() => 'Hello*'.readType(), throwsAssertion());
+      expect(() => 'Hello/*!*/'.readType(), throwsAssertion());
+      expect(() => 'Hello/*?*/'.readType(), throwsAssertion());
+      expect(() => ''.readType(), throwsAssertion());
+      expect(() => 'A '.readType(), throwsAssertion());
+      expect(() => 'A b'.readType(), throwsAssertion());
     });
   });
 }

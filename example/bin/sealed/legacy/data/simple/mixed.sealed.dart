@@ -131,7 +131,7 @@ class BananaHold extends Banana {
 ///
 /// Test2(int? x, double? y)
 ///
-/// Hold(Apple? apple, Banana? banana, int? count)
+/// Hold(Apple? apple, Banana? banana, int? count, num? meta)
 ///
 /// }
 ///
@@ -163,11 +163,13 @@ abstract class Coconut extends Equatable {
     @required Apple /*?*/ apple,
     @required Banana /*?*/ banana,
     @required int /*?*/ count,
+    @required num /*?*/ meta,
   }) =>
       CoconutHold(
         apple: apple,
         banana: banana,
         count: count,
+        meta: meta,
       );
 
   bool isTest1() => this is CoconutTest1 /*!*/;
@@ -280,20 +282,23 @@ class CoconutHold extends Coconut {
     @required this.apple,
     @required this.banana,
     @required this.count,
+    @required this.meta,
   });
 
   final Apple /*?*/ apple;
   final Banana /*?*/ banana;
   final int /*?*/ count;
+  final num /*?*/ meta;
 
   @override
   String /*!*/ toString() =>
-      'Coconut.hold(apple: $apple, banana: $banana, count: $count)';
+      'Coconut.hold(apple: $apple, banana: $banana, count: $count, meta: $meta)';
 
   @override
   List<Object /*?*/ > /*!*/ get props => [
         apple,
         banana,
         count,
+        meta,
       ];
 }

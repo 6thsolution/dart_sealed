@@ -46,7 +46,7 @@ class Sealed {
   @literal
   const Sealed({
     this.equality = SealedEquality.data,
-  });
+  }) : assert(equality != null); // ignore: unnecessary_null_comparison
 
   @override
   String toString() => 'Sealed(equality: $equality)';
@@ -55,7 +55,7 @@ class Sealed {
 /// used to target @[Sealed] [manifest] class which
 /// the code is generated for.
 ///
-/// users should not use this annotation.
+/// users should NOT use this annotation.
 ///
 /// see: [Sealed]
 @sealed
@@ -70,76 +70,59 @@ class SealedManifest {
   String toString() => 'SealedManifest(manifest: $manifest)';
 }
 
-/// used to override specified type.
+/// used to override all dynamic types in a item.
 /// this is needed when you are using one sealed generated type
 /// in another.
 ///
-/// if you don't specify field name then
-/// all [dynamic] fields will be overridden.
-/// if you specify a sealed type in another it will be
-/// automatically dynamic.
+/// if you specify a sealed type in another sealed type it will be
+/// automatically dynamic, since only after code generation time
+/// sealed types are implemented.
 ///
-/// see: [SealedType], [Sealed]
+/// this will execute before [SealedOverrideNamed].
+///
+/// see: [SealedOverrideNamed], [Sealed]
 @sealed
 @Target({TargetKind.method})
-class SealedOverride {
-  /// map all dynamic types
-  final SealedType? type;
-
-  /// map field names to types
-  final Map<String, SealedType>? map;
-
-  @literal
-  const SealedOverride.named(Map<String, SealedType> map)
-      // ignore: unnecessary_null_comparison
-      : assert(map != null),
-        map = map,
-        type = null;
+class SealedOverrideDynamic {
+  /// type name can have nullability sign.
+  ///
+  /// for example: double or double?
+  ///
+  /// all types will be nullable in legacy projects.
+  final String type;
 
   @literal
-  const SealedOverride.allDynamic(SealedType type)
-      // ignore: unnecessary_null_comparison
-      : assert(type != null),
-        map = null,
-        type = type;
+  const SealedOverrideDynamic(this.type)
+      : assert(type != null); // ignore: unnecessary_null_comparison
 
   @override
-  String toString() => 'SealedTypeOverride(type: $type, map: $map)';
+  String toString() => 'SealedOverrideDynamic(type: $type)';
 }
 
-/// used to specify a type by it's name and nullability.
+/// used to override types in a item based on the field names.
+/// this is needed when you are using one sealed generated type
+/// in another.
 ///
-/// example: `SealedType.nonNull('Result<String, Exception)')`
+/// this will execute after [SealedOverrideDynamic].
 ///
-/// see: [SealedOverride], [Sealed]
+/// see: [SealedOverrideDynamic], [Sealed]
 @sealed
-class SealedType {
-  /// type name without any nullability suffix.
-  final String name;
-
-  /// whether type is nullable or not.
-  final bool isNullable;
-
-  /// nullable types.
+@Target({TargetKind.method})
+class SealedOverrideNamed {
+  /// map field names to type names.
   ///
-  /// this SHOULD be used in legacy projects.
-  @literal
-  const SealedType.nullable(String name)
-      : name = name,
-        isNullable = true;
-
-  /// non-nullable types.
+  /// type names can have nullability sign.
+  /// for example: double or double?
   ///
-  /// this can NOT be used in legacy projects.
+  /// all types will be nullable in legacy projects.
+  final Map<String, String> map;
+
   @literal
-  @literal
-  const SealedType.nonNull(String name)
-      : name = name,
-        isNullable = false;
+  const SealedOverrideNamed(this.map)
+      : assert(map != null); // ignore: unnecessary_null_comparison
 
   @override
-  String toString() =>
-      'SealedTypeOverride(name: $name, isNullable: $isNullable)';
+  String toString() => 'SealedOverrideNamed(map: $map)';
 }
 
 /// different equality (and hash code) implementations

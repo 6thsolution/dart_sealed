@@ -25,8 +25,8 @@ void main() {
           () => require(false),
           throwsA(allOf(
             isSealedException(),
-            hasMessage(equals(null)),
-            hasCause(equals(null)),
+            hasMessage(isNull),
+            hasCause(isNull),
           )),
         );
       });
@@ -43,7 +43,7 @@ void main() {
           throwsA(allOf(
             isSealedException(),
             hasMessage(equals('msg')),
-            hasCause(equals(null)),
+            hasCause(isNull),
           )),
         );
       });
@@ -63,7 +63,7 @@ void main() {
           throwsA(allOf(
             isSealedException(),
             hasMessage(equals('mm')),
-            hasCause(equals(null)),
+            hasCause(isNull),
           )),
         );
       });
@@ -85,8 +85,8 @@ void main() {
         SealedException(),
         allOf(
           isSealedException(),
-          hasMessage(equals(null)),
-          hasCause(equals(null)),
+          hasMessage(isNull),
+          hasCause(isNull),
         ),
       );
 
@@ -95,7 +95,7 @@ void main() {
         allOf(
           isSealedException(),
           hasMessage(equals('msg')),
-          hasCause(equals(null)),
+          hasCause(isNull),
         ),
       );
 

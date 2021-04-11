@@ -8,7 +8,7 @@ part of 'mixed.dart';
 
 /// Apple {
 ///
-/// Hold(Banana banana)
+/// Hold(Banana? banana)
 ///
 /// }
 ///
@@ -16,7 +16,7 @@ part of 'mixed.dart';
 @SealedManifest(_Apple)
 abstract class Apple extends Equatable {
   @factory
-  static AppleHold hold({required Banana banana}) => AppleHold(banana: banana);
+  static AppleHold hold({required Banana? banana}) => AppleHold(banana: banana);
 
   bool isHold() => this is AppleHold;
 
@@ -52,10 +52,7 @@ abstract class Apple extends Equatable {
 class AppleHold extends Apple {
   AppleHold({required this.banana});
 
-  final Banana banana;
-
-  @factory
-  AppleHold copy({Banana? banana}) => AppleHold(banana: banana ?? this.banana);
+  final Banana? banana;
 
   @override
   String toString() => 'Apple.hold(banana: $banana)';
@@ -66,7 +63,7 @@ class AppleHold extends Apple {
 
 /// Banana {
 ///
-/// Hold(Apple? apple)
+/// Hold(Apple apple)
 ///
 /// }
 ///
@@ -74,7 +71,7 @@ class AppleHold extends Apple {
 @SealedManifest(_Banana)
 abstract class Banana extends Equatable {
   @factory
-  static BananaHold hold({required Apple? apple}) => BananaHold(apple: apple);
+  static BananaHold hold({required Apple apple}) => BananaHold(apple: apple);
 
   bool isHold() => this is BananaHold;
 
@@ -110,7 +107,10 @@ abstract class Banana extends Equatable {
 class BananaHold extends Banana {
   BananaHold({required this.apple});
 
-  final Apple? apple;
+  final Apple apple;
+
+  @factory
+  BananaHold copy({Apple? apple}) => BananaHold(apple: apple ?? this.apple);
 
   @override
   String toString() => 'Banana.hold(apple: $apple)';
@@ -125,7 +125,7 @@ class BananaHold extends Banana {
 ///
 /// Test2(int x, double y)
 ///
-/// Hold(Apple? apple, Banana? banana, int count)
+/// Hold(Apple? apple, Banana banana, int count, num meta)
 ///
 /// }
 ///
@@ -155,13 +155,15 @@ abstract class Coconut extends Equatable {
   @factory
   static CoconutHold hold({
     required Apple? apple,
-    required Banana? banana,
+    required Banana banana,
     required int count,
+    required num meta,
   }) =>
       CoconutHold(
         apple: apple,
         banana: banana,
         count: count,
+        meta: meta,
       );
 
   bool isTest1() => this is CoconutTest1;
@@ -280,20 +282,23 @@ class CoconutHold extends Coconut {
     required this.apple,
     required this.banana,
     required this.count,
+    required this.meta,
   });
 
   final Apple? apple;
-  final Banana? banana;
+  final Banana banana;
   final int count;
+  final num meta;
 
   @override
   String toString() =>
-      'Coconut.hold(apple: $apple, banana: $banana, count: $count)';
+      'Coconut.hold(apple: $apple, banana: $banana, count: $count, meta: $meta)';
 
   @override
   List<Object?> get props => [
         apple,
         banana,
         count,
+        meta,
       ];
 }

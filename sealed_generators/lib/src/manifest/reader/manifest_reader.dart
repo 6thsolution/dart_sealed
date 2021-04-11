@@ -3,8 +3,10 @@ import 'package:analyzer/dart/element/nullability_suffix.dart';
 import 'package:meta/meta.dart';
 import 'package:sealed_generators/src/exceptions/exceptions.dart';
 import 'package:sealed_generators/src/manifest/manifest.dart';
-import 'package:sealed_generators/src/manifest/reader/override/type_override_reader.dart';
-import 'package:sealed_generators/src/manifest/reader/override/type_overrider.dart';
+import 'package:sealed_generators/src/manifest/reader/override/dyn/overrider.dart';
+import 'package:sealed_generators/src/manifest/reader/override/dyn/reader.dart';
+import 'package:sealed_generators/src/manifest/reader/override/named/overrider.dart';
+import 'package:sealed_generators/src/manifest/reader/override/named/reader.dart';
 import 'package:sealed_generators/src/options/options.dart';
 import 'package:sealed_generators/src/utils/name_utils.dart';
 
@@ -12,12 +14,12 @@ import 'package:sealed_generators/src/utils/name_utils.dart';
 @immutable
 class ManifestReader {
   ManifestReader(this.options)
-      : typeOverrideReader = TypeOverrideReader(),
-        typeOverrider = TypeOverrider();
+      : todReader = TypeOverrideDynamicReader(options),
+        tonReader = TypeOverrideNamedReader(options);
 
   final Options options;
-  final TypeOverrideReader typeOverrideReader;
-  final TypeOverrider typeOverrider;
+  final TypeOverrideDynamicReader todReader;
+  final TypeOverrideNamedReader tonReader;
 
   Manifest read(Element element) {
     final cls = _extractClassElement(element);
@@ -110,7 +112,7 @@ class ManifestReader {
       () => 'method($name.$methodName) should start with lower case letter',
     );
     final subName = methodName.toUpperStart();
-    final fields = <ManifestField>[];
+    var fields = <ManifestField>[];
     for (final arg in method.parameters) {
       final argName = arg.name;
       final argType = arg.type;
@@ -122,9 +124,14 @@ class ManifestReader {
         type: ManifestType(name: argTypeName, isNullable: isNullable),
       ));
     }
-    final override = typeOverrideReader.read(method);
-    final overriddenFields = typeOverrider.apply(override, fields);
-    return ManifestItem(name: subName, fields: overriddenFields);
+
+    final tod = todReader.readOrNull(method);
+    if (tod != null) fields = TypeOverriderDynamic(tod).apply(fields);
+
+    final ton = tonReader.readOrNull(method);
+    if (ton != null) fields = TypeOverriderNamed(ton).apply(fields);
+
+    return ManifestItem(name: subName, fields: fields);
   }
 
   List<ManifestItem> _extractManifestItems(ClassElement cls, String name) {

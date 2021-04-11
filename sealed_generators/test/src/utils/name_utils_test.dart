@@ -10,8 +10,8 @@ void main() {
       expect(() => ' d '.startsWithUpper(), throwsAssertion());
       expect(() => '_A'.startsWithUpper(), throwsAssertion());
 
-      expect('Apple'.startsWithUpper(), equals(true));
-      expect('apple'.startsWithUpper(), equals(false));
+      expect('Apple'.startsWithUpper(), isTrue);
+      expect('apple'.startsWithUpper(), isFalse);
     });
 
     test('method startWithLower', () {
@@ -19,8 +19,8 @@ void main() {
       expect(() => ' d '.startsWithLower(), throwsAssertion());
       expect(() => '_A'.startsWithLower(), throwsAssertion());
 
-      expect('Apple'.startsWithLower(), equals(false));
-      expect('apple'.startsWithLower(), equals(true));
+      expect('Apple'.startsWithLower(), isFalse);
+      expect('apple'.startsWithLower(), isTrue);
     });
 
     test('method toUpperStart', () {

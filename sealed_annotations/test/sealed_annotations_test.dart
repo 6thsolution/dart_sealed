@@ -20,28 +20,17 @@ void main() {
     });
   });
 
-  group('annotation @SealedType', () {
+  group('annotation @SealedOverrideDynamic', () {
     test('initialization', () {
-      const b = SealedType.nonNull('type');
-      expect(b.name, equals('type'));
-      expect(b.isNullable, equals(false));
-
-      const c = SealedType.nullable('type');
-      expect(c.name, equals('type'));
-      expect(c.isNullable, equals(true));
+      const a = SealedOverrideDynamic('double?');
+      expect(a.type, equals('double?'));
     });
   });
 
   group('annotation @SealedTypeOverride', () {
     test('initialization', () {
-      const t = SealedType.nonNull('type');
-      const a = SealedOverride.named({'name': t});
-      expect(a.map, equals({'name': t}));
-      expect(a.type, isNull);
-
-      const b = SealedOverride.allDynamic(t);
-      expect(b.map, isNull);
-      expect(b.type, equals(t));
+      const a = SealedOverrideNamed({'name': 'type?'});
+      expect(a.map, equals({'name': 'type?'}));
     });
   });
 }

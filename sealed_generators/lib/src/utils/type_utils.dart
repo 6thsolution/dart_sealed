@@ -1,4 +1,6 @@
 import 'package:meta/meta.dart';
+import 'package:sealed_generators/src/exceptions/exceptions.dart';
+import 'package:sealed_generators/src/manifest/manifest.dart';
 import 'package:sealed_generators/src/utils/name_utils.dart';
 
 /// utilities for type names
@@ -46,5 +48,24 @@ extension TypeUtils on String {
     if (!isPublic()) return false;
     if (!startsWithUpper()) return false;
     return true;
+  }
+
+  /// can be any time like double or with
+  /// nullability sign like double?.
+  bool isSimpleOrNullableTypeName() {
+    if (isEmpty || trim() != this || contains(' ')) return false;
+    if (endsWith('*')) return false;
+    if (endsWith('/*!*/')) return false;
+    if (endsWith('/*?*/')) return false;
+    return true;
+  }
+
+  /// read non-null or nullable type.
+  /// for example: double or double?.
+  ManifestType readType() {
+    check(isSimpleOrNullableTypeName());
+    return endsWith('?')
+        ? ManifestType(name: substring(0, length - 1), isNullable: true)
+        : ManifestType(name: this, isNullable: false);
   }
 }

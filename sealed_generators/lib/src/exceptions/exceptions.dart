@@ -17,7 +17,8 @@ void require(final bool value, [final dynamic message]) {
 
 /// assert will be removed in production
 ///
-/// these should not happen even with malformed manifest
+/// these should not happen even with malformed manifest.
+/// this is only for checking internal code flow and logic.
 void check(final bool value) {
   if (!value) throw AssertionError();
 }
