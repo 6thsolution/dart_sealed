@@ -26,7 +26,7 @@ jobs:
         run: dart analyze
       - name: sealed_annotations test
         working-directory: ./sealed_annotations
-        run: dart test --coverage ./coverage/lcov.info
+        run: dart test --coverage ./dart_coverage/lcov.info
       - name: sealed_annotations run example
         working-directory: ./sealed_annotations
         run: dart run ./example/sealed_annotations_example.dart
@@ -41,7 +41,7 @@ jobs:
         run: dart analyze
       - name: sealed_generators test
         working-directory: ./sealed_generators
-        run: dart test --coverage ./coverage/lcov.info
+        run: dart test --coverage ./dart_coverage/lcov.info
       - name: sealed_generators run example
         working-directory: ./sealed_generators
         run: dart run ./example/sealed_generators_example.dart
@@ -59,7 +59,7 @@ jobs:
         run: dart analyze
       - name: example test
         working-directory: ./example
-        run: dart test --coverage ./coverage/lcov.info
+        run: dart test --coverage ./dart_coverage/lcov.info
       - name: example run
         working-directory: ./example
         run: dart run

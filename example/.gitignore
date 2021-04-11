@@ -11,3 +11,4 @@ doc/api/
 .idea/
 
 coverage/
+dart_coverage/
