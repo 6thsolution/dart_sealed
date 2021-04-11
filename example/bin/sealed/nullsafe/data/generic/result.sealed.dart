@@ -93,10 +93,6 @@ class ResultError extends Result {
 
   final E exception;
 
-  @factory
-  ResultError copy({E? exception}) =>
-      ResultError(exception: exception ?? this.exception);
-
   @override
   String toString() => 'Result.error(exception: $exception)';
 

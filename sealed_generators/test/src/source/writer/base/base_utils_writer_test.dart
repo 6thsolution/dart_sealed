@@ -210,6 +210,22 @@ void main() {
         'final weather = this;',
       );
     });
+
+    group('method isGeneric', () {
+      test('simple', () {
+        final source = source1DataSafe;
+        final writer = _Writer(source);
+
+        expect(writer.isGeneric(), isFalse);
+      });
+
+      test('generic', () {
+        final source = source2DataSafe;
+        final writer = _Writer(source);
+
+        expect(writer.isGeneric(), isTrue);
+      });
+    });
     // end of group BaseUtilsWriter
   });
 }

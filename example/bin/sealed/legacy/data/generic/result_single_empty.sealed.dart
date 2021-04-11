@@ -115,9 +115,6 @@ class ResultSuccess extends Result {
 class ResultEmpty extends Result {
   ResultEmpty();
 
-  @factory
-  ResultEmpty /*!*/ copy() => ResultEmpty();
-
   @override
   String /*!*/ toString() => 'Result.empty()';
 

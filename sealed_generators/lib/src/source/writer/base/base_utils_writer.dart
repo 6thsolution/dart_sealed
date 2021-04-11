@@ -113,4 +113,9 @@ abstract class BaseUtilsWriter extends BaseWriter {
   @nonVirtual
   @visibleForTesting
   String initThisValue() => 'final $topLower = this;';
+
+  @protected
+  @nonVirtual
+  @visibleForTesting
+  bool isGeneric() => manifest.params.isNotEmpty;
 }

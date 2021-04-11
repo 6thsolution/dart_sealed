@@ -184,9 +184,6 @@ class ResultSuccess extends Result {
 
   final D data;
 
-  @factory
-  ResultSuccess copy({D? data}) => ResultSuccess(data: data ?? this.data);
-
   @override
   String toString() => 'Result.success(data: $data)';
 
@@ -198,10 +195,6 @@ class ResultError extends Result {
   ResultError({required this.exception});
 
   final E exception;
-
-  @factory
-  ResultError copy({E? exception}) =>
-      ResultError(exception: exception ?? this.exception);
 
   @override
   String toString() => 'Result.error(exception: $exception)';
@@ -271,18 +264,6 @@ class ResultDoubleSuccess extends Result {
   final D data1;
   final D data2;
   final int code;
-
-  @factory
-  ResultDoubleSuccess copy({
-    D? data1,
-    D? data2,
-    int? code,
-  }) =>
-      ResultDoubleSuccess(
-        data1: data1 ?? this.data1,
-        data2: data2 ?? this.data2,
-        code: code ?? this.code,
-      );
 
   @override
   String toString() =>

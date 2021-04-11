@@ -1,4 +1,3 @@
-import 'package:sealed_generators/src/source/source.dart';
 import 'package:sealed_generators/src/source/writer/sub/sub_writer.dart';
 import 'package:test/test.dart';
 
@@ -32,9 +31,7 @@ void main() {
 
     group('method subClass', () {
       test('equality data', () {
-        final options = optionsDataSafe;
-        final manifest = manifest1;
-        final source = Source(options: options, manifest: manifest);
+        final source = source1DataSafe;
         // void rainy(int rain);
         final item2 = source.manifest.items[1];
         final writer = SubWriter(source);
@@ -56,10 +53,20 @@ void main() {
         );
       });
 
+      test('equality data generic', () {
+        final source = source2DataSafe;
+        // void rainy(int rain);
+        final item2 = source.manifest.items[1];
+        final writer = SubWriter(source);
+
+        expect(
+          writer.subClass(item2).tr(),
+          isNot(stringContainsInOrder(['copy'])),
+        );
+      });
+
       test('equality data with nullable', () {
-        final options = optionsDataSafe;
-        final manifest = manifest1;
-        final source = Source(options: options, manifest: manifest);
+        final source = source1DataSafe;
         // void windy(double velocity, double? angle);
         final item3 = source.manifest.items[2];
         final writer = SubWriter(source);
@@ -71,9 +78,7 @@ void main() {
       });
 
       test('equality identity', () {
-        final options = optionsIdentitySafe;
-        final manifest = manifest1;
-        final source = Source(options: options, manifest: manifest);
+        final source = source1IdentitySafe;
         // void rainy(int rain);
         final item2 = source.manifest.items[1];
         final writer = SubWriter(source);
@@ -85,9 +90,7 @@ void main() {
       });
 
       test('equality distinct', () {
-        final options = optionsDistinctSafe;
-        final manifest = manifest1;
-        final source = Source(options: options, manifest: manifest);
+        final source = source1DistinctSafe;
         // void rainy(int rain);
         final item2 = source.manifest.items[1];
         final writer = SubWriter(source);

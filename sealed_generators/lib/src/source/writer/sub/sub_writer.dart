@@ -58,7 +58,8 @@ class SubWriter extends BaseUtilsWriter {
         '{',
         subConstructorWriter.subConstructorDeclaration(item),
         subFieldWriter.subFieldDeclarations(item),
-        if (!hasNullable(item)) subCopyWriter.subCopyDeclaration(item),
+        if (!hasNullable(item) && !isGeneric())
+          subCopyWriter.subCopyDeclaration(item),
         subToStringWriter.subToString(item),
         if (options.equality == SealedEquality.data)
           subEquatableWriter.subEquatableEquality(item),

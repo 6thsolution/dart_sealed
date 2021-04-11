@@ -85,9 +85,6 @@ class ResultSuccess extends Result {
 
   final D data;
 
-  @factory
-  ResultSuccess copy({D? data}) => ResultSuccess(data: data ?? this.data);
-
   @override
   String toString() => 'Result.success(data: $data)';
 
@@ -103,16 +100,6 @@ class ResultError extends Result {
 
   final dynamic exception;
   final int code;
-
-  @factory
-  ResultError copy({
-    dynamic? exception,
-    int? code,
-  }) =>
-      ResultError(
-        exception: exception ?? this.exception,
-        code: code ?? this.code,
-      );
 
   @override
   String toString() => 'Result.error(exception: $exception, code: $code)';
