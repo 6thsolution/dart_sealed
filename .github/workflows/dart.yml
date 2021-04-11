@@ -63,11 +63,3 @@ jobs:
       - name: example run
         working-directory: ./example
         run: dart run
-      - name: download flutter
-        working-directory: .
-        run: |
-          git clone https://github.com/flutter/flutter.git -b stable --depth 1
-          ./flutter/bin/flutter doctor
-      - name: sealed_generators coverage
-        working-directory: ./sealed_generators
-        run: ../flutter/bin/flutter test --coverage
