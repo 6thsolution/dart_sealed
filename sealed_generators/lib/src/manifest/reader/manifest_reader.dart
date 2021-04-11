@@ -75,13 +75,11 @@ class ManifestReader {
   }
 
   /// extract  class param
-  ///
-  /// default bound: for nullsafe Object and for legacy Object?
   ManifestParam _extractParam(TypeParameterElement p) {
     final bound = p.bound;
     return ManifestParam(
       name: p.name,
-      bound: bound != null ? _extractManifestType(bound) : _defaultUpperBound(),
+      bound: bound != null ? _extractManifestType(bound) : _defaultUpperBound,
     );
   }
 
@@ -184,10 +182,11 @@ class ManifestReader {
         isNullable: _extractTypeIsNullable(type),
       );
 
-  // todo bad design
   /// default upper bound
-  ManifestType _defaultUpperBound() => ManifestType(
-        name: 'Object',
-        isNullable: options.isNullSafe ? false : true,
-      );
+  ///
+  /// all no bound types are considered nullable
+  static final _defaultUpperBound = ManifestType(
+    name: 'Object',
+    isNullable: true,
+  );
 }

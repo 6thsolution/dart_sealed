@@ -10,7 +10,7 @@ class D extends Object {}
 
 class E extends Object {}
 
-/// Result<D extends Object, E extends Object> {
+/// Result<D extends Object?, E extends Object?> {
 ///
 /// Success(D data)
 ///
