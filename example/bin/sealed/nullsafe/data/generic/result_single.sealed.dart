@@ -20,7 +20,12 @@ class D extends Object {}
 @SealedManifest(_Result)
 abstract class Result {
   @factory
-  static ResultSuccess success({required D? data}) => ResultSuccess(data: data);
+  static ResultSuccess success({
+    required D? data,
+  }) =>
+      ResultSuccess(
+        data: data,
+      );
 
   @factory
   static ResultError error({
@@ -96,7 +101,9 @@ abstract class Result {
 }
 
 class ResultSuccess extends Result with EquatableMixin {
-  ResultSuccess({required this.data});
+  ResultSuccess({
+    required this.data,
+  });
 
   final D? data;
 
@@ -104,7 +111,9 @@ class ResultSuccess extends Result with EquatableMixin {
   String toString() => 'Result.success(data: $data)';
 
   @override
-  List<Object?> get props => [data];
+  List<Object?> get props => [
+        data,
+      ];
 }
 
 class ResultError extends Result with EquatableMixin {

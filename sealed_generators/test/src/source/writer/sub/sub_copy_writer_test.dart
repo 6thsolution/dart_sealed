@@ -110,8 +110,8 @@ void main() {
         expect(
           writer.subCopyDeclaration(item2),
           '@factory\n'
-          'WeatherRainy copy({int? rain}) =>'
-          ' WeatherRainy(rain: rain ?? this.rain);',
+          'WeatherRainy copy({int? rain,}) =>'
+          ' WeatherRainy(rain: rain ?? this.rain,);',
         );
       });
 
@@ -124,8 +124,8 @@ void main() {
         expect(
           writer.subCopyDeclaration(item2),
           '@factory\n'
-          'WeatherRainy/*!*/ copy({int/*?*/ rain}) =>'
-          ' WeatherRainy(rain: rain ?? this.rain);',
+          'WeatherRainy/*!*/ copy({int/*?*/ rain,}) =>'
+          ' WeatherRainy(rain: rain ?? this.rain,);',
         );
       });
     });

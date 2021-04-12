@@ -24,8 +24,12 @@ abstract class Weather {
   static WeatherSunny /*!*/ sunny() => WeatherSunny();
 
   @factory
-  static WeatherRainy /*!*/ rainy({@required int /*?*/ rain}) =>
-      WeatherRainy(rain: rain);
+  static WeatherRainy /*!*/ rainy({
+    @required int /*?*/ rain,
+  }) =>
+      WeatherRainy(
+        rain: rain,
+      );
 
   @factory
   static WeatherWindy /*!*/ windy({
@@ -134,7 +138,9 @@ class WeatherSunny extends Weather {
 }
 
 class WeatherRainy extends Weather {
-  WeatherRainy({@required this.rain});
+  WeatherRainy({
+    @required this.rain,
+  });
 
   final int /*?*/ rain;
 

@@ -1,18 +1,18 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'result.dart';
+part of 'result_simple.dart';
 
 // **************************************************************************
 // Generator: sealed_generators
 // **************************************************************************
 
-class D extends Object {}
+class D extends DBase {}
 
-class E extends Base {}
+class E extends EBase {}
 
-/// Result<D extends Object, E extends Base> {
+/// Result<D extends DBase, E extends EBase> {
 ///
-/// Success(D? data)
+/// Success(D data)
 ///
 /// Error(E exception)
 ///
@@ -23,7 +23,7 @@ class E extends Base {}
 abstract class Result {
   @factory
   static ResultSuccess success({
-    required D? data,
+    required D data,
   }) =>
       ResultSuccess(
         data: data,
@@ -105,7 +105,7 @@ class ResultSuccess extends Result with EquatableMixin {
     required this.data,
   });
 
-  final D? data;
+  final D data;
 
   @override
   String toString() => 'Result.success(data: $data)';

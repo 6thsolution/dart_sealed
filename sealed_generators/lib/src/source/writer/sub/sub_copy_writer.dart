@@ -41,11 +41,11 @@ class SubCopyWriter extends BaseUtilsWriter {
         [
           '${subFull(item)}$nn copy',
           subCopyDeclarationParts(item)
-              .joinArgs()
+              .joinArgsFull()
               .withBracesOrNot()
               .withParenthesis(),
           ' => ${subFull(item)}',
-          subCopyCalcParts(item).joinArgs().withParenthesis(),
+          subCopyCalcParts(item).joinArgsFull().withParenthesis(),
           ';',
         ].joinParts(),
       ].joinLines();

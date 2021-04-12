@@ -18,11 +18,20 @@ part of 'wrapper.dart';
 @SealedManifest(_Wrapper)
 abstract class Wrapper {
   @factory
-  static WrapperWrap wrap({required dynamic data}) => WrapperWrap(data: data);
+  static WrapperWrap wrap({
+    required dynamic data,
+  }) =>
+      WrapperWrap(
+        data: data,
+      );
 
   @factory
-  static WrapperWrapNullable wrapNullable({required dynamic data}) =>
-      WrapperWrapNullable(data: data);
+  static WrapperWrapNullable wrapNullable({
+    required dynamic data,
+  }) =>
+      WrapperWrapNullable(
+        data: data,
+      );
 
   bool isWrap() => this is WrapperWrap;
 
@@ -88,32 +97,49 @@ abstract class Wrapper {
 }
 
 class WrapperWrap extends Wrapper with EquatableMixin {
-  WrapperWrap({required this.data});
+  WrapperWrap({
+    required this.data,
+  });
 
   final dynamic data;
 
   @factory
-  WrapperWrap copy({dynamic? data}) => WrapperWrap(data: data ?? this.data);
+  WrapperWrap copy({
+    dynamic? data,
+  }) =>
+      WrapperWrap(
+        data: data ?? this.data,
+      );
 
   @override
   String toString() => 'Wrapper.wrap(data: $data)';
 
   @override
-  List<Object?> get props => [data];
+  List<Object?> get props => [
+        data,
+      ];
 }
 
 class WrapperWrapNullable extends Wrapper with EquatableMixin {
-  WrapperWrapNullable({required this.data});
+  WrapperWrapNullable({
+    required this.data,
+  });
 
   final dynamic data;
 
   @factory
-  WrapperWrapNullable copy({dynamic? data}) =>
-      WrapperWrapNullable(data: data ?? this.data);
+  WrapperWrapNullable copy({
+    dynamic? data,
+  }) =>
+      WrapperWrapNullable(
+        data: data ?? this.data,
+      );
 
   @override
   String toString() => 'Wrapper.wrapNullable(data: $data)';
 
   @override
-  List<Object?> get props => [data];
+  List<Object?> get props => [
+        data,
+      ];
 }

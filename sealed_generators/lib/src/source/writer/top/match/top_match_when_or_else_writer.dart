@@ -53,7 +53,7 @@ class TopMatchWhenOrElseWriter extends TopMatchBaseWriter {
   @visibleForTesting
   String topMatchWhenOrElseStart() => [
         'R whenOrElse$topMatchParam',
-        topMatchWhenOrElseArgs().joinArgs().withBraces().withParenthesis(),
+        topMatchWhenOrElseArgs().joinArgsFull().withBraces().withParenthesis(),
       ].joinParts();
 
   /// R whenOrElse<R extends Object?>(item..., required orElse) {...}

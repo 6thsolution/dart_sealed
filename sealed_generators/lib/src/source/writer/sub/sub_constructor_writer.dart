@@ -27,7 +27,7 @@ class SubConstructorWriter extends BaseUtilsWriter {
   String subConstructorDeclaration(ManifestItem item) => [
         subFull(item),
         subConstructorDeclarationParts(item)
-            .joinArgs()
+            .joinArgsFull()
             .withBracesOrNot()
             .withParenthesis(),
         ';',

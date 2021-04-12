@@ -98,8 +98,8 @@ void main() {
         expect(
           writer.topBuilder(item2),
           '@factory\n'
-          'static WeatherRainy rainy({required int rain}) =>'
-          ' WeatherRainy(rain: rain);',
+          'static WeatherRainy rainy({required int rain,}) =>'
+          ' WeatherRainy(rain: rain,);',
         );
         expect(
           writer.topBuilder(item3),
@@ -129,8 +129,8 @@ void main() {
         expect(
           writer.topBuilder(item2),
           '@factory\n'
-          'static WeatherRainy/*!*/ rainy({@required int/*!*/ rain}) =>'
-          ' WeatherRainy(rain: rain);',
+          'static WeatherRainy/*!*/ rainy({@required int/*!*/ rain,}) =>'
+          ' WeatherRainy(rain: rain,);',
         );
         expect(
           writer.topBuilder(item3),

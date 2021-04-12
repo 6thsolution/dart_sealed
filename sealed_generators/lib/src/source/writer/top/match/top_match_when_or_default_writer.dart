@@ -56,7 +56,10 @@ class TopMatchWhenOrDefaultWriter extends TopMatchBaseWriter {
   @visibleForTesting
   String topMatchWhenOrDefaultStart() => [
         'R whenOrDefault$topMatchParam',
-        topMatchWhenOrDefaultArgs().joinArgs().withBraces().withParenthesis(),
+        topMatchWhenOrDefaultArgs()
+            .joinArgsFull()
+            .withBraces()
+            .withParenthesis(),
       ].joinParts();
 
   /// R whenOrDefault<R extends Object?>(item..., required orDefault) {...}

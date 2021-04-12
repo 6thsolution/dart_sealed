@@ -24,8 +24,12 @@ abstract class Weather {
   static WeatherSunny /*!*/ sunny() => WeatherSunny();
 
   @factory
-  static WeatherRainy /*!*/ rainy({@required int /*?*/ rain}) =>
-      WeatherRainy(rain: rain);
+  static WeatherRainy /*!*/ rainy({
+    @required int /*?*/ rain,
+  }) =>
+      WeatherRainy(
+        rain: rain,
+      );
 
   @factory
   static WeatherWindy /*!*/ windy({
@@ -137,7 +141,9 @@ class WeatherSunny extends Weather with EquatableMixin {
 }
 
 class WeatherRainy extends Weather with EquatableMixin {
-  WeatherRainy({@required this.rain});
+  WeatherRainy({
+    @required this.rain,
+  });
 
   final int /*?*/ rain;
 
@@ -145,7 +151,9 @@ class WeatherRainy extends Weather with EquatableMixin {
   String /*!*/ toString() => 'Weather.rainy(rain: $rain)';
 
   @override
-  List<Object /*?*/ > /*!*/ get props => [rain];
+  List<Object /*?*/ > /*!*/ get props => [
+        rain,
+      ];
 }
 
 class WeatherWindy extends Weather with EquatableMixin {

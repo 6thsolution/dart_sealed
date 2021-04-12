@@ -15,6 +15,12 @@ void main() {
       expect(['a', 'b'].joinArgsSimple(), equals('a, b'));
     });
 
+    test('method joinArgsFull', () {
+      expect(<String>[].joinArgsFull(), equals(''));
+      expect(['a'].joinArgsFull(), equals('a,'));
+      expect(['a', 'b'].joinArgsFull(), equals('a, b,'));
+    });
+
     test('method joinMethods', () {
       expect(<String>[].joinMethods(), equals(''));
       expect(['a'].joinMethods(), equals('a'));

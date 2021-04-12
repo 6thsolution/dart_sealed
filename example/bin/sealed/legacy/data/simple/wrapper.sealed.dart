@@ -17,8 +17,12 @@ part of 'wrapper.dart';
 @SealedManifest(_Wrapper)
 abstract class Wrapper {
   @factory
-  static WrapperWrap /*!*/ wrap({@required dynamic /*?*/ data}) =>
-      WrapperWrap(data: data);
+  static WrapperWrap /*!*/ wrap({
+    @required dynamic /*?*/ data,
+  }) =>
+      WrapperWrap(
+        data: data,
+      );
 
   bool isWrap() => this is WrapperWrap /*!*/;
 
@@ -29,8 +33,9 @@ abstract class Wrapper {
     return wrapper is WrapperWrap /*!*/ ? wrapper : null;
   }
 
-  R when<R extends Object /*?*/ >(
-      {@required R Function(WrapperWrap /*!*/ wrap) /*!*/ wrap}) {
+  R when<R extends Object /*?*/ >({
+    @required R Function(WrapperWrap /*!*/ wrap) /*!*/ wrap,
+  }) {
     assert(wrap != null);
     final wrapper = this;
     if (wrapper is WrapperWrap /*!*/) {
@@ -68,7 +73,9 @@ abstract class Wrapper {
 }
 
 class WrapperWrap extends Wrapper with EquatableMixin {
-  WrapperWrap({@required this.data});
+  WrapperWrap({
+    @required this.data,
+  });
 
   final dynamic /*?*/ data;
 
@@ -76,5 +83,7 @@ class WrapperWrap extends Wrapper with EquatableMixin {
   String /*!*/ toString() => 'Wrapper.wrap(data: $data)';
 
   @override
-  List<Object /*?*/ > /*!*/ get props => [data];
+  List<Object /*?*/ > /*!*/ get props => [
+        data,
+      ];
 }

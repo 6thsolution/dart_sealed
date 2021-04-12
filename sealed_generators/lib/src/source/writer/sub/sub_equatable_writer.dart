@@ -27,7 +27,7 @@ class SubEquatableWriter extends BaseUtilsWriter {
         annotationOverride,
         [
           'List<Object$n>$nn get props => [',
-          subEquatableFieldNames(item).joinArgs(),
+          subEquatableFieldNames(item).joinArgsFull(),
           '];',
         ].joinParts(),
       ].joinLines();

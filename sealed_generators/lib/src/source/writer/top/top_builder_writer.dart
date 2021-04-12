@@ -25,8 +25,7 @@ class TopBuilderWriter extends BaseUtilsWriter {
   String topBuilderArg(ManifestField field) =>
       '$req ${typeSL(field.type)} ${field.name}';
 
-  /// ex. static ... rainy() => ...
-
+  /// ex. static sunny() => WeatherSunny();
   @nonVirtual
   @visibleForTesting
   String topBuilder(ManifestItem item) => [
@@ -35,11 +34,14 @@ class TopBuilderWriter extends BaseUtilsWriter {
           'static ${subFull(item)}$nn ${subLower(item)}',
           item.fields
               .map(topBuilderArg)
-              .joinArgs()
+              .joinArgsFull()
               .withBracesOrNot()
               .withParenthesis(),
           ' => ${subFull(item)}',
-          item.fields.map(subConstructorCallArg).joinArgs().withParenthesis(),
+          item.fields
+              .map(subConstructorCallArg)
+              .joinArgsFull()
+              .withParenthesis(),
           ';',
         ].joinParts(),
       ].joinLines();

@@ -1,5 +1,3 @@
-
-
 /// utilities for string iterables
 extension StringIterableUtils on Iterable<String> {
   /// if more than one element add trailing ','
@@ -15,6 +13,15 @@ extension StringIterableUtils on Iterable<String> {
 
   /// add ', ' between
   String joinArgsSimple() => join(', ');
+
+  /// add ', ' between and a trailing ',' if not empty
+  String joinArgsFull() {
+    if (isEmpty) {
+      return '';
+    } else {
+      return join(', ') + ',';
+    }
+  }
 
   /// add '\n\n' between
   String joinMethods() => join('\n\n');

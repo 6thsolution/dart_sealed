@@ -17,8 +17,12 @@ part of 'mixed.dart';
 @SealedManifest(_Apple)
 abstract class Apple {
   @factory
-  static AppleHold /*!*/ hold({@required Banana /*?*/ banana}) =>
-      AppleHold(banana: banana);
+  static AppleHold /*!*/ hold({
+    @required Banana /*?*/ banana,
+  }) =>
+      AppleHold(
+        banana: banana,
+      );
 
   bool isHold() => this is AppleHold /*!*/;
 
@@ -29,8 +33,9 @@ abstract class Apple {
     return apple is AppleHold /*!*/ ? apple : null;
   }
 
-  R when<R extends Object /*?*/ >(
-      {@required R Function(AppleHold /*!*/ hold) /*!*/ hold}) {
+  R when<R extends Object /*?*/ >({
+    @required R Function(AppleHold /*!*/ hold) /*!*/ hold,
+  }) {
     assert(hold != null);
     final apple = this;
     if (apple is AppleHold /*!*/) {
@@ -68,7 +73,9 @@ abstract class Apple {
 }
 
 class AppleHold extends Apple with EquatableMixin {
-  AppleHold({@required this.banana});
+  AppleHold({
+    @required this.banana,
+  });
 
   final Banana /*?*/ banana;
 
@@ -76,7 +83,9 @@ class AppleHold extends Apple with EquatableMixin {
   String /*!*/ toString() => 'Apple.hold(banana: $banana)';
 
   @override
-  List<Object /*?*/ > /*!*/ get props => [banana];
+  List<Object /*?*/ > /*!*/ get props => [
+        banana,
+      ];
 }
 
 /// Banana {
@@ -89,8 +98,12 @@ class AppleHold extends Apple with EquatableMixin {
 @SealedManifest(_Banana)
 abstract class Banana {
   @factory
-  static BananaHold /*!*/ hold({@required Apple /*?*/ apple}) =>
-      BananaHold(apple: apple);
+  static BananaHold /*!*/ hold({
+    @required Apple /*?*/ apple,
+  }) =>
+      BananaHold(
+        apple: apple,
+      );
 
   bool isHold() => this is BananaHold /*!*/;
 
@@ -101,8 +114,9 @@ abstract class Banana {
     return banana is BananaHold /*!*/ ? banana : null;
   }
 
-  R when<R extends Object /*?*/ >(
-      {@required R Function(BananaHold /*!*/ hold) /*!*/ hold}) {
+  R when<R extends Object /*?*/ >({
+    @required R Function(BananaHold /*!*/ hold) /*!*/ hold,
+  }) {
     assert(hold != null);
     final banana = this;
     if (banana is BananaHold /*!*/) {
@@ -140,7 +154,9 @@ abstract class Banana {
 }
 
 class BananaHold extends Banana with EquatableMixin {
-  BananaHold({@required this.apple});
+  BananaHold({
+    @required this.apple,
+  });
 
   final Apple /*?*/ apple;
 
@@ -148,7 +164,9 @@ class BananaHold extends Banana with EquatableMixin {
   String /*!*/ toString() => 'Banana.hold(apple: $apple)';
 
   @override
-  List<Object /*?*/ > /*!*/ get props => [apple];
+  List<Object /*?*/ > /*!*/ get props => [
+        apple,
+      ];
 }
 
 /// Coconut {

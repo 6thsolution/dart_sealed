@@ -88,7 +88,7 @@ void main() {
       );
       expect(
         writer.subConstructorDeclaration(item2),
-        'WeatherRainy({required this.rain});',
+        'WeatherRainy({required this.rain,});',
       );
       expect(
         writer.subConstructorDeclaration(item3),

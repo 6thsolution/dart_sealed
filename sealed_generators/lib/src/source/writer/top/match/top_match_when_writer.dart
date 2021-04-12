@@ -45,7 +45,7 @@ class TopMatchWhenWriter extends TopMatchBaseWriter {
   @visibleForTesting
   String topMatchWhenStart() => [
         'R when$topMatchParam',
-        topMatchWhenArgs().joinArgs().withBraces().withParenthesis(),
+        topMatchWhenArgs().joinArgsFull().withBraces().withParenthesis(),
       ].joinParts();
 
   /// R when<R extends Object?>(required item...)

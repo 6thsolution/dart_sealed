@@ -83,7 +83,7 @@ void main() {
             endsWith('}'),
             stringContainsInOrder([
               '{',
-              'WeatherRainy({required this.rain});',
+              'WeatherRainy({required this.rain,});',
               'final int rain;',
               'WeatherRainy copy(',
               'String toString(',
