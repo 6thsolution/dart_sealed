@@ -188,6 +188,24 @@ abstract class Weather {
     }
   }
 
+  void branchOrElse({
+    void Function(WeatherSunny sunny)? sunny,
+    void Function(WeatherRainy rainy)? rainy,
+    void Function(WeatherWindy windy)? windy,
+    required void Function(Weather weather) orElse,
+  }) {
+    final weather = this;
+    if (weather is WeatherSunny) {
+      (sunny ?? orElse)(weather);
+    } else if (weather is WeatherRainy) {
+      (rainy ?? orElse)(weather);
+    } else if (weather is WeatherWindy) {
+      (windy ?? orElse)(weather);
+    } else {
+      throw AssertionError();
+    }
+  }
+
   @override
   bool operator ==(Object other) => false;
 }

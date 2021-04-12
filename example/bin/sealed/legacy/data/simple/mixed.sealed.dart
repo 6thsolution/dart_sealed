@@ -116,6 +116,19 @@ abstract class Apple {
       throw AssertionError();
     }
   }
+
+  void branchOrElse({
+    void Function(AppleHold /*!*/ hold) /*?*/ hold,
+    @required void Function(Apple /*!*/ apple) /*!*/ orElse,
+  }) {
+    assert(orElse != null);
+    final apple = this;
+    if (apple is AppleHold /*!*/) {
+      (hold ?? orElse)(apple);
+    } else {
+      throw AssertionError();
+    }
+  }
 }
 
 class AppleHold extends Apple with EquatableMixin {
@@ -239,6 +252,19 @@ abstract class Banana {
     final banana = this;
     if (banana is BananaHold /*!*/) {
       hold?.call(banana);
+    } else {
+      throw AssertionError();
+    }
+  }
+
+  void branchOrElse({
+    void Function(BananaHold /*!*/ hold) /*?*/ hold,
+    @required void Function(Banana /*!*/ banana) /*!*/ orElse,
+  }) {
+    assert(orElse != null);
+    final banana = this;
+    if (banana is BananaHold /*!*/) {
+      (hold ?? orElse)(banana);
     } else {
       throw AssertionError();
     }
@@ -462,6 +488,25 @@ abstract class Coconut {
       test2?.call(coconut);
     } else if (coconut is CoconutHold /*!*/) {
       hold?.call(coconut);
+    } else {
+      throw AssertionError();
+    }
+  }
+
+  void branchOrElse({
+    void Function(CoconutTest1 /*!*/ test1) /*?*/ test1,
+    void Function(CoconutTest2 /*!*/ test2) /*?*/ test2,
+    void Function(CoconutHold /*!*/ hold) /*?*/ hold,
+    @required void Function(Coconut /*!*/ coconut) /*!*/ orElse,
+  }) {
+    assert(orElse != null);
+    final coconut = this;
+    if (coconut is CoconutTest1 /*!*/) {
+      (test1 ?? orElse)(coconut);
+    } else if (coconut is CoconutTest2 /*!*/) {
+      (test2 ?? orElse)(coconut);
+    } else if (coconut is CoconutHold /*!*/) {
+      (hold ?? orElse)(coconut);
     } else {
       throw AssertionError();
     }

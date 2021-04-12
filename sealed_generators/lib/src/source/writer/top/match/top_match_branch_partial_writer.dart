@@ -22,7 +22,8 @@ class TopMatchBranchPartialWriter extends TopMatchBaseWriter {
 
   @nonVirtual
   @visibleForTesting
-  List<If> topMatchBranchPartialIfs() => manifest.items.map(topMatchBranchPartialIf).toList();
+  List<If> topMatchBranchPartialIfs() =>
+      manifest.items.map(topMatchBranchPartialIf).toList();
 
   /// body of when method
   @nonVirtual
@@ -45,7 +46,10 @@ class TopMatchBranchPartialWriter extends TopMatchBaseWriter {
   @visibleForTesting
   String topMatchBranchPartialStart() => [
         'void branchPartial',
-        topMatchBranchPartialArgs().joinArgsFull().withBraces().withParenthesis(),
+        topMatchBranchPartialArgs()
+            .joinArgsFull()
+            .withBraces()
+            .withParenthesis(),
       ].joinParts();
 
   /// void branchPartial(item...)

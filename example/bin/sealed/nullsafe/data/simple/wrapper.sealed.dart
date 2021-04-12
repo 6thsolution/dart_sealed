@@ -150,6 +150,21 @@ abstract class Wrapper {
       throw AssertionError();
     }
   }
+
+  void branchOrElse({
+    void Function(WrapperWrap wrap)? wrap,
+    void Function(WrapperWrapNullable wrapNullable)? wrapNullable,
+    required void Function(Wrapper wrapper) orElse,
+  }) {
+    final wrapper = this;
+    if (wrapper is WrapperWrap) {
+      (wrap ?? orElse)(wrapper);
+    } else if (wrapper is WrapperWrapNullable) {
+      (wrapNullable ?? orElse)(wrapper);
+    } else {
+      throw AssertionError();
+    }
+  }
 }
 
 class WrapperWrap extends Wrapper with EquatableMixin {

@@ -187,6 +187,24 @@ abstract class Result {
       throw AssertionError();
     }
   }
+
+  void branchOrElse({
+    void Function(ResultSuccess success)? success,
+    void Function(ResultEmpty empty)? empty,
+    void Function(ResultError error)? error,
+    required void Function(Result result) orElse,
+  }) {
+    final result = this;
+    if (result is ResultSuccess) {
+      (success ?? orElse)(result);
+    } else if (result is ResultEmpty) {
+      (empty ?? orElse)(result);
+    } else if (result is ResultError) {
+      (error ?? orElse)(result);
+    } else {
+      throw AssertionError();
+    }
+  }
 }
 
 class ResultSuccess extends Result with EquatableMixin {
