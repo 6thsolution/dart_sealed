@@ -28,6 +28,44 @@ void main() {
       expect(writer.hasNullable(item3), true);
     });
 
+    group('method subClassStart', () {
+      test('equality data', () {
+        final source = source1DataSafe;
+        // void rainy(int rain);
+        final item2 = source.manifest.items[1];
+        final writer = SubWriter(source);
+
+        expect(
+          writer.subClassStart(item2),
+          'class WeatherRainy extends Weather with EquatableMixin',
+        );
+      });
+
+      test('equality identity', () {
+        final source = source1IdentitySafe;
+        // void rainy(int rain);
+        final item2 = source.manifest.items[1];
+        final writer = SubWriter(source);
+
+        expect(
+          writer.subClassStart(item2),
+          'class WeatherRainy extends Weather',
+        );
+      });
+
+      test('equality distinct', () {
+        final source = source1DistinctSafe;
+        // void rainy(int rain);
+        final item2 = source.manifest.items[1];
+        final writer = SubWriter(source);
+
+        expect(
+          writer.subClassStart(item2),
+          'class WeatherRainy extends Weather',
+        );
+      });
+    });
+
     group('method subClass', () {
       test('equality data', () {
         final source = source1DataSafe;
@@ -38,7 +76,10 @@ void main() {
         expect(
           writer.subClass(item2),
           allOf(
-            startsWith('class WeatherRainy extends Weather'),
+            startsWith(
+              'class WeatherRainy extends Weather'
+              ' with EquatableMixin',
+            ),
             endsWith('}'),
             stringContainsInOrder([
               '{',
@@ -84,7 +125,10 @@ void main() {
 
         expect(
           writer.subClass(item2),
-          isNot(stringContainsInOrder(['get props'])),
+          allOf(
+            isNot(stringContainsInOrder(['get props'])),
+            isNot(stringContainsInOrder(['EquatableMixin'])),
+          ),
         );
       });
 
@@ -96,7 +140,10 @@ void main() {
 
         expect(
           writer.subClass(item2),
-          isNot(stringContainsInOrder(['get props'])),
+          allOf(
+            isNot(stringContainsInOrder(['get props'])),
+            isNot(stringContainsInOrder(['EquatableMixin'])),
+          ),
         );
       });
     });

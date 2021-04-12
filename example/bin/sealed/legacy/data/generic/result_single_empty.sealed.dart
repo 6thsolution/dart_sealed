@@ -21,7 +21,7 @@ class D extends Object {}
 ///
 /// with data equality.
 @SealedManifest(_Result)
-abstract class Result extends Equatable {
+abstract class Result {
   @factory
   static ResultSuccess /*!*/ success({@required D /*?*/ data}) =>
       ResultSuccess(data: data);
@@ -119,7 +119,7 @@ abstract class Result extends Equatable {
   }
 }
 
-class ResultSuccess extends Result {
+class ResultSuccess extends Result with EquatableMixin {
   ResultSuccess({@required this.data});
 
   final D /*?*/ data;
@@ -131,7 +131,7 @@ class ResultSuccess extends Result {
   List<Object /*?*/ > /*!*/ get props => [data];
 }
 
-class ResultEmpty extends Result {
+class ResultEmpty extends Result with EquatableMixin {
   ResultEmpty();
 
   @override
@@ -141,7 +141,7 @@ class ResultEmpty extends Result {
   List<Object /*?*/ > /*!*/ get props => [];
 }
 
-class ResultError extends Result {
+class ResultError extends Result with EquatableMixin {
   ResultError({@required this.code});
 
   final int /*?*/ code;

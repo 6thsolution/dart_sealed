@@ -64,10 +64,7 @@ class TopWriter extends BaseUtilsWriter {
   String topClassStart() => [
         topDocWriter.write(),
         topManifest(),
-        [
-          'abstract class $top',
-          if (options.equality == SealedEquality.data) ' extends Equatable',
-        ].joinParts()
+        'abstract class $top',
       ].joinLines();
 
   @nonVirtual

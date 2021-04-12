@@ -14,7 +14,7 @@ part of 'mixed.dart';
 ///
 /// with data equality.
 @SealedManifest(_Apple)
-abstract class Apple extends Equatable {
+abstract class Apple {
   @factory
   static AppleHold hold({required Banana? banana}) => AppleHold(banana: banana);
 
@@ -61,7 +61,7 @@ abstract class Apple extends Equatable {
   }
 }
 
-class AppleHold extends Apple {
+class AppleHold extends Apple with EquatableMixin {
   AppleHold({required this.banana});
 
   final Banana? banana;
@@ -81,7 +81,7 @@ class AppleHold extends Apple {
 ///
 /// with data equality.
 @SealedManifest(_Banana)
-abstract class Banana extends Equatable {
+abstract class Banana {
   @factory
   static BananaHold hold({required Apple apple}) => BananaHold(apple: apple);
 
@@ -128,7 +128,7 @@ abstract class Banana extends Equatable {
   }
 }
 
-class BananaHold extends Banana {
+class BananaHold extends Banana with EquatableMixin {
   BananaHold({required this.apple});
 
   final Apple apple;
@@ -155,7 +155,7 @@ class BananaHold extends Banana {
 ///
 /// with data equality.
 @SealedManifest(_Coconut)
-abstract class Coconut extends Equatable {
+abstract class Coconut {
   @factory
   static CoconutTest1 test1({
     required int? x,
@@ -271,7 +271,7 @@ abstract class Coconut extends Equatable {
   }
 }
 
-class CoconutTest1 extends Coconut {
+class CoconutTest1 extends Coconut with EquatableMixin {
   CoconutTest1({
     required this.x,
     required this.y,
@@ -290,7 +290,7 @@ class CoconutTest1 extends Coconut {
       ];
 }
 
-class CoconutTest2 extends Coconut {
+class CoconutTest2 extends Coconut with EquatableMixin {
   CoconutTest2({
     required this.x,
     required this.y,
@@ -319,7 +319,7 @@ class CoconutTest2 extends Coconut {
       ];
 }
 
-class CoconutHold extends Coconut {
+class CoconutHold extends Coconut with EquatableMixin {
   CoconutHold({
     required this.apple,
     required this.banana,

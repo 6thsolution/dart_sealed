@@ -16,7 +16,7 @@ part of 'wrapper.dart';
 ///
 /// with data equality.
 @SealedManifest(_Wrapper)
-abstract class Wrapper extends Equatable {
+abstract class Wrapper {
   @factory
   static WrapperWrap wrap({required dynamic data}) => WrapperWrap(data: data);
 
@@ -87,7 +87,7 @@ abstract class Wrapper extends Equatable {
   }
 }
 
-class WrapperWrap extends Wrapper {
+class WrapperWrap extends Wrapper with EquatableMixin {
   WrapperWrap({required this.data});
 
   final dynamic data;
@@ -102,7 +102,7 @@ class WrapperWrap extends Wrapper {
   List<Object?> get props => [data];
 }
 
-class WrapperWrapNullable extends Wrapper {
+class WrapperWrapNullable extends Wrapper with EquatableMixin {
   WrapperWrapNullable({required this.data});
 
   final dynamic data;

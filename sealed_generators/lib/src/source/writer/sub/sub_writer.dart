@@ -49,12 +49,21 @@ class SubWriter extends BaseUtilsWriter {
   bool hasNullable(ManifestItem item) =>
       item.fields.map((field) => field.type).any((type) => type.isNullable);
 
-  /// write subclass
+  /// subclass start
+  @protected
+  @nonVirtual
+  @visibleForTesting
+  String subClassStart(ManifestItem item) => [
+        'class ${subFull(item)} extends $top',
+        if (options.equality == SealedEquality.data) ' with EquatableMixin',
+      ].joinParts();
+
+  /// subclass
   @protected
   @nonVirtual
   @visibleForTesting
   String subClass(ManifestItem item) => [
-        'class ${subFull(item)} extends $top',
+        subClassStart(item),
         '{',
         subConstructorWriter.subConstructorDeclaration(item),
         subFieldWriter.subFieldDeclarations(item),

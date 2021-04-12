@@ -29,7 +29,7 @@ class E extends Base {}
 ///
 /// with data equality.
 @SealedManifest(_Result)
-abstract class Result extends Equatable {
+abstract class Result {
   @factory
   static ResultSuccess /*!*/ success({@required D /*?*/ data}) =>
       ResultSuccess(data: data);
@@ -223,7 +223,7 @@ abstract class Result extends Equatable {
   }
 }
 
-class ResultSuccess extends Result {
+class ResultSuccess extends Result with EquatableMixin {
   ResultSuccess({@required this.data});
 
   final D /*?*/ data;
@@ -235,7 +235,7 @@ class ResultSuccess extends Result {
   List<Object /*?*/ > /*!*/ get props => [data];
 }
 
-class ResultError extends Result {
+class ResultError extends Result with EquatableMixin {
   ResultError({@required this.exception});
 
   final E /*?*/ exception;
@@ -247,7 +247,7 @@ class ResultError extends Result {
   List<Object /*?*/ > /*!*/ get props => [exception];
 }
 
-class ResultDummy extends Result {
+class ResultDummy extends Result with EquatableMixin {
   ResultDummy({@required this.data});
 
   final D /*?*/ data;
@@ -259,7 +259,7 @@ class ResultDummy extends Result {
   List<Object /*?*/ > /*!*/ get props => [data];
 }
 
-class ResultPartialSuccess extends Result {
+class ResultPartialSuccess extends Result with EquatableMixin {
   ResultPartialSuccess({
     @required this.data,
     @required this.exception,
@@ -279,7 +279,7 @@ class ResultPartialSuccess extends Result {
       ];
 }
 
-class ResultPartialError extends Result {
+class ResultPartialError extends Result with EquatableMixin {
   ResultPartialError({
     @required this.e,
     @required this.code,
@@ -298,7 +298,7 @@ class ResultPartialError extends Result {
       ];
 }
 
-class ResultDoubleSuccess extends Result {
+class ResultDoubleSuccess extends Result with EquatableMixin {
   ResultDoubleSuccess({
     @required this.data1,
     @required this.data2,

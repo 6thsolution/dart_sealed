@@ -18,7 +18,7 @@ part of 'weather_named_args.dart';
 ///
 /// with data equality.
 @SealedManifest(_Weather)
-abstract class Weather extends Equatable {
+abstract class Weather {
   @factory
   static WeatherSunny sunny() => WeatherSunny();
 
@@ -116,7 +116,7 @@ abstract class Weather extends Equatable {
   }
 }
 
-class WeatherSunny extends Weather {
+class WeatherSunny extends Weather with EquatableMixin {
   WeatherSunny();
 
   @factory
@@ -129,7 +129,7 @@ class WeatherSunny extends Weather {
   List<Object?> get props => [];
 }
 
-class WeatherRainy extends Weather {
+class WeatherRainy extends Weather with EquatableMixin {
   WeatherRainy({required this.rain});
 
   final int rain;
@@ -144,7 +144,7 @@ class WeatherRainy extends Weather {
   List<Object?> get props => [rain];
 }
 
-class WeatherWindy extends Weather {
+class WeatherWindy extends Weather with EquatableMixin {
   WeatherWindy({
     required this.velocity,
     required this.angle,

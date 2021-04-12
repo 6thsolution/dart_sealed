@@ -100,7 +100,7 @@ void main() {
           writer.topClassStart(),
           '$doc1Data\n'
           '@SealedManifest(_Weather)\n'
-          'abstract class Weather extends Equatable',
+          'abstract class Weather',
         );
       });
 
