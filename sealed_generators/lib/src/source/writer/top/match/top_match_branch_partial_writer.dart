@@ -6,13 +6,13 @@ import 'package:sealed_generators/src/source/writer/top/match/top_match_base_wri
 import 'package:sealed_generators/src/utils/branch_utils.dart';
 import 'package:sealed_generators/src/utils/string_utils.dart';
 
-/// match method writer when()
+/// match method writer branchPartial()
 @sealed
 @immutable
 class TopMatchBranchPartialWriter extends TopMatchBaseWriter {
   const TopMatchBranchPartialWriter(Source source) : super(source);
 
-  /// ex. if (weather is WeatherSunny) { sunny(weather); }
+  /// ex. if (weather is WeatherSunny) { sunny?.call(weather); }
   @nonVirtual
   @visibleForTesting
   If topMatchBranchPartialIf(ManifestItem item) => If(

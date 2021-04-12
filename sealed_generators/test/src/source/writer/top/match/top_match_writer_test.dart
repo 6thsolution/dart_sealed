@@ -27,6 +27,7 @@ void main() {
           writer.topMatchBranchWriter.topMatchBranch(),
           writer.topMatchBranchPartialWriter.topMatchBranchPartial(),
           writer.topMatchBranchOrElseWriter.topMatchBranchOrElse(),
+          writer.topMatchBranchOrThrowWriter.topMatchBranchOrThrow(),
         ]),
       );
     });

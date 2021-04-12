@@ -3,6 +3,7 @@ import 'package:sealed_annotations/sealed_annotations.dart';
 import 'package:sealed_generators/src/source/source.dart';
 import 'package:sealed_generators/src/source/writer/base/base_writer.dart';
 import 'package:sealed_generators/src/source/writer/top/match/top_match_branch_or_else_writer.dart';
+import 'package:sealed_generators/src/source/writer/top/match/top_match_branch_or_throw_writer.dart';
 import 'package:sealed_generators/src/source/writer/top/match/top_match_branch_partial_writer.dart';
 import 'package:sealed_generators/src/source/writer/top/match/top_match_branch_writer.dart';
 import 'package:sealed_generators/src/source/writer/top/match/top_match_when_or_default_writer.dart';
@@ -24,6 +25,7 @@ class TopMatchWriter extends BaseWriter {
         topMatchBranchWriter = TopMatchBranchWriter(source),
         topMatchBranchPartialWriter = TopMatchBranchPartialWriter(source),
         topMatchBranchOrElseWriter = TopMatchBranchOrElseWriter(source),
+        topMatchBranchOrThrowWriter = TopMatchBranchOrThrowWriter(source),
         super(source);
 
   @nonVirtual
@@ -59,6 +61,10 @@ class TopMatchWriter extends BaseWriter {
   final TopMatchBranchOrElseWriter topMatchBranchOrElseWriter;
 
   @nonVirtual
+  @visibleForTesting
+  final TopMatchBranchOrThrowWriter topMatchBranchOrThrowWriter;
+
+  @nonVirtual
   Iterable<String> topMatchMethods() => [
         topMatchWhenWriter.topMatchWhen(),
         topMatchWhenOrElseWriter.topMatchWhenOrElse(),
@@ -68,5 +74,6 @@ class TopMatchWriter extends BaseWriter {
         topMatchBranchWriter.topMatchBranch(),
         topMatchBranchPartialWriter.topMatchBranchPartial(),
         topMatchBranchOrElseWriter.topMatchBranchOrElse(),
+        topMatchBranchOrThrowWriter.topMatchBranchOrThrow(),
       ];
 }

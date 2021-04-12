@@ -6,7 +6,7 @@ import 'package:sealed_generators/src/source/writer/top/match/top_match_base_wri
 import 'package:sealed_generators/src/utils/branch_utils.dart';
 import 'package:sealed_generators/src/utils/string_utils.dart';
 
-/// match method writer whenOrElse()
+/// match method writer branchOrElse()
 @sealed
 @immutable
 class TopMatchBranchOrElseWriter extends TopMatchBaseWriter {

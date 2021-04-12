@@ -122,6 +122,17 @@ abstract class Apple {
       throw AssertionError();
     }
   }
+
+  void branchOrThrow({
+    void Function(AppleHold hold)? hold,
+  }) {
+    final apple = this;
+    if (apple is AppleHold && hold != null) {
+      hold(apple);
+    } else {
+      throw AssertionError();
+    }
+  }
 }
 
 class AppleHold extends Apple with EquatableMixin {
@@ -252,6 +263,17 @@ abstract class Banana {
     final banana = this;
     if (banana is BananaHold) {
       (hold ?? orElse)(banana);
+    } else {
+      throw AssertionError();
+    }
+  }
+
+  void branchOrThrow({
+    void Function(BananaHold hold)? hold,
+  }) {
+    final banana = this;
+    if (banana is BananaHold && hold != null) {
+      hold(banana);
     } else {
       throw AssertionError();
     }
@@ -490,6 +512,23 @@ abstract class Coconut {
       (test2 ?? orElse)(coconut);
     } else if (coconut is CoconutHold) {
       (hold ?? orElse)(coconut);
+    } else {
+      throw AssertionError();
+    }
+  }
+
+  void branchOrThrow({
+    void Function(CoconutTest1 test1)? test1,
+    void Function(CoconutTest2 test2)? test2,
+    void Function(CoconutHold hold)? hold,
+  }) {
+    final coconut = this;
+    if (coconut is CoconutTest1 && test1 != null) {
+      test1(coconut);
+    } else if (coconut is CoconutTest2 && test2 != null) {
+      test2(coconut);
+    } else if (coconut is CoconutHold && hold != null) {
+      hold(coconut);
     } else {
       throw AssertionError();
     }

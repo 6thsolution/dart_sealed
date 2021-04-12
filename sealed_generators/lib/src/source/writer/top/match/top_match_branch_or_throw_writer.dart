@@ -6,57 +6,60 @@ import 'package:sealed_generators/src/source/writer/top/match/top_match_base_wri
 import 'package:sealed_generators/src/utils/branch_utils.dart';
 import 'package:sealed_generators/src/utils/string_utils.dart';
 
-/// match method writer whenOrThrow()
+/// match method writer branchOrThrow()
 @sealed
 @immutable
-class TopMatchWhenOrThrowWriter extends TopMatchBaseWriter {
-  const TopMatchWhenOrThrowWriter(Source source) : super(source);
+class TopMatchBranchOrThrowWriter extends TopMatchBaseWriter {
+  const TopMatchBranchOrThrowWriter(Source source) : super(source);
 
   /// ex. if (weather is WeatherSunny && sunny != null) {
-  /// return sunny(weather);
+  /// sunny(weather);
   /// }
   @nonVirtual
   @visibleForTesting
-  If topMatchWhenOrThrowIf(ManifestItem item) => If(
+  If topMatchBranchOrThrowIf(ManifestItem item) => If(
         condition: '$topLower ${isSub(item)} && ${subLower(item)} != null',
-        code: 'return ${subLower(item)}($topLower);',
+        code: '${subLower(item)}($topLower);',
       );
 
   @nonVirtual
   @visibleForTesting
-  List<If> topMatchWhenOrThrowIfs() =>
-      manifest.items.map(topMatchWhenOrThrowIf).toList();
+  List<If> topMatchBranchOrThrowIfs() =>
+      manifest.items.map(topMatchBranchOrThrowIf).toList();
 
   /// body of when method
   @nonVirtual
   @visibleForTesting
-  String topMatchWhenOrThrowBody() => [
+  String topMatchBranchOrThrowBody() => [
         initThisValue(),
         Branch(
-          ifs: topMatchWhenOrThrowIfs(),
+          ifs: topMatchBranchOrThrowIfs(),
           els: throwingElse(),
         ).join(),
       ].joinLines();
 
   @nonVirtual
   @visibleForTesting
-  Iterable<String> topMatchWhenOrThrowArgs() =>
-      manifest.items.map(topMatchGenericNArg);
+  Iterable<String> topMatchBranchOrThrowArgs() =>
+      manifest.items.map(topMatchVoidNArg);
 
   /// start of when method
   @nonVirtual
   @visibleForTesting
-  String topMatchWhenOrThrowStart() => [
-        'R whenOrThrow$topMatchParam',
-        topMatchWhenOrThrowArgs().joinArgsFull().withBraces().withParenthesis(),
+  String topMatchBranchOrThrowStart() => [
+        'void branchOrThrow',
+        topMatchBranchOrThrowArgs()
+            .joinArgsFull()
+            .withBraces()
+            .withParenthesis(),
       ].joinParts();
 
-  /// R whenOrThrow<R extends Object?>(item...) {...}
+  /// void branchOrThrow(item...) {...}
   @nonVirtual
-  String topMatchWhenOrThrow() => [
-        topMatchWhenOrThrowStart(),
+  String topMatchBranchOrThrow() => [
+        topMatchBranchOrThrowStart(),
         '{',
-        topMatchWhenOrThrowBody(),
+        topMatchBranchOrThrowBody(),
         '}',
       ].joinLines();
 }

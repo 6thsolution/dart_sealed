@@ -205,6 +205,23 @@ abstract class Weather {
       throw AssertionError();
     }
   }
+
+  void branchOrThrow({
+    void Function(WeatherSunny sunny)? sunny,
+    void Function(WeatherRainy rainy)? rainy,
+    void Function(WeatherWindy windy)? windy,
+  }) {
+    final weather = this;
+    if (weather is WeatherSunny && sunny != null) {
+      sunny(weather);
+    } else if (weather is WeatherRainy && rainy != null) {
+      rainy(weather);
+    } else if (weather is WeatherWindy && windy != null) {
+      windy(weather);
+    } else {
+      throw AssertionError();
+    }
+  }
 }
 
 class WeatherSunny extends Weather with EquatableMixin {
