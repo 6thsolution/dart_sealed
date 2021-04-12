@@ -218,6 +218,64 @@ abstract class Result {
       throw AssertionError();
     }
   }
+
+  R? whenOrNull<R extends Object?>({
+    R Function(ResultSuccess success)? success,
+    R Function(ResultError error)? error,
+    R Function(ResultDummy dummy)? dummy,
+    R Function(ResultPartialSuccess partialSuccess)? partialSuccess,
+    R Function(ResultPartialError partialError)? partialError,
+    R Function(ResultDoubleSuccess doubleSuccess)? doubleSuccess,
+  }) {
+    final result = this;
+    if (result is ResultSuccess) {
+      return success != null ? success(result) : null;
+    } else if (result is ResultError) {
+      return error != null ? error(result) : null;
+    } else if (result is ResultDummy) {
+      return dummy != null ? dummy(result) : null;
+    } else if (result is ResultPartialSuccess) {
+      return partialSuccess != null ? partialSuccess(result) : null;
+    } else if (result is ResultPartialError) {
+      return partialError != null ? partialError(result) : null;
+    } else if (result is ResultDoubleSuccess) {
+      return doubleSuccess != null ? doubleSuccess(result) : null;
+    } else {
+      throw AssertionError();
+    }
+  }
+
+  R whenOrThrow<R extends Object?>({
+    R Function(ResultSuccess success)? success,
+    R Function(ResultError error)? error,
+    R Function(ResultDummy dummy)? dummy,
+    R Function(ResultPartialSuccess partialSuccess)? partialSuccess,
+    R Function(ResultPartialError partialError)? partialError,
+    R Function(ResultDoubleSuccess doubleSuccess)? doubleSuccess,
+  }) {
+    final result = this;
+    if (result is ResultSuccess) {
+      return success != null ? success(result) : throw AssertionError();
+    } else if (result is ResultError) {
+      return error != null ? error(result) : throw AssertionError();
+    } else if (result is ResultDummy) {
+      return dummy != null ? dummy(result) : throw AssertionError();
+    } else if (result is ResultPartialSuccess) {
+      return partialSuccess != null
+          ? partialSuccess(result)
+          : throw AssertionError();
+    } else if (result is ResultPartialError) {
+      return partialError != null
+          ? partialError(result)
+          : throw AssertionError();
+    } else if (result is ResultDoubleSuccess) {
+      return doubleSuccess != null
+          ? doubleSuccess(result)
+          : throw AssertionError();
+    } else {
+      throw AssertionError();
+    }
+  }
 }
 
 class ResultSuccess extends Result with EquatableMixin {

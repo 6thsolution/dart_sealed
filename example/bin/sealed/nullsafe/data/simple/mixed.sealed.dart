@@ -66,6 +66,28 @@ abstract class Apple {
       throw AssertionError();
     }
   }
+
+  R? whenOrNull<R extends Object?>({
+    R Function(AppleHold hold)? hold,
+  }) {
+    final apple = this;
+    if (apple is AppleHold) {
+      return hold != null ? hold(apple) : null;
+    } else {
+      throw AssertionError();
+    }
+  }
+
+  R whenOrThrow<R extends Object?>({
+    R Function(AppleHold hold)? hold,
+  }) {
+    final apple = this;
+    if (apple is AppleHold) {
+      return hold != null ? hold(apple) : throw AssertionError();
+    } else {
+      throw AssertionError();
+    }
+  }
 }
 
 class AppleHold extends Apple with EquatableMixin {
@@ -140,6 +162,28 @@ abstract class Banana {
     final banana = this;
     if (banana is BananaHold) {
       return hold != null ? hold(banana) : orDefault;
+    } else {
+      throw AssertionError();
+    }
+  }
+
+  R? whenOrNull<R extends Object?>({
+    R Function(BananaHold hold)? hold,
+  }) {
+    final banana = this;
+    if (banana is BananaHold) {
+      return hold != null ? hold(banana) : null;
+    } else {
+      throw AssertionError();
+    }
+  }
+
+  R whenOrThrow<R extends Object?>({
+    R Function(BananaHold hold)? hold,
+  }) {
+    final banana = this;
+    if (banana is BananaHold) {
+      return hold != null ? hold(banana) : throw AssertionError();
     } else {
       throw AssertionError();
     }
@@ -292,6 +336,40 @@ abstract class Coconut {
       return test2 != null ? test2(coconut) : orDefault;
     } else if (coconut is CoconutHold) {
       return hold != null ? hold(coconut) : orDefault;
+    } else {
+      throw AssertionError();
+    }
+  }
+
+  R? whenOrNull<R extends Object?>({
+    R Function(CoconutTest1 test1)? test1,
+    R Function(CoconutTest2 test2)? test2,
+    R Function(CoconutHold hold)? hold,
+  }) {
+    final coconut = this;
+    if (coconut is CoconutTest1) {
+      return test1 != null ? test1(coconut) : null;
+    } else if (coconut is CoconutTest2) {
+      return test2 != null ? test2(coconut) : null;
+    } else if (coconut is CoconutHold) {
+      return hold != null ? hold(coconut) : null;
+    } else {
+      throw AssertionError();
+    }
+  }
+
+  R whenOrThrow<R extends Object?>({
+    R Function(CoconutTest1 test1)? test1,
+    R Function(CoconutTest2 test2)? test2,
+    R Function(CoconutHold hold)? hold,
+  }) {
+    final coconut = this;
+    if (coconut is CoconutTest1) {
+      return test1 != null ? test1(coconut) : throw AssertionError();
+    } else if (coconut is CoconutTest2) {
+      return test2 != null ? test2(coconut) : throw AssertionError();
+    } else if (coconut is CoconutHold) {
+      return hold != null ? hold(coconut) : throw AssertionError();
     } else {
       throw AssertionError();
     }

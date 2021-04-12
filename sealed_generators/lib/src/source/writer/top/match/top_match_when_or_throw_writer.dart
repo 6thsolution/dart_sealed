@@ -6,69 +6,61 @@ import 'package:sealed_generators/src/source/writer/top/match/top_match_base_wri
 import 'package:sealed_generators/src/utils/branch_utils.dart';
 import 'package:sealed_generators/src/utils/string_utils.dart';
 
-/// match method writer whenOrDefault()
+/// match method writer whenOrThrow()
 @sealed
 @immutable
-class TopMatchWhenOrDefaultWriter extends TopMatchBaseWriter {
-  const TopMatchWhenOrDefaultWriter(Source source) : super(source);
+class TopMatchWhenOrThrowWriter extends TopMatchBaseWriter {
+  const TopMatchWhenOrThrowWriter(Source source) : super(source);
 
   /// ex. if (weather is WeatherSunny) {
-  /// return sunny != null ? sunny(weather) : orDefault;
+  /// return sunny != null ? sunny(weather) : throw AssertionError();
   /// }
   @nonVirtual
   @visibleForTesting
-  If topMatchWhenOrDefaultIf(ManifestItem item) => If(
+  If topMatchWhenOrThrowIf(ManifestItem item) => If(
         condition: '$topLower ${isSub(item)}',
         code: 'return ${subLower(item)} != null ?'
-            ' ${subLower(item)}($topLower) : orDefault;',
+            ' ${subLower(item)}($topLower) : ${throwAssertion()}',
       );
 
   @nonVirtual
   @visibleForTesting
-  List<If> topMatchWhenOrDefaultIfs() =>
-      manifest.items.map(topMatchWhenOrDefaultIf).toList();
+  List<If> topMatchWhenOrThrowIfs() =>
+      manifest.items.map(topMatchWhenOrThrowIf).toList();
 
   /// body of when method
   @nonVirtual
   @visibleForTesting
-  String topMatchWhenOrDefaultBody() => [
+  String topMatchWhenOrThrowBody() => [
         initThisValue(),
         Branch(
-          ifs: topMatchWhenOrDefaultIfs(),
+          ifs: topMatchWhenOrThrowIfs(),
           els: throwingElse(),
         ).join(),
       ].joinLines();
 
   @nonVirtual
   @visibleForTesting
-  Iterable<String> topMatchWhenOrDefaultItemArgs() =>
+  Iterable<String> topMatchWhenOrThrowArgs() =>
       manifest.items.map(topMatchGenericNArg);
-
-  @nonVirtual
-  @visibleForTesting
-  Iterable<String> topMatchWhenOrDefaultArgs() => [
-        ...topMatchWhenOrDefaultItemArgs(),
-        topMatchGenericNNArgOrDefault(),
-      ];
 
   /// start of when method
   @nonVirtual
   @visibleForTesting
-  String topMatchWhenOrDefaultStart() => [
-        'R whenOrDefault$topMatchParam',
-        topMatchWhenOrDefaultArgs()
+  String topMatchWhenOrThrowStart() => [
+        'R whenOrThrow$topMatchParam',
+        topMatchWhenOrThrowArgs()
             .joinArgsFull()
             .withBraces()
             .withParenthesis(),
       ].joinParts();
 
-  /// R whenOrDefault<R extends Object?>(item..., required orDefault) {...}
+  /// R whenOrThrow<R extends Object?>(item...) {...}
   @nonVirtual
-  String topMatchWhenOrDefault() => [
-        topMatchWhenOrDefaultStart(),
+  String topMatchWhenOrThrow() => [
+        topMatchWhenOrThrowStart(),
         '{',
-        if (!options.isNullSafe) topMatchAssertOrDefault(),
-        topMatchWhenOrDefaultBody(),
+        topMatchWhenOrThrowBody(),
         '}',
       ].joinLines();
 }

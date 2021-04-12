@@ -70,6 +70,28 @@ abstract class Wrapper {
       throw AssertionError();
     }
   }
+
+  R /*?*/ whenOrNull<R extends Object /*?*/ >({
+    R Function(WrapperWrap /*!*/ wrap) /*?*/ wrap,
+  }) {
+    final wrapper = this;
+    if (wrapper is WrapperWrap /*!*/) {
+      return wrap != null ? wrap(wrapper) : null;
+    } else {
+      throw AssertionError();
+    }
+  }
+
+  R whenOrThrow<R extends Object /*?*/ >({
+    R Function(WrapperWrap /*!*/ wrap) /*?*/ wrap,
+  }) {
+    final wrapper = this;
+    if (wrapper is WrapperWrap /*!*/) {
+      return wrap != null ? wrap(wrapper) : throw AssertionError();
+    } else {
+      throw AssertionError();
+    }
+  }
 }
 
 class WrapperWrap extends Wrapper with EquatableMixin {

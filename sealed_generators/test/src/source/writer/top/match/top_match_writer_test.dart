@@ -22,6 +22,8 @@ void main() {
           writer.topMatchWhenWriter.topMatchWhen(),
           writer.topMatchWhenOrElseWriter.topMatchWhenOrElse(),
           writer.topMatchWhenOrDefaultWriter.topMatchWhenOrDefault(),
+          writer.topMatchWhenOrNullWriter.topMatchWhenOrNull(),
+          writer.topMatchWhenOrThrowWriter.topMatchWhenOrThrow(),
         ]),
       );
     });

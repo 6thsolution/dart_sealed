@@ -98,6 +98,34 @@ abstract class Result {
       throw AssertionError();
     }
   }
+
+  R? whenOrNull<R extends Object?>({
+    R Function(ResultSuccess success)? success,
+    R Function(ResultError error)? error,
+  }) {
+    final result = this;
+    if (result is ResultSuccess) {
+      return success != null ? success(result) : null;
+    } else if (result is ResultError) {
+      return error != null ? error(result) : null;
+    } else {
+      throw AssertionError();
+    }
+  }
+
+  R whenOrThrow<R extends Object?>({
+    R Function(ResultSuccess success)? success,
+    R Function(ResultError error)? error,
+  }) {
+    final result = this;
+    if (result is ResultSuccess) {
+      return success != null ? success(result) : throw AssertionError();
+    } else if (result is ResultError) {
+      return error != null ? error(result) : throw AssertionError();
+    } else {
+      throw AssertionError();
+    }
+  }
 }
 
 class ResultSuccess extends Result with EquatableMixin {

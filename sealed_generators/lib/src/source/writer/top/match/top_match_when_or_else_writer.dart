@@ -43,7 +43,7 @@ class TopMatchWhenOrElseWriter extends TopMatchBaseWriter {
 
   @nonVirtual
   @visibleForTesting
-  List<String> topMatchWhenOrElseArgs() => [
+  Iterable<String> topMatchWhenOrElseArgs() => [
         ...topMatchWhenOrElseItemArgs(),
         topMatchGenericNNArgOrElse(),
       ];
