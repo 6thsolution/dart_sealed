@@ -1,7 +1,6 @@
 import 'package:sealed_generators/src/source/writer/sub/sub_writer.dart';
 import 'package:test/test.dart';
 
-import '../../../../utils/code_utils.dart';
 import '../../../../utils/examples.dart';
 
 void main() {
@@ -85,7 +84,7 @@ void main() {
 
         expect(
           writer.subClass(item2),
-          isNot(stringContains(['get props'])),
+          isNot(stringContainsInOrder(['get props'])),
         );
       });
 
@@ -97,7 +96,7 @@ void main() {
 
         expect(
           writer.subClass(item2),
-          isNot(stringContains(['get props'])),
+          isNot(stringContainsInOrder(['get props'])),
         );
       });
     });

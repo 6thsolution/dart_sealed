@@ -2,7 +2,6 @@ import 'package:sealed_generators/src/source/writer/top/top_builder_writer.dart'
 import 'package:sealed_generators/src/utils/string_utils.dart';
 import 'package:test/test.dart';
 
-import '../../../../utils/code_utils.dart';
 import '../../../../utils/examples.dart';
 
 void main() {
@@ -150,7 +149,7 @@ void main() {
 
       expect(
         writer.topBuilderMethods().joinMethods(),
-        stringContains([
+        stringContainsInOrder([
           'static',
           'sunny(',
           'rainy(',

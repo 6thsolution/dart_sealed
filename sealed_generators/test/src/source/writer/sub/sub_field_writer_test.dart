@@ -1,7 +1,6 @@
 import 'package:sealed_generators/src/source/writer/sub/sub_field_writer.dart';
 import 'package:test/test.dart';
 
-import '../../../../utils/code_utils.dart';
 import '../../../../utils/examples.dart';
 
 void main() {
@@ -81,7 +80,7 @@ void main() {
 
       expect(
         writer.subFieldDeclarations(item),
-        stringContains([
+        stringContainsInOrder([
           'final double velocity;',
           'final double? angle;',
         ]),
