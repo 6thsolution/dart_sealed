@@ -65,7 +65,7 @@ abstract class Wrapper {
     assert(orDefault != null);
     final wrapper = this;
     if (wrapper is WrapperWrap /*!*/) {
-      return wrap?.call(wrapper) ?? orDefault;
+      return wrap != null ? wrap(wrapper) : orDefault;
     } else {
       throw AssertionError();
     }

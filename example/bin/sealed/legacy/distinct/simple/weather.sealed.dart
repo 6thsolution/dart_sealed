@@ -116,11 +116,11 @@ abstract class Weather {
     assert(orDefault != null);
     final weather = this;
     if (weather is WeatherSunny /*!*/) {
-      return sunny?.call(weather) ?? orDefault;
+      return sunny != null ? sunny(weather) : orDefault;
     } else if (weather is WeatherRainy /*!*/) {
-      return rainy?.call(weather) ?? orDefault;
+      return rainy != null ? rainy(weather) : orDefault;
     } else if (weather is WeatherWindy /*!*/) {
-      return windy?.call(weather) ?? orDefault;
+      return windy != null ? windy(weather) : orDefault;
     } else {
       throw AssertionError();
     }

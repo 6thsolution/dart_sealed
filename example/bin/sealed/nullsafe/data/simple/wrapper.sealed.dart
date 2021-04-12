@@ -87,9 +87,9 @@ abstract class Wrapper {
   }) {
     final wrapper = this;
     if (wrapper is WrapperWrap) {
-      return wrap?.call(wrapper) ?? orDefault;
+      return wrap != null ? wrap(wrapper) : orDefault;
     } else if (wrapper is WrapperWrapNullable) {
-      return wrapNullable?.call(wrapper) ?? orDefault;
+      return wrapNullable != null ? wrapNullable(wrapper) : orDefault;
     } else {
       throw AssertionError();
     }

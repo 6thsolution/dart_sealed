@@ -203,17 +203,17 @@ abstract class Result {
   }) {
     final result = this;
     if (result is ResultSuccess) {
-      return success?.call(result) ?? orDefault;
+      return success != null ? success(result) : orDefault;
     } else if (result is ResultError) {
-      return error?.call(result) ?? orDefault;
+      return error != null ? error(result) : orDefault;
     } else if (result is ResultDummy) {
-      return dummy?.call(result) ?? orDefault;
+      return dummy != null ? dummy(result) : orDefault;
     } else if (result is ResultPartialSuccess) {
-      return partialSuccess?.call(result) ?? orDefault;
+      return partialSuccess != null ? partialSuccess(result) : orDefault;
     } else if (result is ResultPartialError) {
-      return partialError?.call(result) ?? orDefault;
+      return partialError != null ? partialError(result) : orDefault;
     } else if (result is ResultDoubleSuccess) {
-      return doubleSuccess?.call(result) ?? orDefault;
+      return doubleSuccess != null ? doubleSuccess(result) : orDefault;
     } else {
       throw AssertionError();
     }

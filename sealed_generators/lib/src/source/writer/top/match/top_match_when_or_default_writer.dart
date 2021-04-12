@@ -13,13 +13,14 @@ class TopMatchWhenOrDefaultWriter extends TopMatchBaseWriter {
   const TopMatchWhenOrDefaultWriter(Source source) : super(source);
 
   /// ex. if (weather is WeatherSunny) {
-  /// return sunny?.call(weather) ?? orDefault;
+  /// return sunny != null ? sunny(weather) : orDefault;
   /// }
   @nonVirtual
   @visibleForTesting
   If topMatchWhenOrDefaultIf(ManifestItem item) => If(
         condition: '$topLower ${isSub(item)}',
-        code: 'return ${subLower(item)}?.call($topLower) ?? orDefault;',
+        code: 'return ${subLower(item)} != null ?'
+            ' ${subLower(item)}($topLower) : orDefault;',
       );
 
   @nonVirtual

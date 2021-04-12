@@ -91,9 +91,9 @@ abstract class Result {
   }) {
     final result = this;
     if (result is ResultSuccess) {
-      return success?.call(result) ?? orDefault;
+      return success != null ? success(result) : orDefault;
     } else if (result is ResultError) {
-      return error?.call(result) ?? orDefault;
+      return error != null ? error(result) : orDefault;
     } else {
       throw AssertionError();
     }

@@ -65,7 +65,7 @@ abstract class Apple {
     assert(orDefault != null);
     final apple = this;
     if (apple is AppleHold /*!*/) {
-      return hold?.call(apple) ?? orDefault;
+      return hold != null ? hold(apple) : orDefault;
     } else {
       throw AssertionError();
     }
@@ -205,7 +205,7 @@ abstract class Banana {
     assert(orDefault != null);
     final banana = this;
     if (banana is BananaHold /*!*/) {
-      return hold?.call(banana) ?? orDefault;
+      return hold != null ? hold(banana) : orDefault;
     } else {
       throw AssertionError();
     }
@@ -409,11 +409,11 @@ abstract class Coconut {
     assert(orDefault != null);
     final coconut = this;
     if (coconut is CoconutTest1 /*!*/) {
-      return test1?.call(coconut) ?? orDefault;
+      return test1 != null ? test1(coconut) : orDefault;
     } else if (coconut is CoconutTest2 /*!*/) {
-      return test2?.call(coconut) ?? orDefault;
+      return test2 != null ? test2(coconut) : orDefault;
     } else if (coconut is CoconutHold /*!*/) {
-      return hold?.call(coconut) ?? orDefault;
+      return hold != null ? hold(coconut) : orDefault;
     } else {
       throw AssertionError();
     }
