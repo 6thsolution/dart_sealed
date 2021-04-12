@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'result_single_nullable.dart';
+part of 'result_single_2.dart';
 
 // **************************************************************************
 // Generator: sealed_generators
@@ -10,7 +10,7 @@ part of 'result_single_nullable.dart';
 ///
 /// Success(D data)
 ///
-/// Error(dynamic exception, int code)
+/// Error(Object exception)
 ///
 /// }
 ///
@@ -27,12 +27,10 @@ abstract class Result<D extends Object?> {
 
   @factory
   static ResultError<D> error<D extends Object?>({
-    required dynamic exception,
-    required int code,
+    required Object exception,
   }) =>
       ResultError<D>(
         exception: exception,
-        code: code,
       );
 
   bool isSuccess() => this is ResultSuccess<D>;
@@ -202,18 +200,15 @@ class ResultSuccess<D extends Object?> extends Result<D> with EquatableMixin {
 class ResultError<D extends Object?> extends Result<D> with EquatableMixin {
   ResultError({
     required this.exception,
-    required this.code,
   });
 
-  final dynamic exception;
-  final int code;
+  final Object exception;
 
   @override
-  String toString() => 'Result.Error(exception: $exception, code: $code)';
+  String toString() => 'Result.Error(exception: $exception)';
 
   @override
   List<Object?> get props => [
         exception,
-        code,
       ];
 }

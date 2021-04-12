@@ -1,33 +1,33 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'result_simple.dart';
+part of 'result_no_upper_2.dart';
 
 // **************************************************************************
 // Generator: sealed_generators
 // **************************************************************************
 
-/// Result<D extends DBase, E extends EBase> {
+/// Result<D extends Object?, E extends Object?> {
 ///
-/// Success(D data)
+/// Success(D? data)
 ///
-/// Error(E exception)
+/// Error(E? exception)
 ///
 /// }
 ///
 /// with data equality.
 @SealedManifest(_Result)
-abstract class Result<D extends DBase, E extends EBase> {
+abstract class Result<D extends Object?, E extends Object?> {
   @factory
-  static ResultSuccess<D, E> success<D extends DBase, E extends EBase>({
-    required D data,
+  static ResultSuccess<D, E> success<D extends Object?, E extends Object?>({
+    required D? data,
   }) =>
       ResultSuccess<D, E>(
         data: data,
       );
 
   @factory
-  static ResultError<D, E> error<D extends DBase, E extends EBase>({
-    required E exception,
+  static ResultError<D, E> error<D extends Object?, E extends Object?>({
+    required E? exception,
   }) =>
       ResultError<D, E>(
         exception: exception,
@@ -181,13 +181,13 @@ abstract class Result<D extends DBase, E extends EBase> {
   }
 }
 
-class ResultSuccess<D extends DBase, E extends EBase> extends Result<D, E>
+class ResultSuccess<D extends Object?, E extends Object?> extends Result<D, E>
     with EquatableMixin {
   ResultSuccess({
     required this.data,
   });
 
-  final D data;
+  final D? data;
 
   @override
   String toString() => 'Result.Success(data: $data)';
@@ -198,13 +198,13 @@ class ResultSuccess<D extends DBase, E extends EBase> extends Result<D, E>
       ];
 }
 
-class ResultError<D extends DBase, E extends EBase> extends Result<D, E>
+class ResultError<D extends Object?, E extends Object?> extends Result<D, E>
     with EquatableMixin {
   ResultError({
     required this.exception,
   });
 
-  final E exception;
+  final E? exception;
 
   @override
   String toString() => 'Result.Error(exception: $exception)';

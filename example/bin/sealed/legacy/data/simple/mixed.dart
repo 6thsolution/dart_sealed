@@ -27,8 +27,8 @@ abstract class _Coconut {
 
   @SealedOverrideDynamic('num')
   @SealedOverrideNamed({
-    'apple': 'Apple',
-    'banana': 'Banana?',
+    'apple': 'Apple?',
+    'banana': 'Banana',
   })
   void hold(dynamic apple, dynamic banana, int count, dynamic meta);
 }
