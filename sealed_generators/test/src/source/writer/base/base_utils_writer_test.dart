@@ -211,19 +211,175 @@ void main() {
       );
     });
 
-    group('method isGeneric', () {
+    group('getter isGeneric', () {
       test('simple', () {
         final source = source1DataSafe;
         final writer = _Writer(source);
 
-        expect(writer.isGeneric(), isFalse);
+        expect(writer.isGeneric, isFalse);
       });
 
       test('generic', () {
         final source = source2DataSafe;
         final writer = _Writer(source);
 
-        expect(writer.isGeneric(), isTrue);
+        expect(writer.isGeneric, isTrue);
+      });
+    });
+
+    group('method genericDecPart', () {
+      test('null-safe', () {
+        final source = source2DataSafe;
+        final manifest = source.manifest;
+        final param1 = manifest.params[0];
+        final writer = _Writer(source);
+
+        expect(writer.genericDecPart(param1), 'T extends num');
+      });
+
+      test('legacy', () {
+        final source = source2DataLegacy;
+        final manifest = source.manifest;
+        final param1 = manifest.params[0];
+        final writer = _Writer(source);
+
+        expect(writer.genericDecPart(param1), 'T extends num/*!*/');
+      });
+    });
+
+    group('getter genericDec', () {
+      test('simple', () {
+        final source = source1DataSafe;
+        final writer = _Writer(source);
+
+        expect(writer.genericDec, equals(''));
+      });
+
+      test('generic', () {
+        final source = source2DataSafe;
+        final writer = _Writer(source);
+
+        expect(writer.genericDec, equals('<T extends num>'));
+      });
+    });
+
+    group('method genericCallPart', () {
+      test('null-safe', () {
+        final source = source2DataSafe;
+        final manifest = source.manifest;
+        final param1 = manifest.params[0];
+        final writer = _Writer(source);
+
+        expect(writer.genericCallPart(param1), equals('T'));
+      });
+
+      test('legacy', () {
+        final source = source2DataLegacy;
+        final manifest = source.manifest;
+        final param1 = manifest.params[0];
+        final writer = _Writer(source);
+
+        expect(writer.genericCallPart(param1), equals('T'));
+      });
+    });
+
+    group('getter genericCall', () {
+      test('simple', () {
+        final source = source1DataSafe;
+        final writer = _Writer(source);
+
+        expect(writer.genericCall, equals(''));
+      });
+
+      test('generic', () {
+        final source = source2DataSafe;
+        final writer = _Writer(source);
+
+        expect(writer.genericCall, equals('<T>'));
+      });
+    });
+
+    group('getter topDec', () {
+      test('simple', () {
+        final source = source1DataSafe;
+        final writer = _Writer(source);
+
+        expect(writer.topDec, equals('Weather'));
+      });
+
+      test('generic', () {
+        final source = source2DataSafe;
+        final writer = _Writer(source);
+
+        expect(writer.topDec, equals('Result<T extends num>'));
+      });
+    });
+
+    group('getter topCall', () {
+      test('simple', () {
+        final source = source1DataSafe;
+        final writer = _Writer(source);
+
+        expect(writer.topCall, equals('Weather'));
+      });
+
+      test('generic', () {
+        final source = source2DataSafe;
+        final writer = _Writer(source);
+
+        expect(writer.topCall, equals('Result<T>'));
+      });
+    });
+
+    group('method subDec', () {
+      test('simple', () {
+        final source = source1DataSafe;
+        final manifest = source.manifest;
+        final item1 = manifest.items[0];
+        final writer = _Writer(source);
+
+        expect(
+          writer.subDec(item1),
+          equals('WeatherSunny'),
+        );
+      });
+
+      test('generic', () {
+        final source = source2DataSafe;
+        final manifest = source.manifest;
+        final item1 = manifest.items[0];
+        final writer = _Writer(source);
+
+        expect(
+          writer.subDec(item1),
+          equals('ResultSuccess<T extends num>'),
+        );
+      });
+    });
+
+    group('method subCall', () {
+      test('simple', () {
+        final source = source1DataSafe;
+        final manifest = source.manifest;
+        final item1 = manifest.items[0];
+        final writer = _Writer(source);
+
+        expect(
+          writer.subCall(item1),
+          equals('WeatherSunny'),
+        );
+      });
+
+      test('generic', () {
+        final source = source2DataSafe;
+        final manifest = source.manifest;
+        final item1 = manifest.items[0];
+        final writer = _Writer(source);
+
+        expect(
+          writer.subCall(item1),
+          equals('ResultSuccess<T>'),
+        );
       });
     });
     // end of group BaseUtilsWriter

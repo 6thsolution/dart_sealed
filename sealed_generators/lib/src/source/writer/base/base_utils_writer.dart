@@ -5,6 +5,7 @@ import 'package:sealed_generators/src/options/options.dart';
 import 'package:sealed_generators/src/source/source.dart';
 import 'package:sealed_generators/src/source/writer/base/base_writer.dart';
 import 'package:sealed_generators/src/utils/name_utils.dart';
+import 'package:sealed_generators/src/utils/string_utils.dart';
 
 /// base writer utilities
 @immutable
@@ -117,5 +118,58 @@ abstract class BaseUtilsWriter extends BaseWriter {
   @protected
   @nonVirtual
   @visibleForTesting
-  bool isGeneric() => manifest.params.isNotEmpty;
+  bool get isGeneric => manifest.params.isNotEmpty;
+
+  /// ex. T extends Object
+  @nonVirtual
+  @visibleForTesting
+  String genericDecPart(ManifestParam param) =>
+      '${param.name} extends ${typeSL(param.bound)}';
+
+  /// ex. <T extends Object>
+  @protected
+  @nonVirtual
+  @visibleForTesting
+  String get genericDec =>
+      manifest.params.map(genericDecPart).joinArgsSimple().withLtGtOrNot();
+
+  /// ex. T
+  @nonVirtual
+  @visibleForTesting
+  String genericCallPart(ManifestParam param) => param.name;
+
+  /// ex. <T>
+  @protected
+  @nonVirtual
+  @visibleForTesting
+  String get genericCall =>
+      manifest.params.map(genericCallPart).joinArgsSimple().withLtGtOrNot();
+
+  /// top class name with params for declaration.
+  /// ex. Result<T extends Object> or Weather
+  @protected
+  @nonVirtual
+  @visibleForTesting
+  String get topDec => '$top$genericDec';
+
+  /// top class name with params for call.
+  /// ex. Result<T> or Weather
+  @protected
+  @nonVirtual
+  @visibleForTesting
+  String get topCall => '$top$genericCall';
+
+  /// sub class name with params for declaration.
+  /// ex. WeatherSunny or ResultSuccess<T extends Object>
+  @protected
+  @nonVirtual
+  @visibleForTesting
+  String subDec(ManifestItem item) => '${subFull(item)}$genericDec';
+
+  /// sub class name with params for call.
+  /// ex. WeatherSunny or ResultSuccess<T>
+  @protected
+  @nonVirtual
+  @visibleForTesting
+  String subCall(ManifestItem item) => '${subFull(item)}$genericCall';
 }
