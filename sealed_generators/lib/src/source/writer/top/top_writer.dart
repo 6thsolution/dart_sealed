@@ -64,7 +64,7 @@ class TopWriter extends BaseUtilsWriter {
   String topClassStart() => [
         topDocWriter.write(),
         topManifest(),
-        'abstract class $top',
+        'abstract class $topDec',
       ].joinLines();
 
   @nonVirtual

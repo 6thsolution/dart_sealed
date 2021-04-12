@@ -185,9 +185,6 @@ abstract class Weather {
     void Function(WeatherRainy /*!*/ rainy) /*?*/ rainy,
     void Function(WeatherWindy /*!*/ windy) /*?*/ windy,
   }) {
-    assert(sunny != null);
-    assert(rainy != null);
-    assert(windy != null);
     final weather = this;
     if (weather is WeatherSunny /*!*/) {
       sunny?.call(weather);

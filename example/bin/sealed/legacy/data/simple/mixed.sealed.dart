@@ -108,7 +108,6 @@ abstract class Apple {
   void branchPartial({
     void Function(AppleHold /*!*/ hold) /*?*/ hold,
   }) {
-    assert(hold != null);
     final apple = this;
     if (apple is AppleHold /*!*/) {
       hold?.call(apple);
@@ -259,7 +258,6 @@ abstract class Banana {
   void branchPartial({
     void Function(BananaHold /*!*/ hold) /*?*/ hold,
   }) {
-    assert(hold != null);
     final banana = this;
     if (banana is BananaHold /*!*/) {
       hold?.call(banana);
@@ -500,9 +498,6 @@ abstract class Coconut {
     void Function(CoconutTest2 /*!*/ test2) /*?*/ test2,
     void Function(CoconutHold /*!*/ hold) /*?*/ hold,
   }) {
-    assert(test1 != null);
-    assert(test2 != null);
-    assert(hold != null);
     final coconut = this;
     if (coconut is CoconutTest1 /*!*/) {
       test1?.call(coconut);

@@ -6,10 +6,6 @@ part of 'result.dart';
 // Generator: sealed_generators
 // **************************************************************************
 
-class D extends Object {}
-
-class E extends Base {}
-
 /// Result<D extends Object, E extends Base> {
 ///
 /// Success(D? data)
@@ -20,49 +16,49 @@ class E extends Base {}
 ///
 /// with data equality.
 @SealedManifest(_Result)
-abstract class Result {
+abstract class Result<D extends Object, E extends Base> {
   @factory
-  static ResultSuccess success({
+  static ResultSuccess<D, E> success<D extends Object, E extends Base>({
     required D? data,
   }) =>
-      ResultSuccess(
+      ResultSuccess<D, E>(
         data: data,
       );
 
   @factory
-  static ResultError error({
+  static ResultError<D, E> error<D extends Object, E extends Base>({
     required E exception,
   }) =>
-      ResultError(
+      ResultError<D, E>(
         exception: exception,
       );
 
-  bool isSuccess() => this is ResultSuccess;
+  bool isSuccess() => this is ResultSuccess<D, E>;
 
-  bool isError() => this is ResultError;
+  bool isError() => this is ResultError<D, E>;
 
-  ResultSuccess asSuccess() => this as ResultSuccess;
+  ResultSuccess<D, E> asSuccess() => this as ResultSuccess<D, E>;
 
-  ResultError asError() => this as ResultError;
+  ResultError<D, E> asError() => this as ResultError<D, E>;
 
-  ResultSuccess? asSuccessOrNull() {
+  ResultSuccess<D, E>? asSuccessOrNull() {
     final result = this;
-    return result is ResultSuccess ? result : null;
+    return result is ResultSuccess<D, E> ? result : null;
   }
 
-  ResultError? asErrorOrNull() {
+  ResultError<D, E>? asErrorOrNull() {
     final result = this;
-    return result is ResultError ? result : null;
+    return result is ResultError<D, E> ? result : null;
   }
 
   R when<R extends Object?>({
-    required R Function(ResultSuccess success) success,
-    required R Function(ResultError error) error,
+    required R Function(ResultSuccess<D, E> success) success,
+    required R Function(ResultError<D, E> error) error,
   }) {
     final result = this;
-    if (result is ResultSuccess) {
+    if (result is ResultSuccess<D, E>) {
       return success(result);
-    } else if (result is ResultError) {
+    } else if (result is ResultError<D, E>) {
       return error(result);
     } else {
       throw AssertionError();
@@ -70,14 +66,14 @@ abstract class Result {
   }
 
   R whenOrElse<R extends Object?>({
-    R Function(ResultSuccess success)? success,
-    R Function(ResultError error)? error,
-    required R Function(Result result) orElse,
+    R Function(ResultSuccess<D, E> success)? success,
+    R Function(ResultError<D, E> error)? error,
+    required R Function(Result<D, E> result) orElse,
   }) {
     final result = this;
-    if (result is ResultSuccess) {
+    if (result is ResultSuccess<D, E>) {
       return (success ?? orElse)(result);
-    } else if (result is ResultError) {
+    } else if (result is ResultError<D, E>) {
       return (error ?? orElse)(result);
     } else {
       throw AssertionError();
@@ -85,14 +81,14 @@ abstract class Result {
   }
 
   R whenOrDefault<R extends Object?>({
-    R Function(ResultSuccess success)? success,
-    R Function(ResultError error)? error,
+    R Function(ResultSuccess<D, E> success)? success,
+    R Function(ResultError<D, E> error)? error,
     required R orDefault,
   }) {
     final result = this;
-    if (result is ResultSuccess) {
+    if (result is ResultSuccess<D, E>) {
       return success != null ? success(result) : orDefault;
-    } else if (result is ResultError) {
+    } else if (result is ResultError<D, E>) {
       return error != null ? error(result) : orDefault;
     } else {
       throw AssertionError();
@@ -100,13 +96,13 @@ abstract class Result {
   }
 
   R? whenOrNull<R extends Object?>({
-    R Function(ResultSuccess success)? success,
-    R Function(ResultError error)? error,
+    R Function(ResultSuccess<D, E> success)? success,
+    R Function(ResultError<D, E> error)? error,
   }) {
     final result = this;
-    if (result is ResultSuccess) {
+    if (result is ResultSuccess<D, E>) {
       return success?.call(result);
-    } else if (result is ResultError) {
+    } else if (result is ResultError<D, E>) {
       return error?.call(result);
     } else {
       throw AssertionError();
@@ -114,13 +110,13 @@ abstract class Result {
   }
 
   R whenOrThrow<R extends Object?>({
-    R Function(ResultSuccess success)? success,
-    R Function(ResultError error)? error,
+    R Function(ResultSuccess<D, E> success)? success,
+    R Function(ResultError<D, E> error)? error,
   }) {
     final result = this;
-    if (result is ResultSuccess && success != null) {
+    if (result is ResultSuccess<D, E> && success != null) {
       return success(result);
-    } else if (result is ResultError && error != null) {
+    } else if (result is ResultError<D, E> && error != null) {
       return error(result);
     } else {
       throw AssertionError();
@@ -128,13 +124,13 @@ abstract class Result {
   }
 
   void branch({
-    required void Function(ResultSuccess success) success,
-    required void Function(ResultError error) error,
+    required void Function(ResultSuccess<D, E> success) success,
+    required void Function(ResultError<D, E> error) error,
   }) {
     final result = this;
-    if (result is ResultSuccess) {
+    if (result is ResultSuccess<D, E>) {
       success(result);
-    } else if (result is ResultError) {
+    } else if (result is ResultError<D, E>) {
       error(result);
     } else {
       throw AssertionError();
@@ -142,13 +138,13 @@ abstract class Result {
   }
 
   void branchPartial({
-    void Function(ResultSuccess success)? success,
-    void Function(ResultError error)? error,
+    void Function(ResultSuccess<D, E> success)? success,
+    void Function(ResultError<D, E> error)? error,
   }) {
     final result = this;
-    if (result is ResultSuccess) {
+    if (result is ResultSuccess<D, E>) {
       success?.call(result);
-    } else if (result is ResultError) {
+    } else if (result is ResultError<D, E>) {
       error?.call(result);
     } else {
       throw AssertionError();
@@ -156,14 +152,14 @@ abstract class Result {
   }
 
   void branchOrElse({
-    void Function(ResultSuccess success)? success,
-    void Function(ResultError error)? error,
-    required void Function(Result result) orElse,
+    void Function(ResultSuccess<D, E> success)? success,
+    void Function(ResultError<D, E> error)? error,
+    required void Function(Result<D, E> result) orElse,
   }) {
     final result = this;
-    if (result is ResultSuccess) {
+    if (result is ResultSuccess<D, E>) {
       (success ?? orElse)(result);
-    } else if (result is ResultError) {
+    } else if (result is ResultError<D, E>) {
       (error ?? orElse)(result);
     } else {
       throw AssertionError();
@@ -171,13 +167,13 @@ abstract class Result {
   }
 
   void branchOrThrow({
-    void Function(ResultSuccess success)? success,
-    void Function(ResultError error)? error,
+    void Function(ResultSuccess<D, E> success)? success,
+    void Function(ResultError<D, E> error)? error,
   }) {
     final result = this;
-    if (result is ResultSuccess && success != null) {
+    if (result is ResultSuccess<D, E> && success != null) {
       success(result);
-    } else if (result is ResultError && error != null) {
+    } else if (result is ResultError<D, E> && error != null) {
       error(result);
     } else {
       throw AssertionError();
@@ -185,7 +181,8 @@ abstract class Result {
   }
 }
 
-class ResultSuccess extends Result with EquatableMixin {
+class ResultSuccess<D extends Object, E extends Base> extends Result<D, E>
+    with EquatableMixin {
   ResultSuccess({
     required this.data,
   });
@@ -201,7 +198,8 @@ class ResultSuccess extends Result with EquatableMixin {
       ];
 }
 
-class ResultError extends Result with EquatableMixin {
+class ResultError<D extends Object, E extends Base> extends Result<D, E>
+    with EquatableMixin {
   ResultError({
     required this.exception,
   });

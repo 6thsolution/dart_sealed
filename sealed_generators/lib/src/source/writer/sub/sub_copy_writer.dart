@@ -35,6 +35,8 @@ class SubCopyWriter extends BaseUtilsWriter {
 
   /// ex. WeatherRainy copy({int? rain})
   /// => WeatherRainy(rain: rain ?? this.rain);
+  ///
+  /// this is not suitable for generics.
   @nonVirtual
   String subCopyDeclaration(ManifestItem item) => [
         annotationFactory,

@@ -14,11 +14,11 @@ abstract class BaseCastUtilsWriter extends BaseUtilsWriter {
   @protected
   @nonVirtual
   @visibleForTesting
-  String isSub(ManifestItem item) => 'is ${subFull(item)}$nn';
+  String isSub(ManifestItem item) => 'is ${subCall(item)}$nn';
 
   /// ex. as WeatherRainy
   @protected
   @nonVirtual
   @visibleForTesting
-  String asSub(ManifestItem item) => 'as ${subFull(item)}$nn';
+  String asSub(ManifestItem item) => 'as ${subCall(item)}$nn';
 }

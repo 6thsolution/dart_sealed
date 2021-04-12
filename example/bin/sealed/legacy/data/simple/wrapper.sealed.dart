@@ -108,7 +108,6 @@ abstract class Wrapper {
   void branchPartial({
     void Function(WrapperWrap /*!*/ wrap) /*?*/ wrap,
   }) {
-    assert(wrap != null);
     final wrapper = this;
     if (wrapper is WrapperWrap /*!*/) {
       wrap?.call(wrapper);

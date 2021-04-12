@@ -7,8 +7,6 @@ part of 'result_single_empty.dart';
 // Generator: sealed_generators
 // **************************************************************************
 
-class D extends Object {}
-
 /// Result<D extends Object?> {
 ///
 /// Success(D? data)
@@ -21,67 +19,68 @@ class D extends Object {}
 ///
 /// with data equality.
 @SealedManifest(_Result)
-abstract class Result {
+abstract class Result<D extends Object /*?*/ > {
   @factory
-  static ResultSuccess /*!*/ success({
+  static ResultSuccess<D> /*!*/ success<D extends Object /*?*/ >({
     @required D /*?*/ data,
   }) =>
-      ResultSuccess(
+      ResultSuccess<D>(
         data: data,
       );
 
   @factory
-  static ResultEmpty /*!*/ empty() => ResultEmpty();
+  static ResultEmpty<D> /*!*/ empty<D extends Object /*?*/ >() =>
+      ResultEmpty<D>();
 
   @factory
-  static ResultError /*!*/ error({
+  static ResultError<D> /*!*/ error<D extends Object /*?*/ >({
     @required int /*?*/ code,
   }) =>
-      ResultError(
+      ResultError<D>(
         code: code,
       );
 
-  bool isSuccess() => this is ResultSuccess /*!*/;
+  bool isSuccess() => this is ResultSuccess<D> /*!*/;
 
-  bool isEmpty() => this is ResultEmpty /*!*/;
+  bool isEmpty() => this is ResultEmpty<D> /*!*/;
 
-  bool isError() => this is ResultError /*!*/;
+  bool isError() => this is ResultError<D> /*!*/;
 
-  ResultSuccess /*!*/ asSuccess() => this as ResultSuccess /*!*/;
+  ResultSuccess<D> /*!*/ asSuccess() => this as ResultSuccess<D> /*!*/;
 
-  ResultEmpty /*!*/ asEmpty() => this as ResultEmpty /*!*/;
+  ResultEmpty<D> /*!*/ asEmpty() => this as ResultEmpty<D> /*!*/;
 
-  ResultError /*!*/ asError() => this as ResultError /*!*/;
+  ResultError<D> /*!*/ asError() => this as ResultError<D> /*!*/;
 
-  ResultSuccess /*?*/ asSuccessOrNull() {
+  ResultSuccess<D> /*?*/ asSuccessOrNull() {
     final result = this;
-    return result is ResultSuccess /*!*/ ? result : null;
+    return result is ResultSuccess<D> /*!*/ ? result : null;
   }
 
-  ResultEmpty /*?*/ asEmptyOrNull() {
+  ResultEmpty<D> /*?*/ asEmptyOrNull() {
     final result = this;
-    return result is ResultEmpty /*!*/ ? result : null;
+    return result is ResultEmpty<D> /*!*/ ? result : null;
   }
 
-  ResultError /*?*/ asErrorOrNull() {
+  ResultError<D> /*?*/ asErrorOrNull() {
     final result = this;
-    return result is ResultError /*!*/ ? result : null;
+    return result is ResultError<D> /*!*/ ? result : null;
   }
 
   R when<R extends Object /*?*/ >({
-    @required R Function(ResultSuccess /*!*/ success) /*!*/ success,
-    @required R Function(ResultEmpty /*!*/ empty) /*!*/ empty,
-    @required R Function(ResultError /*!*/ error) /*!*/ error,
+    @required R Function(ResultSuccess<D> /*!*/ success) /*!*/ success,
+    @required R Function(ResultEmpty<D> /*!*/ empty) /*!*/ empty,
+    @required R Function(ResultError<D> /*!*/ error) /*!*/ error,
   }) {
     assert(success != null);
     assert(empty != null);
     assert(error != null);
     final result = this;
-    if (result is ResultSuccess /*!*/) {
+    if (result is ResultSuccess<D> /*!*/) {
       return success(result);
-    } else if (result is ResultEmpty /*!*/) {
+    } else if (result is ResultEmpty<D> /*!*/) {
       return empty(result);
-    } else if (result is ResultError /*!*/) {
+    } else if (result is ResultError<D> /*!*/) {
       return error(result);
     } else {
       throw AssertionError();
@@ -89,18 +88,18 @@ abstract class Result {
   }
 
   R whenOrElse<R extends Object /*?*/ >({
-    R Function(ResultSuccess /*!*/ success) /*?*/ success,
-    R Function(ResultEmpty /*!*/ empty) /*?*/ empty,
-    R Function(ResultError /*!*/ error) /*?*/ error,
-    @required R Function(Result /*!*/ result) /*!*/ orElse,
+    R Function(ResultSuccess<D> /*!*/ success) /*?*/ success,
+    R Function(ResultEmpty<D> /*!*/ empty) /*?*/ empty,
+    R Function(ResultError<D> /*!*/ error) /*?*/ error,
+    @required R Function(Result<D> /*!*/ result) /*!*/ orElse,
   }) {
     assert(orElse != null);
     final result = this;
-    if (result is ResultSuccess /*!*/) {
+    if (result is ResultSuccess<D> /*!*/) {
       return (success ?? orElse)(result);
-    } else if (result is ResultEmpty /*!*/) {
+    } else if (result is ResultEmpty<D> /*!*/) {
       return (empty ?? orElse)(result);
-    } else if (result is ResultError /*!*/) {
+    } else if (result is ResultError<D> /*!*/) {
       return (error ?? orElse)(result);
     } else {
       throw AssertionError();
@@ -108,18 +107,18 @@ abstract class Result {
   }
 
   R whenOrDefault<R extends Object /*?*/ >({
-    R Function(ResultSuccess /*!*/ success) /*?*/ success,
-    R Function(ResultEmpty /*!*/ empty) /*?*/ empty,
-    R Function(ResultError /*!*/ error) /*?*/ error,
+    R Function(ResultSuccess<D> /*!*/ success) /*?*/ success,
+    R Function(ResultEmpty<D> /*!*/ empty) /*?*/ empty,
+    R Function(ResultError<D> /*!*/ error) /*?*/ error,
     @required R orDefault,
   }) {
     assert(orDefault != null);
     final result = this;
-    if (result is ResultSuccess /*!*/) {
+    if (result is ResultSuccess<D> /*!*/) {
       return success != null ? success(result) : orDefault;
-    } else if (result is ResultEmpty /*!*/) {
+    } else if (result is ResultEmpty<D> /*!*/) {
       return empty != null ? empty(result) : orDefault;
-    } else if (result is ResultError /*!*/) {
+    } else if (result is ResultError<D> /*!*/) {
       return error != null ? error(result) : orDefault;
     } else {
       throw AssertionError();
@@ -127,16 +126,16 @@ abstract class Result {
   }
 
   R /*?*/ whenOrNull<R extends Object /*?*/ >({
-    R Function(ResultSuccess /*!*/ success) /*?*/ success,
-    R Function(ResultEmpty /*!*/ empty) /*?*/ empty,
-    R Function(ResultError /*!*/ error) /*?*/ error,
+    R Function(ResultSuccess<D> /*!*/ success) /*?*/ success,
+    R Function(ResultEmpty<D> /*!*/ empty) /*?*/ empty,
+    R Function(ResultError<D> /*!*/ error) /*?*/ error,
   }) {
     final result = this;
-    if (result is ResultSuccess /*!*/) {
+    if (result is ResultSuccess<D> /*!*/) {
       return success?.call(result);
-    } else if (result is ResultEmpty /*!*/) {
+    } else if (result is ResultEmpty<D> /*!*/) {
       return empty?.call(result);
-    } else if (result is ResultError /*!*/) {
+    } else if (result is ResultError<D> /*!*/) {
       return error?.call(result);
     } else {
       throw AssertionError();
@@ -144,16 +143,16 @@ abstract class Result {
   }
 
   R whenOrThrow<R extends Object /*?*/ >({
-    R Function(ResultSuccess /*!*/ success) /*?*/ success,
-    R Function(ResultEmpty /*!*/ empty) /*?*/ empty,
-    R Function(ResultError /*!*/ error) /*?*/ error,
+    R Function(ResultSuccess<D> /*!*/ success) /*?*/ success,
+    R Function(ResultEmpty<D> /*!*/ empty) /*?*/ empty,
+    R Function(ResultError<D> /*!*/ error) /*?*/ error,
   }) {
     final result = this;
-    if (result is ResultSuccess /*!*/ && success != null) {
+    if (result is ResultSuccess<D> /*!*/ && success != null) {
       return success(result);
-    } else if (result is ResultEmpty /*!*/ && empty != null) {
+    } else if (result is ResultEmpty<D> /*!*/ && empty != null) {
       return empty(result);
-    } else if (result is ResultError /*!*/ && error != null) {
+    } else if (result is ResultError<D> /*!*/ && error != null) {
       return error(result);
     } else {
       throw AssertionError();
@@ -161,19 +160,19 @@ abstract class Result {
   }
 
   void branch({
-    @required void Function(ResultSuccess /*!*/ success) /*!*/ success,
-    @required void Function(ResultEmpty /*!*/ empty) /*!*/ empty,
-    @required void Function(ResultError /*!*/ error) /*!*/ error,
+    @required void Function(ResultSuccess<D> /*!*/ success) /*!*/ success,
+    @required void Function(ResultEmpty<D> /*!*/ empty) /*!*/ empty,
+    @required void Function(ResultError<D> /*!*/ error) /*!*/ error,
   }) {
     assert(success != null);
     assert(empty != null);
     assert(error != null);
     final result = this;
-    if (result is ResultSuccess /*!*/) {
+    if (result is ResultSuccess<D> /*!*/) {
       success(result);
-    } else if (result is ResultEmpty /*!*/) {
+    } else if (result is ResultEmpty<D> /*!*/) {
       empty(result);
-    } else if (result is ResultError /*!*/) {
+    } else if (result is ResultError<D> /*!*/) {
       error(result);
     } else {
       throw AssertionError();
@@ -181,19 +180,16 @@ abstract class Result {
   }
 
   void branchPartial({
-    void Function(ResultSuccess /*!*/ success) /*?*/ success,
-    void Function(ResultEmpty /*!*/ empty) /*?*/ empty,
-    void Function(ResultError /*!*/ error) /*?*/ error,
+    void Function(ResultSuccess<D> /*!*/ success) /*?*/ success,
+    void Function(ResultEmpty<D> /*!*/ empty) /*?*/ empty,
+    void Function(ResultError<D> /*!*/ error) /*?*/ error,
   }) {
-    assert(success != null);
-    assert(empty != null);
-    assert(error != null);
     final result = this;
-    if (result is ResultSuccess /*!*/) {
+    if (result is ResultSuccess<D> /*!*/) {
       success?.call(result);
-    } else if (result is ResultEmpty /*!*/) {
+    } else if (result is ResultEmpty<D> /*!*/) {
       empty?.call(result);
-    } else if (result is ResultError /*!*/) {
+    } else if (result is ResultError<D> /*!*/) {
       error?.call(result);
     } else {
       throw AssertionError();
@@ -201,18 +197,18 @@ abstract class Result {
   }
 
   void branchOrElse({
-    void Function(ResultSuccess /*!*/ success) /*?*/ success,
-    void Function(ResultEmpty /*!*/ empty) /*?*/ empty,
-    void Function(ResultError /*!*/ error) /*?*/ error,
-    @required void Function(Result /*!*/ result) /*!*/ orElse,
+    void Function(ResultSuccess<D> /*!*/ success) /*?*/ success,
+    void Function(ResultEmpty<D> /*!*/ empty) /*?*/ empty,
+    void Function(ResultError<D> /*!*/ error) /*?*/ error,
+    @required void Function(Result<D> /*!*/ result) /*!*/ orElse,
   }) {
     assert(orElse != null);
     final result = this;
-    if (result is ResultSuccess /*!*/) {
+    if (result is ResultSuccess<D> /*!*/) {
       (success ?? orElse)(result);
-    } else if (result is ResultEmpty /*!*/) {
+    } else if (result is ResultEmpty<D> /*!*/) {
       (empty ?? orElse)(result);
-    } else if (result is ResultError /*!*/) {
+    } else if (result is ResultError<D> /*!*/) {
       (error ?? orElse)(result);
     } else {
       throw AssertionError();
@@ -220,16 +216,16 @@ abstract class Result {
   }
 
   void branchOrThrow({
-    void Function(ResultSuccess /*!*/ success) /*?*/ success,
-    void Function(ResultEmpty /*!*/ empty) /*?*/ empty,
-    void Function(ResultError /*!*/ error) /*?*/ error,
+    void Function(ResultSuccess<D> /*!*/ success) /*?*/ success,
+    void Function(ResultEmpty<D> /*!*/ empty) /*?*/ empty,
+    void Function(ResultError<D> /*!*/ error) /*?*/ error,
   }) {
     final result = this;
-    if (result is ResultSuccess /*!*/ && success != null) {
+    if (result is ResultSuccess<D> /*!*/ && success != null) {
       success(result);
-    } else if (result is ResultEmpty /*!*/ && empty != null) {
+    } else if (result is ResultEmpty<D> /*!*/ && empty != null) {
       empty(result);
-    } else if (result is ResultError /*!*/ && error != null) {
+    } else if (result is ResultError<D> /*!*/ && error != null) {
       error(result);
     } else {
       throw AssertionError();
@@ -237,7 +233,8 @@ abstract class Result {
   }
 }
 
-class ResultSuccess extends Result with EquatableMixin {
+class ResultSuccess<D extends Object /*?*/ > extends Result<D>
+    with EquatableMixin {
   ResultSuccess({
     @required this.data,
   });
@@ -253,7 +250,8 @@ class ResultSuccess extends Result with EquatableMixin {
       ];
 }
 
-class ResultEmpty extends Result with EquatableMixin {
+class ResultEmpty<D extends Object /*?*/ > extends Result<D>
+    with EquatableMixin {
   ResultEmpty();
 
   @override
@@ -263,7 +261,8 @@ class ResultEmpty extends Result with EquatableMixin {
   List<Object /*?*/ > /*!*/ get props => [];
 }
 
-class ResultError extends Result with EquatableMixin {
+class ResultError<D extends Object /*?*/ > extends Result<D>
+    with EquatableMixin {
   ResultError({
     @required this.code,
   });

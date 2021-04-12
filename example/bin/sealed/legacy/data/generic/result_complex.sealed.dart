@@ -7,10 +7,6 @@ part of 'result_complex.dart';
 // Generator: sealed_generators
 // **************************************************************************
 
-class D extends Object {}
-
-class E extends Base {}
-
 /// Result<D extends Object?, E extends Base?> {
 ///
 /// Success(D? data)
@@ -29,130 +25,140 @@ class E extends Base {}
 ///
 /// with data equality.
 @SealedManifest(_Result)
-abstract class Result {
+abstract class Result<D extends Object /*?*/, E extends Base /*?*/ > {
   @factory
-  static ResultSuccess /*!*/ success({
+  static ResultSuccess<D, E> /*!*/ success<D extends Object /*?*/,
+          E extends Base /*?*/ >({
     @required D /*?*/ data,
   }) =>
-      ResultSuccess(
+      ResultSuccess<D, E>(
         data: data,
       );
 
   @factory
-  static ResultError /*!*/ error({
+  static ResultError<D, E> /*!*/ error<D extends Object /*?*/,
+          E extends Base /*?*/ >({
     @required E /*?*/ exception,
   }) =>
-      ResultError(
+      ResultError<D, E>(
         exception: exception,
       );
 
   @factory
-  static ResultDummy /*!*/ dummy({
+  static ResultDummy<D, E> /*!*/ dummy<D extends Object /*?*/,
+          E extends Base /*?*/ >({
     @required D /*?*/ data,
   }) =>
-      ResultDummy(
+      ResultDummy<D, E>(
         data: data,
       );
 
   @factory
-  static ResultPartialSuccess /*!*/ partialSuccess({
+  static ResultPartialSuccess<D, E> /*!*/ partialSuccess<D extends Object /*?*/,
+          E extends Base /*?*/ >({
     @required D /*?*/ data,
     @required E /*?*/ exception,
   }) =>
-      ResultPartialSuccess(
+      ResultPartialSuccess<D, E>(
         data: data,
         exception: exception,
       );
 
   @factory
-  static ResultPartialError /*!*/ partialError({
+  static ResultPartialError<D, E> /*!*/ partialError<D extends Object /*?*/,
+          E extends Base /*?*/ >({
     @required E /*?*/ e,
     @required int /*?*/ code,
   }) =>
-      ResultPartialError(
+      ResultPartialError<D, E>(
         e: e,
         code: code,
       );
 
   @factory
-  static ResultDoubleSuccess /*!*/ doubleSuccess({
+  static ResultDoubleSuccess<D, E> /*!*/ doubleSuccess<D extends Object /*?*/,
+          E extends Base /*?*/ >({
     @required D /*?*/ data1,
     @required D /*?*/ data2,
     @required int /*?*/ code,
   }) =>
-      ResultDoubleSuccess(
+      ResultDoubleSuccess<D, E>(
         data1: data1,
         data2: data2,
         code: code,
       );
 
-  bool isSuccess() => this is ResultSuccess /*!*/;
+  bool isSuccess() => this is ResultSuccess<D, E> /*!*/;
 
-  bool isError() => this is ResultError /*!*/;
+  bool isError() => this is ResultError<D, E> /*!*/;
 
-  bool isDummy() => this is ResultDummy /*!*/;
+  bool isDummy() => this is ResultDummy<D, E> /*!*/;
 
-  bool isPartialSuccess() => this is ResultPartialSuccess /*!*/;
+  bool isPartialSuccess() => this is ResultPartialSuccess<D, E> /*!*/;
 
-  bool isPartialError() => this is ResultPartialError /*!*/;
+  bool isPartialError() => this is ResultPartialError<D, E> /*!*/;
 
-  bool isDoubleSuccess() => this is ResultDoubleSuccess /*!*/;
+  bool isDoubleSuccess() => this is ResultDoubleSuccess<D, E> /*!*/;
 
-  ResultSuccess /*!*/ asSuccess() => this as ResultSuccess /*!*/;
+  ResultSuccess<D, E> /*!*/ asSuccess() => this as ResultSuccess<D, E> /*!*/;
 
-  ResultError /*!*/ asError() => this as ResultError /*!*/;
+  ResultError<D, E> /*!*/ asError() => this as ResultError<D, E> /*!*/;
 
-  ResultDummy /*!*/ asDummy() => this as ResultDummy /*!*/;
+  ResultDummy<D, E> /*!*/ asDummy() => this as ResultDummy<D, E> /*!*/;
 
-  ResultPartialSuccess /*!*/ asPartialSuccess() =>
-      this as ResultPartialSuccess /*!*/;
+  ResultPartialSuccess<D, E> /*!*/ asPartialSuccess() =>
+      this as ResultPartialSuccess<D, E> /*!*/;
 
-  ResultPartialError /*!*/ asPartialError() => this as ResultPartialError /*!*/;
+  ResultPartialError<D, E> /*!*/ asPartialError() =>
+      this as ResultPartialError<D, E> /*!*/;
 
-  ResultDoubleSuccess /*!*/ asDoubleSuccess() =>
-      this as ResultDoubleSuccess /*!*/;
+  ResultDoubleSuccess<D, E> /*!*/ asDoubleSuccess() =>
+      this as ResultDoubleSuccess<D, E> /*!*/;
 
-  ResultSuccess /*?*/ asSuccessOrNull() {
+  ResultSuccess<D, E> /*?*/ asSuccessOrNull() {
     final result = this;
-    return result is ResultSuccess /*!*/ ? result : null;
+    return result is ResultSuccess<D, E> /*!*/ ? result : null;
   }
 
-  ResultError /*?*/ asErrorOrNull() {
+  ResultError<D, E> /*?*/ asErrorOrNull() {
     final result = this;
-    return result is ResultError /*!*/ ? result : null;
+    return result is ResultError<D, E> /*!*/ ? result : null;
   }
 
-  ResultDummy /*?*/ asDummyOrNull() {
+  ResultDummy<D, E> /*?*/ asDummyOrNull() {
     final result = this;
-    return result is ResultDummy /*!*/ ? result : null;
+    return result is ResultDummy<D, E> /*!*/ ? result : null;
   }
 
-  ResultPartialSuccess /*?*/ asPartialSuccessOrNull() {
+  ResultPartialSuccess<D, E> /*?*/ asPartialSuccessOrNull() {
     final result = this;
-    return result is ResultPartialSuccess /*!*/ ? result : null;
+    return result is ResultPartialSuccess<D, E> /*!*/ ? result : null;
   }
 
-  ResultPartialError /*?*/ asPartialErrorOrNull() {
+  ResultPartialError<D, E> /*?*/ asPartialErrorOrNull() {
     final result = this;
-    return result is ResultPartialError /*!*/ ? result : null;
+    return result is ResultPartialError<D, E> /*!*/ ? result : null;
   }
 
-  ResultDoubleSuccess /*?*/ asDoubleSuccessOrNull() {
+  ResultDoubleSuccess<D, E> /*?*/ asDoubleSuccessOrNull() {
     final result = this;
-    return result is ResultDoubleSuccess /*!*/ ? result : null;
+    return result is ResultDoubleSuccess<D, E> /*!*/ ? result : null;
   }
 
   R when<R extends Object /*?*/ >({
-    @required R Function(ResultSuccess /*!*/ success) /*!*/ success,
-    @required R Function(ResultError /*!*/ error) /*!*/ error,
-    @required R Function(ResultDummy /*!*/ dummy) /*!*/ dummy,
+    @required R Function(ResultSuccess<D, E> /*!*/ success) /*!*/ success,
+    @required R Function(ResultError<D, E> /*!*/ error) /*!*/ error,
+    @required R Function(ResultDummy<D, E> /*!*/ dummy) /*!*/ dummy,
     @required
         R Function(
-            ResultPartialSuccess /*!*/ partialSuccess) /*!*/ partialSuccess,
+            ResultPartialSuccess<D,
+                E> /*!*/ partialSuccess) /*!*/ partialSuccess,
     @required
-        R Function(ResultPartialError /*!*/ partialError) /*!*/ partialError,
+        R Function(
+            ResultPartialError<D, E> /*!*/ partialError) /*!*/ partialError,
     @required
-        R Function(ResultDoubleSuccess /*!*/ doubleSuccess) /*!*/ doubleSuccess,
+        R Function(
+            ResultDoubleSuccess<D, E> /*!*/ doubleSuccess) /*!*/ doubleSuccess,
   }) {
     assert(success != null);
     assert(error != null);
@@ -161,17 +167,17 @@ abstract class Result {
     assert(partialError != null);
     assert(doubleSuccess != null);
     final result = this;
-    if (result is ResultSuccess /*!*/) {
+    if (result is ResultSuccess<D, E> /*!*/) {
       return success(result);
-    } else if (result is ResultError /*!*/) {
+    } else if (result is ResultError<D, E> /*!*/) {
       return error(result);
-    } else if (result is ResultDummy /*!*/) {
+    } else if (result is ResultDummy<D, E> /*!*/) {
       return dummy(result);
-    } else if (result is ResultPartialSuccess /*!*/) {
+    } else if (result is ResultPartialSuccess<D, E> /*!*/) {
       return partialSuccess(result);
-    } else if (result is ResultPartialError /*!*/) {
+    } else if (result is ResultPartialError<D, E> /*!*/) {
       return partialError(result);
-    } else if (result is ResultDoubleSuccess /*!*/) {
+    } else if (result is ResultDoubleSuccess<D, E> /*!*/) {
       return doubleSuccess(result);
     } else {
       throw AssertionError();
@@ -179,27 +185,29 @@ abstract class Result {
   }
 
   R whenOrElse<R extends Object /*?*/ >({
-    R Function(ResultSuccess /*!*/ success) /*?*/ success,
-    R Function(ResultError /*!*/ error) /*?*/ error,
-    R Function(ResultDummy /*!*/ dummy) /*?*/ dummy,
-    R Function(ResultPartialSuccess /*!*/ partialSuccess) /*?*/ partialSuccess,
-    R Function(ResultPartialError /*!*/ partialError) /*?*/ partialError,
-    R Function(ResultDoubleSuccess /*!*/ doubleSuccess) /*?*/ doubleSuccess,
-    @required R Function(Result /*!*/ result) /*!*/ orElse,
+    R Function(ResultSuccess<D, E> /*!*/ success) /*?*/ success,
+    R Function(ResultError<D, E> /*!*/ error) /*?*/ error,
+    R Function(ResultDummy<D, E> /*!*/ dummy) /*?*/ dummy,
+    R Function(
+        ResultPartialSuccess<D, E> /*!*/ partialSuccess) /*?*/ partialSuccess,
+    R Function(ResultPartialError<D, E> /*!*/ partialError) /*?*/ partialError,
+    R Function(
+        ResultDoubleSuccess<D, E> /*!*/ doubleSuccess) /*?*/ doubleSuccess,
+    @required R Function(Result<D, E> /*!*/ result) /*!*/ orElse,
   }) {
     assert(orElse != null);
     final result = this;
-    if (result is ResultSuccess /*!*/) {
+    if (result is ResultSuccess<D, E> /*!*/) {
       return (success ?? orElse)(result);
-    } else if (result is ResultError /*!*/) {
+    } else if (result is ResultError<D, E> /*!*/) {
       return (error ?? orElse)(result);
-    } else if (result is ResultDummy /*!*/) {
+    } else if (result is ResultDummy<D, E> /*!*/) {
       return (dummy ?? orElse)(result);
-    } else if (result is ResultPartialSuccess /*!*/) {
+    } else if (result is ResultPartialSuccess<D, E> /*!*/) {
       return (partialSuccess ?? orElse)(result);
-    } else if (result is ResultPartialError /*!*/) {
+    } else if (result is ResultPartialError<D, E> /*!*/) {
       return (partialError ?? orElse)(result);
-    } else if (result is ResultDoubleSuccess /*!*/) {
+    } else if (result is ResultDoubleSuccess<D, E> /*!*/) {
       return (doubleSuccess ?? orElse)(result);
     } else {
       throw AssertionError();
@@ -207,27 +215,29 @@ abstract class Result {
   }
 
   R whenOrDefault<R extends Object /*?*/ >({
-    R Function(ResultSuccess /*!*/ success) /*?*/ success,
-    R Function(ResultError /*!*/ error) /*?*/ error,
-    R Function(ResultDummy /*!*/ dummy) /*?*/ dummy,
-    R Function(ResultPartialSuccess /*!*/ partialSuccess) /*?*/ partialSuccess,
-    R Function(ResultPartialError /*!*/ partialError) /*?*/ partialError,
-    R Function(ResultDoubleSuccess /*!*/ doubleSuccess) /*?*/ doubleSuccess,
+    R Function(ResultSuccess<D, E> /*!*/ success) /*?*/ success,
+    R Function(ResultError<D, E> /*!*/ error) /*?*/ error,
+    R Function(ResultDummy<D, E> /*!*/ dummy) /*?*/ dummy,
+    R Function(
+        ResultPartialSuccess<D, E> /*!*/ partialSuccess) /*?*/ partialSuccess,
+    R Function(ResultPartialError<D, E> /*!*/ partialError) /*?*/ partialError,
+    R Function(
+        ResultDoubleSuccess<D, E> /*!*/ doubleSuccess) /*?*/ doubleSuccess,
     @required R orDefault,
   }) {
     assert(orDefault != null);
     final result = this;
-    if (result is ResultSuccess /*!*/) {
+    if (result is ResultSuccess<D, E> /*!*/) {
       return success != null ? success(result) : orDefault;
-    } else if (result is ResultError /*!*/) {
+    } else if (result is ResultError<D, E> /*!*/) {
       return error != null ? error(result) : orDefault;
-    } else if (result is ResultDummy /*!*/) {
+    } else if (result is ResultDummy<D, E> /*!*/) {
       return dummy != null ? dummy(result) : orDefault;
-    } else if (result is ResultPartialSuccess /*!*/) {
+    } else if (result is ResultPartialSuccess<D, E> /*!*/) {
       return partialSuccess != null ? partialSuccess(result) : orDefault;
-    } else if (result is ResultPartialError /*!*/) {
+    } else if (result is ResultPartialError<D, E> /*!*/) {
       return partialError != null ? partialError(result) : orDefault;
-    } else if (result is ResultDoubleSuccess /*!*/) {
+    } else if (result is ResultDoubleSuccess<D, E> /*!*/) {
       return doubleSuccess != null ? doubleSuccess(result) : orDefault;
     } else {
       throw AssertionError();
@@ -235,25 +245,27 @@ abstract class Result {
   }
 
   R /*?*/ whenOrNull<R extends Object /*?*/ >({
-    R Function(ResultSuccess /*!*/ success) /*?*/ success,
-    R Function(ResultError /*!*/ error) /*?*/ error,
-    R Function(ResultDummy /*!*/ dummy) /*?*/ dummy,
-    R Function(ResultPartialSuccess /*!*/ partialSuccess) /*?*/ partialSuccess,
-    R Function(ResultPartialError /*!*/ partialError) /*?*/ partialError,
-    R Function(ResultDoubleSuccess /*!*/ doubleSuccess) /*?*/ doubleSuccess,
+    R Function(ResultSuccess<D, E> /*!*/ success) /*?*/ success,
+    R Function(ResultError<D, E> /*!*/ error) /*?*/ error,
+    R Function(ResultDummy<D, E> /*!*/ dummy) /*?*/ dummy,
+    R Function(
+        ResultPartialSuccess<D, E> /*!*/ partialSuccess) /*?*/ partialSuccess,
+    R Function(ResultPartialError<D, E> /*!*/ partialError) /*?*/ partialError,
+    R Function(
+        ResultDoubleSuccess<D, E> /*!*/ doubleSuccess) /*?*/ doubleSuccess,
   }) {
     final result = this;
-    if (result is ResultSuccess /*!*/) {
+    if (result is ResultSuccess<D, E> /*!*/) {
       return success?.call(result);
-    } else if (result is ResultError /*!*/) {
+    } else if (result is ResultError<D, E> /*!*/) {
       return error?.call(result);
-    } else if (result is ResultDummy /*!*/) {
+    } else if (result is ResultDummy<D, E> /*!*/) {
       return dummy?.call(result);
-    } else if (result is ResultPartialSuccess /*!*/) {
+    } else if (result is ResultPartialSuccess<D, E> /*!*/) {
       return partialSuccess?.call(result);
-    } else if (result is ResultPartialError /*!*/) {
+    } else if (result is ResultPartialError<D, E> /*!*/) {
       return partialError?.call(result);
-    } else if (result is ResultDoubleSuccess /*!*/) {
+    } else if (result is ResultDoubleSuccess<D, E> /*!*/) {
       return doubleSuccess?.call(result);
     } else {
       throw AssertionError();
@@ -261,25 +273,30 @@ abstract class Result {
   }
 
   R whenOrThrow<R extends Object /*?*/ >({
-    R Function(ResultSuccess /*!*/ success) /*?*/ success,
-    R Function(ResultError /*!*/ error) /*?*/ error,
-    R Function(ResultDummy /*!*/ dummy) /*?*/ dummy,
-    R Function(ResultPartialSuccess /*!*/ partialSuccess) /*?*/ partialSuccess,
-    R Function(ResultPartialError /*!*/ partialError) /*?*/ partialError,
-    R Function(ResultDoubleSuccess /*!*/ doubleSuccess) /*?*/ doubleSuccess,
+    R Function(ResultSuccess<D, E> /*!*/ success) /*?*/ success,
+    R Function(ResultError<D, E> /*!*/ error) /*?*/ error,
+    R Function(ResultDummy<D, E> /*!*/ dummy) /*?*/ dummy,
+    R Function(
+        ResultPartialSuccess<D, E> /*!*/ partialSuccess) /*?*/ partialSuccess,
+    R Function(ResultPartialError<D, E> /*!*/ partialError) /*?*/ partialError,
+    R Function(
+        ResultDoubleSuccess<D, E> /*!*/ doubleSuccess) /*?*/ doubleSuccess,
   }) {
     final result = this;
-    if (result is ResultSuccess /*!*/ && success != null) {
+    if (result is ResultSuccess<D, E> /*!*/ && success != null) {
       return success(result);
-    } else if (result is ResultError /*!*/ && error != null) {
+    } else if (result is ResultError<D, E> /*!*/ && error != null) {
       return error(result);
-    } else if (result is ResultDummy /*!*/ && dummy != null) {
+    } else if (result is ResultDummy<D, E> /*!*/ && dummy != null) {
       return dummy(result);
-    } else if (result is ResultPartialSuccess /*!*/ && partialSuccess != null) {
+    } else if (result is ResultPartialSuccess<D, E> /*!*/ &&
+        partialSuccess != null) {
       return partialSuccess(result);
-    } else if (result is ResultPartialError /*!*/ && partialError != null) {
+    } else if (result is ResultPartialError<D, E> /*!*/ &&
+        partialError != null) {
       return partialError(result);
-    } else if (result is ResultDoubleSuccess /*!*/ && doubleSuccess != null) {
+    } else if (result is ResultDoubleSuccess<D, E> /*!*/ &&
+        doubleSuccess != null) {
       return doubleSuccess(result);
     } else {
       throw AssertionError();
@@ -287,17 +304,19 @@ abstract class Result {
   }
 
   void branch({
-    @required void Function(ResultSuccess /*!*/ success) /*!*/ success,
-    @required void Function(ResultError /*!*/ error) /*!*/ error,
-    @required void Function(ResultDummy /*!*/ dummy) /*!*/ dummy,
+    @required void Function(ResultSuccess<D, E> /*!*/ success) /*!*/ success,
+    @required void Function(ResultError<D, E> /*!*/ error) /*!*/ error,
+    @required void Function(ResultDummy<D, E> /*!*/ dummy) /*!*/ dummy,
     @required
         void Function(
-            ResultPartialSuccess /*!*/ partialSuccess) /*!*/ partialSuccess,
-    @required
-        void Function(ResultPartialError /*!*/ partialError) /*!*/ partialError,
+            ResultPartialSuccess<D,
+                E> /*!*/ partialSuccess) /*!*/ partialSuccess,
     @required
         void Function(
-            ResultDoubleSuccess /*!*/ doubleSuccess) /*!*/ doubleSuccess,
+            ResultPartialError<D, E> /*!*/ partialError) /*!*/ partialError,
+    @required
+        void Function(
+            ResultDoubleSuccess<D, E> /*!*/ doubleSuccess) /*!*/ doubleSuccess,
   }) {
     assert(success != null);
     assert(error != null);
@@ -306,17 +325,17 @@ abstract class Result {
     assert(partialError != null);
     assert(doubleSuccess != null);
     final result = this;
-    if (result is ResultSuccess /*!*/) {
+    if (result is ResultSuccess<D, E> /*!*/) {
       success(result);
-    } else if (result is ResultError /*!*/) {
+    } else if (result is ResultError<D, E> /*!*/) {
       error(result);
-    } else if (result is ResultDummy /*!*/) {
+    } else if (result is ResultDummy<D, E> /*!*/) {
       dummy(result);
-    } else if (result is ResultPartialSuccess /*!*/) {
+    } else if (result is ResultPartialSuccess<D, E> /*!*/) {
       partialSuccess(result);
-    } else if (result is ResultPartialError /*!*/) {
+    } else if (result is ResultPartialError<D, E> /*!*/) {
       partialError(result);
-    } else if (result is ResultDoubleSuccess /*!*/) {
+    } else if (result is ResultDoubleSuccess<D, E> /*!*/) {
       doubleSuccess(result);
     } else {
       throw AssertionError();
@@ -324,32 +343,28 @@ abstract class Result {
   }
 
   void branchPartial({
-    void Function(ResultSuccess /*!*/ success) /*?*/ success,
-    void Function(ResultError /*!*/ error) /*?*/ error,
-    void Function(ResultDummy /*!*/ dummy) /*?*/ dummy,
+    void Function(ResultSuccess<D, E> /*!*/ success) /*?*/ success,
+    void Function(ResultError<D, E> /*!*/ error) /*?*/ error,
+    void Function(ResultDummy<D, E> /*!*/ dummy) /*?*/ dummy,
     void Function(
-        ResultPartialSuccess /*!*/ partialSuccess) /*?*/ partialSuccess,
-    void Function(ResultPartialError /*!*/ partialError) /*?*/ partialError,
-    void Function(ResultDoubleSuccess /*!*/ doubleSuccess) /*?*/ doubleSuccess,
+        ResultPartialSuccess<D, E> /*!*/ partialSuccess) /*?*/ partialSuccess,
+    void Function(
+        ResultPartialError<D, E> /*!*/ partialError) /*?*/ partialError,
+    void Function(
+        ResultDoubleSuccess<D, E> /*!*/ doubleSuccess) /*?*/ doubleSuccess,
   }) {
-    assert(success != null);
-    assert(error != null);
-    assert(dummy != null);
-    assert(partialSuccess != null);
-    assert(partialError != null);
-    assert(doubleSuccess != null);
     final result = this;
-    if (result is ResultSuccess /*!*/) {
+    if (result is ResultSuccess<D, E> /*!*/) {
       success?.call(result);
-    } else if (result is ResultError /*!*/) {
+    } else if (result is ResultError<D, E> /*!*/) {
       error?.call(result);
-    } else if (result is ResultDummy /*!*/) {
+    } else if (result is ResultDummy<D, E> /*!*/) {
       dummy?.call(result);
-    } else if (result is ResultPartialSuccess /*!*/) {
+    } else if (result is ResultPartialSuccess<D, E> /*!*/) {
       partialSuccess?.call(result);
-    } else if (result is ResultPartialError /*!*/) {
+    } else if (result is ResultPartialError<D, E> /*!*/) {
       partialError?.call(result);
-    } else if (result is ResultDoubleSuccess /*!*/) {
+    } else if (result is ResultDoubleSuccess<D, E> /*!*/) {
       doubleSuccess?.call(result);
     } else {
       throw AssertionError();
@@ -357,28 +372,30 @@ abstract class Result {
   }
 
   void branchOrElse({
-    void Function(ResultSuccess /*!*/ success) /*?*/ success,
-    void Function(ResultError /*!*/ error) /*?*/ error,
-    void Function(ResultDummy /*!*/ dummy) /*?*/ dummy,
+    void Function(ResultSuccess<D, E> /*!*/ success) /*?*/ success,
+    void Function(ResultError<D, E> /*!*/ error) /*?*/ error,
+    void Function(ResultDummy<D, E> /*!*/ dummy) /*?*/ dummy,
     void Function(
-        ResultPartialSuccess /*!*/ partialSuccess) /*?*/ partialSuccess,
-    void Function(ResultPartialError /*!*/ partialError) /*?*/ partialError,
-    void Function(ResultDoubleSuccess /*!*/ doubleSuccess) /*?*/ doubleSuccess,
-    @required void Function(Result /*!*/ result) /*!*/ orElse,
+        ResultPartialSuccess<D, E> /*!*/ partialSuccess) /*?*/ partialSuccess,
+    void Function(
+        ResultPartialError<D, E> /*!*/ partialError) /*?*/ partialError,
+    void Function(
+        ResultDoubleSuccess<D, E> /*!*/ doubleSuccess) /*?*/ doubleSuccess,
+    @required void Function(Result<D, E> /*!*/ result) /*!*/ orElse,
   }) {
     assert(orElse != null);
     final result = this;
-    if (result is ResultSuccess /*!*/) {
+    if (result is ResultSuccess<D, E> /*!*/) {
       (success ?? orElse)(result);
-    } else if (result is ResultError /*!*/) {
+    } else if (result is ResultError<D, E> /*!*/) {
       (error ?? orElse)(result);
-    } else if (result is ResultDummy /*!*/) {
+    } else if (result is ResultDummy<D, E> /*!*/) {
       (dummy ?? orElse)(result);
-    } else if (result is ResultPartialSuccess /*!*/) {
+    } else if (result is ResultPartialSuccess<D, E> /*!*/) {
       (partialSuccess ?? orElse)(result);
-    } else if (result is ResultPartialError /*!*/) {
+    } else if (result is ResultPartialError<D, E> /*!*/) {
       (partialError ?? orElse)(result);
-    } else if (result is ResultDoubleSuccess /*!*/) {
+    } else if (result is ResultDoubleSuccess<D, E> /*!*/) {
       (doubleSuccess ?? orElse)(result);
     } else {
       throw AssertionError();
@@ -386,26 +403,31 @@ abstract class Result {
   }
 
   void branchOrThrow({
-    void Function(ResultSuccess /*!*/ success) /*?*/ success,
-    void Function(ResultError /*!*/ error) /*?*/ error,
-    void Function(ResultDummy /*!*/ dummy) /*?*/ dummy,
+    void Function(ResultSuccess<D, E> /*!*/ success) /*?*/ success,
+    void Function(ResultError<D, E> /*!*/ error) /*?*/ error,
+    void Function(ResultDummy<D, E> /*!*/ dummy) /*?*/ dummy,
     void Function(
-        ResultPartialSuccess /*!*/ partialSuccess) /*?*/ partialSuccess,
-    void Function(ResultPartialError /*!*/ partialError) /*?*/ partialError,
-    void Function(ResultDoubleSuccess /*!*/ doubleSuccess) /*?*/ doubleSuccess,
+        ResultPartialSuccess<D, E> /*!*/ partialSuccess) /*?*/ partialSuccess,
+    void Function(
+        ResultPartialError<D, E> /*!*/ partialError) /*?*/ partialError,
+    void Function(
+        ResultDoubleSuccess<D, E> /*!*/ doubleSuccess) /*?*/ doubleSuccess,
   }) {
     final result = this;
-    if (result is ResultSuccess /*!*/ && success != null) {
+    if (result is ResultSuccess<D, E> /*!*/ && success != null) {
       success(result);
-    } else if (result is ResultError /*!*/ && error != null) {
+    } else if (result is ResultError<D, E> /*!*/ && error != null) {
       error(result);
-    } else if (result is ResultDummy /*!*/ && dummy != null) {
+    } else if (result is ResultDummy<D, E> /*!*/ && dummy != null) {
       dummy(result);
-    } else if (result is ResultPartialSuccess /*!*/ && partialSuccess != null) {
+    } else if (result is ResultPartialSuccess<D, E> /*!*/ &&
+        partialSuccess != null) {
       partialSuccess(result);
-    } else if (result is ResultPartialError /*!*/ && partialError != null) {
+    } else if (result is ResultPartialError<D, E> /*!*/ &&
+        partialError != null) {
       partialError(result);
-    } else if (result is ResultDoubleSuccess /*!*/ && doubleSuccess != null) {
+    } else if (result is ResultDoubleSuccess<D, E> /*!*/ &&
+        doubleSuccess != null) {
       doubleSuccess(result);
     } else {
       throw AssertionError();
@@ -413,7 +435,8 @@ abstract class Result {
   }
 }
 
-class ResultSuccess extends Result with EquatableMixin {
+class ResultSuccess<D extends Object /*?*/, E extends Base /*?*/ >
+    extends Result<D, E> with EquatableMixin {
   ResultSuccess({
     @required this.data,
   });
@@ -429,7 +452,8 @@ class ResultSuccess extends Result with EquatableMixin {
       ];
 }
 
-class ResultError extends Result with EquatableMixin {
+class ResultError<D extends Object /*?*/, E extends Base /*?*/ >
+    extends Result<D, E> with EquatableMixin {
   ResultError({
     @required this.exception,
   });
@@ -445,7 +469,8 @@ class ResultError extends Result with EquatableMixin {
       ];
 }
 
-class ResultDummy extends Result with EquatableMixin {
+class ResultDummy<D extends Object /*?*/, E extends Base /*?*/ >
+    extends Result<D, E> with EquatableMixin {
   ResultDummy({
     @required this.data,
   });
@@ -461,7 +486,8 @@ class ResultDummy extends Result with EquatableMixin {
       ];
 }
 
-class ResultPartialSuccess extends Result with EquatableMixin {
+class ResultPartialSuccess<D extends Object /*?*/, E extends Base /*?*/ >
+    extends Result<D, E> with EquatableMixin {
   ResultPartialSuccess({
     @required this.data,
     @required this.exception,
@@ -481,7 +507,8 @@ class ResultPartialSuccess extends Result with EquatableMixin {
       ];
 }
 
-class ResultPartialError extends Result with EquatableMixin {
+class ResultPartialError<D extends Object /*?*/, E extends Base /*?*/ >
+    extends Result<D, E> with EquatableMixin {
   ResultPartialError({
     @required this.e,
     @required this.code,
@@ -500,7 +527,8 @@ class ResultPartialError extends Result with EquatableMixin {
       ];
 }
 
-class ResultDoubleSuccess extends Result with EquatableMixin {
+class ResultDoubleSuccess<D extends Object /*?*/, E extends Base /*?*/ >
+    extends Result<D, E> with EquatableMixin {
   ResultDoubleSuccess({
     @required this.data1,
     @required this.data2,

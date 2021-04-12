@@ -58,7 +58,6 @@ class TopMatchBranchPartialWriter extends TopMatchBaseWriter {
   String topMatchBranchPartial() => [
         topMatchBranchPartialStart(),
         '{',
-        if (!options.isNullSafe) topMatchAsserts(),
         topMatchBranchPartialBody(),
         '}',
       ].joinLines();

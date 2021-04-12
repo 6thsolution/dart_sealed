@@ -25,19 +25,22 @@ class TopBuilderWriter extends BaseUtilsWriter {
   String topBuilderArg(ManifestField field) =>
       '$req ${typeSL(field.type)} ${field.name}';
 
-  /// ex. static sunny() => WeatherSunny();
+  /// ex. static WeatherSunny sunny() => WeatherSunny();
+  ///
+  /// ex. static ResultSuccess<T> <T extends num>success(...) =>
+  /// ResultSuccess<T>(...)
   @nonVirtual
   @visibleForTesting
   String topBuilder(ManifestItem item) => [
         annotationFactory,
         [
-          'static ${subFull(item)}$nn ${subLower(item)}',
+          'static ${subCall(item)}$nn ${subLower(item)}$genericDec',
           item.fields
               .map(topBuilderArg)
               .joinArgsFull()
               .withBracesOrNot()
               .withParenthesis(),
-          ' => ${subFull(item)}',
+          ' => ${subCall(item)}',
           item.fields
               .map(subConstructorCallArg)
               .joinArgsFull()

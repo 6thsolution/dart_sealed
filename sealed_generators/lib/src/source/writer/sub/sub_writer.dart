@@ -54,7 +54,7 @@ class SubWriter extends BaseUtilsWriter {
   @nonVirtual
   @visibleForTesting
   String subClassStart(ManifestItem item) => [
-        'class ${subFull(item)} extends $top',
+        'class ${subDec(item)} extends $topCall',
         if (options.equality == SealedEquality.data) ' with EquatableMixin',
       ].joinParts();
 

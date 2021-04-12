@@ -18,16 +18,10 @@ class BackwardWriter extends BaseUtilsWriter {
 
   String _topAnnotation() => '@Sealed(equality: ${source.options.equality})';
 
-  String _params() =>
-      manifest.params.map(_param).joinArgsSimple().withLtGtOrNot();
-
-  String _param(ManifestParam param) =>
-      '${param.name} extends ${typeSL(param.bound)}';
-
   String _topStart() => [
         'abstract class _$top',
         if (avoidConflict) '\$',
-        _params(),
+        genericDec,
       ].joinParts();
 
   String _field(ManifestField field) => '${typeSL(field.type)} ${field.name}';

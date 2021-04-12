@@ -23,14 +23,14 @@ class TopMatchBaseWriter extends BaseCastUtilsWriter {
   @nonVirtual
   @visibleForTesting
   String topMatchGenericNNArg(ManifestItem item) => '$req R Function'
-      '(${subFull(item)}$nn ${subLower(item)})$nn ${subLower(item)}';
+      '(${subCall(item)}$nn ${subLower(item)})$nn ${subLower(item)}';
 
   /// required (R Function(Weather weather)) orElse
   @protected
   @nonVirtual
   @visibleForTesting
   String topMatchGenericNNArgOrElse() => '$req R Function'
-      '($top$nn $topLower)$nn orElse';
+      '($topCall$nn $topLower)$nn orElse';
 
   /// required R orDefault
   @protected
@@ -43,28 +43,28 @@ class TopMatchBaseWriter extends BaseCastUtilsWriter {
   @nonVirtual
   @visibleForTesting
   String topMatchGenericNArg(ManifestItem item) => 'R Function'
-      '(${subFull(item)}$nn ${subLower(item)})$n ${subLower(item)}';
+      '(${subCall(item)}$nn ${subLower(item)})$n ${subLower(item)}';
 
   /// required (void Function(WeatherSunny sunny)) sunny
   @protected
   @nonVirtual
   @visibleForTesting
   String topMatchVoidNNArg(ManifestItem item) => '$req void Function'
-      '(${subFull(item)}$nn ${subLower(item)})$nn ${subLower(item)}';
+      '(${subCall(item)}$nn ${subLower(item)})$nn ${subLower(item)}';
 
   /// required (void Function(Weather weather)) orElse
   @protected
   @nonVirtual
   @visibleForTesting
   String topMatchVoidNNArgOrElse() => '$req void Function'
-      '($top$nn $topLower)$nn orElse';
+      '($topCall$nn $topLower)$nn orElse';
 
   /// (void Function(WeatherSunny sunny))? sunny
   @protected
   @nonVirtual
   @visibleForTesting
   String topMatchVoidNArg(ManifestItem item) => 'void Function'
-      '(${subFull(item)}$nn ${subLower(item)})$n ${subLower(item)}';
+      '(${subCall(item)}$nn ${subLower(item)})$n ${subLower(item)}';
 
   /// assert(sunny != null)
   @protected
