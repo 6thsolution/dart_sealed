@@ -65,7 +65,7 @@ abstract class Apple {
     assert(orDefault != null);
     final apple = this;
     if (apple is AppleHold /*!*/) {
-      return hold != null ? hold(apple) : orDefault;
+      return hold?.call(apple) ?? orDefault;
     } else {
       throw AssertionError();
     }
@@ -76,7 +76,7 @@ abstract class Apple {
   }) {
     final apple = this;
     if (apple is AppleHold /*!*/) {
-      return hold != null ? hold(apple) : null;
+      return hold?.call(apple);
     } else {
       throw AssertionError();
     }
@@ -100,6 +100,18 @@ abstract class Apple {
     final apple = this;
     if (apple is AppleHold /*!*/) {
       hold(apple);
+    } else {
+      throw AssertionError();
+    }
+  }
+
+  void branchPartial({
+    void Function(AppleHold /*!*/ hold) /*?*/ hold,
+  }) {
+    assert(hold != null);
+    final apple = this;
+    if (apple is AppleHold /*!*/) {
+      hold?.call(apple);
     } else {
       throw AssertionError();
     }
@@ -180,7 +192,7 @@ abstract class Banana {
     assert(orDefault != null);
     final banana = this;
     if (banana is BananaHold /*!*/) {
-      return hold != null ? hold(banana) : orDefault;
+      return hold?.call(banana) ?? orDefault;
     } else {
       throw AssertionError();
     }
@@ -191,7 +203,7 @@ abstract class Banana {
   }) {
     final banana = this;
     if (banana is BananaHold /*!*/) {
-      return hold != null ? hold(banana) : null;
+      return hold?.call(banana);
     } else {
       throw AssertionError();
     }
@@ -215,6 +227,18 @@ abstract class Banana {
     final banana = this;
     if (banana is BananaHold /*!*/) {
       hold(banana);
+    } else {
+      throw AssertionError();
+    }
+  }
+
+  void branchPartial({
+    void Function(BananaHold /*!*/ hold) /*?*/ hold,
+  }) {
+    assert(hold != null);
+    final banana = this;
+    if (banana is BananaHold /*!*/) {
+      hold?.call(banana);
     } else {
       throw AssertionError();
     }
@@ -359,11 +383,11 @@ abstract class Coconut {
     assert(orDefault != null);
     final coconut = this;
     if (coconut is CoconutTest1 /*!*/) {
-      return test1 != null ? test1(coconut) : orDefault;
+      return test1?.call(coconut) ?? orDefault;
     } else if (coconut is CoconutTest2 /*!*/) {
-      return test2 != null ? test2(coconut) : orDefault;
+      return test2?.call(coconut) ?? orDefault;
     } else if (coconut is CoconutHold /*!*/) {
-      return hold != null ? hold(coconut) : orDefault;
+      return hold?.call(coconut) ?? orDefault;
     } else {
       throw AssertionError();
     }
@@ -376,11 +400,11 @@ abstract class Coconut {
   }) {
     final coconut = this;
     if (coconut is CoconutTest1 /*!*/) {
-      return test1 != null ? test1(coconut) : null;
+      return test1?.call(coconut);
     } else if (coconut is CoconutTest2 /*!*/) {
-      return test2 != null ? test2(coconut) : null;
+      return test2?.call(coconut);
     } else if (coconut is CoconutHold /*!*/) {
-      return hold != null ? hold(coconut) : null;
+      return hold?.call(coconut);
     } else {
       throw AssertionError();
     }
@@ -418,6 +442,26 @@ abstract class Coconut {
       test2(coconut);
     } else if (coconut is CoconutHold /*!*/) {
       hold(coconut);
+    } else {
+      throw AssertionError();
+    }
+  }
+
+  void branchPartial({
+    void Function(CoconutTest1 /*!*/ test1) /*?*/ test1,
+    void Function(CoconutTest2 /*!*/ test2) /*?*/ test2,
+    void Function(CoconutHold /*!*/ hold) /*?*/ hold,
+  }) {
+    assert(test1 != null);
+    assert(test2 != null);
+    assert(hold != null);
+    final coconut = this;
+    if (coconut is CoconutTest1 /*!*/) {
+      test1?.call(coconut);
+    } else if (coconut is CoconutTest2 /*!*/) {
+      test2?.call(coconut);
+    } else if (coconut is CoconutHold /*!*/) {
+      hold?.call(coconut);
     } else {
       throw AssertionError();
     }

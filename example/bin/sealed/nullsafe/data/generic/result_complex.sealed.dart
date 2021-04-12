@@ -203,17 +203,17 @@ abstract class Result {
   }) {
     final result = this;
     if (result is ResultSuccess) {
-      return success != null ? success(result) : orDefault;
+      return success?.call(result) ?? orDefault;
     } else if (result is ResultError) {
-      return error != null ? error(result) : orDefault;
+      return error?.call(result) ?? orDefault;
     } else if (result is ResultDummy) {
-      return dummy != null ? dummy(result) : orDefault;
+      return dummy?.call(result) ?? orDefault;
     } else if (result is ResultPartialSuccess) {
-      return partialSuccess != null ? partialSuccess(result) : orDefault;
+      return partialSuccess?.call(result) ?? orDefault;
     } else if (result is ResultPartialError) {
-      return partialError != null ? partialError(result) : orDefault;
+      return partialError?.call(result) ?? orDefault;
     } else if (result is ResultDoubleSuccess) {
-      return doubleSuccess != null ? doubleSuccess(result) : orDefault;
+      return doubleSuccess?.call(result) ?? orDefault;
     } else {
       throw AssertionError();
     }
@@ -229,17 +229,17 @@ abstract class Result {
   }) {
     final result = this;
     if (result is ResultSuccess) {
-      return success != null ? success(result) : null;
+      return success?.call(result);
     } else if (result is ResultError) {
-      return error != null ? error(result) : null;
+      return error?.call(result);
     } else if (result is ResultDummy) {
-      return dummy != null ? dummy(result) : null;
+      return dummy?.call(result);
     } else if (result is ResultPartialSuccess) {
-      return partialSuccess != null ? partialSuccess(result) : null;
+      return partialSuccess?.call(result);
     } else if (result is ResultPartialError) {
-      return partialError != null ? partialError(result) : null;
+      return partialError?.call(result);
     } else if (result is ResultDoubleSuccess) {
-      return doubleSuccess != null ? doubleSuccess(result) : null;
+      return doubleSuccess?.call(result);
     } else {
       throw AssertionError();
     }
@@ -292,6 +292,32 @@ abstract class Result {
       partialError(result);
     } else if (result is ResultDoubleSuccess) {
       doubleSuccess(result);
+    } else {
+      throw AssertionError();
+    }
+  }
+
+  void branchPartial({
+    void Function(ResultSuccess success)? success,
+    void Function(ResultError error)? error,
+    void Function(ResultDummy dummy)? dummy,
+    void Function(ResultPartialSuccess partialSuccess)? partialSuccess,
+    void Function(ResultPartialError partialError)? partialError,
+    void Function(ResultDoubleSuccess doubleSuccess)? doubleSuccess,
+  }) {
+    final result = this;
+    if (result is ResultSuccess) {
+      success?.call(result);
+    } else if (result is ResultError) {
+      error?.call(result);
+    } else if (result is ResultDummy) {
+      dummy?.call(result);
+    } else if (result is ResultPartialSuccess) {
+      partialSuccess?.call(result);
+    } else if (result is ResultPartialError) {
+      partialError?.call(result);
+    } else if (result is ResultDoubleSuccess) {
+      doubleSuccess?.call(result);
     } else {
       throw AssertionError();
     }

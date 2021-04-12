@@ -110,11 +110,11 @@ abstract class Weather {
   }) {
     final weather = this;
     if (weather is WeatherSunny) {
-      return sunny != null ? sunny(weather) : orDefault;
+      return sunny?.call(weather) ?? orDefault;
     } else if (weather is WeatherRainy) {
-      return rainy != null ? rainy(weather) : orDefault;
+      return rainy?.call(weather) ?? orDefault;
     } else if (weather is WeatherWindy) {
-      return windy != null ? windy(weather) : orDefault;
+      return windy?.call(weather) ?? orDefault;
     } else {
       throw AssertionError();
     }
@@ -127,11 +127,11 @@ abstract class Weather {
   }) {
     final weather = this;
     if (weather is WeatherSunny) {
-      return sunny != null ? sunny(weather) : null;
+      return sunny?.call(weather);
     } else if (weather is WeatherRainy) {
-      return rainy != null ? rainy(weather) : null;
+      return rainy?.call(weather);
     } else if (weather is WeatherWindy) {
-      return windy != null ? windy(weather) : null;
+      return windy?.call(weather);
     } else {
       throw AssertionError();
     }
@@ -166,6 +166,23 @@ abstract class Weather {
       rainy(weather);
     } else if (weather is WeatherWindy) {
       windy(weather);
+    } else {
+      throw AssertionError();
+    }
+  }
+
+  void branchPartial({
+    void Function(WeatherSunny sunny)? sunny,
+    void Function(WeatherRainy rainy)? rainy,
+    void Function(WeatherWindy windy)? windy,
+  }) {
+    final weather = this;
+    if (weather is WeatherSunny) {
+      sunny?.call(weather);
+    } else if (weather is WeatherRainy) {
+      rainy?.call(weather);
+    } else if (weather is WeatherWindy) {
+      windy?.call(weather);
     } else {
       throw AssertionError();
     }

@@ -19,8 +19,7 @@ class TopMatchWhenOrNullWriter extends TopMatchBaseWriter {
   @visibleForTesting
   If topMatchWhenOrNullIf(ManifestItem item) => If(
         condition: '$topLower ${isSub(item)}',
-        code: 'return ${subLower(item)} != null ?'
-            ' ${subLower(item)}($topLower) : null;',
+        code: 'return ${subLower(item)}?.call($topLower);',
       );
 
   @nonVirtual

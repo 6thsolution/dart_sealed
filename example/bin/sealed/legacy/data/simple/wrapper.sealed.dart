@@ -65,7 +65,7 @@ abstract class Wrapper {
     assert(orDefault != null);
     final wrapper = this;
     if (wrapper is WrapperWrap /*!*/) {
-      return wrap != null ? wrap(wrapper) : orDefault;
+      return wrap?.call(wrapper) ?? orDefault;
     } else {
       throw AssertionError();
     }
@@ -76,7 +76,7 @@ abstract class Wrapper {
   }) {
     final wrapper = this;
     if (wrapper is WrapperWrap /*!*/) {
-      return wrap != null ? wrap(wrapper) : null;
+      return wrap?.call(wrapper);
     } else {
       throw AssertionError();
     }
@@ -100,6 +100,18 @@ abstract class Wrapper {
     final wrapper = this;
     if (wrapper is WrapperWrap /*!*/) {
       wrap(wrapper);
+    } else {
+      throw AssertionError();
+    }
+  }
+
+  void branchPartial({
+    void Function(WrapperWrap /*!*/ wrap) /*?*/ wrap,
+  }) {
+    assert(wrap != null);
+    final wrapper = this;
+    if (wrapper is WrapperWrap /*!*/) {
+      wrap?.call(wrapper);
     } else {
       throw AssertionError();
     }

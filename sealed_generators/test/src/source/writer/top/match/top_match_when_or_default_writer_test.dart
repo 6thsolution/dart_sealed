@@ -21,7 +21,7 @@ void main() {
       final i = writer.topMatchWhenOrDefaultIf(item1);
 
       expect(i.condition, 'weather is WeatherSunny');
-      expect(i.code, 'return sunny != null ? sunny(weather) : orDefault;');
+      expect(i.code, 'return sunny?.call(weather) ?? orDefault;');
     });
 
     test('method topMatchWhenOrDefaultItemArgs', () {
@@ -71,11 +71,11 @@ void main() {
         writer.topMatchWhenOrDefaultBody(),
         'final weather = this;\n'
         'if (weather is WeatherSunny)'
-        ' {return sunny != null ? sunny(weather) : orDefault;}\n'
+        ' {return sunny?.call(weather) ?? orDefault;}\n'
         'else if (weather is WeatherRainy)'
-        ' {return rainy != null ? rainy(weather) : orDefault;}\n'
+        ' {return rainy?.call(weather) ?? orDefault;}\n'
         'else if (weather is WeatherWindy)'
-        ' {return windy != null ? windy(weather) : orDefault;}\n'
+        ' {return windy?.call(weather) ?? orDefault;}\n'
         'else {throw AssertionError();}',
       );
     });

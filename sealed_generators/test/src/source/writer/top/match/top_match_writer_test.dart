@@ -18,13 +18,14 @@ void main() {
 
       expect(
         writer.topMatchMethods(),
-        containsAllInOrder([
+        containsAll([
           writer.topMatchWhenWriter.topMatchWhen(),
           writer.topMatchWhenOrElseWriter.topMatchWhenOrElse(),
           writer.topMatchWhenOrDefaultWriter.topMatchWhenOrDefault(),
           writer.topMatchWhenOrNullWriter.topMatchWhenOrNull(),
           writer.topMatchWhenOrThrowWriter.topMatchWhenOrThrow(),
           writer.topMatchBranchWriter.topMatchBranch(),
+          writer.topMatchBranchPartialWriter.topMatchBranchPartial(),
         ]),
       );
     });

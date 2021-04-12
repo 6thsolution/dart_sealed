@@ -96,9 +96,9 @@ abstract class Result {
     assert(orDefault != null);
     final result = this;
     if (result is ResultSuccess /*!*/) {
-      return success != null ? success(result) : orDefault;
+      return success?.call(result) ?? orDefault;
     } else if (result is ResultError /*!*/) {
-      return error != null ? error(result) : orDefault;
+      return error?.call(result) ?? orDefault;
     } else {
       throw AssertionError();
     }
@@ -110,9 +110,9 @@ abstract class Result {
   }) {
     final result = this;
     if (result is ResultSuccess /*!*/) {
-      return success != null ? success(result) : null;
+      return success?.call(result);
     } else if (result is ResultError /*!*/) {
-      return error != null ? error(result) : null;
+      return error?.call(result);
     } else {
       throw AssertionError();
     }
@@ -143,6 +143,22 @@ abstract class Result {
       success(result);
     } else if (result is ResultError /*!*/) {
       error(result);
+    } else {
+      throw AssertionError();
+    }
+  }
+
+  void branchPartial({
+    void Function(ResultSuccess /*!*/ success) /*?*/ success,
+    void Function(ResultError /*!*/ error) /*?*/ error,
+  }) {
+    assert(success != null);
+    assert(error != null);
+    final result = this;
+    if (result is ResultSuccess /*!*/) {
+      success?.call(result);
+    } else if (result is ResultError /*!*/) {
+      error?.call(result);
     } else {
       throw AssertionError();
     }

@@ -2,13 +2,28 @@ import 'package:sealed_annotations/sealed_annotations.dart';
 import 'package:test/test.dart';
 
 /// for [SealedEquality.data].
-abstract class _SealedEqualityData extends Equatable {}
+class _SEData with EquatableMixin {
+  final int x;
+
+  _SEData(this.x);
+
+  @override
+  List<Object?> get props => [x];
+}
 
 /// for [SealedEquality.identity].
-abstract class _SealedEqualityIdentity {}
+class _SEIdentity {
+  final int x;
+
+  _SEIdentity(this.x);
+}
 
 /// for [SealedEquality.distinct].
-abstract class _SealedEqualityDistinct {
+class _SEDistinct {
+  final int x;
+
+  _SEDistinct(this.x);
+
   @override
   bool operator ==(Object other) => false;
 }
@@ -19,9 +34,6 @@ void main() {
       final a = _SEData(10);
       final b = _SEData(10);
       final c = _SEData(20);
-
-      // equatable
-      expect(a, isA<Equatable>());
 
       // self equality
       expect(a, equals(a));
@@ -50,9 +62,6 @@ void main() {
       final b = _SEIdentity(10);
       final c = _SEIdentity(20);
 
-      // not equatable
-      expect(a, isNot(isA<Equatable>()));
-
       // self equality
       expect(a, equals(a));
       expect(b, equals(b));
@@ -79,9 +88,6 @@ void main() {
       final b = _SEDistinct(10);
       final c = _SEDistinct(20);
 
-      // not equatable
-      expect(a, isNot(isA<Equatable>()));
-
       // self equality
       expect(a, isNot(equals(a)));
       expect(b, isNot(equals(b)));
@@ -103,25 +109,4 @@ void main() {
       expect(a.hashCode, isNot(equals(c.hashCode)));
     });
   });
-}
-
-class _SEData extends _SealedEqualityData {
-  final int x;
-
-  _SEData(this.x);
-
-  @override
-  List<Object?> get props => [x];
-}
-
-class _SEIdentity extends _SealedEqualityIdentity {
-  final int x;
-
-  _SEIdentity(this.x);
-}
-
-class _SEDistinct extends _SealedEqualityDistinct {
-  final int x;
-
-  _SEDistinct(this.x);
 }

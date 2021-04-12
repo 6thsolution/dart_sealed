@@ -21,7 +21,7 @@ void main() {
       final i = writer.topMatchWhenOrNullIf(item1);
 
       expect(i.condition, 'weather is WeatherSunny');
-      expect(i.code, 'return sunny != null ? sunny(weather) : null;');
+      expect(i.code, 'return sunny?.call(weather);');
     });
 
     test('method topMatchWhenOrNullArgs', () {
@@ -58,11 +58,11 @@ void main() {
         writer.topMatchWhenOrNullBody(),
         'final weather = this;\n'
         'if (weather is WeatherSunny)'
-        ' {return sunny != null ? sunny(weather) : null;}\n'
+        ' {return sunny?.call(weather);}\n'
         'else if (weather is WeatherRainy)'
-        ' {return rainy != null ? rainy(weather) : null;}\n'
+        ' {return rainy?.call(weather);}\n'
         'else if (weather is WeatherWindy)'
-        ' {return windy != null ? windy(weather) : null;}\n'
+        ' {return windy?.call(weather);}\n'
         'else {throw AssertionError();}',
       );
     });

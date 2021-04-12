@@ -87,9 +87,9 @@ abstract class Wrapper {
   }) {
     final wrapper = this;
     if (wrapper is WrapperWrap) {
-      return wrap != null ? wrap(wrapper) : orDefault;
+      return wrap?.call(wrapper) ?? orDefault;
     } else if (wrapper is WrapperWrapNullable) {
-      return wrapNullable != null ? wrapNullable(wrapper) : orDefault;
+      return wrapNullable?.call(wrapper) ?? orDefault;
     } else {
       throw AssertionError();
     }
@@ -101,9 +101,9 @@ abstract class Wrapper {
   }) {
     final wrapper = this;
     if (wrapper is WrapperWrap) {
-      return wrap != null ? wrap(wrapper) : null;
+      return wrap?.call(wrapper);
     } else if (wrapper is WrapperWrapNullable) {
-      return wrapNullable != null ? wrapNullable(wrapper) : null;
+      return wrapNullable?.call(wrapper);
     } else {
       throw AssertionError();
     }
@@ -132,6 +132,20 @@ abstract class Wrapper {
       wrap(wrapper);
     } else if (wrapper is WrapperWrapNullable) {
       wrapNullable(wrapper);
+    } else {
+      throw AssertionError();
+    }
+  }
+
+  void branchPartial({
+    void Function(WrapperWrap wrap)? wrap,
+    void Function(WrapperWrapNullable wrapNullable)? wrapNullable,
+  }) {
+    final wrapper = this;
+    if (wrapper is WrapperWrap) {
+      wrap?.call(wrapper);
+    } else if (wrapper is WrapperWrapNullable) {
+      wrapNullable?.call(wrapper);
     } else {
       throw AssertionError();
     }
