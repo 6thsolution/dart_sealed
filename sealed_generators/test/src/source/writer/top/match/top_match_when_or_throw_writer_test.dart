@@ -61,15 +61,12 @@ void main() {
       expect(
         writer.topMatchWhenOrThrowBody(),
         'final weather = this;\n'
-        'if (weather is WeatherSunny)'
-        ' {return sunny != null ? sunny(weather)'
-        ' : throw AssertionError();}\n'
-        'else if (weather is WeatherRainy)'
-        ' {return rainy != null ? rainy(weather)'
-        ' : throw AssertionError();}\n'
-        'else if (weather is WeatherWindy)'
-        ' {return windy != null ? windy(weather)'
-        ' : throw AssertionError();}\n'
+        'if (weather is WeatherSunny && sunny != null)'
+        ' {return sunny(weather)}\n'
+        'else if (weather is WeatherRainy && rainy != null)'
+        ' {return rainy(weather)}\n'
+        'else if (weather is WeatherWindy && windy != null)'
+        ' {return windy(weather)}\n'
         'else {throw AssertionError();}',
       );
     });

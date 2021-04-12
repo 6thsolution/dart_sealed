@@ -2,6 +2,7 @@ import 'package:meta/meta.dart';
 import 'package:sealed_annotations/sealed_annotations.dart';
 import 'package:sealed_generators/src/source/source.dart';
 import 'package:sealed_generators/src/source/writer/base/base_writer.dart';
+import 'package:sealed_generators/src/source/writer/top/match/top_match_branch_writer.dart';
 import 'package:sealed_generators/src/source/writer/top/match/top_match_when_or_default_writer.dart';
 import 'package:sealed_generators/src/source/writer/top/match/top_match_when_or_else_writer.dart';
 import 'package:sealed_generators/src/source/writer/top/match/top_match_when_or_null_writer.dart';
@@ -18,6 +19,7 @@ class TopMatchWriter extends BaseWriter {
         topMatchWhenOrDefaultWriter = TopMatchWhenOrDefaultWriter(source),
         topMatchWhenOrNullWriter = TopMatchWhenOrNullWriter(source),
         topMatchWhenOrThrowWriter = TopMatchWhenOrThrowWriter(source),
+        topMatchBranchWriter = TopMatchBranchWriter(source),
         super(source);
 
   @nonVirtual
@@ -41,11 +43,16 @@ class TopMatchWriter extends BaseWriter {
   final TopMatchWhenOrThrowWriter topMatchWhenOrThrowWriter;
 
   @nonVirtual
+  @visibleForTesting
+  final TopMatchBranchWriter topMatchBranchWriter;
+
+  @nonVirtual
   Iterable<String> topMatchMethods() => [
         topMatchWhenWriter.topMatchWhen(),
         topMatchWhenOrElseWriter.topMatchWhenOrElse(),
         topMatchWhenOrDefaultWriter.topMatchWhenOrDefault(),
         topMatchWhenOrNullWriter.topMatchWhenOrNull(),
         topMatchWhenOrThrowWriter.topMatchWhenOrThrow(),
+        topMatchBranchWriter.topMatchBranch(),
       ];
 }

@@ -269,24 +269,55 @@ abstract class Result {
     R Function(ResultDoubleSuccess /*!*/ doubleSuccess) /*?*/ doubleSuccess,
   }) {
     final result = this;
+    if (result is ResultSuccess /*!*/ && success != null) {
+      return success(result);
+    } else if (result is ResultError /*!*/ && error != null) {
+      return error(result);
+    } else if (result is ResultDummy /*!*/ && dummy != null) {
+      return dummy(result);
+    } else if (result is ResultPartialSuccess /*!*/ && partialSuccess != null) {
+      return partialSuccess(result);
+    } else if (result is ResultPartialError /*!*/ && partialError != null) {
+      return partialError(result);
+    } else if (result is ResultDoubleSuccess /*!*/ && doubleSuccess != null) {
+      return doubleSuccess(result);
+    } else {
+      throw AssertionError();
+    }
+  }
+
+  void branch({
+    @required void Function(ResultSuccess /*!*/ success) /*!*/ success,
+    @required void Function(ResultError /*!*/ error) /*!*/ error,
+    @required void Function(ResultDummy /*!*/ dummy) /*!*/ dummy,
+    @required
+        void Function(
+            ResultPartialSuccess /*!*/ partialSuccess) /*!*/ partialSuccess,
+    @required
+        void Function(ResultPartialError /*!*/ partialError) /*!*/ partialError,
+    @required
+        void Function(
+            ResultDoubleSuccess /*!*/ doubleSuccess) /*!*/ doubleSuccess,
+  }) {
+    assert(success != null);
+    assert(error != null);
+    assert(dummy != null);
+    assert(partialSuccess != null);
+    assert(partialError != null);
+    assert(doubleSuccess != null);
+    final result = this;
     if (result is ResultSuccess /*!*/) {
-      return success != null ? success(result) : throw AssertionError();
+      success(result);
     } else if (result is ResultError /*!*/) {
-      return error != null ? error(result) : throw AssertionError();
+      error(result);
     } else if (result is ResultDummy /*!*/) {
-      return dummy != null ? dummy(result) : throw AssertionError();
+      dummy(result);
     } else if (result is ResultPartialSuccess /*!*/) {
-      return partialSuccess != null
-          ? partialSuccess(result)
-          : throw AssertionError();
+      partialSuccess(result);
     } else if (result is ResultPartialError /*!*/) {
-      return partialError != null
-          ? partialError(result)
-          : throw AssertionError();
+      partialError(result);
     } else if (result is ResultDoubleSuccess /*!*/) {
-      return doubleSuccess != null
-          ? doubleSuccess(result)
-          : throw AssertionError();
+      doubleSuccess(result);
     } else {
       throw AssertionError();
     }

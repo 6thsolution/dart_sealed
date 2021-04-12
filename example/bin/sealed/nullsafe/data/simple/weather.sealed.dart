@@ -143,12 +143,29 @@ abstract class Weather {
     R Function(WeatherWindy windy)? windy,
   }) {
     final weather = this;
+    if (weather is WeatherSunny && sunny != null) {
+      return sunny(weather);
+    } else if (weather is WeatherRainy && rainy != null) {
+      return rainy(weather);
+    } else if (weather is WeatherWindy && windy != null) {
+      return windy(weather);
+    } else {
+      throw AssertionError();
+    }
+  }
+
+  void branch({
+    required void Function(WeatherSunny sunny) sunny,
+    required void Function(WeatherRainy rainy) rainy,
+    required void Function(WeatherWindy windy) windy,
+  }) {
+    final weather = this;
     if (weather is WeatherSunny) {
-      return sunny != null ? sunny(weather) : throw AssertionError();
+      sunny(weather);
     } else if (weather is WeatherRainy) {
-      return rainy != null ? rainy(weather) : throw AssertionError();
+      rainy(weather);
     } else if (weather is WeatherWindy) {
-      return windy != null ? windy(weather) : throw AssertionError();
+      windy(weather);
     } else {
       throw AssertionError();
     }

@@ -114,12 +114,24 @@ abstract class Wrapper {
     R Function(WrapperWrapNullable wrapNullable)? wrapNullable,
   }) {
     final wrapper = this;
+    if (wrapper is WrapperWrap && wrap != null) {
+      return wrap(wrapper);
+    } else if (wrapper is WrapperWrapNullable && wrapNullable != null) {
+      return wrapNullable(wrapper);
+    } else {
+      throw AssertionError();
+    }
+  }
+
+  void branch({
+    required void Function(WrapperWrap wrap) wrap,
+    required void Function(WrapperWrapNullable wrapNullable) wrapNullable,
+  }) {
+    final wrapper = this;
     if (wrapper is WrapperWrap) {
-      return wrap != null ? wrap(wrapper) : throw AssertionError();
+      wrap(wrapper);
     } else if (wrapper is WrapperWrapNullable) {
-      return wrapNullable != null
-          ? wrapNullable(wrapper)
-          : throw AssertionError();
+      wrapNullable(wrapper);
     } else {
       throw AssertionError();
     }

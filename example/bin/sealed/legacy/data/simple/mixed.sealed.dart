@@ -86,8 +86,20 @@ abstract class Apple {
     R Function(AppleHold /*!*/ hold) /*?*/ hold,
   }) {
     final apple = this;
+    if (apple is AppleHold /*!*/ && hold != null) {
+      return hold(apple);
+    } else {
+      throw AssertionError();
+    }
+  }
+
+  void branch({
+    @required void Function(AppleHold /*!*/ hold) /*!*/ hold,
+  }) {
+    assert(hold != null);
+    final apple = this;
     if (apple is AppleHold /*!*/) {
-      return hold != null ? hold(apple) : throw AssertionError();
+      hold(apple);
     } else {
       throw AssertionError();
     }
@@ -189,8 +201,20 @@ abstract class Banana {
     R Function(BananaHold /*!*/ hold) /*?*/ hold,
   }) {
     final banana = this;
+    if (banana is BananaHold /*!*/ && hold != null) {
+      return hold(banana);
+    } else {
+      throw AssertionError();
+    }
+  }
+
+  void branch({
+    @required void Function(BananaHold /*!*/ hold) /*!*/ hold,
+  }) {
+    assert(hold != null);
+    final banana = this;
     if (banana is BananaHold /*!*/) {
-      return hold != null ? hold(banana) : throw AssertionError();
+      hold(banana);
     } else {
       throw AssertionError();
     }
@@ -368,12 +392,32 @@ abstract class Coconut {
     R Function(CoconutHold /*!*/ hold) /*?*/ hold,
   }) {
     final coconut = this;
+    if (coconut is CoconutTest1 /*!*/ && test1 != null) {
+      return test1(coconut);
+    } else if (coconut is CoconutTest2 /*!*/ && test2 != null) {
+      return test2(coconut);
+    } else if (coconut is CoconutHold /*!*/ && hold != null) {
+      return hold(coconut);
+    } else {
+      throw AssertionError();
+    }
+  }
+
+  void branch({
+    @required void Function(CoconutTest1 /*!*/ test1) /*!*/ test1,
+    @required void Function(CoconutTest2 /*!*/ test2) /*!*/ test2,
+    @required void Function(CoconutHold /*!*/ hold) /*!*/ hold,
+  }) {
+    assert(test1 != null);
+    assert(test2 != null);
+    assert(hold != null);
+    final coconut = this;
     if (coconut is CoconutTest1 /*!*/) {
-      return test1 != null ? test1(coconut) : throw AssertionError();
+      test1(coconut);
     } else if (coconut is CoconutTest2 /*!*/) {
-      return test2 != null ? test2(coconut) : throw AssertionError();
+      test2(coconut);
     } else if (coconut is CoconutHold /*!*/) {
-      return hold != null ? hold(coconut) : throw AssertionError();
+      hold(coconut);
     } else {
       throw AssertionError();
     }

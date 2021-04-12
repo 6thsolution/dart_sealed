@@ -86,8 +86,20 @@ abstract class Wrapper {
     R Function(WrapperWrap /*!*/ wrap) /*?*/ wrap,
   }) {
     final wrapper = this;
+    if (wrapper is WrapperWrap /*!*/ && wrap != null) {
+      return wrap(wrapper);
+    } else {
+      throw AssertionError();
+    }
+  }
+
+  void branch({
+    @required void Function(WrapperWrap /*!*/ wrap) /*!*/ wrap,
+  }) {
+    assert(wrap != null);
+    final wrapper = this;
     if (wrapper is WrapperWrap /*!*/) {
-      return wrap != null ? wrap(wrapper) : throw AssertionError();
+      wrap(wrapper);
     } else {
       throw AssertionError();
     }

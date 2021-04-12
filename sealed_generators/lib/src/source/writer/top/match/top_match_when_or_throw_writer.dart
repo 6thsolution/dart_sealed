@@ -18,9 +18,8 @@ class TopMatchWhenOrThrowWriter extends TopMatchBaseWriter {
   @nonVirtual
   @visibleForTesting
   If topMatchWhenOrThrowIf(ManifestItem item) => If(
-        condition: '$topLower ${isSub(item)}',
-        code: 'return ${subLower(item)} != null ?'
-            ' ${subLower(item)}($topLower) : ${throwAssertion()}',
+        condition: '$topLower ${isSub(item)} && ${subLower(item)} != null',
+        code: 'return ${subLower(item)}($topLower);',
       );
 
   @nonVirtual
@@ -49,10 +48,7 @@ class TopMatchWhenOrThrowWriter extends TopMatchBaseWriter {
   @visibleForTesting
   String topMatchWhenOrThrowStart() => [
         'R whenOrThrow$topMatchParam',
-        topMatchWhenOrThrowArgs()
-            .joinArgsFull()
-            .withBraces()
-            .withParenthesis(),
+        topMatchWhenOrThrowArgs().joinArgsFull().withBraces().withParenthesis(),
       ].joinParts();
 
   /// R whenOrThrow<R extends Object?>(item...) {...}

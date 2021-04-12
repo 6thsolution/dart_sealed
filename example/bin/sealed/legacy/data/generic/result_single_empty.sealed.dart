@@ -149,12 +149,32 @@ abstract class Result {
     R Function(ResultError /*!*/ error) /*?*/ error,
   }) {
     final result = this;
+    if (result is ResultSuccess /*!*/ && success != null) {
+      return success(result);
+    } else if (result is ResultEmpty /*!*/ && empty != null) {
+      return empty(result);
+    } else if (result is ResultError /*!*/ && error != null) {
+      return error(result);
+    } else {
+      throw AssertionError();
+    }
+  }
+
+  void branch({
+    @required void Function(ResultSuccess /*!*/ success) /*!*/ success,
+    @required void Function(ResultEmpty /*!*/ empty) /*!*/ empty,
+    @required void Function(ResultError /*!*/ error) /*!*/ error,
+  }) {
+    assert(success != null);
+    assert(empty != null);
+    assert(error != null);
+    final result = this;
     if (result is ResultSuccess /*!*/) {
-      return success != null ? success(result) : throw AssertionError();
+      success(result);
     } else if (result is ResultEmpty /*!*/) {
-      return empty != null ? empty(result) : throw AssertionError();
+      empty(result);
     } else if (result is ResultError /*!*/) {
-      return error != null ? error(result) : throw AssertionError();
+      error(result);
     } else {
       throw AssertionError();
     }
