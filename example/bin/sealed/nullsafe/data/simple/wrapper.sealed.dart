@@ -70,6 +70,21 @@ abstract class Wrapper extends Equatable {
       throw AssertionError();
     }
   }
+
+  R whenOrDefault<R extends Object?>({
+    R Function(WrapperWrap wrap)? wrap,
+    R Function(WrapperWrapNullable wrapNullable)? wrapNullable,
+    required R orDefault,
+  }) {
+    final wrapper = this;
+    if (wrapper is WrapperWrap) {
+      return wrap != null ? wrap(wrapper) : orDefault;
+    } else if (wrapper is WrapperWrapNullable) {
+      return wrapNullable != null ? wrapNullable(wrapper) : orDefault;
+    } else {
+      throw AssertionError();
+    }
+  }
 }
 
 class WrapperWrap extends Wrapper {

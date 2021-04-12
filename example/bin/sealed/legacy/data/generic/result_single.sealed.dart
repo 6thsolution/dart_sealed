@@ -83,6 +83,22 @@ abstract class Result extends Equatable {
       throw AssertionError();
     }
   }
+
+  R whenOrDefault<R extends Object /*?*/ >({
+    R Function(ResultSuccess /*!*/ success) /*?*/ success,
+    R Function(ResultError /*!*/ error) /*?*/ error,
+    @required R orDefault,
+  }) {
+    assert(orDefault != null);
+    final result = this;
+    if (result is ResultSuccess /*!*/) {
+      return success != null ? success(result) : orDefault;
+    } else if (result is ResultError /*!*/) {
+      return error != null ? error(result) : orDefault;
+    } else {
+      throw AssertionError();
+    }
+  }
 }
 
 class ResultSuccess extends Result {

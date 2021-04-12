@@ -21,6 +21,7 @@ void main() {
         containsAllInOrder([
           writer.topMatchWhenWriter.topMatchWhen(),
           writer.topMatchWhenOrElseWriter.topMatchWhenOrElse(),
+          writer.topMatchWhenOrDefaultWriter.topMatchWhenOrDefault(),
         ]),
       );
     });

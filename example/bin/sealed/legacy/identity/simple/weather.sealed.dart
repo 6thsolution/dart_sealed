@@ -102,6 +102,25 @@ abstract class Weather {
       throw AssertionError();
     }
   }
+
+  R whenOrDefault<R extends Object /*?*/ >({
+    R Function(WeatherSunny /*!*/ sunny) /*?*/ sunny,
+    R Function(WeatherRainy /*!*/ rainy) /*?*/ rainy,
+    R Function(WeatherWindy /*!*/ windy) /*?*/ windy,
+    @required R orDefault,
+  }) {
+    assert(orDefault != null);
+    final weather = this;
+    if (weather is WeatherSunny /*!*/) {
+      return sunny != null ? sunny(weather) : orDefault;
+    } else if (weather is WeatherRainy /*!*/) {
+      return rainy != null ? rainy(weather) : orDefault;
+    } else if (weather is WeatherWindy /*!*/) {
+      return windy != null ? windy(weather) : orDefault;
+    } else {
+      throw AssertionError();
+    }
+  }
 }
 
 class WeatherSunny extends Weather {

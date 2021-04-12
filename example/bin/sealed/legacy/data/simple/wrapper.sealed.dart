@@ -52,6 +52,19 @@ abstract class Wrapper extends Equatable {
       throw AssertionError();
     }
   }
+
+  R whenOrDefault<R extends Object /*?*/ >({
+    R Function(WrapperWrap /*!*/ wrap) /*?*/ wrap,
+    @required R orDefault,
+  }) {
+    assert(orDefault != null);
+    final wrapper = this;
+    if (wrapper is WrapperWrap /*!*/) {
+      return wrap != null ? wrap(wrapper) : orDefault;
+    } else {
+      throw AssertionError();
+    }
+  }
 }
 
 class WrapperWrap extends Wrapper {

@@ -52,6 +52,19 @@ abstract class Apple extends Equatable {
       throw AssertionError();
     }
   }
+
+  R whenOrDefault<R extends Object /*?*/ >({
+    R Function(AppleHold /*!*/ hold) /*?*/ hold,
+    @required R orDefault,
+  }) {
+    assert(orDefault != null);
+    final apple = this;
+    if (apple is AppleHold /*!*/) {
+      return hold != null ? hold(apple) : orDefault;
+    } else {
+      throw AssertionError();
+    }
+  }
 }
 
 class AppleHold extends Apple {
@@ -107,6 +120,19 @@ abstract class Banana extends Equatable {
     final banana = this;
     if (banana is BananaHold /*!*/) {
       return (hold ?? orElse)(banana);
+    } else {
+      throw AssertionError();
+    }
+  }
+
+  R whenOrDefault<R extends Object /*?*/ >({
+    R Function(BananaHold /*!*/ hold) /*?*/ hold,
+    @required R orDefault,
+  }) {
+    assert(orDefault != null);
+    final banana = this;
+    if (banana is BananaHold /*!*/) {
+      return hold != null ? hold(banana) : orDefault;
     } else {
       throw AssertionError();
     }
@@ -233,6 +259,25 @@ abstract class Coconut extends Equatable {
       return (test2 ?? orElse)(coconut);
     } else if (coconut is CoconutHold /*!*/) {
       return (hold ?? orElse)(coconut);
+    } else {
+      throw AssertionError();
+    }
+  }
+
+  R whenOrDefault<R extends Object /*?*/ >({
+    R Function(CoconutTest1 /*!*/ test1) /*?*/ test1,
+    R Function(CoconutTest2 /*!*/ test2) /*?*/ test2,
+    R Function(CoconutHold /*!*/ hold) /*?*/ hold,
+    @required R orDefault,
+  }) {
+    assert(orDefault != null);
+    final coconut = this;
+    if (coconut is CoconutTest1 /*!*/) {
+      return test1 != null ? test1(coconut) : orDefault;
+    } else if (coconut is CoconutTest2 /*!*/) {
+      return test2 != null ? test2(coconut) : orDefault;
+    } else if (coconut is CoconutHold /*!*/) {
+      return hold != null ? hold(coconut) : orDefault;
     } else {
       throw AssertionError();
     }

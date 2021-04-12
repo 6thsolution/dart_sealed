@@ -193,6 +193,34 @@ abstract class Result extends Equatable {
       throw AssertionError();
     }
   }
+
+  R whenOrDefault<R extends Object /*?*/ >({
+    R Function(ResultSuccess /*!*/ success) /*?*/ success,
+    R Function(ResultError /*!*/ error) /*?*/ error,
+    R Function(ResultDummy /*!*/ dummy) /*?*/ dummy,
+    R Function(ResultPartialSuccess /*!*/ partialSuccess) /*?*/ partialSuccess,
+    R Function(ResultPartialError /*!*/ partialError) /*?*/ partialError,
+    R Function(ResultDoubleSuccess /*!*/ doubleSuccess) /*?*/ doubleSuccess,
+    @required R orDefault,
+  }) {
+    assert(orDefault != null);
+    final result = this;
+    if (result is ResultSuccess /*!*/) {
+      return success != null ? success(result) : orDefault;
+    } else if (result is ResultError /*!*/) {
+      return error != null ? error(result) : orDefault;
+    } else if (result is ResultDummy /*!*/) {
+      return dummy != null ? dummy(result) : orDefault;
+    } else if (result is ResultPartialSuccess /*!*/) {
+      return partialSuccess != null ? partialSuccess(result) : orDefault;
+    } else if (result is ResultPartialError /*!*/) {
+      return partialError != null ? partialError(result) : orDefault;
+    } else if (result is ResultDoubleSuccess /*!*/) {
+      return doubleSuccess != null ? doubleSuccess(result) : orDefault;
+    } else {
+      throw AssertionError();
+    }
+  }
 }
 
 class ResultSuccess extends Result {

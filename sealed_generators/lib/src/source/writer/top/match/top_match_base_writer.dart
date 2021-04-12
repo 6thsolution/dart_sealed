@@ -6,7 +6,7 @@ import 'package:sealed_generators/src/source/writer/base/base_cast_utils_writer.
 import 'package:sealed_generators/src/utils/branch_utils.dart';
 import 'package:sealed_generators/src/utils/string_utils.dart';
 
-/// source writer
+/// match method writer base
 @sealed
 @immutable
 class TopMatchBaseWriter extends BaseCastUtilsWriter {
@@ -31,6 +31,12 @@ class TopMatchBaseWriter extends BaseCastUtilsWriter {
   @visibleForTesting
   String topMatchGenericNNArgOrElse() => '$req R Function'
       '($top$nn $topLower)$nn orElse';
+
+  /// required R orDefault
+  @protected
+  @nonVirtual
+  @visibleForTesting
+  String topMatchGenericNNArgOrDefault() => '$req R orDefault';
 
   /// (R Function(WeatherSunny sunny))? sunny
   @protected
@@ -77,6 +83,12 @@ class TopMatchBaseWriter extends BaseCastUtilsWriter {
   @nonVirtual
   @visibleForTesting
   String topMatchAssertOrElse() => 'assert(orElse != null);';
+
+  /// assert(orDefault != null)
+  @protected
+  @nonVirtual
+  @visibleForTesting
+  String topMatchAssertOrDefault() => 'assert(orDefault != null);';
 
   /// ex. throw AssertionError();
   @protected

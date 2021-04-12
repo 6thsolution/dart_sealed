@@ -6,13 +6,13 @@ import 'package:sealed_generators/src/source/writer/top/match/top_match_base_wri
 import 'package:sealed_generators/src/utils/branch_utils.dart';
 import 'package:sealed_generators/src/utils/string_utils.dart';
 
-/// source writer
+/// match method writer whenOrElse()
 @sealed
 @immutable
 class TopMatchWhenOrElseWriter extends TopMatchBaseWriter {
   const TopMatchWhenOrElseWriter(Source source) : super(source);
 
-  /// ex. if (weather is WeatherSunny) { return sunny(weather); }
+  /// ex. if (weather is WeatherSunny) { return (sunny ?? orElse)(weather); }
   @nonVirtual
   @visibleForTesting
   If topMatchWhenOrElseIf(ManifestItem item) => If(

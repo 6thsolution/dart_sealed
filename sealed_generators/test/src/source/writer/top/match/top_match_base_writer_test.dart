@@ -84,6 +84,28 @@ void main() {
       });
     });
 
+    group('method topMatchGenericNNArgOrDefault', () {
+      test('null-safe', () {
+        final source = source1DataSafe;
+        final writer = TopMatchBaseWriter(source);
+
+        expect(
+          writer.topMatchGenericNNArgOrDefault(),
+          'required R orDefault',
+        );
+      });
+
+      test('legacy', () {
+        final source = source1DataLegacy;
+        final writer = TopMatchBaseWriter(source);
+
+        expect(
+          writer.topMatchGenericNNArgOrDefault(),
+          '@required R orDefault',
+        );
+      });
+    });
+
     group('method topMatchGenericNArg', () {
       test('null-safe', () {
         final source = source1DataSafe;
@@ -232,6 +254,16 @@ void main() {
       expect(
         writer.topMatchAssertOrElse(),
         'assert(orElse != null);',
+      );
+    });
+
+    test('method topMatchAssertOrDefault', () {
+      final source = source1DataLegacy;
+      final writer = TopMatchBaseWriter(source);
+
+      expect(
+        writer.topMatchAssertOrDefault(),
+        'assert(orDefault != null);',
       );
     });
 
