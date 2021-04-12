@@ -106,7 +106,6 @@ void main() {
           stringContainsInOrder([
             writer.topMatchBranchPartialStart(),
             '{',
-            writer.topMatchAsserts(),
             writer.topMatchBranchPartialBody(),
             '}',
           ]),

@@ -149,7 +149,7 @@ class WrapperWrap extends Wrapper with EquatableMixin {
   final dynamic /*?*/ data;
 
   @override
-  String /*!*/ toString() => 'Wrapper.wrap(data: $data)';
+  String /*!*/ toString() => 'Wrapper.Wrap(data: $data)';
 
   @override
   List<Object /*?*/ > /*!*/ get props => [

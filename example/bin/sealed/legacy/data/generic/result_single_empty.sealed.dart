@@ -242,7 +242,7 @@ class ResultSuccess<D extends Object /*?*/ > extends Result<D>
   final D /*?*/ data;
 
   @override
-  String /*!*/ toString() => 'Result.success(data: $data)';
+  String /*!*/ toString() => 'Result.Success(data: $data)';
 
   @override
   List<Object /*?*/ > /*!*/ get props => [
@@ -255,7 +255,7 @@ class ResultEmpty<D extends Object /*?*/ > extends Result<D>
   ResultEmpty();
 
   @override
-  String /*!*/ toString() => 'Result.empty()';
+  String /*!*/ toString() => 'Result.Empty()';
 
   @override
   List<Object /*?*/ > /*!*/ get props => [];
@@ -270,7 +270,7 @@ class ResultError<D extends Object /*?*/ > extends Result<D>
   final int /*?*/ code;
 
   @override
-  String /*!*/ toString() => 'Result.error(code: $code)';
+  String /*!*/ toString() => 'Result.Error(code: $code)';
 
   @override
   List<Object /*?*/ > /*!*/ get props => [

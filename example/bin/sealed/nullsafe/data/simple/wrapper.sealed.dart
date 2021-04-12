@@ -197,7 +197,7 @@ class WrapperWrap extends Wrapper with EquatableMixin {
       );
 
   @override
-  String toString() => 'Wrapper.wrap(data: $data)';
+  String toString() => 'Wrapper.Wrap(data: $data)';
 
   @override
   List<Object?> get props => [
@@ -221,7 +221,7 @@ class WrapperWrapNullable extends Wrapper with EquatableMixin {
       );
 
   @override
-  String toString() => 'Wrapper.wrapNullable(data: $data)';
+  String toString() => 'Wrapper.WrapNullable(data: $data)';
 
   @override
   List<Object?> get props => [

@@ -191,7 +191,7 @@ class ResultSuccess<D extends Object?> extends Result<D> with EquatableMixin {
   final D data;
 
   @override
-  String toString() => 'Result.success(data: $data)';
+  String toString() => 'Result.Success(data: $data)';
 
   @override
   List<Object?> get props => [
@@ -209,7 +209,7 @@ class ResultError<D extends Object?> extends Result<D> with EquatableMixin {
   final int code;
 
   @override
-  String toString() => 'Result.error(exception: $exception, code: $code)';
+  String toString() => 'Result.Error(exception: $exception, code: $code)';
 
   @override
   List<Object?> get props => [

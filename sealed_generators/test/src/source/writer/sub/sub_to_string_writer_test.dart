@@ -39,17 +39,17 @@ void main() {
         expect(
           writer.subToString(item1),
           '@override\n'
-          r"String toString() => 'Weather.sunny()';",
+          r"String toString() => 'Weather.Sunny()';",
         );
         expect(
           writer.subToString(item2),
           '@override\n'
-          r"String toString() => 'Weather.rainy(rain: $rain)';",
+          r"String toString() => 'Weather.Rainy(rain: $rain)';",
         );
         expect(
           writer.subToString(item3),
           '@override\n'
-          "String toString() => 'Weather.windy"
+          "String toString() => 'Weather.Windy"
           r"(velocity: $velocity, angle: $angle)';",
         );
       });
@@ -63,7 +63,7 @@ void main() {
         expect(
           writer.subToString(item2),
           '@override\n'
-          r"String/*!*/ toString() => 'Weather.rainy(rain: $rain)';",
+          r"String/*!*/ toString() => 'Weather.Rainy(rain: $rain)';",
         );
       });
     });

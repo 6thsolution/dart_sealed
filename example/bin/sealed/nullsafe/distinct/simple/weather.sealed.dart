@@ -234,7 +234,7 @@ class WeatherSunny extends Weather {
   WeatherSunny copy() => WeatherSunny();
 
   @override
-  String toString() => 'Weather.sunny()';
+  String toString() => 'Weather.Sunny()';
 }
 
 class WeatherRainy extends Weather {
@@ -253,7 +253,7 @@ class WeatherRainy extends Weather {
       );
 
   @override
-  String toString() => 'Weather.rainy(rain: $rain)';
+  String toString() => 'Weather.Rainy(rain: $rain)';
 }
 
 class WeatherWindy extends Weather {
@@ -266,5 +266,5 @@ class WeatherWindy extends Weather {
   final double? angle;
 
   @override
-  String toString() => 'Weather.windy(velocity: $velocity, angle: $angle)';
+  String toString() => 'Weather.Windy(velocity: $velocity, angle: $angle)';
 }

@@ -444,7 +444,7 @@ class ResultSuccess<D extends Object /*?*/, E extends Base /*?*/ >
   final D /*?*/ data;
 
   @override
-  String /*!*/ toString() => 'Result.success(data: $data)';
+  String /*!*/ toString() => 'Result.Success(data: $data)';
 
   @override
   List<Object /*?*/ > /*!*/ get props => [
@@ -461,7 +461,7 @@ class ResultError<D extends Object /*?*/, E extends Base /*?*/ >
   final E /*?*/ exception;
 
   @override
-  String /*!*/ toString() => 'Result.error(exception: $exception)';
+  String /*!*/ toString() => 'Result.Error(exception: $exception)';
 
   @override
   List<Object /*?*/ > /*!*/ get props => [
@@ -478,7 +478,7 @@ class ResultDummy<D extends Object /*?*/, E extends Base /*?*/ >
   final D /*?*/ data;
 
   @override
-  String /*!*/ toString() => 'Result.dummy(data: $data)';
+  String /*!*/ toString() => 'Result.Dummy(data: $data)';
 
   @override
   List<Object /*?*/ > /*!*/ get props => [
@@ -498,7 +498,7 @@ class ResultPartialSuccess<D extends Object /*?*/, E extends Base /*?*/ >
 
   @override
   String /*!*/ toString() =>
-      'Result.partialSuccess(data: $data, exception: $exception)';
+      'Result.PartialSuccess(data: $data, exception: $exception)';
 
   @override
   List<Object /*?*/ > /*!*/ get props => [
@@ -518,7 +518,7 @@ class ResultPartialError<D extends Object /*?*/, E extends Base /*?*/ >
   final int /*?*/ code;
 
   @override
-  String /*!*/ toString() => 'Result.partialError(e: $e, code: $code)';
+  String /*!*/ toString() => 'Result.PartialError(e: $e, code: $code)';
 
   @override
   List<Object /*?*/ > /*!*/ get props => [
@@ -541,7 +541,7 @@ class ResultDoubleSuccess<D extends Object /*?*/, E extends Base /*?*/ >
 
   @override
   String /*!*/ toString() =>
-      'Result.doubleSuccess(data1: $data1, data2: $data2, code: $code)';
+      'Result.DoubleSuccess(data1: $data1, data2: $data2, code: $code)';
 
   @override
   List<Object /*?*/ > /*!*/ get props => [

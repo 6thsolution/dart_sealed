@@ -143,7 +143,7 @@ class AppleHold extends Apple with EquatableMixin {
   final Banana? banana;
 
   @override
-  String toString() => 'Apple.hold(banana: $banana)';
+  String toString() => 'Apple.Hold(banana: $banana)';
 
   @override
   List<Object?> get props => [
@@ -296,7 +296,7 @@ class BananaHold extends Banana with EquatableMixin {
       );
 
   @override
-  String toString() => 'Banana.hold(apple: $apple)';
+  String toString() => 'Banana.Hold(apple: $apple)';
 
   @override
   List<Object?> get props => [
@@ -545,7 +545,7 @@ class CoconutTest1 extends Coconut with EquatableMixin {
   final double y;
 
   @override
-  String toString() => 'Coconut.test1(x: $x, y: $y)';
+  String toString() => 'Coconut.Test1(x: $x, y: $y)';
 
   @override
   List<Object?> get props => [
@@ -574,7 +574,7 @@ class CoconutTest2 extends Coconut with EquatableMixin {
       );
 
   @override
-  String toString() => 'Coconut.test2(x: $x, y: $y)';
+  String toString() => 'Coconut.Test2(x: $x, y: $y)';
 
   @override
   List<Object?> get props => [
@@ -598,7 +598,7 @@ class CoconutHold extends Coconut with EquatableMixin {
 
   @override
   String toString() =>
-      'Coconut.hold(apple: $apple, banana: $banana, count: $count, meta: $meta)';
+      'Coconut.Hold(apple: $apple, banana: $banana, count: $count, meta: $meta)';
 
   @override
   List<Object?> get props => [
