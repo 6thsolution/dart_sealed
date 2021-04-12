@@ -37,7 +37,7 @@ void main() {
         final writer = SubWriter(source);
 
         expect(
-          writer.subClass(item2).tr(),
+          writer.subClass(item2),
           allOf(
             startsWith('class WeatherRainy extends Weather'),
             endsWith('}'),
@@ -60,7 +60,7 @@ void main() {
         final writer = SubWriter(source);
 
         expect(
-          writer.subClass(item2).tr(),
+          writer.subClass(item2),
           isNot(stringContainsInOrder(['copy'])),
         );
       });
@@ -72,7 +72,7 @@ void main() {
         final writer = SubWriter(source);
 
         expect(
-          writer.subClass(item3).tr(),
+          writer.subClass(item3),
           isNot(stringContainsInOrder(['copy('])),
         );
       });
@@ -84,7 +84,7 @@ void main() {
         final writer = SubWriter(source);
 
         expect(
-          writer.subClass(item2).tr(),
+          writer.subClass(item2),
           isNot(stringContains(['get props'])),
         );
       });
@@ -96,7 +96,7 @@ void main() {
         final writer = SubWriter(source);
 
         expect(
-          writer.subClass(item2).tr(),
+          writer.subClass(item2),
           isNot(stringContains(['get props'])),
         );
       });

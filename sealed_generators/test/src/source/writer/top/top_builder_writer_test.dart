@@ -92,18 +92,19 @@ void main() {
         final writer = TopBuilderWriter(source);
 
         expect(
-          writer.topBuilder(item1).tr(),
-          '@factory' 'static WeatherSunny sunny() => WeatherSunny();',
+          writer.topBuilder(item1),
+          '@factory\n'
+          'static WeatherSunny sunny() => WeatherSunny();',
         );
         expect(
-          writer.topBuilder(item2).tr(),
-          '@factory'
+          writer.topBuilder(item2),
+          '@factory\n'
           'static WeatherRainy rainy({required int rain}) =>'
           ' WeatherRainy(rain: rain);',
         );
         expect(
-          writer.topBuilder(item3).tr(),
-          '@factory'
+          writer.topBuilder(item3),
+          '@factory\n'
           'static WeatherWindy windy'
           '({required double velocity, required double? angle,})'
           ' => WeatherWindy'
@@ -122,18 +123,19 @@ void main() {
         final writer = TopBuilderWriter(source);
 
         expect(
-          writer.topBuilder(item1).tr(),
-          '@factory' 'static WeatherSunny/*!*/ sunny() => WeatherSunny();',
+          writer.topBuilder(item1),
+          '@factory\n'
+          'static WeatherSunny/*!*/ sunny() => WeatherSunny();',
         );
         expect(
-          writer.topBuilder(item2).tr(),
-          '@factory'
+          writer.topBuilder(item2),
+          '@factory\n'
           'static WeatherRainy/*!*/ rainy({@required int/*!*/ rain}) =>'
           ' WeatherRainy(rain: rain);',
         );
         expect(
-          writer.topBuilder(item3).tr(),
-          '@factory'
+          writer.topBuilder(item3),
+          '@factory\n'
           'static WeatherWindy/*!*/ windy'
           '({@required double/*!*/ velocity, @required double/*?*/ angle,})'
           ' => WeatherWindy'
@@ -147,7 +149,7 @@ void main() {
       final writer = TopBuilderWriter(source);
 
       expect(
-        writer.topBuilderMethods().joinMethods().tr(),
+        writer.topBuilderMethods().joinMethods(),
         stringContains([
           'static',
           'sunny(',

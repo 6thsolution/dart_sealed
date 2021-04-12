@@ -1,7 +1,6 @@
 import 'package:sealed_generators/src/source/writer/sub/sub_to_string_writer.dart';
 import 'package:test/test.dart';
 
-import '../../../../utils/code_utils.dart';
 import '../../../../utils/examples.dart';
 
 void main() {
@@ -38,18 +37,18 @@ void main() {
         final writer = SubToStringWriter(source);
 
         expect(
-          writer.subToString(item1).tr(),
-          '@override'
+          writer.subToString(item1),
+          '@override\n'
           r"String toString() => 'Weather.sunny()';",
         );
         expect(
-          writer.subToString(item2).tr(),
-          '@override'
+          writer.subToString(item2),
+          '@override\n'
           r"String toString() => 'Weather.rainy(rain: $rain)';",
         );
         expect(
-          writer.subToString(item3).tr(),
-          '@override'
+          writer.subToString(item3),
+          '@override\n'
           "String toString() => 'Weather.windy"
           r"(velocity: $velocity, angle: $angle)';",
         );
@@ -62,8 +61,8 @@ void main() {
         final writer = SubToStringWriter(source);
 
         expect(
-          writer.subToString(item2).tr(),
-          '@override'
+          writer.subToString(item2),
+          '@override\n'
           r"String/*!*/ toString() => 'Weather.rainy(rain: $rain)';",
         );
       });

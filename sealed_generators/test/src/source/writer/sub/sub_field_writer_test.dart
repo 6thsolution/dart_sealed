@@ -80,7 +80,7 @@ void main() {
       final writer = SubFieldWriter(source);
 
       expect(
-        writer.subFieldDeclarations(item).tr(),
+        writer.subFieldDeclarations(item),
         stringContains([
           'final double velocity;',
           'final double? angle;',

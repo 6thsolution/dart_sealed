@@ -241,7 +241,7 @@ void main() {
       final writer = TopMatchBaseWriter(source);
 
       expect(
-        writer.topMatchAsserts().tr(),
+        writer.topMatchAsserts(),
         stringContains([
           'assert(sunny != null);',
           'rainy',

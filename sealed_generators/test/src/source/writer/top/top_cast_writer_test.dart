@@ -30,7 +30,7 @@ void main() {
       final writer = TopCastWriter(source);
 
       expect(
-        writer.topCastsIs().joinMethods().tr(),
+        writer.topCastsIs().joinMethods(),
         stringContains([
           'isSunny()',
           'isRainy()',
@@ -68,7 +68,7 @@ void main() {
       final writer = TopCastWriter(source);
 
       expect(
-        writer.topCastsAs().joinMethods().tr(),
+        writer.topCastsAs().joinMethods(),
         stringContains([
           'asSunny()',
           'asRainy()',
@@ -84,10 +84,10 @@ void main() {
         final writer = TopCastWriter(source);
 
         expect(
-          writer.topCastAsOrNull(item).tr(),
-          'WeatherSunny? asSunnyOrNull() {'
-          'final weather = this;'
-          'return weather is WeatherSunny ? weather : null;'
+          writer.topCastAsOrNull(item),
+          'WeatherSunny? asSunnyOrNull() {\n'
+          'final weather = this;\n'
+          'return weather is WeatherSunny ? weather : null;\n'
           '}',
         );
       });
@@ -98,10 +98,10 @@ void main() {
         final writer = TopCastWriter(source);
 
         expect(
-          writer.topCastAsOrNull(item).tr(),
-          'WeatherSunny/*?*/ asSunnyOrNull() {'
-          'final weather = this;'
-          'return weather is WeatherSunny/*!*/ ? weather : null;'
+          writer.topCastAsOrNull(item),
+          'WeatherSunny/*?*/ asSunnyOrNull() {\n'
+          'final weather = this;\n'
+          'return weather is WeatherSunny/*!*/ ? weather : null;\n'
           '}',
         );
       });
@@ -112,7 +112,7 @@ void main() {
       final writer = TopCastWriter(source);
 
       expect(
-        writer.topCastsAsOrNull().joinMethods().tr(),
+        writer.topCastsAsOrNull().joinMethods(),
         stringContains([
           'asSunnyOrNull()',
           'asRainyOrNull()',
@@ -126,7 +126,7 @@ void main() {
       final writer = TopCastWriter(source);
 
       expect(
-        writer.topCastMethods().joinMethods().tr(),
+        writer.topCastMethods().joinMethods(),
         stringContains([
           'isSunny()',
           'asRainy()',

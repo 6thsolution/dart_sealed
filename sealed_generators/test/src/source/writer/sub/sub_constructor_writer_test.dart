@@ -1,7 +1,6 @@
 import 'package:sealed_generators/src/source/writer/sub/sub_constructor_writer.dart';
 import 'package:test/test.dart';
 
-import '../../../../utils/code_utils.dart';
 import '../../../../utils/examples.dart';
 
 void main() {
@@ -84,15 +83,15 @@ void main() {
       final writer = SubConstructorWriter(source);
 
       expect(
-        writer.subConstructorDeclaration(item1).tr(),
+        writer.subConstructorDeclaration(item1),
         'WeatherSunny();',
       );
       expect(
-        writer.subConstructorDeclaration(item2).tr(),
+        writer.subConstructorDeclaration(item2),
         'WeatherRainy({required this.rain});',
       );
       expect(
-        writer.subConstructorDeclaration(item3).tr(),
+        writer.subConstructorDeclaration(item3),
         'WeatherWindy({required this.velocity, required this.angle,});',
       );
     });

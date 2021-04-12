@@ -1,18 +1,6 @@
 import 'package:matcher/src/feature_matcher.dart';
 import 'package:test/test.dart';
 
-/// removes whitespace for better comparison
-extension CodeUtils on String {
-  static final _spaces = RegExp('( )+');
-
-  String tr() {
-    return replaceAll('\r', '')
-        .replaceAll('\n', '')
-        .replaceAll(_spaces, ' ')
-        .trim();
-  }
-}
-
 /// match without order
 ///
 /// can have conflict

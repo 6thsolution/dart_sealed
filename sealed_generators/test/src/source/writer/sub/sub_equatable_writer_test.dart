@@ -1,7 +1,6 @@
 import 'package:sealed_generators/src/source/writer/sub/sub_equatable_writer.dart';
 import 'package:test/test.dart';
 
-import '../../../../utils/code_utils.dart';
 import '../../../../utils/examples.dart';
 
 void main() {
@@ -42,8 +41,8 @@ void main() {
         final writer = SubEquatableWriter(source);
 
         expect(
-          writer.subEquatableEquality(item3).tr(),
-          '@override'
+          writer.subEquatableEquality(item3),
+          '@override\n'
           'List<Object?> get props => [velocity, angle,];',
         );
       });
@@ -55,8 +54,8 @@ void main() {
         final writer = SubEquatableWriter(source);
 
         expect(
-          writer.subEquatableEquality(item3).tr(),
-          '@override'
+          writer.subEquatableEquality(item3),
+          '@override\n'
           'List<Object/*?*/>/*!*/ get props => [velocity, angle,];',
         );
       });

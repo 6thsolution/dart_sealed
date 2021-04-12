@@ -1,7 +1,6 @@
 import 'package:sealed_generators/src/source/writer/sub/sub_copy_writer.dart';
 import 'package:test/test.dart';
 
-import '../../../../utils/code_utils.dart';
 import '../../../../utils/examples.dart';
 
 void main() {
@@ -103,14 +102,14 @@ void main() {
         final writer = SubCopyWriter(source);
 
         expect(
-          writer.subCopyDeclaration(item1).tr(),
-          '@factory'
+          writer.subCopyDeclaration(item1),
+          '@factory\n'
           'WeatherSunny copy() =>'
           ' WeatherSunny();',
         );
         expect(
-          writer.subCopyDeclaration(item2).tr(),
-          '@factory'
+          writer.subCopyDeclaration(item2),
+          '@factory\n'
           'WeatherRainy copy({int? rain}) =>'
           ' WeatherRainy(rain: rain ?? this.rain);',
         );
@@ -123,8 +122,8 @@ void main() {
         final writer = SubCopyWriter(source);
 
         expect(
-          writer.subCopyDeclaration(item2).tr(),
-          '@factory'
+          writer.subCopyDeclaration(item2),
+          '@factory\n'
           'WeatherRainy/*!*/ copy({int/*?*/ rain}) =>'
           ' WeatherRainy(rain: rain ?? this.rain);',
         );
