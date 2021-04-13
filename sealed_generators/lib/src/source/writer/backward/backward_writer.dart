@@ -12,7 +12,7 @@ import 'package:sealed_generators/src/utils/string_utils.dart';
 class BackwardWriter extends BaseUtilsWriter {
   /// set true to avoid conflict, only for debug
   @visibleForTesting
-  static const avoidConflict = true;
+  static const avoidConflict = false;
 
   const BackwardWriter(Source source) : super(source);
 
