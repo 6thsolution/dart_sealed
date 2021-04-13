@@ -4,6 +4,8 @@ import 'package:super_enum/super_enum.dart';
 
 part 'weather_legacy.super.dart';
 
+// ignore_for_file: unused_element, unused_field
+
 @superEnum
 enum _Weather {
   @object
