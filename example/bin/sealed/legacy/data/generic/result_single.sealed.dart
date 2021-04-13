@@ -7,7 +7,7 @@ part of 'result_single.dart';
 // Generator: sealed_generators
 // **************************************************************************
 
-/// Result<D extends Object?> {
+/// Result<D extends num?> {
 ///
 /// Success(D? data)
 ///
@@ -17,9 +17,9 @@ part of 'result_single.dart';
 ///
 /// with data equality.
 @SealedManifest(_Result)
-abstract class Result<D extends Object /*?*/ > {
+abstract class Result<D extends num /*?*/ > {
   @factory
-  static ResultSuccess<D> /*!*/ success<D extends Object /*?*/ >({
+  static ResultSuccess<D> /*!*/ success<D extends num /*?*/ >({
     @required D /*?*/ data,
   }) =>
       ResultSuccess<D>(
@@ -27,7 +27,7 @@ abstract class Result<D extends Object /*?*/ > {
       );
 
   @factory
-  static ResultError<D> /*!*/ error<D extends Object /*?*/ >({
+  static ResultError<D> /*!*/ error<D extends num /*?*/ >({
     @required Object /*?*/ exception,
   }) =>
       ResultError<D>(
@@ -189,7 +189,7 @@ abstract class Result<D extends Object /*?*/ > {
   }
 }
 
-class ResultSuccess<D extends Object /*?*/ > extends Result<D>
+class ResultSuccess<D extends num /*?*/ > extends Result<D>
     with EquatableMixin {
   ResultSuccess({
     @required this.data,
@@ -206,8 +206,7 @@ class ResultSuccess<D extends Object /*?*/ > extends Result<D>
       ];
 }
 
-class ResultError<D extends Object /*?*/ > extends Result<D>
-    with EquatableMixin {
+class ResultError<D extends num /*?*/ > extends Result<D> with EquatableMixin {
   ResultError({
     @required this.exception,
   });
