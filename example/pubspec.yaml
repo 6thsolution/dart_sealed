@@ -1,6 +1,7 @@
 name: example
-description: dart sealed example.
+description: Dart and Flutter sealed class generator examples and tests.
 version: 0.1.0
+homepage: https://github.com/6thsolution/dart_sealed
 publish_to: 'none'
 
 environment:

@@ -139,6 +139,6 @@ enum SealedEquality {
   identity,
 
   /// all of the instances are not equal.
-  /// even some instance is not equal with itself.
+  /// even an instance is not equal with itself.
   distinct,
 }

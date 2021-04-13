@@ -1,3 +1,3 @@
 # Sealed Generator Example
 
-go to example directory in main folder
+go to example directory in root folder

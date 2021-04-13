@@ -5,13 +5,13 @@ part 'mixed.sealed.dart';
 @Sealed()
 abstract class _Apple {
   @SealedOverrideDynamic('Banana?')
-  void hold(Banana banana);
+  void hold(banana);
 }
 
 @Sealed()
 abstract class _Banana {
   @SealedOverrideDynamic('Apple')
-  void hold(dynamic apple);
+  void hold(apple);
 }
 
 @Sealed()
