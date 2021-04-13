@@ -16,7 +16,8 @@ String _write(Manifest manifest) {
   final source = Source(manifest: manifest, options: options);
   final backwardWriter = BackwardWriter(source);
   final s = StringBuffer();
-  s.writeln('/// todo: substitute generated manifest for super enum');
+  s.writeln(r'/// substitute generated manifest for super enum');
+  s.writeln(r'/// and remove "$" at the end of class name.');
   s.writeln(backwardWriter.write());
   return s.toString();
 }

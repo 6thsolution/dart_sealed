@@ -10,9 +10,8 @@ import 'package:sealed_generators/src/utils/string_utils.dart';
 @sealed
 @immutable
 class BackwardWriter extends BaseUtilsWriter {
-  /// set true to avoid conflict, only for debug
   @visibleForTesting
-  static const avoidConflict = false;
+  static const avoidConflict = true;
 
   const BackwardWriter(Source source) : super(source);
 
