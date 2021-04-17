@@ -46,7 +46,7 @@ class Sealed {
   @literal
   const Sealed({
     this.equality = SealedEquality.data,
-  }) : assert(equality != null); // ignore: unnecessary_null_comparison
+  });
 
   @override
   String toString() => 'Sealed(equality: $equality)';
@@ -92,8 +92,7 @@ class SealedOverrideDynamic {
   final String type;
 
   @literal
-  const SealedOverrideDynamic(this.type)
-      : assert(type != null); // ignore: unnecessary_null_comparison
+  const SealedOverrideDynamic(this.type);
 
   @override
   String toString() => 'SealedOverrideDynamic(type: $type)';
@@ -118,8 +117,7 @@ class SealedOverrideNamed {
   final Map<String, String> map;
 
   @literal
-  const SealedOverrideNamed(this.map)
-      : assert(map != null); // ignore: unnecessary_null_comparison
+  const SealedOverrideNamed(this.map);
 
   @override
   String toString() => 'SealedOverrideNamed(map: $map)';
