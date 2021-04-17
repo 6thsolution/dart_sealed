@@ -1,5 +1,4 @@
 import 'package:meta/meta.dart';
-import 'package:sealed_annotations/sealed_annotations.dart';
 import 'package:sealed_generators/src/manifest/manifest.dart';
 import 'package:sealed_generators/src/options/options.dart';
 import 'package:sealed_generators/src/source/source.dart';

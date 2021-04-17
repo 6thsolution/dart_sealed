@@ -1,4 +1,3 @@
-import 'package:sealed_annotations/sealed_annotations.dart';
 import 'package:sealed_generators/src/manifest/manifest.dart';
 import 'package:sealed_generators/src/options/options.dart';
 import 'package:sealed_generators/src/source/source.dart';
@@ -8,7 +7,7 @@ void main() {
   group('class Options', () {
     test('initialization', () {
       final options = Options(
-        equality: SealedEquality.distinct,
+        equality: Equality.distinct,
         isNullSafe: false,
       );
       final manifest = Manifest(

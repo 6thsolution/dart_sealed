@@ -1,6 +1,6 @@
 import 'package:meta/meta.dart';
-import 'package:sealed_annotations/sealed_annotations.dart';
 import 'package:sealed_generators/src/manifest/manifest.dart';
+import 'package:sealed_generators/src/options/options.dart';
 import 'package:sealed_generators/src/source/source.dart';
 import 'package:sealed_generators/src/source/writer/base/base_utils_writer.dart';
 import 'package:sealed_generators/src/source/writer/sub/sub_constructor_writer.dart';
@@ -55,7 +55,7 @@ class SubWriter extends BaseUtilsWriter {
   @visibleForTesting
   String subClassStart(ManifestItem item) => [
         'class ${subDec(item)} extends $topCall',
-        if (options.equality == SealedEquality.data) ' with EquatableMixin',
+        if (options.equality == Equality.data) ' with EquatableMixin',
       ].joinParts();
 
   /// subclass
@@ -70,7 +70,7 @@ class SubWriter extends BaseUtilsWriter {
         if (!hasNullable(item) && !isGeneric)
           subCopyWriter.subCopyDeclaration(item),
         subToStringWriter.subToString(item),
-        if (options.equality == SealedEquality.data)
+        if (options.equality == Equality.data)
           subEquatableWriter.subEquatableEquality(item),
         '}',
       ].joinMethods();

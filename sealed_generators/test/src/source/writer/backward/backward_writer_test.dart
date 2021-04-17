@@ -1,3 +1,4 @@
+import 'package:sealed_generators/src/options/options.dart';
 import 'package:sealed_generators/src/source/writer/backward/backward_writer.dart';
 import 'package:test/test.dart';
 
@@ -40,6 +41,14 @@ void main() {
 
         expect(writer.write(), code2Data);
       });
+    });
+
+    test('constant equalityNames', () {
+      // should have same order
+      expect(
+        BackwardWriter.equalityNames.map((e) => 'Equality.$e').toList(),
+        Equality.values.map((e) => '$e').toList(),
+      );
     });
   });
 }

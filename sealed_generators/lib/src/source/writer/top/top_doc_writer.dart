@@ -1,5 +1,4 @@
 import 'package:meta/meta.dart';
-import 'package:sealed_annotations/sealed_annotations.dart';
 import 'package:sealed_generators/src/manifest/manifest.dart';
 import 'package:sealed_generators/src/source/source.dart';
 import 'package:sealed_generators/src/source/writer/base/base_writer.dart';
@@ -11,6 +10,9 @@ import 'package:sealed_generators/src/utils/string_utils.dart';
 @sealed
 @immutable
 class TopDocWriter extends BaseWriter {
+  @visibleForTesting
+  static const equalityNames = ['data', 'identity', 'distinct'];
+
   const TopDocWriter(Source source) : super(source);
 
   @nonVirtual
@@ -23,18 +25,7 @@ class TopDocWriter extends BaseWriter {
 
   String _equalityDoc() => 'with ${_equality()} equality.';
 
-  String _equality() {
-    switch (source.options.equality) {
-      case SealedEquality.data:
-        return 'data';
-      case SealedEquality.identity:
-        return 'identity';
-      case SealedEquality.distinct:
-        return 'distinct';
-      default:
-        throw AssertionError();
-    }
-  }
+  String _equality() => equalityNames[source.options.equality.index];
 
   String _topDoc() => [
         source.manifest.name,

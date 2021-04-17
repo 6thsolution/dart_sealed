@@ -11,11 +11,18 @@ import 'package:sealed_generators/src/utils/string_utils.dart';
 @immutable
 class BackwardWriter extends BaseUtilsWriter {
   @visibleForTesting
+  static const equalityNames = ['data', 'identity', 'distinct'];
+
+  @visibleForTesting
   static const avoidConflict = true;
 
   const BackwardWriter(Source source) : super(source);
 
-  String _topAnnotation() => '@Sealed(equality: ${source.options.equality})';
+  String _topAnnotation() => [
+        '@Sealed(equality: SealedEquality.',
+        equalityNames[source.options.equality.index],
+        ')',
+      ].joinParts();
 
   String _topStart() => [
         'abstract class _$top',
@@ -36,6 +43,7 @@ class BackwardWriter extends BaseUtilsWriter {
 
   Iterable<String> _items() => manifest.items.map(_item);
 
+  /// write docs
   @nonVirtual
   String write() => [
         _topAnnotation(),
