@@ -114,3 +114,9 @@ jobs:
       - name: sealed_super_enum_mapper_example run
         working-directory: ./sealed_super_enum_mapper_example
         run: dart run
+      - name: Coveralls
+        uses: coverallsapp/github-action@1.1.2
+        with:
+          github-token: ${{ secrets.COVERALLS_TOKEN }}
+          path-to-lcov: ./sealed_annotations/coverage/lcov.info
+          base-path: ./sealed_annotations
