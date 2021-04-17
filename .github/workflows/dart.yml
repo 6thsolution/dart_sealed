@@ -17,9 +17,7 @@ jobs:
           sdk: stable
       - name: init coverage
         working-directory: .
-        run: |
-          dart pub global activate coverage
-          sudo apt-get install lcov
+        run: dart pub global activate coverage
       - name: sealed_annotations init
         working-directory: ./sealed_annotations
         run: dart pub get
@@ -34,9 +32,7 @@ jobs:
         run: dart test --coverage ./dart_coverage
       - name: sealed_annotations coverage
         working-directory: ./sealed_annotations
-        run: |
-          dart pub global run coverage:format_coverage -i ./dart_coverage -o ./coverage/lcov.info -l --packages ./.packages --report-on ./lib
-          genhtml -o ./coverage/html ./coverage/lcov.info
+        run: dart pub global run coverage:format_coverage -i ./dart_coverage -o ./coverage/lcov.info -l
       - name: sealed_annotations run example
         working-directory: ./sealed_annotations
         run: dart run ./example/sealed_annotations_example.dart
@@ -54,9 +50,7 @@ jobs:
         run: dart test --coverage ./dart_coverage
       - name: sealed_generators coverage
         working-directory: ./sealed_generators
-        run: |
-          dart pub global run coverage:format_coverage -i ./dart_coverage -o ./coverage/lcov.info -l --packages ./.packages --report-on ./lib
-          genhtml -o ./coverage/html ./coverage/lcov.info
+        run: dart pub global run coverage:format_coverage -i ./dart_coverage -o ./coverage/lcov.info -l
       - name: sealed_generators run example
         working-directory: ./sealed_generators
         run: dart run ./example/sealed_generators_example.dart
@@ -77,9 +71,7 @@ jobs:
         run: dart test --coverage ./dart_coverage
       - name: example coverage
         working-directory: ./example
-        run:
-          dart pub global run coverage:format_coverage -i ./dart_coverage -o ./coverage/lcov.info -l  --packages ./.packages --report-on ./bin
-          genhtml -o ./coverage/html ./coverage/lcov.info
+        run: dart pub global run coverage:format_coverage -i ./dart_coverage -o ./coverage/lcov.info -l
       - name: example run
         working-directory: ./example
         run: dart run
@@ -97,9 +89,7 @@ jobs:
         run: dart test --coverage ./dart_coverage
       - name: sealed_super_enum_mapper coverage
         working-directory: ./sealed_super_enum_mapper
-        run:
-          dart pub global run coverage:format_coverage -i ./dart_coverage -o ./coverage/lcov.info -l  --packages ./.packages --report-on ./lib
-          genhtml -o ./coverage/html ./coverage/lcov.info
+        run: dart pub global run coverage:format_coverage -i ./dart_coverage -o ./coverage/lcov.info -l
       - name: sealed_super_enum_mapper run example
         working-directory: ./sealed_super_enum_mapper
         run: dart run ./example/sealed_super_enum_mapper_example.dart
@@ -120,9 +110,7 @@ jobs:
         run: dart test --coverage ./dart_coverage
       - name: sealed_super_enum_mapper_example coverage
         working-directory: ./sealed_super_enum_mapper_example
-        run:
-          dart pub global run coverage:format_coverage -i ./dart_coverage -o ./coverage/lcov.info -l  --packages ./.packages --report-on ./bin
-          genhtml -o ./coverage/html ./coverage/lcov.info
+        run: dart pub global run coverage:format_coverage -i ./dart_coverage -o ./coverage/lcov.info -l
       - name: sealed_super_enum_mapper_example run
         working-directory: ./sealed_super_enum_mapper_example
         run: dart run
@@ -130,4 +118,4 @@ jobs:
         uses: codecov/codecov-action@v1
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          files: ./sealed_generators/coverage/lcov.info
+          files: ./sealed_annotations/coverage/lcov.info
