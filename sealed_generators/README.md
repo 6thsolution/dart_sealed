@@ -48,7 +48,7 @@ part 'weather.sealed.dart';
 
 Add `@Sealed` annotation, and an abstract private class as a manifest for generated code.
 
-You can choose between three types of equality using `equality` parameter of `@Sealed(equality: SealedEquality.*)`
+You can choose between three types of equality using `equality` parameter of `@Sealed(equality: Equality.*)`
 annotations. Default equality is `data`.
 
 * `data` Equality is implemented with Equatable package. It behaves like kotlin data classes.
@@ -310,7 +310,7 @@ If you were using super_enum and now you want to change your dependency to dart_
 
 For example for:
 
-```dart
+```
 @superEnum
 enum _Weather {
 @object
@@ -330,7 +330,7 @@ Windy,
 It will generate sealed classes and the following manifest class.
 
 ```dart
-@Sealed(equality: SealedEquality.data)
+@Sealed(equality: Equality.data)
 abstract class _Weather$ {
   void sunny();
 

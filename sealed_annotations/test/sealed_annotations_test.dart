@@ -5,7 +5,7 @@ void main() {
   group('annotation @Sealed', () {
     test('initialization', () {
       const a = Sealed();
-      expect(a.equality, equals(SealedEquality.data));
+      expect(a.equality, equals(Equality.data));
       expect(
         a.toString(),
         stringContainsInOrder([
@@ -15,8 +15,8 @@ void main() {
         ]),
       );
 
-      const b = Sealed(equality: SealedEquality.identity);
-      expect(b.equality, equals(SealedEquality.identity));
+      const b = Sealed(equality: Equality.identity);
+      expect(b.equality, equals(Equality.identity));
     });
   });
 

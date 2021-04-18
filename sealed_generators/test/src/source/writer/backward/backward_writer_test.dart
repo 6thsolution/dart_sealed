@@ -1,4 +1,4 @@
-import 'package:sealed_generators/src/options/options.dart';
+import 'package:sealed_annotations/sealed_annotations.dart';
 import 'package:sealed_generators/src/source/writer/backward/backward_writer.dart';
 import 'package:test/test.dart';
 

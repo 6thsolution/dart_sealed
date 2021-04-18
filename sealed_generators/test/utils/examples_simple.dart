@@ -58,9 +58,9 @@ final source1DistinctLegacy = Source(
 );
 
 final code1Default = code1('');
-final code1Data = code1('equality: SealedEquality.data');
-final code1Identity = code1('equality: SealedEquality.identity');
-final code1Distinct = code1('equality: SealedEquality.distinct');
+final code1Data = code1('equality: Equality.data');
+final code1Identity = code1('equality: Equality.identity');
+final code1Distinct = code1('equality: Equality.distinct');
 
 const _conflict = BackwardWriter.avoidConflict ? '\$' : '';
 

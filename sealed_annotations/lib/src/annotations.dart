@@ -5,7 +5,7 @@ import 'package:sealed_annotations/sealed_annotations.dart';
 ///
 /// ==, hashCode and toString are generated for each data class.
 /// [equality] will specify how equality is implemented.
-/// see [SealedEquality] for further details.
+/// see [Equality] for further details.
 ///
 /// annotated element should be an abstract private class without
 /// any super class, mixin or interfaces except [Object]. it's name
@@ -41,11 +41,11 @@ import 'package:sealed_annotations/sealed_annotations.dart';
 @Target({TargetKind.classType})
 class Sealed {
   /// equality strategy
-  final SealedEquality equality;
+  final Equality equality;
 
   @literal
   const Sealed({
-    this.equality = SealedEquality.data,
+    this.equality = Equality.data,
   });
 
   @override
@@ -125,7 +125,7 @@ class SealedOverrideNamed {
 
 /// different equality (and hash code) implementations
 /// for generated data classes.
-enum SealedEquality {
+enum Equality {
   /// equality is implemented with Equatable package.
   /// it behaves like kotlin data classes.
   data,

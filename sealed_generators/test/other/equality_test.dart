@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:test/test.dart';
 
-/// for [SealedEquality.data].
+/// for [Equality.data].
 class _SEData with EquatableMixin {
   final int x;
 
@@ -11,14 +11,14 @@ class _SEData with EquatableMixin {
   List<Object?> get props => [x];
 }
 
-/// for [SealedEquality.identity].
+/// for [Equality.identity].
 class _SEIdentity {
   final int x;
 
   _SEIdentity(this.x);
 }
 
-/// for [SealedEquality.distinct].
+/// for [Equality.distinct].
 class _SEDistinct {
   final int x;
 

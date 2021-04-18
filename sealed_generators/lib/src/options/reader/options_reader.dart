@@ -1,5 +1,6 @@
 import 'package:analyzer/dart/element/element.dart';
 import 'package:meta/meta.dart';
+import 'package:sealed_annotations/sealed_annotations.dart';
 import 'package:sealed_generators/src/options/options.dart';
 import 'package:sealed_generators/src/options/reader/null_safety_reader.dart';
 import 'package:source_gen/source_gen.dart';

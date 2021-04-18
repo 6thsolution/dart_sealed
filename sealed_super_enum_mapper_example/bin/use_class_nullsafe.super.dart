@@ -10,7 +10,7 @@ part of 'use_class_nullsafe.dart';
 
 /// substitute generated manifest for super enum
 /// and remove "$" at the end of class name.
-@Sealed(equality: SealedEquality.data)
+@Sealed(equality: Equality.data)
 abstract class _Weather$ {
   void sunny();
   void rainy();

@@ -56,9 +56,9 @@ final source2DistinctLegacy = Source(
 );
 
 final code2Default = code2('');
-final code2Data = code2('equality: SealedEquality.data');
-final code2Identity = code2('equality: SealedEquality.identity');
-final code2Distinct = code2('equality: SealedEquality.distinct');
+final code2Data = code2('equality: Equality.data');
+final code2Identity = code2('equality: Equality.identity');
+final code2Distinct = code2('equality: Equality.distinct');
 
 String code2(String str) => '''@Sealed($str)
 abstract class _Result$_conflict<T extends num>

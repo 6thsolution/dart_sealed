@@ -1,4 +1,5 @@
 import 'package:meta/meta.dart';
+import 'package:sealed_annotations/sealed_annotations.dart';
 
 /// options
 @immutable
@@ -14,13 +15,4 @@ class Options {
 
   @override
   String toString() => 'Options{equality: $equality, isNullSafe: $isNullSafe}';
-}
-
-/// like [SealedEquality].
-///
-/// should be the same order.
-enum Equality {
-  data,
-  identity,
-  distinct,
 }

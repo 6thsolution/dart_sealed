@@ -19,7 +19,7 @@ class BackwardWriter extends BaseUtilsWriter {
   const BackwardWriter(Source source) : super(source);
 
   String _topAnnotation() => [
-        '@Sealed(equality: SealedEquality.',
+        '@Sealed(equality: Equality.',
         equalityNames[source.options.equality.index],
         ')',
       ].joinParts();
