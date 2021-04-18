@@ -8,6 +8,7 @@ import 'package:sealed_generators/src/options/reader/null_safety_reader.dart';
 import 'package:sealed_generators/src/source/source.dart';
 import 'package:sealed_generators/src/source/writer/backward/backward_writer.dart';
 import 'package:sealed_generators/src/source/writer/source_writer.dart';
+import 'package:sealed_generators/src/utils/list_utils.dart';
 import 'package:sealed_generators/src/utils/string_utils.dart';
 import 'package:source_gen/source_gen.dart';
 
@@ -97,10 +98,11 @@ class Mapper {
       .any((constant) => _filterMetas(constant.metadata, 'Generic').isNotEmpty);
 
   /// read DataField objects of a item
+  ///
+  /// assume all constants without any Data annotations as empty sealed classes.
   List<DartObject> _readDataFields(List<ElementAnnotation> metas) =>
-      _filterMetas(metas, 'ObjectClass').isNotEmpty
-          ? const []
-          : _filterMetas(metas, 'Data').first.read('fields').listValue;
+      _filterMetas(metas, 'Data').firstOrNull?.read('fields').listValue ??
+      const [];
 
   /// read a field from a DataField object
   ManifestField _readField(DartObject obj) => ManifestField(
