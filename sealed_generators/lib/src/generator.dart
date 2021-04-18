@@ -16,10 +16,9 @@ class SealedGenerator extends GeneratorForAnnotation<Sealed> {
     BuildStep buildStep,
   ) {
     try {
-      final reader = SourceReader();
-      final source = reader.read(element, annotation);
-      final writer = SourceWriter(source);
-      return writer.write();
+      return SourceWriter(
+        const SourceReader().read(element, annotation),
+      ).write();
     } on SealedException {
       rethrow;
     } catch (e) {

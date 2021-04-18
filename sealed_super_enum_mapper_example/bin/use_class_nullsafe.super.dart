@@ -10,21 +10,22 @@ part of 'use_class_nullsafe.dart';
 
 /// substitute generated manifest for super enum
 /// and remove "$" at the end of class name.
-@Sealed(equality: Equality.data)
+@Sealed()
 abstract class _Weather$ {
+  @Meta(name: 'Sunny', equality: Equality.data)
   void sunny();
+
+  @Meta(name: 'Rainy', equality: Equality.data)
   void rainy();
 }
 
 /// Weather {
 ///
-/// Sunny()
+/// (Sunny sunny){} with data equality
 ///
-/// Rainy()
+/// (Rainy rainy){} with data equality
 ///
 /// }
-///
-/// with data equality.
 @SealedManifest(_Weather)
 abstract class Weather {
   @factory

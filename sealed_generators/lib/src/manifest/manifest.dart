@@ -1,4 +1,5 @@
 import 'package:meta/meta.dart';
+import 'package:sealed_annotations/sealed_annotations.dart';
 import 'package:sealed_generators/src/exceptions/exceptions.dart';
 import 'package:sealed_generators/src/utils/type_utils.dart';
 
@@ -31,20 +32,29 @@ class Manifest {
 @sealed
 class ManifestItem {
   ManifestItem({
-    required this.name,
+    required this.shortName,
+    required this.fullName,
+    required this.equality,
     required this.fields,
   }) {
-    check(name.isGenClassName());
+    check(shortName.isGenClassName());
+    check(fullName.isGenClassName());
   }
 
   /// name, for example "Rainy".
-  final String name;
+  final String shortName;
+
+  /// name, for example "WeatherRainy".
+  final String fullName;
+
+  /// equality.
+  final Equality equality;
 
   /// fields.
   final List<ManifestField> fields;
 
   @override
-  String toString() => 'Item{name: $name, fields: $fields}';
+  String toString() => 'Item{name: $shortName, fields: $fields}';
 }
 
 @immutable

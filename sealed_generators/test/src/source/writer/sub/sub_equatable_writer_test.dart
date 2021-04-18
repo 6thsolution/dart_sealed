@@ -17,8 +17,9 @@ void main() {
       // void windy(double velocity, double? angle);
       final item3 = source.manifest.items[2];
       final field1 = item3.fields[0];
+      final writer = SubEquatableWriter(source);
 
-      expect(SubEquatableWriter.fieldName(field1), 'velocity');
+      expect(writer.fieldName(field1), 'velocity');
     });
 
     test('method subEquatableFieldNames', () {

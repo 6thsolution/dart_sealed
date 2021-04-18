@@ -123,6 +123,45 @@ class SealedOverrideNamed {
   String toString() => 'SealedOverrideNamed(map: $map)';
 }
 
+/// Override generated class name and
+/// equality for each item.
+///
+/// for example:
+/// ```dart
+/// @Sealed(equality: Equality.data)
+/// abstract class _Weather {
+///   void sunny();
+///
+///   @Meta(name: 'BadWeather', equality: Equality.distinct)
+///   void rainy(int rain);
+/// }
+/// ```
+@sealed
+@Target({TargetKind.method})
+class Meta {
+  /// override generated class name.
+  ///
+  /// generated class will be
+  /// (manifest class name + item name)
+  /// [name] is not specified.
+  final String? name;
+
+  /// override equality for each item.
+  ///
+  /// item equality will be based on manifest
+  /// class equality if [equality] is not specified.
+  final Equality? equality;
+
+  @literal
+  const Meta({
+    this.name,
+    this.equality,
+  });
+
+  @override
+  String toString() => 'Meta(name: $name, equality: $equality)';
+}
+
 /// different equality (and hash code) implementations
 /// for generated data classes.
 enum Equality {

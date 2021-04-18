@@ -2,6 +2,7 @@ import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/element/nullability_suffix.dart';
 import 'package:analyzer/dart/element/type.dart';
 import 'package:meta/meta.dart';
+import 'package:sealed_annotations/sealed_annotations.dart';
 import 'package:sealed_generators/src/exceptions/exceptions.dart';
 import 'package:sealed_generators/src/manifest/manifest.dart';
 import 'package:sealed_generators/src/manifest/reader/override/dyn/overrider.dart';
@@ -14,65 +15,39 @@ import 'package:sealed_generators/src/utils/type_utils.dart';
 
 /// todo test read
 @sealed
-@immutable
 class ManifestReader {
-  ManifestReader(this.options)
-      : todReader = TypeOverrideDynamicReader(options),
+  ManifestReader({
+    required this.options,
+    required this.name,
+    required this.defaultEquality,
+    required this.cls,
+  })   : todReader = TypeOverrideDynamicReader(options),
         tonReader = TypeOverrideNamedReader(options);
 
-  @nonVirtual
+  /// options.
   final Options options;
 
-  @nonVirtual
+  /// top class name, like: Weather.
+  final String name;
+
+  /// default equality.
+  final Equality defaultEquality;
+
+  /// checked class element for manifest
+  final ClassElement cls;
+
   @visibleForTesting
   final TypeOverrideDynamicReader todReader;
 
-  @nonVirtual
   @visibleForTesting
   final TypeOverrideNamedReader tonReader;
 
-  Manifest read(Element element) => _extractManifest(
-        _extractClassElement(element),
+  /// read manifest
+  Manifest read() => Manifest(
+        name: name,
+        params: _extractParams(),
+        items: _extractItems(),
       );
-
-  /// extract class element
-  ClassElement _extractClassElement(Element e) {
-    require(
-      e is ClassElement,
-      'element should be a class',
-    );
-    final cls = e as ClassElement;
-    require(
-      !cls.isEnum && !cls.isMixin && !cls.isMixinApplication,
-      'element should be a Class',
-    );
-    require(
-      cls.isPrivate && cls.name.isPrivate(),
-      'class should be private',
-    );
-    require(
-      cls.allSupertypes.length == 1,
-      'class can only have Object as super type',
-    );
-    return cls;
-  }
-
-  /// extract manifest from class element
-  Manifest _extractManifest(ClassElement cls) => Manifest(
-        name: _extractTopName(cls),
-        params: _extractParams(cls),
-        items: _extractItems(cls),
-      );
-
-  /// extract top class name
-  String _extractTopName(ClassElement cls) {
-    final name = cls.name;
-    require(
-      name.isGenTypeName() && name.isPrivate(),
-      () => 'malformed class name "$name"',
-    );
-    return name.substring(1);
-  }
 
   /// extract  class param
   ManifestParam _extractParam(TypeParameterElement p) {
@@ -84,7 +59,7 @@ class ManifestReader {
   }
 
   /// extract class params
-  List<ManifestParam> _extractParams(ClassElement cls) =>
+  List<ManifestParam> _extractParams() =>
       cls.typeParameters.map(_extractParam).toList();
 
   /// extract sub class name
@@ -156,15 +131,22 @@ class ManifestReader {
       method.typeParameters.isEmpty,
       () => 'method "${method.name}" can not have type parameters',
     );
+    final short = _extractSubName(method);
+    final defaultFull = _defaultFullName(short);
     return ManifestItem(
-      name: _extractSubName(method),
+      shortName: short,
+      fullName: defaultFull,
+      equality: defaultEquality,
       fields: _extractFields(method),
     );
   }
 
+  /// default full name of a sub class,
+  /// like WeatherRainy.
+  String _defaultFullName(String shortName) => '$name$shortName';
+
   /// extract items from class element
-  List<ManifestItem> _extractItems(ClassElement cls) =>
-      cls.methods.map(_extractItem).toList();
+  List<ManifestItem> _extractItems() => cls.methods.map(_extractItem).toList();
 
   /// type name without any nullability sign
   String _extractTypeName(DartType type) =>

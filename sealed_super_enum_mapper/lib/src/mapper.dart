@@ -47,7 +47,6 @@ class Mapper {
 
   /// extract options
   Options _readOptions(Element element) => Options(
-        equality: Equality.data,
         isNullSafe: const NullSafetyReader().readIsNullSafe(element),
       );
 
@@ -67,7 +66,9 @@ class Mapper {
 
   /// read an item
   ManifestItem _readItem(FieldElement constant) => ManifestItem(
-        name: constant.name,
+        shortName: constant.name,
+        fullName: constant.name,
+        equality: Equality.data,
         fields: _readFields(constant),
       );
 

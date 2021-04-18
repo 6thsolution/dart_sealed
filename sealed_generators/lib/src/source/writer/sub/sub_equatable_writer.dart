@@ -12,7 +12,7 @@ class SubEquatableWriter extends BaseUtilsWriter {
 
   @protected
   @visibleForTesting
-  static String fieldName(field) => field.name;
+  String fieldName(ManifestField field) => field.name;
 
   @protected
   @nonVirtual

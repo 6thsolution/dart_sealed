@@ -1,20 +1,23 @@
 import 'package:sealed_annotations/sealed_annotations.dart';
 import 'package:sealed_generators/src/manifest/manifest.dart';
-import 'package:sealed_generators/src/options/options.dart';
 import 'package:sealed_generators/src/source/source.dart';
 import 'package:test/test.dart';
 
+import '../../utils/examples.dart';
+
 void main() {
-  group('class Options', () {
+  group('class Source', () {
     test('initialization', () {
-      final options = Options(
-        equality: Equality.distinct,
-        isNullSafe: false,
-      );
+      final options = optionsSafe;
       final manifest = Manifest(
         name: 'Weather',
         items: [
-          ManifestItem(name: 'Sunny', fields: []),
+          ManifestItem(
+            shortName: 'Sunny',
+            fullName: 'Lollipop',
+            equality: Equality.data,
+            fields: [],
+          ),
         ],
       );
       final source = Source(options: options, manifest: manifest);

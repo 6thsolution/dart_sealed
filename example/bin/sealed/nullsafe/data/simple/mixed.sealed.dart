@@ -8,11 +8,9 @@ part of 'mixed.dart';
 
 /// Apple {
 ///
-/// Hold(Banana? banana)
+/// (AppleHold hold){Banana? banana} with data equality
 ///
 /// }
-///
-/// with data equality.
 @SealedManifest(_Apple)
 abstract class Apple {
   @factory
@@ -153,11 +151,9 @@ class AppleHold extends Apple with EquatableMixin {
 
 /// Banana {
 ///
-/// Hold(Apple apple)
+/// (BananaHold hold){Apple apple} with data equality
 ///
 /// }
-///
-/// with data equality.
 @SealedManifest(_Banana)
 abstract class Banana {
   @factory
@@ -306,15 +302,13 @@ class BananaHold extends Banana with EquatableMixin {
 
 /// Coconut {
 ///
-/// Test1(int? x, double y)
+/// (CoconutTest1 test1){int? x, double y} with data equality
 ///
-/// Test2(int x, double y)
+/// (CoconutTest2 test2){int x, double y} with data equality
 ///
-/// Hold(Apple? apple, Banana banana, int count, num meta)
+/// (CoconutHold hold){Apple? apple, Banana banana, int count, num meta} with data equality
 ///
 /// }
-///
-/// with data equality.
 @SealedManifest(_Coconut)
 abstract class Coconut {
   @factory

@@ -87,7 +87,7 @@ abstract class BaseUtilsWriter extends BaseWriter {
   @protected
   @nonVirtual
   @visibleForTesting
-  String subShort(ManifestItem item) => item.name;
+  String subShort(ManifestItem item) => item.shortName;
 
   /// sub class name, ex. WeatherSunny
   @protected

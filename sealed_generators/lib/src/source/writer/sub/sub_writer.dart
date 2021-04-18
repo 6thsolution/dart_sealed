@@ -55,7 +55,7 @@ class SubWriter extends BaseUtilsWriter {
   @visibleForTesting
   String subClassStart(ManifestItem item) => [
         'class ${subDec(item)} extends $topCall',
-        if (options.equality == Equality.data) ' with EquatableMixin',
+        if (item.equality == Equality.data) ' with EquatableMixin',
       ].joinParts();
 
   /// bool operator ==(Object other) => false;
@@ -78,9 +78,9 @@ class SubWriter extends BaseUtilsWriter {
         if (!hasNullable(item) && !isGeneric)
           subCopyWriter.subCopyDeclaration(item),
         subToStringWriter.subToString(item),
-        if (options.equality == Equality.data)
+        if (item.equality == Equality.data)
           subEquatableWriter.subEquatableEquality(item),
-        if (options.equality == Equality.distinct) subDistinctEquality(),
+        if (item.equality == Equality.distinct) subDistinctEquality(),
         '}',
       ].joinMethods();
 

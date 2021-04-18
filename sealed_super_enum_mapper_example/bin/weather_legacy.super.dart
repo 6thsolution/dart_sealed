@@ -11,24 +11,27 @@ part of 'weather_legacy.dart';
 
 /// substitute generated manifest for super enum
 /// and remove "$" at the end of class name.
-@Sealed(equality: Equality.data)
+@Sealed()
 abstract class _Weather$ {
+  @Meta(name: 'Sunny', equality: Equality.data)
   void sunny();
+
+  @Meta(name: 'Rainy', equality: Equality.data)
   void rainy(int /*?*/ rain);
+
+  @Meta(name: 'Windy', equality: Equality.data)
   void windy(double /*?*/ velocity, double /*?*/ angle);
 }
 
 /// Weather {
 ///
-/// Sunny()
+/// (Sunny sunny){} with data equality
 ///
-/// Rainy(int? rain)
+/// (Rainy rainy){int? rain} with data equality
 ///
-/// Windy(double? velocity, double? angle)
+/// (Windy windy){double? velocity, double? angle} with data equality
 ///
 /// }
-///
-/// with data equality.
 @SealedManifest(_Weather)
 abstract class Weather {
   @factory

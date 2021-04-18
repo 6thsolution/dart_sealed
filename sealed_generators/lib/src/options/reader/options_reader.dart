@@ -14,17 +14,8 @@ class OptionsReader {
   Options read(
     Element element,
     ConstantReader annotation,
-  ) {
-    const nullSafety = NullSafetyReader();
-    return Options(
-      equality: _readEquality(annotation),
-      isNullSafe: nullSafety.readIsNullSafe(element),
-    );
-  }
-
-  /// read equality
-  Equality _readEquality(ConstantReader annotation) {
-    final index = annotation.read('equality').read('index').intValue;
-    return Equality.values[index];
-  }
+  ) =>
+      Options(
+        isNullSafe: const NullSafetyReader().readIsNullSafe(element),
+      );
 }

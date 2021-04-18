@@ -64,4 +64,22 @@ void main() {
       );
     });
   });
+
+  group('annotation @Meta', () {
+    test('initialization', () {
+      const a = Meta(name: 'Apple', equality: Equality.identity);
+      expect(a.name, equals('Apple'));
+      expect(a.equality, equals(Equality.identity));
+      expect(
+        a.toString(),
+        stringContainsInOrder([
+          'Meta',
+          'name',
+          'Apple',
+          'equality',
+          'identity',
+        ]),
+      );
+    });
+  });
 }

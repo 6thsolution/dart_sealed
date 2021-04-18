@@ -1,74 +1,82 @@
 part of 'examples.dart';
 
-final manifest1 = Manifest(
-  name: 'Weather',
-  items: [
-    ManifestItem(
-      name: 'Sunny',
-      fields: [],
-    ),
-    ManifestItem(
-      name: 'Rainy',
-      fields: [
-        ManifestField(
-          name: 'rain',
-          type: ManifestType(name: 'int', isNullable: false),
+Manifest manifest1(Equality equality) => Manifest(
+      name: 'Weather',
+      items: [
+        ManifestItem(
+          shortName: 'Sunny',
+          fullName: 'WeatherSunny',
+          equality: equality,
+          fields: [],
+        ),
+        ManifestItem(
+          shortName: 'Rainy',
+          fullName: 'WeatherRainy',
+          equality: equality,
+          fields: [
+            ManifestField(
+              name: 'rain',
+              type: ManifestType(name: 'int', isNullable: false),
+            ),
+          ],
+        ),
+        ManifestItem(
+          shortName: 'Windy',
+          fullName: 'HelloWindy',
+          equality: equality,
+          fields: [
+            ManifestField(
+              name: 'velocity',
+              type: ManifestType(name: 'double', isNullable: false),
+            ),
+            ManifestField(
+              name: 'angle',
+              type: ManifestType(name: 'double', isNullable: true),
+            )
+          ],
         ),
       ],
-    ),
-    ManifestItem(
-      name: 'Windy',
-      fields: [
-        ManifestField(
-          name: 'velocity',
-          type: ManifestType(name: 'double', isNullable: false),
-        ),
-        ManifestField(
-          name: 'angle',
-          type: ManifestType(name: 'double', isNullable: true),
-        )
-      ],
-    ),
-  ],
-);
+    );
 
 final source1DataSafe = Source(
-  options: optionsDataSafe,
-  manifest: manifest1,
+  options: optionsSafe,
+  manifest: manifest1(Equality.data),
 );
 final source1IdentitySafe = Source(
-  options: optionsIdentitySafe,
-  manifest: manifest1,
+  options: optionsSafe,
+  manifest: manifest1(Equality.identity),
 );
 final source1DistinctSafe = Source(
-  options: optionsDistinctSafe,
-  manifest: manifest1,
+  options: optionsSafe,
+  manifest: manifest1(Equality.distinct),
 );
 final source1DataLegacy = Source(
-  options: optionsDataLegacy,
-  manifest: manifest1,
+  options: optionsLegacy,
+  manifest: manifest1(Equality.data),
 );
 final source1IdentityLegacy = Source(
-  options: optionsIdentityLegacy,
-  manifest: manifest1,
+  options: optionsLegacy,
+  manifest: manifest1(Equality.identity),
 );
 final source1DistinctLegacy = Source(
-  options: optionsDistinctLegacy,
-  manifest: manifest1,
+  options: optionsLegacy,
+  manifest: manifest1(Equality.distinct),
 );
 
-final code1Default = code1('');
-final code1Data = code1('equality: Equality.data');
-final code1Identity = code1('equality: Equality.identity');
-final code1Distinct = code1('equality: Equality.distinct');
+final code1Data = code1(Equality.data);
+final code1Identity = code1(Equality.identity);
+final code1Distinct = code1(Equality.distinct);
 
-const _conflict = BackwardWriter.avoidConflict ? '\$' : '';
-
-String code1(String str) => '''@Sealed($str)
-abstract class _Weather$_conflict
+String code1(Equality equality) => '''@Sealed()
+abstract class _Weather\$
 {
+@Meta(name: 'WeatherSunny', equality: $equality)
 void sunny();
+
+@Meta(name: 'WeatherRainy', equality: $equality)
 void rainy(int rain);
+
+@Meta(name: 'HelloWindy', equality: $equality)
 void windy(double velocity, double? angle);
 }''';
 
@@ -78,12 +86,10 @@ final doc1Distinct = doc1('distinct');
 
 String doc1(String equality) => '''/// Weather {
 /// 
-/// Sunny()
+/// (WeatherSunny sunny){} with $equality equality
 /// 
-/// Rainy(int rain)
+/// (WeatherRainy rainy){int rain} with $equality equality
 /// 
-/// Windy(double velocity, double? angle)
+/// (HelloWindy windy){double velocity, double? angle} with $equality equality
 /// 
-/// }
-/// 
-/// with $equality equality.''';
+/// }''';

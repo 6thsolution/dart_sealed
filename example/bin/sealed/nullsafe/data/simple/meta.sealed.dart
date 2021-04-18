@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'weather.dart';
+part of 'meta.dart';
 
 // **************************************************************************
 // Generator: sealed_generators
@@ -8,11 +8,11 @@ part of 'weather.dart';
 
 /// Weather {
 ///
-/// (WeatherSunny sunny){} with identity equality
+/// (WeatherSunny sunny){} with data equality
 ///
-/// (WeatherRainy rainy){int rain} with identity equality
+/// (WeatherRainy rainy){int rain} with data equality
 ///
-/// (WeatherWindy windy){double velocity, double? angle} with identity equality
+/// (WeatherWindy windy){double velocity, double? angle} with data equality
 ///
 /// }
 @SealedManifest(_Weather)
@@ -222,7 +222,7 @@ abstract class Weather {
   }
 }
 
-class WeatherSunny extends Weather {
+class WeatherSunny extends Weather with EquatableMixin {
   WeatherSunny();
 
   @factory
@@ -230,9 +230,12 @@ class WeatherSunny extends Weather {
 
   @override
   String toString() => 'Weather.Sunny()';
+
+  @override
+  List<Object?> get props => [];
 }
 
-class WeatherRainy extends Weather {
+class WeatherRainy extends Weather with EquatableMixin {
   WeatherRainy({
     required this.rain,
   });
@@ -249,9 +252,14 @@ class WeatherRainy extends Weather {
 
   @override
   String toString() => 'Weather.Rainy(rain: $rain)';
+
+  @override
+  List<Object?> get props => [
+        rain,
+      ];
 }
 
-class WeatherWindy extends Weather {
+class WeatherWindy extends Weather with EquatableMixin {
   WeatherWindy({
     required this.velocity,
     required this.angle,
@@ -262,4 +270,10 @@ class WeatherWindy extends Weather {
 
   @override
   String toString() => 'Weather.Windy(velocity: $velocity, angle: $angle)';
+
+  @override
+  List<Object?> get props => [
+        velocity,
+        angle,
+      ];
 }

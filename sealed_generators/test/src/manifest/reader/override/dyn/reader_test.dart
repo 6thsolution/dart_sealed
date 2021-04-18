@@ -6,15 +6,14 @@ import '../../../../../utils/examples.dart';
 void main() {
   group('class TypeOverrideDynamicReader', () {
     test('initialization', () {
-      final options = optionsDataSafe;
+      final options = optionsSafe;
       final reader = TypeOverrideDynamicReader(options);
       expect(reader.options, options);
     });
 
     group('method mapOverride', () {
       test('null-safe', () {
-        final options = optionsDataSafe;
-        final reader = TypeOverrideDynamicReader(options);
+        final reader = TypeOverrideDynamicReader(optionsSafe);
 
         final o1 = reader.mapOverride('double');
         expect(o1.type.name, equals('double'));
@@ -26,8 +25,7 @@ void main() {
       });
 
       test('legacy', () {
-        final options = optionsDataLegacy;
-        final reader = TypeOverrideDynamicReader(options);
+        final reader = TypeOverrideDynamicReader(optionsLegacy);
 
         final o1 = reader.mapOverride('double');
         expect(o1.type.name, equals('double'));

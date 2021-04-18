@@ -10,21 +10,22 @@ part of 'result_nullsafe.dart';
 
 /// substitute generated manifest for super enum
 /// and remove "$" at the end of class name.
-@Sealed(equality: Equality.data)
+@Sealed()
 abstract class _Result$<Generic extends Object?> {
+  @Meta(name: 'Success', equality: Equality.data)
   void success(Generic? data);
+
+  @Meta(name: 'Error', equality: Equality.data)
   void error(Object? exception);
 }
 
 /// Result<Generic extends Object?> {
 ///
-/// Success(Generic? data)
+/// (Success success){Generic? data} with data equality
 ///
-/// Error(Object? exception)
+/// (Error error){Object? exception} with data equality
 ///
 /// }
-///
-/// with data equality.
 @SealedManifest(_Result)
 abstract class Result<Generic extends Object?> {
   @factory

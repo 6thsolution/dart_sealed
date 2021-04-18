@@ -9,13 +9,11 @@ part of 'result_single.dart';
 
 /// Result<D extends num?> {
 ///
-/// Success(D? data)
+/// (ResultSuccess success){D? data} with data equality
 ///
-/// Error(Object? exception)
+/// (ResultError error){Object? exception} with data equality
 ///
 /// }
-///
-/// with data equality.
 @SealedManifest(_Result)
 abstract class Result<D extends num /*?*/ > {
   @factory

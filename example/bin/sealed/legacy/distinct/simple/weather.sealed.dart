@@ -9,15 +9,13 @@ part of 'weather.dart';
 
 /// Weather {
 ///
-/// Sunny()
+/// (WeatherSunny sunny){} with distinct equality
 ///
-/// Rainy(int? rain)
+/// (WeatherRainy rainy){int? rain} with distinct equality
 ///
-/// Windy(double? velocity, double? angle)
+/// (WeatherWindy windy){double? velocity, double? angle} with distinct equality
 ///
 /// }
-///
-/// with distinct equality.
 @SealedManifest(_Weather)
 abstract class Weather {
   @factory

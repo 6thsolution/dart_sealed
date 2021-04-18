@@ -8,13 +8,11 @@ part of 'result_no_upper_1.dart';
 
 /// Result<D extends Object?, E extends Object?> {
 ///
-/// Success(D data)
+/// (ResultSuccess success){D data} with data equality
 ///
-/// Error(E exception)
+/// (ResultError error){E exception} with data equality
 ///
 /// }
-///
-/// with data equality.
 @SealedManifest(_Result)
 abstract class Result<D extends Object?, E extends Object?> {
   @factory
