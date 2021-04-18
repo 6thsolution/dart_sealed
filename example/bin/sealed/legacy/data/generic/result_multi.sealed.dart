@@ -249,7 +249,7 @@ class ResultSuccess<D extends num /*?*/, E extends Object /*?*/ >
   final D /*?*/ data;
 
   @override
-  String /*!*/ toString() => 'Result.Success(data: $data)';
+  String /*!*/ toString() => 'Result.success(data: $data)';
 
   @override
   List<Object /*?*/ > /*!*/ get props => [
@@ -266,7 +266,7 @@ class ResultError<D extends num /*?*/, E extends Object /*?*/ >
   final E /*?*/ exception;
 
   @override
-  String /*!*/ toString() => 'Result.Error(exception: $exception)';
+  String /*!*/ toString() => 'Result.error(exception: $exception)';
 
   @override
   List<Object /*?*/ > /*!*/ get props => [
@@ -285,7 +285,7 @@ class ResultMixed<D extends num /*?*/, E extends Object /*?*/ >
   final E /*?*/ exception;
 
   @override
-  String /*!*/ toString() => 'Result.Mixed(data: $data, exception: $exception)';
+  String /*!*/ toString() => 'Result.mixed(data: $data, exception: $exception)';
 
   @override
   List<Object /*?*/ > /*!*/ get props => [

@@ -198,7 +198,7 @@ class ResultSuccess<D extends Object /*?*/, E extends Object /*?*/ >
   final D /*?*/ data;
 
   @override
-  String /*!*/ toString() => 'Result.Success(data: $data)';
+  String /*!*/ toString() => 'Result.success(data: $data)';
 
   @override
   List<Object /*?*/ > /*!*/ get props => [
@@ -215,7 +215,7 @@ class ResultError<D extends Object /*?*/, E extends Object /*?*/ >
   final E /*?*/ exception;
 
   @override
-  String /*!*/ toString() => 'Result.Error(exception: $exception)';
+  String /*!*/ toString() => 'Result.error(exception: $exception)';
 
   @override
   List<Object /*?*/ > /*!*/ get props => [

@@ -229,7 +229,7 @@ class WeatherSunny extends Weather {
   WeatherSunny copy() => WeatherSunny();
 
   @override
-  String toString() => 'Weather.Sunny()';
+  String toString() => 'Weather.sunny()';
 
   @override
   bool operator ==(Object other) => false;
@@ -251,7 +251,7 @@ class WeatherRainy extends Weather {
       );
 
   @override
-  String toString() => 'Weather.Rainy(rain: $rain)';
+  String toString() => 'Weather.rainy(rain: $rain)';
 
   @override
   bool operator ==(Object other) => false;
@@ -267,7 +267,7 @@ class WeatherWindy extends Weather {
   final double? angle;
 
   @override
-  String toString() => 'Weather.Windy(velocity: $velocity, angle: $angle)';
+  String toString() => 'Weather.windy(velocity: $velocity, angle: $angle)';
 
   @override
   bool operator ==(Object other) => false;

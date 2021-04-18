@@ -239,7 +239,7 @@ class WeatherSunny extends Weather with EquatableMixin {
   WeatherSunny /*!*/ copy() => WeatherSunny();
 
   @override
-  String /*!*/ toString() => 'Weather.Sunny()';
+  String /*!*/ toString() => 'Weather.sunny()';
 
   @override
   List<Object /*?*/ > /*!*/ get props => [];
@@ -253,7 +253,7 @@ class WeatherRainy extends Weather with EquatableMixin {
   final int /*?*/ rain;
 
   @override
-  String /*!*/ toString() => 'Weather.Rainy(rain: $rain)';
+  String /*!*/ toString() => 'Weather.rainy(rain: $rain)';
 
   @override
   List<Object /*?*/ > /*!*/ get props => [
@@ -272,7 +272,7 @@ class WeatherWindy extends Weather with EquatableMixin {
 
   @override
   String /*!*/ toString() =>
-      'Weather.Windy(velocity: $velocity, angle: $angle)';
+      'Weather.windy(velocity: $velocity, angle: $angle)';
 
   @override
   List<Object /*?*/ > /*!*/ get props => [
