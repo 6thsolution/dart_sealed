@@ -13,8 +13,8 @@ void main() {
         name: 'Weather',
         items: [
           ManifestItem(
-            shortName: 'Sunny',
-            fullName: 'Lollipop',
+            shortName: 'sunny',
+            name: 'Lollipop',
             equality: Equality.data,
             fields: [],
           ),

@@ -3,7 +3,6 @@ import 'package:sealed_annotations/sealed_annotations.dart';
 import 'package:sealed_generators/src/manifest/manifest.dart';
 import 'package:sealed_generators/src/source/source.dart';
 import 'package:sealed_generators/src/source/writer/base/base_writer.dart';
-import 'package:sealed_generators/src/utils/name_utils.dart';
 import 'package:sealed_generators/src/utils/string_utils.dart';
 
 /// write docs for base class
@@ -32,7 +31,7 @@ class TopDocWriter extends BaseWriter {
       ].joinParts();
 
   String _itemDoc(ManifestItem item) => [
-        '(${item.fullName} ${item.shortName.toLowerStart()})',
+        '(${item.name} ${item.shortName})',
         item.fields.map(_fieldDoc).joinArgsSimple().withBraces(),
         ' with ${_equality(item.equality)} equality'
       ].joinParts();

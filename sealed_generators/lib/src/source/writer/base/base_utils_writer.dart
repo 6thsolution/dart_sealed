@@ -87,19 +87,19 @@ abstract class BaseUtilsWriter extends BaseWriter {
   @protected
   @nonVirtual
   @visibleForTesting
-  String subUpper(ManifestItem item) => item.shortName;
+  String subUpper(ManifestItem item) => item.shortName.toUpperStart();
 
   /// sub class name, ex. WeatherSunny
   @protected
   @nonVirtual
   @visibleForTesting
-  String subFull(ManifestItem item) => item.fullName;
+  String subFull(ManifestItem item) => item.name;
 
   /// lower start short sub class name, ex. sunny
   @protected
   @nonVirtual
   @visibleForTesting
-  String subLower(ManifestItem item) => item.shortName.toLowerStart();
+  String subLower(ManifestItem item) => item.shortName;
 
   /// ex. double or double/*!*/, double? or double/*?*/
   @protected

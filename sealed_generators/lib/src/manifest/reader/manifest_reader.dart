@@ -62,13 +62,13 @@ class ManifestReader {
   List<ManifestParam> _extractParams() =>
       cls.typeParameters.map(_extractParam).toList();
 
-  /// extract sub class name
-  String _extractSubName(MethodElement method) {
+  /// extract sub class name, like "rainy"
+  String _extractShortSubName(MethodElement method) {
     require(
       method.name.isGenFieldName(),
       () => 'malformed method name "${method.name}"',
     );
-    return method.name.toUpperStart();
+    return method.name;
   }
 
   /// extract field from method argument without overrides
@@ -131,11 +131,11 @@ class ManifestReader {
       method.typeParameters.isEmpty,
       () => 'method "${method.name}" can not have type parameters',
     );
-    final short = _extractSubName(method);
-    final defaultFull = _defaultFullName(short);
+    final lower = _extractShortSubName(method);
+    final defaultFull = _defaultFullName(lower);
     return ManifestItem(
-      shortName: short,
-      fullName: defaultFull,
+      shortName: lower,
+      name: defaultFull,
       equality: defaultEquality,
       fields: _extractFields(method),
     );
@@ -143,7 +143,8 @@ class ManifestReader {
 
   /// default full name of a sub class,
   /// like WeatherRainy.
-  String _defaultFullName(String shortName) => '$name$shortName';
+  String _defaultFullName(String shortName) =>
+      '$name${shortName.toUpperStart()}';
 
   /// extract items from class element
   List<ManifestItem> _extractItems() => cls.methods.map(_extractItem).toList();

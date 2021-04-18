@@ -60,31 +60,40 @@ void main() {
       final type1 = ManifestType(name: 'double', isNullable: true);
       final field1 = ManifestField(name: 'angle', type: type1);
       final item1 = ManifestItem(
-        shortName: 'Windy',
-        fullName: 'Lollipop',
+        shortName: 'windy',
+        name: 'Lollipop',
         equality: Equality.identity,
         fields: [],
       );
       final item2 = ManifestItem(
-        shortName: 'Windy',
-        fullName: 'Candy',
+        shortName: 'windy',
+        name: 'Candy',
         equality: Equality.distinct,
         fields: [field1],
       );
 
-      expect(item1.shortName, equals('Windy'));
-      expect(item1.fullName, equals('Lollipop'));
+      expect(item1.shortName, equals('windy'));
+      expect(item1.name, equals('Lollipop'));
       expect(item1.equality, equals(Equality.identity));
       expect(item1.fields, isEmpty);
-      expect(item2.shortName, equals('Windy'));
-      expect(item2.fullName, equals('Candy'));
+      expect(item2.shortName, equals('windy'));
+      expect(item2.name, equals('Candy'));
       expect(item2.equality, equals(Equality.distinct));
       expect(item2.fields, contains(field1));
 
       expect(
         () => ManifestItem(
+          shortName: 'Windy',
+          name: 'Lollipop',
+          equality: Equality.identity,
+          fields: [],
+        ),
+        throwsAssertion(),
+      );
+      expect(
+        () => ManifestItem(
           shortName: 'windy',
-          fullName: 'Lollipop',
+          name: 'lollipop',
           equality: Equality.identity,
           fields: [],
         ),
@@ -92,8 +101,8 @@ void main() {
       );
       expect(
         () => ManifestItem(
-          shortName: 'Windy',
-          fullName: 'lollipop',
+          shortName: 'windy?',
+          name: 'Lollipop',
           equality: Equality.identity,
           fields: [],
         ),
@@ -101,17 +110,8 @@ void main() {
       );
       expect(
         () => ManifestItem(
-          shortName: 'Windy?',
-          fullName: 'Lollipop',
-          equality: Equality.identity,
-          fields: [],
-        ),
-        throwsAssertion(),
-      );
-      expect(
-        () => ManifestItem(
-          shortName: 'Windy',
-          fullName: '_Lollipop',
+          shortName: 'windy',
+          name: '_Lollipop',
           equality: Equality.identity,
           fields: [],
         ),
@@ -123,8 +123,8 @@ void main() {
   group('class Manifest', () {
     test('initialization', () {
       final item = ManifestItem(
-        shortName: 'Sunny',
-        fullName: 'Lollipop',
+        shortName: 'sunny',
+        name: 'Lollipop',
         equality: Equality.identity,
         fields: [],
       );

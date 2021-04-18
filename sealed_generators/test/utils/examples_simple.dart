@@ -4,14 +4,14 @@ Manifest manifest1(Equality equality) => Manifest(
       name: 'Weather',
       items: [
         ManifestItem(
-          shortName: 'Sunny',
-          fullName: 'HiSunny',
+          shortName: 'sunny',
+          name: 'HiSunny',
           equality: equality,
           fields: [],
         ),
         ManifestItem(
-          shortName: 'Rainy',
-          fullName: 'WeatherRainy',
+          shortName: 'rainy',
+          name: 'WeatherRainy',
           equality: equality,
           fields: [
             ManifestField(
@@ -21,8 +21,8 @@ Manifest manifest1(Equality equality) => Manifest(
           ],
         ),
         ManifestItem(
-          shortName: 'Windy',
-          fullName: 'HelloWindy',
+          shortName: 'windy',
+          name: 'HelloWindy',
           equality: equality,
           fields: [
             ManifestField(

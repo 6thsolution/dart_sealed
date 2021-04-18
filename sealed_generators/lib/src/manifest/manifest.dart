@@ -32,20 +32,20 @@ class Manifest {
 @sealed
 class ManifestItem {
   ManifestItem({
+    required this.name,
     required this.shortName,
-    required this.fullName,
     required this.equality,
     required this.fields,
   }) {
-    check(shortName.isGenClassName());
-    check(fullName.isGenClassName());
+    check(shortName.isGenFieldName());
+    check(name.isGenClassName());
   }
 
-  /// name, for example "Rainy".
-  final String shortName;
+  /// full name, for example "WeatherRainy".
+  final String name;
 
-  /// name, for example "WeatherRainy".
-  final String fullName;
+  /// lower short name, for example "rainy".
+  final String shortName;
 
   /// equality.
   final Equality equality;
@@ -54,7 +54,8 @@ class ManifestItem {
   final List<ManifestField> fields;
 
   @override
-  String toString() => 'Item{name: $shortName, fields: $fields}';
+  String toString() => 'Item{name: $name, shortName: $shortName,'
+      ' equality: $equality, fields: $fields}';
 }
 
 @immutable

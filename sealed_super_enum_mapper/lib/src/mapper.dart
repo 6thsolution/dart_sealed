@@ -10,6 +10,7 @@ import 'package:sealed_generators/src/source/source.dart';
 import 'package:sealed_generators/src/source/writer/backward/backward_writer.dart';
 import 'package:sealed_generators/src/source/writer/source_writer.dart';
 import 'package:sealed_generators/src/utils/list_utils.dart';
+import 'package:sealed_generators/src/utils/name_utils.dart';
 import 'package:sealed_generators/src/utils/string_utils.dart';
 import 'package:source_gen/source_gen.dart';
 
@@ -66,8 +67,8 @@ class Mapper {
 
   /// read an item
   ManifestItem _readItem(FieldElement constant) => ManifestItem(
-        shortName: constant.name,
-        fullName: constant.name,
+        shortName: constant.name.toLowerStart(),
+        name: constant.name,
         equality: Equality.data,
         fields: _readFields(constant),
       );

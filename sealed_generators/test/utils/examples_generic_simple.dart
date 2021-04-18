@@ -10,8 +10,8 @@ Manifest manifest2(Equality equality) => Manifest(
       ],
       items: [
         ManifestItem(
-          shortName: 'Success',
-          fullName: 'MySuccess',
+          shortName: 'success',
+          name: 'MySuccess',
           equality: equality,
           fields: [
             ManifestField(
@@ -21,8 +21,8 @@ Manifest manifest2(Equality equality) => Manifest(
           ],
         ),
         ManifestItem(
-          shortName: 'Error',
-          fullName: 'HelloError',
+          shortName: 'error',
+          name: 'HelloError',
           equality: equality,
           fields: [
             ManifestField(

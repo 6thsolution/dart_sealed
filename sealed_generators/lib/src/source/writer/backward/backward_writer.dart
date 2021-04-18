@@ -27,7 +27,7 @@ class BackwardWriter extends BaseUtilsWriter {
       ].joinLines();
 
   String _itemAnnotation(ManifestItem item) =>
-      "@Meta(name: '${item.fullName}', equality: ${item.equality})";
+      "@Meta(name: '${item.name}', equality: ${item.equality})";
 
   String _itemMethod(ManifestItem item) => [
         'void ',
