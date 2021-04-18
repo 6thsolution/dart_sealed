@@ -66,6 +66,30 @@ void main() {
       });
     });
 
+    group('method topDistinctEquality', () {
+      test('null-safe', () {
+        final source = source1DataSafe;
+        final writer = SubWriter(source);
+
+        expect(
+          writer.subDistinctEquality(),
+          '@override\n'
+          'bool operator ==(Object other) => false;',
+        );
+      });
+
+      test('legacy', () {
+        final source = source1DataLegacy;
+        final writer = SubWriter(source);
+
+        expect(
+          writer.subDistinctEquality(),
+          '@override\n'
+          'bool/*!*/ operator ==(Object other) => false;',
+        );
+      });
+    });
+
     group('method subClass', () {
       test('equality data', () {
         final source = source1DataSafe;
@@ -141,6 +165,7 @@ void main() {
         expect(
           writer.subClass(item2),
           allOf(
+            stringContainsInOrder(['operator ==']),
             isNot(stringContainsInOrder(['get props'])),
             isNot(stringContainsInOrder(['EquatableMixin'])),
           ),

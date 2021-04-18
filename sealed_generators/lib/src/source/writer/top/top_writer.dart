@@ -36,19 +36,9 @@ class TopWriter extends BaseUtilsWriter {
   final TopDocWriter topDocWriter;
 
   /// ex. @SealedManifest(_Weather)
-
   @nonVirtual
   @visibleForTesting
   String topManifest() => '@SealedManifest(_$top)';
-
-  /// bool operator ==(Object other) => false;
-
-  @nonVirtual
-  @visibleForTesting
-  String topDistinctEquality() => [
-        annotationOverride,
-        'bool$nn operator ==(Object other) => false;',
-      ].joinLines();
 
   @nonVirtual
   @visibleForTesting
@@ -56,7 +46,6 @@ class TopWriter extends BaseUtilsWriter {
         ...topBuilderWriter.topBuilderMethods(),
         ...topCastWriter.topCastMethods(),
         ...topMatchWriter.topMatchMethods(),
-        if (options.equality == Equality.distinct) topDistinctEquality(),
       ];
 
   @nonVirtual

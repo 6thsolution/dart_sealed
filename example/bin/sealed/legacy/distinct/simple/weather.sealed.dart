@@ -232,9 +232,6 @@ abstract class Weather {
       throw AssertionError();
     }
   }
-
-  @override
-  bool /*!*/ operator ==(Object other) => false;
 }
 
 class WeatherSunny extends Weather {
@@ -245,6 +242,9 @@ class WeatherSunny extends Weather {
 
   @override
   String /*!*/ toString() => 'Weather.Sunny()';
+
+  @override
+  bool /*!*/ operator ==(Object other) => false;
 }
 
 class WeatherRainy extends Weather {
@@ -256,6 +256,9 @@ class WeatherRainy extends Weather {
 
   @override
   String /*!*/ toString() => 'Weather.Rainy(rain: $rain)';
+
+  @override
+  bool /*!*/ operator ==(Object other) => false;
 }
 
 class WeatherWindy extends Weather {
@@ -270,4 +273,7 @@ class WeatherWindy extends Weather {
   @override
   String /*!*/ toString() =>
       'Weather.Windy(velocity: $velocity, angle: $angle)';
+
+  @override
+  bool /*!*/ operator ==(Object other) => false;
 }

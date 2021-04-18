@@ -22,30 +22,6 @@ void main() {
       );
     });
 
-    group('method topDistinctEquality', () {
-      test('null-safe', () {
-        final source = source1DataSafe;
-        final writer = TopWriter(source);
-
-        expect(
-          writer.topDistinctEquality(),
-          '@override\n'
-          'bool operator ==(Object other) => false;',
-        );
-      });
-
-      test('legacy', () {
-        final source = source1DataLegacy;
-        final writer = TopWriter(source);
-
-        expect(
-          writer.topDistinctEquality(),
-          '@override\n'
-          'bool/*!*/ operator ==(Object other) => false;',
-        );
-      });
-    });
-
     group('method topMethods', () {
       test('equality data', () {
         final source = source1DataSafe;
@@ -85,7 +61,6 @@ void main() {
             ...writer.topBuilderWriter.topBuilderMethods(),
             ...writer.topCastWriter.topCastMethods(),
             ...writer.topMatchWriter.topMatchMethods(),
-            writer.topDistinctEquality(),
           ]),
         );
       });

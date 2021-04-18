@@ -58,6 +58,14 @@ class SubWriter extends BaseUtilsWriter {
         if (options.equality == Equality.data) ' with EquatableMixin',
       ].joinParts();
 
+  /// bool operator ==(Object other) => false;
+  @nonVirtual
+  @visibleForTesting
+  String subDistinctEquality() => [
+        annotationOverride,
+        'bool$nn operator ==(Object other) => false;',
+      ].joinLines();
+
   /// subclass
   @protected
   @nonVirtual
@@ -72,6 +80,7 @@ class SubWriter extends BaseUtilsWriter {
         subToStringWriter.subToString(item),
         if (options.equality == Equality.data)
           subEquatableWriter.subEquatableEquality(item),
+        if (options.equality == Equality.distinct) subDistinctEquality(),
         '}',
       ].joinMethods();
 
