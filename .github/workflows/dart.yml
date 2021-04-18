@@ -114,8 +114,3 @@ jobs:
       - name: sealed_super_enum_mapper_example run
         working-directory: ./sealed_super_enum_mapper_example
         run: dart run
-      - name: upload coverage to codecov
-        uses: codecov/codecov-action@v1
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          files: ./sealed_annotations/coverage/lcov.info

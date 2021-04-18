@@ -4,7 +4,6 @@
 [![pub](https://img.shields.io/pub/v/sealed_generators.svg?color=blue&label=sealed_generators)](https://pub.dev/packages/sealed_generators)
 [![pub](https://img.shields.io/pub/v/sealed_annotations.svg?color=blue&label=sealed_annotations)](https://pub.dev/packages/sealed_annotations)
 [![pub](https://img.shields.io/pub/v/sealed_super_enum_mapper.svg?color=blue&label=sealed_super_enum_mapper)](https://pub.dev/packages/sealed_super_enum_mapper)
-[![codecov](https://codecov.io/gh/6thsolution/dart_sealed/branch/master/graph/badge.svg)](https://codecov.io/gh/6thsolution/dart_sealed)
 
 Generate sealed class hierarchy for Dart and Flutter, For null-safe and legacy projects.
 
@@ -285,3 +284,67 @@ abstract class _WeatherInfo {
   void fromInternet(dynamic result);
 }
 ```
+
+## Mapping super_enum
+
+If you were using super_enum and now you want to change your dependency to dart_sealed.
+
+* 1 Add dependency to `sealed_annotations` near your dependency of `super_enum`.
+* 2 Change dependency of `super_enum_generator` to `sealed_super_enum_mapper`.
+* 3 Add import to `sealed_annotations` near imports of `super_enum`.
+* 4 Run `dart run build_runner build`.
+* 5 Now instead of super_enum, sealed_generators will generate code for you in `.super` files. Apart from generated
+  sealed classes a manifest class with `@Sealed` annotation, and the same name of your enum and a trailing `$` will be
+  generated.
+* 6 Replace generated manifest class with `@Sealed` annotation with your `@super_enum` annotated enum. omit trailing `$`
+  and class comments. This tool does not recognize `required` and all fields are considered nullable. If your project is
+  null-safe start changing nullability of each field according to your needs. If your sealed class is generic
+  change `Generic` type argument name and if it is needed use multiple type arguments.
+* 7 Remove dependency to `super_enum`.
+* 8 Change dependency of `sealed_super_enum_mapper` to `sealed_generators`.
+* 9 Change `part` suffixes from `.super` to `.sealed`.
+* 10 Run `dart run build_runner build`.
+* 11 Remove `.super` files if it is not removed automatically.
+* Optional: 12 If you want to migrate your code to null-safety you should do it now. Then
+  run `dart run build_runner build` again and this library will handle it for you.
+
+For example for:
+
+```dart
+@superEnum
+enum _Weather {
+@object
+Sunny,
+@Data(fields: [
+  DataField<int>('rain'),
+])
+Rainy,
+@Data(fields: [
+  DataField<double>('velocity'),
+  DataField<double>('angle'),
+])
+Windy,
+}
+```
+
+It will generate sealed classes and the following manifest class.
+
+```dart
+@Sealed(equality: SealedEquality.data)
+abstract class _Weather$ {
+  void sunny();
+
+  void rainy(int /*?*/ rain);
+
+  void windy(double /*?*/ velocity, double /*?*/ angle);
+}
+```
+
+## Migrating to null-safety
+
+Using library for legacy projects it will generate legacy code assuming all fields being nullable. It also adds
+nullability comments for easing migration.
+
+For migration use standard migration tool. Change nullability of sealed class fields (which is mapped from method
+arguments of manifest class) according to your needs. run `dart run build_runner build` again and library will generate
+null-safe code for you.
