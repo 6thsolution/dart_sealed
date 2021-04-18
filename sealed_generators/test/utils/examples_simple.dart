@@ -5,7 +5,7 @@ Manifest manifest1(Equality equality) => Manifest(
       items: [
         ManifestItem(
           shortName: 'Sunny',
-          fullName: 'WeatherSunny',
+          fullName: 'HiSunny',
           equality: equality,
           fields: [],
         ),
@@ -70,7 +70,7 @@ final code1Distinct = code1(Equality.distinct);
 String code1(Equality equality) => '''@Sealed()
 abstract class _Weather\$
 {
-@Meta(name: 'WeatherSunny', equality: $equality)
+@Meta(name: 'HiSunny', equality: $equality)
 void sunny();
 
 @Meta(name: 'WeatherRainy', equality: $equality)
@@ -86,7 +86,7 @@ final doc1Distinct = doc1('distinct');
 
 String doc1(String equality) => '''/// Weather {
 /// 
-/// (WeatherSunny sunny){} with $equality equality
+/// (HiSunny sunny){} with $equality equality
 /// 
 /// (WeatherRainy rainy){int rain} with $equality equality
 /// 

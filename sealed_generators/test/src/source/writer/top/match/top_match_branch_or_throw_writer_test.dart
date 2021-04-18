@@ -20,7 +20,7 @@ void main() {
       final writer = TopMatchBranchOrThrowWriter(source);
       final i = writer.topMatchBranchOrThrowIf(item1);
 
-      expect(i.condition, 'weather is WeatherSunny && sunny != null');
+      expect(i.condition, 'weather is HiSunny && sunny != null');
       expect(
         i.code,
         'sunny(weather);',
@@ -60,11 +60,11 @@ void main() {
       expect(
         writer.topMatchBranchOrThrowBody(),
         'final weather = this;\n'
-        'if (weather is WeatherSunny && sunny != null)'
+        'if (weather is HiSunny && sunny != null)'
         ' {sunny(weather);}\n'
         'else if (weather is WeatherRainy && rainy != null)'
         ' {rainy(weather);}\n'
-        'else if (weather is WeatherWindy && windy != null)'
+        'else if (weather is HelloWindy && windy != null)'
         ' {windy(weather);}\n'
         'else {throw AssertionError();}',
       );
@@ -77,9 +77,9 @@ void main() {
       expect(
         writer.topMatchBranchOrThrowStart(),
         'void branchOrThrow({'
-        'void Function(WeatherSunny sunny)? sunny,'
+        'void Function(HiSunny sunny)? sunny,'
         ' void Function(WeatherRainy rainy)? rainy,'
-        ' void Function(WeatherWindy windy)? windy,'
+        ' void Function(HelloWindy windy)? windy,'
         '})',
       );
     });

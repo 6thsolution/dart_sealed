@@ -84,7 +84,7 @@ void main() {
 
       expect(
         writer.subConstructorDeclaration(item1),
-        'WeatherSunny();',
+        'HiSunny();',
       );
       expect(
         writer.subConstructorDeclaration(item2),
@@ -92,7 +92,7 @@ void main() {
       );
       expect(
         writer.subConstructorDeclaration(item3),
-        'WeatherWindy({required this.velocity, required this.angle,});',
+        'HelloWindy({required this.velocity, required this.angle,});',
       );
     });
     // end of group SubConstructorWriter

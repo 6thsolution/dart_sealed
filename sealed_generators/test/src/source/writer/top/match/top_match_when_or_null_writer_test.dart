@@ -20,7 +20,7 @@ void main() {
       final writer = TopMatchWhenOrNullWriter(source);
       final i = writer.topMatchWhenOrNullIf(item1);
 
-      expect(i.condition, 'weather is WeatherSunny');
+      expect(i.condition, 'weather is HiSunny');
       expect(i.code, 'return sunny?.call(weather);');
     });
 
@@ -57,11 +57,11 @@ void main() {
       expect(
         writer.topMatchWhenOrNullBody(),
         'final weather = this;\n'
-        'if (weather is WeatherSunny)'
+        'if (weather is HiSunny)'
         ' {return sunny?.call(weather);}\n'
         'else if (weather is WeatherRainy)'
         ' {return rainy?.call(weather);}\n'
-        'else if (weather is WeatherWindy)'
+        'else if (weather is HelloWindy)'
         ' {return windy?.call(weather);}\n'
         'else {throw AssertionError();}',
       );
@@ -74,9 +74,9 @@ void main() {
       expect(
         writer.topMatchWhenOrNullStart(),
         'R? whenOrNull<R extends Object?>({'
-        'R Function(WeatherSunny sunny)? sunny,'
+        'R Function(HiSunny sunny)? sunny,'
         ' R Function(WeatherRainy rainy)? rainy,'
-        ' R Function(WeatherWindy windy)? windy,'
+        ' R Function(HelloWindy windy)? windy,'
         '})',
       );
     });

@@ -44,7 +44,7 @@ void main() {
 
         expect(
           writer.topMatchGenericNNArg(item1),
-          'required R Function(WeatherSunny sunny) sunny',
+          'required R Function(HiSunny sunny) sunny',
         );
       });
 
@@ -57,7 +57,7 @@ void main() {
 
         expect(
           writer.topMatchGenericNNArg(item1),
-          '@required R Function(WeatherSunny/*!*/ sunny)/*!*/ sunny',
+          '@required R Function(HiSunny/*!*/ sunny)/*!*/ sunny',
         );
       });
     });
@@ -116,7 +116,7 @@ void main() {
 
         expect(
           writer.topMatchGenericNArg(item1),
-          'R Function(WeatherSunny sunny)? sunny',
+          'R Function(HiSunny sunny)? sunny',
         );
       });
 
@@ -129,7 +129,7 @@ void main() {
 
         expect(
           writer.topMatchGenericNArg(item1),
-          'R Function(WeatherSunny/*!*/ sunny)/*?*/ sunny',
+          'R Function(HiSunny/*!*/ sunny)/*?*/ sunny',
         );
       });
     });
@@ -166,7 +166,7 @@ void main() {
 
         expect(
           writer.topMatchVoidNNArg(item1),
-          'required void Function(WeatherSunny sunny) sunny',
+          'required void Function(HiSunny sunny) sunny',
         );
       });
 
@@ -179,7 +179,7 @@ void main() {
 
         expect(
           writer.topMatchVoidNNArg(item1),
-          '@required void Function(WeatherSunny/*!*/ sunny)/*!*/ sunny',
+          '@required void Function(HiSunny/*!*/ sunny)/*!*/ sunny',
         );
       });
     });
@@ -216,7 +216,7 @@ void main() {
 
         expect(
           writer.topMatchVoidNArg(item1),
-          'void Function(WeatherSunny sunny)? sunny',
+          'void Function(HiSunny sunny)? sunny',
         );
       });
 
@@ -229,7 +229,7 @@ void main() {
 
         expect(
           writer.topMatchVoidNArg(item1),
-          'void Function(WeatherSunny/*!*/ sunny)/*?*/ sunny',
+          'void Function(HiSunny/*!*/ sunny)/*?*/ sunny',
         );
       });
     });

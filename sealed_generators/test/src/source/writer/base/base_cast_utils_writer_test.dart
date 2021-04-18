@@ -25,7 +25,7 @@ void main() {
 
         expect(
           writer.isSub(item),
-          'is WeatherSunny',
+          'is HiSunny',
         );
       });
 
@@ -36,7 +36,7 @@ void main() {
 
         expect(
           writer.isSub(item),
-          'is WeatherSunny/*!*/',
+          'is HiSunny/*!*/',
         );
       });
     });
@@ -49,7 +49,7 @@ void main() {
 
         expect(
           writer.asSub(item),
-          'as WeatherSunny',
+          'as HiSunny',
         );
       });
 
@@ -60,7 +60,7 @@ void main() {
 
         expect(
           writer.asSub(item),
-          'as WeatherSunny/*!*/',
+          'as HiSunny/*!*/',
         );
       });
     });

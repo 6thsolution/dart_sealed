@@ -104,8 +104,8 @@ void main() {
         expect(
           writer.subCopyDeclaration(item1),
           '@factory\n'
-          'WeatherSunny copy() =>'
-          ' WeatherSunny();',
+          'HiSunny copy() =>'
+          ' HiSunny();',
         );
         expect(
           writer.subCopyDeclaration(item2),

@@ -142,7 +142,7 @@ void main() {
       final item = source.manifest.items[0];
       final writer = _Writer(source);
 
-      expect(writer.subShort(item), 'Sunny');
+      expect(writer.subUpper(item), 'Sunny');
     });
 
     test('method full', () {
@@ -150,7 +150,7 @@ void main() {
       final item = source.manifest.items[0];
       final writer = _Writer(source);
 
-      expect(writer.subFull(item), 'WeatherSunny');
+      expect(writer.subFull(item), 'HiSunny');
     });
 
     test('method lower', () {
@@ -340,7 +340,7 @@ void main() {
 
         expect(
           writer.subDec(item1),
-          equals('WeatherSunny'),
+          equals('HiSunny'),
         );
       });
 
@@ -352,7 +352,7 @@ void main() {
 
         expect(
           writer.subDec(item1),
-          equals('ResultSuccess<T extends num>'),
+          equals('MySuccess<T extends num>'),
         );
       });
     });
@@ -366,7 +366,7 @@ void main() {
 
         expect(
           writer.subCall(item1),
-          equals('WeatherSunny'),
+          equals('HiSunny'),
         );
       });
 
@@ -378,7 +378,7 @@ void main() {
 
         expect(
           writer.subCall(item1),
-          equals('ResultSuccess<T>'),
+          equals('MySuccess<T>'),
         );
       });
     });

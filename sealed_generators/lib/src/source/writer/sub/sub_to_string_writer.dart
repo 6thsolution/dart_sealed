@@ -22,7 +22,7 @@ class SubToStringWriter extends BaseUtilsWriter {
   String subToString(ManifestItem item) => [
         annotationOverride,
         [
-          "String$nn toString() => '$top.${subShort(item)}",
+          "String$nn toString() => '$top.${subUpper(item)}",
           item.fields.map(subToStringPart).joinArgsSimple().withParenthesis(),
           "';",
         ].joinParts(),

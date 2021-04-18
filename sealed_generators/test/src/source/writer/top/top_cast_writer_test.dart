@@ -20,7 +20,7 @@ void main() {
 
       expect(
         writer.topCastIs(item),
-        'bool isSunny() => this is WeatherSunny;',
+        'bool isSunny() => this is HiSunny;',
       );
     });
 
@@ -46,7 +46,7 @@ void main() {
 
         expect(
           writer.topCastAs(item),
-          'WeatherSunny asSunny() => this as WeatherSunny;',
+          'HiSunny asSunny() => this as HiSunny;',
         );
       });
 
@@ -57,7 +57,7 @@ void main() {
 
         expect(
           writer.topCastAs(item),
-          'WeatherSunny/*!*/ asSunny() => this as WeatherSunny/*!*/;',
+          'HiSunny/*!*/ asSunny() => this as HiSunny/*!*/;',
         );
       });
     });
@@ -84,9 +84,9 @@ void main() {
 
         expect(
           writer.topCastAsOrNull(item),
-          'WeatherSunny? asSunnyOrNull() {\n'
+          'HiSunny? asSunnyOrNull() {\n'
           'final weather = this;\n'
-          'return weather is WeatherSunny ? weather : null;\n'
+          'return weather is HiSunny ? weather : null;\n'
           '}',
         );
       });
@@ -98,9 +98,9 @@ void main() {
 
         expect(
           writer.topCastAsOrNull(item),
-          'WeatherSunny/*?*/ asSunnyOrNull() {\n'
+          'HiSunny/*?*/ asSunnyOrNull() {\n'
           'final weather = this;\n'
-          'return weather is WeatherSunny/*!*/ ? weather : null;\n'
+          'return weather is HiSunny/*!*/ ? weather : null;\n'
           '}',
         );
       });

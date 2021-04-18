@@ -20,7 +20,7 @@ void main() {
       final writer = TopMatchBranchPartialWriter(source);
       final i = writer.topMatchBranchPartialIf(item1);
 
-      expect(i.condition, 'weather is WeatherSunny');
+      expect(i.condition, 'weather is HiSunny');
       expect(i.code, 'sunny?.call(weather);');
     });
 
@@ -57,11 +57,11 @@ void main() {
       expect(
         writer.topMatchBranchPartialBody(),
         'final weather = this;\n'
-        'if (weather is WeatherSunny) {'
+        'if (weather is HiSunny) {'
             'sunny?.call(weather);}\n'
         'else if (weather is WeatherRainy) {'
             'rainy?.call(weather);}\n'
-        'else if (weather is WeatherWindy) {'
+        'else if (weather is HelloWindy) {'
             'windy?.call(weather);}\n'
         'else {throw AssertionError();}',
       );
@@ -74,9 +74,9 @@ void main() {
       expect(
         writer.topMatchBranchPartialStart(),
         'void branchPartial({'
-        'void Function(WeatherSunny sunny)? sunny,'
+        'void Function(HiSunny sunny)? sunny,'
         ' void Function(WeatherRainy rainy)? rainy,'
-        ' void Function(WeatherWindy windy)? windy,'
+        ' void Function(HelloWindy windy)? windy,'
         '})',
       );
     });

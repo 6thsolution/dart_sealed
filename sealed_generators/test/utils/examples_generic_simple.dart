@@ -11,7 +11,7 @@ Manifest manifest2(Equality equality) => Manifest(
       items: [
         ManifestItem(
           shortName: 'Success',
-          fullName: 'ResultSuccess',
+          fullName: 'MySuccess',
           equality: equality,
           fields: [
             ManifestField(
@@ -66,7 +66,7 @@ final code2Distinct = code2(Equality.distinct);
 String code2(Equality equality) => '''@Sealed()
 abstract class _Result\$<T extends num>
 {
-@Meta(name: 'ResultSuccess', equality: $equality)
+@Meta(name: 'MySuccess', equality: $equality)
 void success(T data);
 
 @Meta(name: 'HelloError', equality: $equality)
@@ -79,7 +79,7 @@ final doc2Distinct = doc2('distinct');
 
 String doc2(String equality) => '''/// Result<T extends num> {
 /// 
-/// (ResultSuccess success){T data} with $equality equality
+/// (MySuccess success){T data} with $equality equality
 /// 
 /// (HelloError error){Object exception} with $equality equality
 /// 

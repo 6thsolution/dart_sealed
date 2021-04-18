@@ -93,7 +93,7 @@ void main() {
         expect(
           writer.topBuilder(item1),
           '@factory\n'
-          'static WeatherSunny sunny() => WeatherSunny();',
+          'static HiSunny sunny() => HiSunny();',
         );
         expect(
           writer.topBuilder(item2),
@@ -104,9 +104,9 @@ void main() {
         expect(
           writer.topBuilder(item3),
           '@factory\n'
-          'static WeatherWindy windy'
+          'static HelloWindy windy'
           '({required double velocity, required double? angle,})'
-          ' => WeatherWindy'
+          ' => HelloWindy'
           '(velocity: velocity, angle: angle,);',
         );
       });
@@ -124,7 +124,7 @@ void main() {
         expect(
           writer.topBuilder(item1),
           '@factory\n'
-          'static WeatherSunny/*!*/ sunny() => WeatherSunny();',
+          'static HiSunny/*!*/ sunny() => HiSunny();',
         );
         expect(
           writer.topBuilder(item2),
@@ -135,9 +135,9 @@ void main() {
         expect(
           writer.topBuilder(item3),
           '@factory\n'
-          'static WeatherWindy/*!*/ windy'
+          'static HelloWindy/*!*/ windy'
           '({@required double/*!*/ velocity, @required double/*?*/ angle,})'
-          ' => WeatherWindy'
+          ' => HelloWindy'
           '(velocity: velocity, angle: angle,);',
         );
       });

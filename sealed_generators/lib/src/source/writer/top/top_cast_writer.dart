@@ -14,7 +14,7 @@ class TopCastWriter extends BaseCastUtilsWriter {
   @nonVirtual
   @visibleForTesting
   String topCastIs(ManifestItem item) =>
-      'bool is${subShort(item)}() => this ${isSub(item)};';
+      'bool is${subUpper(item)}() => this ${isSub(item)};';
 
   @nonVirtual
   @visibleForTesting
@@ -24,7 +24,7 @@ class TopCastWriter extends BaseCastUtilsWriter {
   @nonVirtual
   @visibleForTesting
   String topCastAs(ManifestItem item) =>
-      '${subCall(item)}$nn as${subShort(item)}() =>'
+      '${subCall(item)}$nn as${subUpper(item)}() =>'
       ' this ${asSub(item)};';
 
   @nonVirtual
@@ -35,7 +35,7 @@ class TopCastWriter extends BaseCastUtilsWriter {
   @nonVirtual
   @visibleForTesting
   String topCastAsOrNull(ManifestItem item) => [
-        '${subCall(item)}$n as${subShort(item)}OrNull() {',
+        '${subCall(item)}$n as${subUpper(item)}OrNull() {',
         initThisValue(),
         'return $topLower ${isSub(item)} ? $topLower : null;',
         '}',
