@@ -162,6 +162,36 @@ class Meta {
   String toString() => 'Meta(name: $name, equality: $equality)';
 }
 
+/// Override type of a field in a data class.
+/// The regular specified type has no effect so it's better
+/// not to specify it.
+///
+/// this is needed when you are using one sealed generated type
+/// in another.
+///
+/// for example:
+/// ```dart
+/// @Sealed(equality: Equality.data)
+/// abstract class _Weather {
+///   void rainy(@WithType('int') rain);
+/// }
+/// ```
+@sealed
+@Target({TargetKind.parameter})
+class WithType {
+  /// type name.
+  /// for example "int?", "double" or "Result<WeatherData>".
+  ///
+  /// all types will be nullable in legacy projects.
+  final String type;
+
+  @literal
+  const WithType(this.type);
+
+  @override
+  String toString() => 'WithType(type: $type)';
+}
+
 /// different equality (and hash code) implementations
 /// for generated data classes.
 enum Equality {

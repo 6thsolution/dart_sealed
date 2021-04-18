@@ -82,4 +82,19 @@ void main() {
       );
     });
   });
+
+  group('annotation @WithType', () {
+    test('initialization', () {
+      const a = WithType('double?');
+      expect(a.type, equals('double?'));
+      expect(
+        a.toString(),
+        stringContainsInOrder([
+          'WithType',
+          'type',
+          'double?',
+        ]),
+      );
+    });
+  });
 }

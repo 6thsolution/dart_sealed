@@ -79,7 +79,7 @@ The generated code will look like: (the following code is summarised)
 ```dart
 abstract class Weather {
   static WeatherRainy rainy({required int rain}) =>
-      WeatherRainy(rain: rain);
+          WeatherRainy(rain: rain);
 
   bool isRainy() => this is WeatherRainy;
 
@@ -177,10 +177,10 @@ class WeatherRainy extends Weather with EquatableMixin {
   final int rain;
 
   WeatherRainy copy({int? rain}) =>
-      WeatherRainy(rain: rain ?? this.rain);
+          WeatherRainy(rain: rain ?? this.rain);
 
   @override
-  String toString() => 'Weather.Rainy(rain: $rain)';
+  String toString() => 'Weather.rainy(rain: $rain)';
 
   @override
   List<Object?> get props => [rain];
@@ -230,6 +230,27 @@ abstract class _Result<D extends num, E extends Object> {
 }
 ```
 
+## Changing sub class name and equality
+
+All sub classes have equality same as manifest equality, and their generated class name by default is concatenation of
+manifest name and method name. You can change these by using `@Meta` annotation.
+
+For example:
+
+```dart
+@Sealed(equality: Equality.data)
+abstract class _Weather {
+  @Meta(name: 'BestWeather')
+  void sunny();
+
+  @Meta(equality: Equality.identity)
+  void rainy(int rain);
+
+  @Meta(name: 'WorstWeather', equality: Equality.distinct)
+  void windy(double velocity, double? angle);
+}
+```
+
 ## Using one sealed type in another
 
 Consider you have a sealed result type like:
@@ -255,33 +276,15 @@ generated at build time.
 
 You have two options:
 
-First you can override all dynamic types for a method. like:
+You should use `@WithType` annotation.
 
 ```dart
 @Sealed()
 abstract class _WeatherInfo {
+  void fromInternet(@WithType('Result<WeatherData>') result);
 
-// instead of `dynamic result` you can also use
-// `Result<WeatherData> result` and even not
-// specify types.
-
-  @SealedOverrideDynamic('Result<WeatherData>')
-  void fromInternet(dynamic result);
-}
-```
-
-First you can override types by field names for a method. This way you can override multiple types. like:
-
-```dart
-@Sealed()
-abstract class _WeatherInfo {
-
-// instead of `dynamic result` you can also use
-// `Result<WeatherData> result` and even not
-// specify types.
-
-  @SealedOverrideNamed({'result': 'Result<WeatherData>'})
-  void fromInternet(dynamic result);
+  // you can also have nullable types.
+  void nullable(@WithType('Result<WeatherData>?') result);
 }
 ```
 
@@ -313,32 +316,37 @@ For example for:
 ```
 @superEnum
 enum _Weather {
-@object
-Sunny,
-@Data(fields: [
-  DataField<int>('rain'),
-])
-Rainy,
-@Data(fields: [
-  DataField<double>('velocity'),
-  DataField<double>('angle'),
-])
-Windy,
+  @object
+  Sunny,
+  @Data(fields: [
+    DataField<int>('rain'),
+  ])
+  Rainy,
+  @Data(fields: [
+    DataField<double>('velocity'),
+    DataField<double>('angle'),
+  ])
+  Windy,
 }
 ```
 
 It will generate sealed classes and the following manifest class.
 
 ```dart
-@Sealed(equality: Equality.data)
+@Sealed()
 abstract class _Weather$ {
+  @Meta(name: 'Sunny', equality: Equality.data)
   void sunny();
 
-  void rainy(int /*?*/ rain);
+  @Meta(name: 'Rainy', equality: Equality.data)
+  void rainy(int? rain);
 
-  void windy(double /*?*/ velocity, double /*?*/ angle);
+  @Meta(name: 'Windy', equality: Equality.data)
+  void windy(double? velocity, double? angle);
 }
 ```
+
+It is better to try not to use `@Meta` annotations.
 
 ## Migrating to null-safety
 
