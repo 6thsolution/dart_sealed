@@ -5,6 +5,7 @@ import 'package:sealed_generators/src/source/source.dart';
 import 'package:sealed_generators/src/source/writer/base/base_utils_writer.dart';
 import 'package:sealed_generators/src/source/writer/sub/sub_constructor_writer.dart';
 import 'package:sealed_generators/src/source/writer/sub/sub_copy_writer.dart';
+import 'package:sealed_generators/src/source/writer/sub/sub_doc_writer.dart';
 import 'package:sealed_generators/src/source/writer/sub/sub_equatable_writer.dart';
 import 'package:sealed_generators/src/source/writer/sub/sub_field_writer.dart';
 import 'package:sealed_generators/src/source/writer/sub/sub_to_string_writer.dart';
@@ -20,6 +21,7 @@ class SubWriter extends BaseUtilsWriter {
         subFieldWriter = SubFieldWriter(source),
         subConstructorWriter = SubConstructorWriter(source),
         subEquatableWriter = SubEquatableWriter(source),
+        subDocWriter = SubDocWriter(source),
         super(source);
 
   @nonVirtual
@@ -42,6 +44,10 @@ class SubWriter extends BaseUtilsWriter {
   @visibleForTesting
   final SubEquatableWriter subEquatableWriter;
 
+  @nonVirtual
+  @visibleForTesting
+  final SubDocWriter subDocWriter;
+
   /// has nullable fields
   @protected
   @nonVirtual
@@ -54,9 +60,12 @@ class SubWriter extends BaseUtilsWriter {
   @nonVirtual
   @visibleForTesting
   String subClassStart(ManifestItem item) => [
-        'class ${subDec(item)} extends $topCall',
-        if (item.equality == Equality.data) ' with EquatableMixin',
-      ].joinParts();
+        subDocWriter.write(item),
+        [
+          'class ${subDec(item)} extends $topCall',
+          if (item.equality == Equality.data) ' with EquatableMixin',
+        ].joinParts(),
+      ].joinLines();
 
   /// bool operator ==(Object other) => false;
   @nonVirtual

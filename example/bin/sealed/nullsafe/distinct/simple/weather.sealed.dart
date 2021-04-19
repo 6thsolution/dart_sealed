@@ -6,13 +6,13 @@ part of 'weather.dart';
 // Generator: sealed_generators
 // **************************************************************************
 
-/// Weather {
+/// [Weather] {
 ///
-/// (WeatherSunny sunny){} with distinct equality
+/// ([WeatherSunny] sunny){} with distinct equality
 ///
-/// (WeatherRainy rainy){int rain} with distinct equality
+/// ([WeatherRainy] rainy){[int] rain} with distinct equality
 ///
-/// (WeatherWindy windy){double velocity, double? angle} with distinct equality
+/// ([WeatherWindy] windy){[double] velocity, [double?] angle} with distinct equality
 ///
 /// }
 @SealedManifest(_Weather)
@@ -222,6 +222,9 @@ abstract class Weather {
   }
 }
 
+/// (([WeatherSunny] : [Weather]) sunny){}
+///
+/// with distinct equality
 class WeatherSunny extends Weather {
   WeatherSunny();
 
@@ -235,6 +238,9 @@ class WeatherSunny extends Weather {
   bool operator ==(Object other) => false;
 }
 
+/// (([WeatherRainy] : [Weather]) rainy){[int] rain}
+///
+/// with distinct equality
 class WeatherRainy extends Weather {
   WeatherRainy({
     required this.rain,
@@ -257,6 +263,9 @@ class WeatherRainy extends Weather {
   bool operator ==(Object other) => false;
 }
 
+/// (([WeatherWindy] : [Weather]) windy){[double] velocity, [double?] angle}
+///
+/// with distinct equality
 class WeatherWindy extends Weather {
   WeatherWindy({
     required this.velocity,

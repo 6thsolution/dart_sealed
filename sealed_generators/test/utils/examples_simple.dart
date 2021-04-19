@@ -84,12 +84,12 @@ final doc1Data = doc1('data');
 final doc1Identity = doc1('identity');
 final doc1Distinct = doc1('distinct');
 
-String doc1(String equality) => '''/// Weather {
+String doc1(String equality) => '''/// [Weather] {
 /// 
-/// (HiSunny sunny){} with $equality equality
+/// ([HiSunny] sunny){} with $equality equality
 /// 
-/// (WeatherRainy rainy){int rain} with $equality equality
+/// ([WeatherRainy] rainy){[int] rain} with $equality equality
 /// 
-/// (HelloWindy windy){double velocity, double? angle} with $equality equality
+/// ([HelloWindy] windy){[double] velocity, [double?] angle} with $equality equality
 /// 
 /// }''';

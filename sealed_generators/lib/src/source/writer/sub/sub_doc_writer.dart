@@ -5,40 +5,35 @@ import 'package:sealed_generators/src/source/source.dart';
 import 'package:sealed_generators/src/source/writer/base/base_writer.dart';
 import 'package:sealed_generators/src/utils/string_utils.dart';
 
-/// write docs for base class
+/// write docs for sub classes
 @sealed
 @immutable
-class TopDocWriter extends BaseWriter {
+class SubDocWriter extends BaseWriter {
   @visibleForTesting
   static const equalityNames = ['data', 'identity', 'distinct'];
 
-  const TopDocWriter(Source source) : super(source);
+  const SubDocWriter(Source source) : super(source);
 
+  /// ex. ((WeatherRainy : Weather) rainy){int rain} with data equality
   @nonVirtual
-  String write() => [
-        '${_topDoc()} {',
-        ..._itemsDoc(),
-        '}',
+  String write(ManifestItem item) => [
+        [
+          [
+            [
+              item.name.withBraKet(),
+              ' : ',
+              source.manifest.name.withBraKet(),
+            ].joinParts().withParenthesis(),
+            _paramsDoc(),
+            ' ',
+            item.shortName,
+          ].joinParts().withParenthesis(),
+          _fieldsDoc(item),
+        ].joinParts(),
+        'with ${_equality(item.equality)} equality'
       ].insertEmptyLinesBetween().addDocComments().joinLines();
 
   String _equality(Equality equality) => equalityNames[equality.index];
-
-  Iterable<String> _itemsDoc() => source.manifest.items.map(_itemDoc);
-
-  String _itemDoc(ManifestItem item) => [
-        [
-          item.name.withBraKet(),
-          ' ',
-          item.shortName,
-        ].joinParts().withParenthesis(),
-        _fieldsDoc(item),
-        ' with ${_equality(item.equality)} equality'
-      ].joinParts();
-
-  String _topDoc() => [
-        source.manifest.name.withBraKet(),
-        _paramsDoc(),
-      ].joinParts();
 
   String _fieldsDoc(ManifestItem item) =>
       item.fields.map(_fieldDoc).joinArgsSimple().withBraces();

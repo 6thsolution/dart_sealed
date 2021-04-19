@@ -67,4 +67,7 @@ extension StringUtils on String {
 
   /// add '/// '
   String addDocComment() => '/// $this';
+
+  /// add []
+  String withBraKet() => '[$this]';
 }

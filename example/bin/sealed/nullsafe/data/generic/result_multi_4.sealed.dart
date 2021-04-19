@@ -6,13 +6,13 @@ part of 'result_multi_4.dart';
 // Generator: sealed_generators
 // **************************************************************************
 
-/// Result<D extends num?, E extends Object?> {
+/// [Result]<[D] extends [num?], [E] extends [Object?]> {
 ///
-/// (ResultSuccess success){D? data} with data equality
+/// ([ResultSuccess] success){[D?] data} with data equality
 ///
-/// (ResultError error){E? exception} with data equality
+/// ([ResultError] error){[E?] exception} with data equality
 ///
-/// (ResultMixed mixed){D? data, E? exception} with data equality
+/// ([ResultMixed] mixed){[D?] data, [E?] exception} with data equality
 ///
 /// }
 @SealedManifest(_Result)
@@ -227,6 +227,9 @@ abstract class Result<D extends num?, E extends Object?> {
   }
 }
 
+/// (([ResultSuccess] : [Result])<[D] extends [num?], [E] extends [Object?]> success){[D?] data}
+///
+/// with data equality
 class ResultSuccess<D extends num?, E extends Object?> extends Result<D, E>
     with EquatableMixin {
   ResultSuccess({
@@ -244,6 +247,9 @@ class ResultSuccess<D extends num?, E extends Object?> extends Result<D, E>
       ];
 }
 
+/// (([ResultError] : [Result])<[D] extends [num?], [E] extends [Object?]> error){[E?] exception}
+///
+/// with data equality
 class ResultError<D extends num?, E extends Object?> extends Result<D, E>
     with EquatableMixin {
   ResultError({
@@ -261,6 +267,9 @@ class ResultError<D extends num?, E extends Object?> extends Result<D, E>
       ];
 }
 
+/// (([ResultMixed] : [Result])<[D] extends [num?], [E] extends [Object?]> mixed){[D?] data, [E?] exception}
+///
+/// with data equality
 class ResultMixed<D extends num?, E extends Object?> extends Result<D, E>
     with EquatableMixin {
   ResultMixed({

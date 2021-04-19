@@ -22,13 +22,13 @@ abstract class _Weather$ {
   void windy(double? velocity, double? angle);
 }
 
-/// Weather {
+/// [Weather] {
 ///
-/// (Sunny sunny){} with data equality
+/// ([Sunny] sunny){} with data equality
 ///
-/// (Rainy rainy){int? rain} with data equality
+/// ([Rainy] rainy){[int?] rain} with data equality
 ///
-/// (Windy windy){double? velocity, double? angle} with data equality
+/// ([Windy] windy){[double?] velocity, [double?] angle} with data equality
 ///
 /// }
 @SealedManifest(_Weather)
@@ -238,6 +238,9 @@ abstract class Weather {
   }
 }
 
+/// (([Sunny] : [Weather]) sunny){}
+///
+/// with data equality
 class Sunny extends Weather with EquatableMixin {
   Sunny();
 
@@ -251,6 +254,9 @@ class Sunny extends Weather with EquatableMixin {
   List<Object?> get props => [];
 }
 
+/// (([Rainy] : [Weather]) rainy){[int?] rain}
+///
+/// with data equality
 class Rainy extends Weather with EquatableMixin {
   Rainy({
     required this.rain,
@@ -267,6 +273,9 @@ class Rainy extends Weather with EquatableMixin {
       ];
 }
 
+/// (([Windy] : [Weather]) windy){[double?] velocity, [double?] angle}
+///
+/// with data equality
 class Windy extends Weather with EquatableMixin {
   Windy({
     required this.velocity,

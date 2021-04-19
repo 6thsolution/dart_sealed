@@ -37,7 +37,10 @@ void main() {
 
         expect(
           writer.subClassStart(item2),
-          'class WeatherRainy extends Weather with EquatableMixin',
+          stringContainsInOrder([
+            writer.subDocWriter.write(item2),
+            'class WeatherRainy extends Weather with EquatableMixin',
+          ]),
         );
       });
 
@@ -49,7 +52,10 @@ void main() {
 
         expect(
           writer.subClassStart(item2),
-          'class WeatherRainy extends Weather',
+            stringContainsInOrder([
+              writer.subDocWriter.write(item2),
+              'class WeatherRainy extends Weather',
+            ]),
         );
       });
 
@@ -61,7 +67,10 @@ void main() {
 
         expect(
           writer.subClassStart(item2),
-          'class WeatherRainy extends Weather',
+          stringContainsInOrder([
+            writer.subDocWriter.write(item2),
+            'class WeatherRainy extends Weather',
+          ]),
         );
       });
     });
@@ -100,12 +109,10 @@ void main() {
         expect(
           writer.subClass(item2),
           allOf(
-            startsWith(
-              'class WeatherRainy extends Weather'
-              ' with EquatableMixin',
-            ),
             endsWith('}'),
             stringContainsInOrder([
+              writer.subDocWriter.write(item2),
+              'class WeatherRainy extends Weather with EquatableMixin',
               '{',
               'WeatherRainy({required this.rain,});',
               'final int rain;',

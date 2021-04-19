@@ -20,11 +20,11 @@ abstract class _Result$<Generic extends Object /*?*/ > {
   void error(Object /*?*/ exception);
 }
 
-/// Result<Generic extends Object?> {
+/// [Result]<[Generic] extends [Object?]> {
 ///
-/// (Success success){Generic? data} with data equality
+/// ([Success] success){[Generic?] data} with data equality
 ///
-/// (Error error){Object? exception} with data equality
+/// ([Error] error){[Object?] exception} with data equality
 ///
 /// }
 @SealedManifest(_Result)
@@ -200,6 +200,9 @@ abstract class Result<Generic extends Object /*?*/ > {
   }
 }
 
+/// (([Success] : [Result])<[Generic] extends [Object?]> success){[Generic?] data}
+///
+/// with data equality
 class Success<Generic extends Object /*?*/ > extends Result<Generic>
     with EquatableMixin {
   Success({
@@ -217,6 +220,9 @@ class Success<Generic extends Object /*?*/ > extends Result<Generic>
       ];
 }
 
+/// (([Error] : [Result])<[Generic] extends [Object?]> error){[Object?] exception}
+///
+/// with data equality
 class Error<Generic extends Object /*?*/ > extends Result<Generic>
     with EquatableMixin {
   Error({

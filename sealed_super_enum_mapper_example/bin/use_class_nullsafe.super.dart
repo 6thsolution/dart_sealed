@@ -19,11 +19,11 @@ abstract class _Weather$ {
   void rainy();
 }
 
-/// Weather {
+/// [Weather] {
 ///
-/// (Sunny sunny){} with data equality
+/// ([Sunny] sunny){} with data equality
 ///
-/// (Rainy rainy){} with data equality
+/// ([Rainy] rainy){} with data equality
 ///
 /// }
 @SealedManifest(_Weather)
@@ -182,6 +182,9 @@ abstract class Weather {
   }
 }
 
+/// (([Sunny] : [Weather]) sunny){}
+///
+/// with data equality
 class Sunny extends Weather with EquatableMixin {
   Sunny();
 
@@ -195,6 +198,9 @@ class Sunny extends Weather with EquatableMixin {
   List<Object?> get props => [];
 }
 
+/// (([Rainy] : [Weather]) rainy){}
+///
+/// with data equality
 class Rainy extends Weather with EquatableMixin {
   Rainy();
 

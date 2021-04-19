@@ -77,10 +77,10 @@ final doc2Data = doc2('data');
 final doc2Identity = doc2('identity');
 final doc2Distinct = doc2('distinct');
 
-String doc2(String equality) => '''/// Result<T extends num> {
+String doc2(String equality) => '''/// [Result]<[T] extends [num]> {
 /// 
-/// (MySuccess success){T data} with $equality equality
+/// ([MySuccess] success){[T] data} with $equality equality
 /// 
-/// (HelloError error){Object exception} with $equality equality
+/// ([HelloError] error){[Object] exception} with $equality equality
 /// 
 /// }''';

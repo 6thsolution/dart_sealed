@@ -86,5 +86,9 @@ void main() {
     test('method addDocComment', () {
       expect('a'.addDocComment(), equals('/// a'));
     });
+
+    test('method withBraKet', () {
+      expect('abc'.withBraKet(), equals('[abc]'));
+    });
   });
 }

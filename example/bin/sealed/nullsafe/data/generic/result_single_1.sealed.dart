@@ -6,11 +6,11 @@ part of 'result_single_1.dart';
 // Generator: sealed_generators
 // **************************************************************************
 
-/// Result<D extends num> {
+/// [Result]<[D] extends [num]> {
 ///
-/// (ResultSuccess success){D data} with data equality
+/// ([ResultSuccess] success){[D] data} with data equality
 ///
-/// (ResultError error){Object exception} with data equality
+/// ([ResultError] error){[Object] exception} with data equality
 ///
 /// }
 @SealedManifest(_Result)
@@ -179,6 +179,9 @@ abstract class Result<D extends num> {
   }
 }
 
+/// (([ResultSuccess] : [Result])<[D] extends [num]> success){[D] data}
+///
+/// with data equality
 class ResultSuccess<D extends num> extends Result<D> with EquatableMixin {
   ResultSuccess({
     required this.data,
@@ -195,6 +198,9 @@ class ResultSuccess<D extends num> extends Result<D> with EquatableMixin {
       ];
 }
 
+/// (([ResultError] : [Result])<[D] extends [num]> error){[Object] exception}
+///
+/// with data equality
 class ResultError<D extends num> extends Result<D> with EquatableMixin {
   ResultError({
     required this.exception,

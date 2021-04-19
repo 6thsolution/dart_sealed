@@ -7,13 +7,13 @@ part of 'meta.dart';
 // Generator: sealed_generators
 // **************************************************************************
 
-/// Weather {
+/// [Weather] {
 ///
-/// (WeatherSunny sunny){} with data equality
+/// ([WeatherSunny] sunny){} with data equality
 ///
-/// (BadWeather rainy){int? rain} with data equality
+/// ([BadWeather] rainy){[int?] rain} with data equality
 ///
-/// (VeryBadWeather windy){double? velocity, double? angle} with distinct equality
+/// ([VeryBadWeather] windy){[double?] velocity, [double?] angle} with distinct equality
 ///
 /// }
 @SealedManifest(_Weather)
@@ -232,6 +232,9 @@ abstract class Weather {
   }
 }
 
+/// (([WeatherSunny] : [Weather]) sunny){}
+///
+/// with data equality
 class WeatherSunny extends Weather with EquatableMixin {
   WeatherSunny();
 
@@ -245,6 +248,9 @@ class WeatherSunny extends Weather with EquatableMixin {
   List<Object /*?*/ > /*!*/ get props => [];
 }
 
+/// (([BadWeather] : [Weather]) rainy){[int?] rain}
+///
+/// with data equality
 class BadWeather extends Weather with EquatableMixin {
   BadWeather({
     @required this.rain,
@@ -261,6 +267,9 @@ class BadWeather extends Weather with EquatableMixin {
       ];
 }
 
+/// (([VeryBadWeather] : [Weather]) windy){[double?] velocity, [double?] angle}
+///
+/// with distinct equality
 class VeryBadWeather extends Weather {
   VeryBadWeather({
     @required this.velocity,
