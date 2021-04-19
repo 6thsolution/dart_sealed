@@ -274,8 +274,6 @@ abstract class _WeatherInfo {
 If you generate for `WeatherInfo` you will see that result has `dynamic` type. It is because `Result` itself is not code
 generated at build time.
 
-You have two options:
-
 You should use `@WithType` annotation.
 
 ```dart
