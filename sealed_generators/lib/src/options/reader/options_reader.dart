@@ -5,7 +5,7 @@ import 'package:sealed_generators/src/options/options.dart';
 import 'package:sealed_generators/src/options/reader/null_safety_reader.dart';
 import 'package:source_gen/source_gen.dart';
 
-/// todo test read
+/// options reader
 @sealed
 @immutable
 class OptionsReader {

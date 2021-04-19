@@ -5,15 +5,13 @@ import 'package:meta/meta.dart';
 import 'package:sealed_annotations/sealed_annotations.dart';
 import 'package:sealed_generators/src/exceptions/exceptions.dart';
 import 'package:sealed_generators/src/manifest/manifest.dart';
-import 'package:sealed_generators/src/manifest/reader/override/dyn/overrider.dart';
-import 'package:sealed_generators/src/manifest/reader/override/dyn/reader.dart';
-import 'package:sealed_generators/src/manifest/reader/override/named/overrider.dart';
-import 'package:sealed_generators/src/manifest/reader/override/named/reader.dart';
 import 'package:sealed_generators/src/options/options.dart';
+import 'package:sealed_generators/src/utils/list_utils.dart';
 import 'package:sealed_generators/src/utils/name_utils.dart';
 import 'package:sealed_generators/src/utils/type_utils.dart';
+import 'package:source_gen/source_gen.dart';
 
-/// todo test read
+/// manifest reader built by manifest reader builder
 @sealed
 class ManifestReader {
   ManifestReader({
@@ -21,8 +19,7 @@ class ManifestReader {
     required this.name,
     required this.defaultEquality,
     required this.cls,
-  })   : todReader = TypeOverrideDynamicReader(options),
-        tonReader = TypeOverrideNamedReader(options);
+  });
 
   /// options.
   final Options options;
@@ -35,12 +32,6 @@ class ManifestReader {
 
   /// checked class element for manifest
   final ClassElement cls;
-
-  @visibleForTesting
-  final TypeOverrideDynamicReader todReader;
-
-  @visibleForTesting
-  final TypeOverrideNamedReader tonReader;
 
   /// read manifest
   Manifest read() => Manifest(
@@ -74,48 +65,20 @@ class ManifestReader {
   /// extract field from method argument without overrides
   ///
   /// assume legacy types as nullable
-  ManifestField _extractFieldBase(ParameterElement arg) {
+  ManifestField _extractField(ParameterElement arg) {
     require(
       arg.name.isGenFieldName(),
       () => 'malformed method argument name "${arg.name}"',
     );
     return ManifestField(
       name: arg.name,
-      type: _extractManifestType(arg.type),
+      type: _readOverriddenTypeOrNull(arg) ?? _extractManifestType(arg.type),
     );
-  }
-
-  /// extract fields from method without overrides
-  List<ManifestField> _extractFieldsBase(MethodElement method) =>
-      method.parameters.map(_extractFieldBase).toList();
-
-  /// extract and apply dynamic overrides to fields if needed
-  List<ManifestField> _applyFieldsDynamicOverrides(
-    MethodElement method,
-    List<ManifestField> fields,
-  ) {
-    final tod = todReader.readOrNull(method);
-    return tod != null ? TypeOverriderDynamic(tod).apply(fields) : fields;
-  }
-
-  /// extract and apply named overrides to fields if needed
-  List<ManifestField> _applyFieldsNamedOverrides(
-    MethodElement method,
-    List<ManifestField> fields,
-  ) {
-    final ton = tonReader.readOrNull(method);
-    return ton != null ? TypeOverriderNamed(ton).apply(fields) : fields;
   }
 
   /// extract fields from method
   List<ManifestField> _extractFields(MethodElement method) =>
-      _applyFieldsNamedOverrides(
-        method,
-        _applyFieldsDynamicOverrides(
-          method,
-          _extractFieldsBase(method),
-        ),
-      );
+      method.parameters.map(_extractField).toList();
 
   /// extract item from method
   ManifestItem _extractItem(MethodElement method) {
@@ -132,11 +95,11 @@ class ManifestReader {
       () => 'method "${method.name}" can not have type parameters',
     );
     final lower = _extractShortSubName(method);
-    final defaultFull = _defaultFullName(lower);
+    final meta = _readMeta(method);
     return ManifestItem(
       shortName: lower,
-      name: defaultFull,
-      equality: defaultEquality,
+      name: meta.name ?? _defaultFullName(lower),
+      equality: meta.equality ?? defaultEquality,
       fields: _extractFields(method),
     );
   }
@@ -172,4 +135,78 @@ class ManifestReader {
     name: 'Object',
     isNullable: true,
   );
+
+  /// filter metadata by class name
+  List<ConstantReader> _filterMetadataByName(
+    List<ElementAnnotation> metadata,
+    String metaName,
+  ) =>
+      metadata
+          .map((e) => e.computeConstantValue())
+          .where((e) =>
+              e?.type?.getDisplayString(withNullability: false) == metaName)
+          .map((e) => ConstantReader(e))
+          .toList();
+
+  /// [Meta] reader for an item or null if not present
+  ConstantReader? _metaReaderOrNull(MethodElement method) =>
+      _filterMetadataByName(method.metadata, 'Meta').firstOrNull;
+
+  /// read equality from [Equality] object
+  Equality? _readMetaEqualityNullable(ConstantReader obj) {
+    final eq = obj.read('equality');
+    return eq.isNull ? null : _readEquality(eq);
+  }
+
+  /// read equality from enum object
+  Equality _readEquality(ConstantReader obj) =>
+      Equality.values[obj.read('index').intValue];
+
+  /// read name from [Meta] object
+  String? _readMetaNameNullable(ConstantReader obj) {
+    final name = obj.read('name');
+    return name.isNull ? null : name.stringValue;
+  }
+
+  /// read [Meta] from reader (which can be nullable)
+  Meta _readMetaFromReader(ConstantReader? obj) => obj != null
+      ? Meta(
+          equality: _readMetaEqualityNullable(obj),
+          name: _readMetaNameNullable(obj),
+        )
+      : const Meta();
+
+  /// read [Meta] for an method or empty Meta if not present
+  Meta _readMeta(MethodElement method) =>
+      _readMetaFromReader(_metaReaderOrNull(method));
+
+  /// read [WithType] for a parameter or null
+  ConstantReader? withTypeReaderOrNull(ParameterElement arg) =>
+      _filterMetadataByName(arg.metadata, 'WithType').firstOrNull;
+
+  /// read type from [WithType] reader or null if not present
+  String? _readTypeOfWithTypeOrNull(ConstantReader? obj) =>
+      obj?.read('type').stringValue;
+
+  /// read overridden type for an argument or null
+  ///
+  /// and fix nullability for legacy projects
+  ManifestType? _readOverriddenTypeOrNull(ParameterElement arg) {
+    final typeName = _readTypeOfWithTypeOrNull(withTypeReaderOrNull(arg));
+    if (typeName != null) {
+      require(
+        typeName.isSimpleOrNullableTypeName(),
+        () => 'malformed overridden type name "$typeName"',
+      );
+      final type = typeName.readType();
+      return options.isNullSafe
+          ? type
+          : ManifestType(
+              name: type.name,
+              isNullable: true,
+            );
+    } else {
+      return null;
+    }
+  }
 }

@@ -6,8 +6,6 @@ import 'package:sealed_generators/src/source/writer/base/base_utils_writer.dart'
 import 'package:sealed_generators/src/utils/string_utils.dart';
 
 /// mimic original manifest code.
-///
-/// todo test methods
 @sealed
 @immutable
 class BackwardWriter extends BaseUtilsWriter {

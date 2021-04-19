@@ -2,13 +2,12 @@ import 'package:analyzer/dart/element/element.dart';
 import 'package:meta/meta.dart';
 import 'package:sealed_annotations/sealed_annotations.dart';
 import 'package:sealed_generators/src/exceptions/exceptions.dart';
-import 'package:sealed_generators/src/manifest/reader/equality_reader.dart';
 import 'package:sealed_generators/src/manifest/reader/manifest_reader.dart';
 import 'package:sealed_generators/src/options/options.dart';
 import 'package:sealed_generators/src/utils/type_utils.dart';
 import 'package:source_gen/src/constants/reader.dart';
 
-/// todo test read
+/// provides options and details not general to the manifest to reader
 @sealed
 class ManifestReaderBuilder {
   /// options.
@@ -18,6 +17,7 @@ class ManifestReaderBuilder {
     required this.options,
   });
 
+  /// build manifest reader
   ManifestReader build(
     Element element,
     ConstantReader annotation,
@@ -33,10 +33,13 @@ class ManifestReaderBuilder {
     );
   }
 
+  /// read default equality from [Sealed] annotations
   Equality _readDefaultEquality(ConstantReader annotation) =>
-      const EqualityReader().readEquality(
-        annotation.read('equality'),
-      );
+      _readEquality(annotation.read('equality'));
+
+  /// read equality from enum object
+  Equality _readEquality(ConstantReader obj) =>
+      Equality.values[obj.read('index').intValue];
 
   /// extract class element
   ClassElement _extractClassElement(Element e) {

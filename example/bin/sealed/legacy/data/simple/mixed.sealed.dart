@@ -309,7 +309,7 @@ class BananaHold extends Banana with EquatableMixin {
 ///
 /// (CoconutTest2 test2){int? x, double? y} with data equality
 ///
-/// (CoconutHold hold){Apple? apple, Banana? banana, int? count, num? meta} with data equality
+/// (CoconutHold hold){Apple? apple, Banana? banana} with data equality
 ///
 /// }
 @SealedManifest(_Coconut)
@@ -338,14 +338,10 @@ abstract class Coconut {
   static CoconutHold /*!*/ hold({
     @required Apple /*?*/ apple,
     @required Banana /*?*/ banana,
-    @required int /*?*/ count,
-    @required num /*?*/ meta,
   }) =>
       CoconutHold(
         apple: apple,
         banana: banana,
-        count: count,
-        meta: meta,
       );
 
   bool isTest1() => this is CoconutTest1 /*!*/;
@@ -583,24 +579,17 @@ class CoconutHold extends Coconut with EquatableMixin {
   CoconutHold({
     @required this.apple,
     @required this.banana,
-    @required this.count,
-    @required this.meta,
   });
 
   final Apple /*?*/ apple;
   final Banana /*?*/ banana;
-  final int /*?*/ count;
-  final num /*?*/ meta;
 
   @override
-  String /*!*/ toString() =>
-      'Coconut.hold(apple: $apple, banana: $banana, count: $count, meta: $meta)';
+  String /*!*/ toString() => 'Coconut.hold(apple: $apple, banana: $banana)';
 
   @override
   List<Object /*?*/ > /*!*/ get props => [
         apple,
         banana,
-        count,
-        meta,
       ];
 }

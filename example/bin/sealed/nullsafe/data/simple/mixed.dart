@@ -4,30 +4,19 @@ part 'mixed.sealed.dart';
 
 @Sealed()
 abstract class _Apple {
-  @SealedOverrideDynamic('Banana?')
-  void hold(banana);
+  void hold(@WithType('Banana?') banana);
 }
 
 @Sealed()
 abstract class _Banana {
-  @SealedOverrideDynamic('Apple')
-  void hold(apple);
+  void hold(@WithType('Apple') apple);
 }
 
 @Sealed()
 abstract class _Coconut {
-  @SealedOverrideDynamic('int?')
-  void test1(dynamic x, double y);
+  void test1(@WithType('int') dynamic x, double y);
 
-  @SealedOverrideNamed({
-    'x': 'int',
-  })
-  void test2(double x, double y);
+  void test2(@WithType('int?') double x, double? y);
 
-  @SealedOverrideDynamic('num')
-  @SealedOverrideNamed({
-    'apple': 'Apple?',
-    'banana': 'Banana',
-  })
-  void hold(dynamic apple, dynamic? banana, int count, dynamic meta);
+  void hold(@WithType('Apple?') apple, @WithType('Banana?') banana);
 }

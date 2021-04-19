@@ -70,59 +70,6 @@ class SealedManifest {
   String toString() => 'SealedManifest(manifest: $manifest)';
 }
 
-/// used to override all dynamic types in a item.
-/// this is needed when you are using one sealed generated type
-/// in another.
-///
-/// if you specify a sealed type in another sealed type it will be
-/// automatically dynamic, since only after code generation time
-/// sealed types are implemented.
-///
-/// this will execute before [SealedOverrideNamed].
-///
-/// see: [SealedOverrideNamed], [Sealed]
-@sealed
-@Target({TargetKind.method})
-class SealedOverrideDynamic {
-  /// type name can have nullability sign.
-  ///
-  /// for example: double or double?
-  ///
-  /// all types will be nullable in legacy projects.
-  final String type;
-
-  @literal
-  const SealedOverrideDynamic(this.type);
-
-  @override
-  String toString() => 'SealedOverrideDynamic(type: $type)';
-}
-
-/// used to override types in a item based on the field names.
-/// this is needed when you are using one sealed generated type
-/// in another.
-///
-/// this will execute after [SealedOverrideDynamic].
-///
-/// see: [SealedOverrideDynamic], [Sealed]
-@sealed
-@Target({TargetKind.method})
-class SealedOverrideNamed {
-  /// map field names to type names.
-  ///
-  /// type names can have nullability sign.
-  /// for example: double or double?
-  ///
-  /// all types will be nullable in legacy projects.
-  final Map<String, String> map;
-
-  @literal
-  const SealedOverrideNamed(this.map);
-
-  @override
-  String toString() => 'SealedOverrideNamed(map: $map)';
-}
-
 /// Override generated class name and
 /// equality for each item.
 ///

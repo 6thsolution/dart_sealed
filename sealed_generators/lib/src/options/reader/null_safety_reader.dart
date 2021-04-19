@@ -2,8 +2,6 @@ import 'package:analyzer/dart/element/element.dart';
 import 'package:meta/meta.dart';
 import 'package:pub_semver/pub_semver.dart';
 
-/// todo test read
-///
 /// read null-safety state
 @sealed
 @immutable

@@ -35,36 +35,6 @@ void main() {
     });
   });
 
-  group('annotation @SealedOverrideDynamic', () {
-    test('initialization', () {
-      const a = SealedOverrideDynamic('double?');
-      expect(a.type, equals('double?'));
-      expect(
-        a.toString(),
-        stringContainsInOrder([
-          'SealedOverrideDynamic',
-          'type',
-          'double?',
-        ]),
-      );
-    });
-  });
-
-  group('annotation @SealedTypeOverride', () {
-    test('initialization', () {
-      const a = SealedOverrideNamed({'name': 'type?'});
-      expect(a.map, equals({'name': 'type?'}));
-      expect(
-        a.toString(),
-        stringContainsInOrder([
-          'SealedOverrideNamed',
-          'name',
-          'type?',
-        ]),
-      );
-    });
-  });
-
   group('annotation @Meta', () {
     test('initialization', () {
       const a = Meta(name: 'Apple', equality: Equality.identity);
