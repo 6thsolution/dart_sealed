@@ -111,11 +111,11 @@ abstract class Weather {
     assert(orElse != null);
     final weather = this;
     if (weather is Sunny /*!*/) {
-      return (sunny ?? orElse)(weather);
+      return sunny != null ? sunny(weather) : orElse(weather);
     } else if (weather is Rainy /*!*/) {
-      return (rainy ?? orElse)(weather);
+      return rainy != null ? rainy(weather) : orElse(weather);
     } else if (weather is Windy /*!*/) {
-      return (windy ?? orElse)(weather);
+      return windy != null ? windy(weather) : orElse(weather);
     } else {
       throw AssertionError();
     }
@@ -220,11 +220,23 @@ abstract class Weather {
     assert(orElse != null);
     final weather = this;
     if (weather is Sunny /*!*/) {
-      (sunny ?? orElse)(weather);
+      if (sunny != null) {
+        sunny(weather);
+      } else {
+        orElse(weather);
+      }
     } else if (weather is Rainy /*!*/) {
-      (rainy ?? orElse)(weather);
+      if (rainy != null) {
+        rainy(weather);
+      } else {
+        orElse(weather);
+      }
     } else if (weather is Windy /*!*/) {
-      (windy ?? orElse)(weather);
+      if (windy != null) {
+        windy(weather);
+      } else {
+        orElse(weather);
+      }
     } else {
       throw AssertionError();
     }

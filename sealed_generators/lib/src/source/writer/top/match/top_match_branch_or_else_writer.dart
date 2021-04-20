@@ -16,7 +16,15 @@ class TopMatchBranchOrElseWriter extends TopMatchBaseWriter {
   @visibleForTesting
   If topMatchBranchOrElseIf(ManifestItem item) => If(
         condition: '$topLower ${isSub(item)}',
-        code: '(${subLower(item)} ?? orElse)($topLower);',
+        code: Branch(
+          ifs: [
+            If(
+              condition: '${subLower(item)} != null',
+              code: '${subLower(item)}($topLower);',
+            ),
+          ],
+          els: Else(code: 'orElse($topLower);'),
+        ).join(),
       );
 
   @nonVirtual

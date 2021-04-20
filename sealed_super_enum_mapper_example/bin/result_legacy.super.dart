@@ -87,9 +87,9 @@ abstract class Result<Generic extends Object /*?*/ > {
     assert(orElse != null);
     final result = this;
     if (result is Success<Generic> /*!*/) {
-      return (success ?? orElse)(result);
+      return success != null ? success(result) : orElse(result);
     } else if (result is Error<Generic> /*!*/) {
-      return (error ?? orElse)(result);
+      return error != null ? error(result) : orElse(result);
     } else {
       throw AssertionError();
     }
@@ -177,9 +177,17 @@ abstract class Result<Generic extends Object /*?*/ > {
     assert(orElse != null);
     final result = this;
     if (result is Success<Generic> /*!*/) {
-      (success ?? orElse)(result);
+      if (success != null) {
+        success(result);
+      } else {
+        orElse(result);
+      }
     } else if (result is Error<Generic> /*!*/) {
-      (error ?? orElse)(result);
+      if (error != null) {
+        error(result);
+      } else {
+        orElse(result);
+      }
     } else {
       throw AssertionError();
     }

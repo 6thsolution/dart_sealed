@@ -21,7 +21,11 @@ void main() {
       final i = writer.topMatchBranchOrElseIf(item1);
 
       expect(i.condition, 'weather is HiSunny');
-      expect(i.code, '(sunny ?? orElse)(weather);');
+      expect(
+        i.code,
+        'if (sunny != null) {sunny(weather);}\n'
+        'else {orElse(weather);}',
+      );
     });
 
     test('method topMatchBranchOrElseItemArgs', () {
@@ -70,9 +74,15 @@ void main() {
       expect(
         writer.topMatchBranchOrElseBody(),
         'final weather = this;\n'
-        'if (weather is HiSunny) {(sunny ?? orElse)(weather);}\n'
-        'else if (weather is WeatherRainy) {(rainy ?? orElse)(weather);}\n'
-        'else if (weather is HelloWindy) {(windy ?? orElse)(weather);}\n'
+        'if (weather is HiSunny)'
+        ' {if (sunny != null) {sunny(weather);}\n'
+        'else {orElse(weather);}}\n'
+        'else if (weather is WeatherRainy)'
+        ' {if (rainy != null) {rainy(weather);}\n'
+        'else {orElse(weather);}}\n'
+        'else if (weather is HelloWindy)'
+        ' {if (windy != null) {windy(weather);}\n'
+        'else {orElse(weather);}}\n'
         'else {throw AssertionError();}',
       );
     });

@@ -21,7 +21,10 @@ void main() {
       final i = writer.topMatchWhenOrElseIf(item1);
 
       expect(i.condition, 'weather is HiSunny');
-      expect(i.code, 'return (sunny ?? orElse)(weather);');
+      expect(
+        i.code,
+        'return sunny != null ? sunny(weather) : orElse(weather);',
+      );
     });
 
     test('method topMatchWhenOrElseItemArgs', () {
@@ -70,9 +73,12 @@ void main() {
       expect(
         writer.topMatchWhenOrElseBody(),
         'final weather = this;\n'
-        'if (weather is HiSunny) {return (sunny ?? orElse)(weather);}\n'
-        'else if (weather is WeatherRainy) {return (rainy ?? orElse)(weather);}\n'
-        'else if (weather is HelloWindy) {return (windy ?? orElse)(weather);}\n'
+        'if (weather is HiSunny)'
+        ' {return sunny != null ? sunny(weather) : orElse(weather);}\n'
+        'else if (weather is WeatherRainy)'
+        ' {return rainy != null ? rainy(weather) : orElse(weather);}\n'
+        'else if (weather is HelloWindy)'
+        ' {return windy != null ? windy(weather) : orElse(weather);}\n'
         'else {throw AssertionError();}',
       );
     });

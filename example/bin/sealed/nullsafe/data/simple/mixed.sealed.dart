@@ -47,7 +47,7 @@ abstract class Apple {
   }) {
     final apple = this;
     if (apple is AppleHold) {
-      return (hold ?? orElse)(apple);
+      return hold != null ? hold(apple) : orElse(apple);
     } else {
       throw AssertionError();
     }
@@ -115,7 +115,11 @@ abstract class Apple {
   }) {
     final apple = this;
     if (apple is AppleHold) {
-      (hold ?? orElse)(apple);
+      if (hold != null) {
+        hold(apple);
+      } else {
+        orElse(apple);
+      }
     } else {
       throw AssertionError();
     }
@@ -193,7 +197,7 @@ abstract class Banana {
   }) {
     final banana = this;
     if (banana is BananaHold) {
-      return (hold ?? orElse)(banana);
+      return hold != null ? hold(banana) : orElse(banana);
     } else {
       throw AssertionError();
     }
@@ -261,7 +265,11 @@ abstract class Banana {
   }) {
     final banana = this;
     if (banana is BananaHold) {
-      (hold ?? orElse)(banana);
+      if (hold != null) {
+        hold(banana);
+      } else {
+        orElse(banana);
+      }
     } else {
       throw AssertionError();
     }
@@ -399,11 +407,11 @@ abstract class Coconut {
   }) {
     final coconut = this;
     if (coconut is CoconutTest1) {
-      return (test1 ?? orElse)(coconut);
+      return test1 != null ? test1(coconut) : orElse(coconut);
     } else if (coconut is CoconutTest2) {
-      return (test2 ?? orElse)(coconut);
+      return test2 != null ? test2(coconut) : orElse(coconut);
     } else if (coconut is CoconutHold) {
-      return (hold ?? orElse)(coconut);
+      return hold != null ? hold(coconut) : orElse(coconut);
     } else {
       throw AssertionError();
     }
@@ -503,11 +511,23 @@ abstract class Coconut {
   }) {
     final coconut = this;
     if (coconut is CoconutTest1) {
-      (test1 ?? orElse)(coconut);
+      if (test1 != null) {
+        test1(coconut);
+      } else {
+        orElse(coconut);
+      }
     } else if (coconut is CoconutTest2) {
-      (test2 ?? orElse)(coconut);
+      if (test2 != null) {
+        test2(coconut);
+      } else {
+        orElse(coconut);
+      }
     } else if (coconut is CoconutHold) {
-      (hold ?? orElse)(coconut);
+      if (hold != null) {
+        hold(coconut);
+      } else {
+        orElse(coconut);
+      }
     } else {
       throw AssertionError();
     }

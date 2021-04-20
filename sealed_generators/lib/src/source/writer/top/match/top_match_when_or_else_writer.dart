@@ -16,7 +16,8 @@ class TopMatchWhenOrElseWriter extends TopMatchBaseWriter {
   @visibleForTesting
   If topMatchWhenOrElseIf(ManifestItem item) => If(
         condition: '$topLower ${isSub(item)}',
-        code: 'return (${subLower(item)} ?? orElse)($topLower);',
+        code: 'return ${subLower(item)} != null ?'
+            ' ${subLower(item)}($topLower) : orElse($topLower);',
       );
 
   @nonVirtual

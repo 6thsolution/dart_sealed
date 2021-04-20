@@ -74,9 +74,9 @@ abstract class Result<D extends num /*?*/ > {
     assert(orElse != null);
     final result = this;
     if (result is ResultSuccess<D> /*!*/) {
-      return (success ?? orElse)(result);
+      return success != null ? success(result) : orElse(result);
     } else if (result is ResultError<D> /*!*/) {
-      return (error ?? orElse)(result);
+      return error != null ? error(result) : orElse(result);
     } else {
       throw AssertionError();
     }
@@ -164,9 +164,17 @@ abstract class Result<D extends num /*?*/ > {
     assert(orElse != null);
     final result = this;
     if (result is ResultSuccess<D> /*!*/) {
-      (success ?? orElse)(result);
+      if (success != null) {
+        success(result);
+      } else {
+        orElse(result);
+      }
     } else if (result is ResultError<D> /*!*/) {
-      (error ?? orElse)(result);
+      if (error != null) {
+        error(result);
+      } else {
+        orElse(result);
+      }
     } else {
       throw AssertionError();
     }

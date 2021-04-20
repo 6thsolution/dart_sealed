@@ -70,9 +70,9 @@ abstract class Result<D extends Object?, E extends Object?> {
   }) {
     final result = this;
     if (result is ResultSuccess<D, E>) {
-      return (success ?? orElse)(result);
+      return success != null ? success(result) : orElse(result);
     } else if (result is ResultError<D, E>) {
-      return (error ?? orElse)(result);
+      return error != null ? error(result) : orElse(result);
     } else {
       throw AssertionError();
     }
@@ -156,9 +156,17 @@ abstract class Result<D extends Object?, E extends Object?> {
   }) {
     final result = this;
     if (result is ResultSuccess<D, E>) {
-      (success ?? orElse)(result);
+      if (success != null) {
+        success(result);
+      } else {
+        orElse(result);
+      }
     } else if (result is ResultError<D, E>) {
-      (error ?? orElse)(result);
+      if (error != null) {
+        error(result);
+      } else {
+        orElse(result);
+      }
     } else {
       throw AssertionError();
     }
