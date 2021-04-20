@@ -9,7 +9,7 @@ part of 'mixed.dart';
 
 /// [Apple] {
 ///
-/// ([AppleHold] hold){[Banana?] banana} with data equality
+/// ([AppleHold] hold){[Banana]? banana} with data equality
 ///
 /// }
 @SealedManifest(_Apple)
@@ -22,13 +22,13 @@ abstract class Apple {
         banana: banana,
       );
 
-  bool isHold() => this is AppleHold /*!*/;
+  bool /*!*/ isHold() => this is AppleHold;
 
-  AppleHold /*!*/ asHold() => this as AppleHold /*!*/;
+  AppleHold /*!*/ asHold() => this as AppleHold;
 
   AppleHold /*?*/ asHoldOrNull() {
     final apple = this;
-    return apple is AppleHold /*!*/ ? apple : null;
+    return apple is AppleHold ? apple : null;
   }
 
   R when<R extends Object /*?*/ >({
@@ -36,7 +36,7 @@ abstract class Apple {
   }) {
     assert(hold != null);
     final apple = this;
-    if (apple is AppleHold /*!*/) {
+    if (apple is AppleHold) {
       return hold(apple);
     } else {
       throw AssertionError();
@@ -49,7 +49,7 @@ abstract class Apple {
   }) {
     assert(orElse != null);
     final apple = this;
-    if (apple is AppleHold /*!*/) {
+    if (apple is AppleHold) {
       return hold != null ? hold(apple) : orElse(apple);
     } else {
       throw AssertionError();
@@ -62,7 +62,7 @@ abstract class Apple {
   }) {
     assert(orDefault != null);
     final apple = this;
-    if (apple is AppleHold /*!*/) {
+    if (apple is AppleHold) {
       return hold != null ? hold(apple) : orDefault;
     } else {
       throw AssertionError();
@@ -73,7 +73,7 @@ abstract class Apple {
     R Function(AppleHold /*!*/ hold) /*?*/ hold,
   }) {
     final apple = this;
-    if (apple is AppleHold /*!*/) {
+    if (apple is AppleHold) {
       return hold?.call(apple);
     } else {
       throw AssertionError();
@@ -84,7 +84,7 @@ abstract class Apple {
     R Function(AppleHold /*!*/ hold) /*?*/ hold,
   }) {
     final apple = this;
-    if (apple is AppleHold /*!*/ && hold != null) {
+    if (apple is AppleHold && hold != null) {
       return hold(apple);
     } else {
       throw AssertionError();
@@ -96,7 +96,7 @@ abstract class Apple {
   }) {
     assert(hold != null);
     final apple = this;
-    if (apple is AppleHold /*!*/) {
+    if (apple is AppleHold) {
       hold(apple);
     } else {
       throw AssertionError();
@@ -107,7 +107,7 @@ abstract class Apple {
     void Function(AppleHold /*!*/ hold) /*?*/ hold,
   }) {
     final apple = this;
-    if (apple is AppleHold /*!*/) {
+    if (apple is AppleHold) {
       hold?.call(apple);
     } else {
       throw AssertionError();
@@ -120,7 +120,7 @@ abstract class Apple {
   }) {
     assert(orElse != null);
     final apple = this;
-    if (apple is AppleHold /*!*/) {
+    if (apple is AppleHold) {
       if (hold != null) {
         hold(apple);
       } else {
@@ -135,7 +135,7 @@ abstract class Apple {
     void Function(AppleHold /*!*/ hold) /*?*/ hold,
   }) {
     final apple = this;
-    if (apple is AppleHold /*!*/ && hold != null) {
+    if (apple is AppleHold && hold != null) {
       hold(apple);
     } else {
       throw AssertionError();
@@ -143,7 +143,7 @@ abstract class Apple {
   }
 }
 
-/// (([AppleHold] : [Apple]) hold){[Banana?] banana}
+/// (([AppleHold] : [Apple]) hold){[Banana]? banana}
 ///
 /// with data equality
 class AppleHold extends Apple with EquatableMixin {
@@ -164,7 +164,7 @@ class AppleHold extends Apple with EquatableMixin {
 
 /// [Banana] {
 ///
-/// ([BananaHold] hold){[Apple?] apple} with data equality
+/// ([BananaHold] hold){[Apple]? apple} with data equality
 ///
 /// }
 @SealedManifest(_Banana)
@@ -177,13 +177,13 @@ abstract class Banana {
         apple: apple,
       );
 
-  bool isHold() => this is BananaHold /*!*/;
+  bool /*!*/ isHold() => this is BananaHold;
 
-  BananaHold /*!*/ asHold() => this as BananaHold /*!*/;
+  BananaHold /*!*/ asHold() => this as BananaHold;
 
   BananaHold /*?*/ asHoldOrNull() {
     final banana = this;
-    return banana is BananaHold /*!*/ ? banana : null;
+    return banana is BananaHold ? banana : null;
   }
 
   R when<R extends Object /*?*/ >({
@@ -191,7 +191,7 @@ abstract class Banana {
   }) {
     assert(hold != null);
     final banana = this;
-    if (banana is BananaHold /*!*/) {
+    if (banana is BananaHold) {
       return hold(banana);
     } else {
       throw AssertionError();
@@ -204,7 +204,7 @@ abstract class Banana {
   }) {
     assert(orElse != null);
     final banana = this;
-    if (banana is BananaHold /*!*/) {
+    if (banana is BananaHold) {
       return hold != null ? hold(banana) : orElse(banana);
     } else {
       throw AssertionError();
@@ -217,7 +217,7 @@ abstract class Banana {
   }) {
     assert(orDefault != null);
     final banana = this;
-    if (banana is BananaHold /*!*/) {
+    if (banana is BananaHold) {
       return hold != null ? hold(banana) : orDefault;
     } else {
       throw AssertionError();
@@ -228,7 +228,7 @@ abstract class Banana {
     R Function(BananaHold /*!*/ hold) /*?*/ hold,
   }) {
     final banana = this;
-    if (banana is BananaHold /*!*/) {
+    if (banana is BananaHold) {
       return hold?.call(banana);
     } else {
       throw AssertionError();
@@ -239,7 +239,7 @@ abstract class Banana {
     R Function(BananaHold /*!*/ hold) /*?*/ hold,
   }) {
     final banana = this;
-    if (banana is BananaHold /*!*/ && hold != null) {
+    if (banana is BananaHold && hold != null) {
       return hold(banana);
     } else {
       throw AssertionError();
@@ -251,7 +251,7 @@ abstract class Banana {
   }) {
     assert(hold != null);
     final banana = this;
-    if (banana is BananaHold /*!*/) {
+    if (banana is BananaHold) {
       hold(banana);
     } else {
       throw AssertionError();
@@ -262,7 +262,7 @@ abstract class Banana {
     void Function(BananaHold /*!*/ hold) /*?*/ hold,
   }) {
     final banana = this;
-    if (banana is BananaHold /*!*/) {
+    if (banana is BananaHold) {
       hold?.call(banana);
     } else {
       throw AssertionError();
@@ -275,7 +275,7 @@ abstract class Banana {
   }) {
     assert(orElse != null);
     final banana = this;
-    if (banana is BananaHold /*!*/) {
+    if (banana is BananaHold) {
       if (hold != null) {
         hold(banana);
       } else {
@@ -290,7 +290,7 @@ abstract class Banana {
     void Function(BananaHold /*!*/ hold) /*?*/ hold,
   }) {
     final banana = this;
-    if (banana is BananaHold /*!*/ && hold != null) {
+    if (banana is BananaHold && hold != null) {
       hold(banana);
     } else {
       throw AssertionError();
@@ -298,7 +298,7 @@ abstract class Banana {
   }
 }
 
-/// (([BananaHold] : [Banana]) hold){[Apple?] apple}
+/// (([BananaHold] : [Banana]) hold){[Apple]? apple}
 ///
 /// with data equality
 class BananaHold extends Banana with EquatableMixin {
@@ -319,11 +319,11 @@ class BananaHold extends Banana with EquatableMixin {
 
 /// [Coconut] {
 ///
-/// ([CoconutTest1] test1){[int?] x, [double?] y} with data equality
+/// ([CoconutTest1] test1){[int]? x, [double]? y} with data equality
 ///
-/// ([CoconutTest2] test2){[int?] x, [double?] y} with data equality
+/// ([CoconutTest2] test2){[int]? x, [double]? y} with data equality
 ///
-/// ([CoconutHold] hold){[Apple?] apple, [Banana?] banana} with data equality
+/// ([CoconutHold] hold){[Apple]? apple, [Banana]? banana} with data equality
 ///
 /// }
 @SealedManifest(_Coconut)
@@ -358,31 +358,31 @@ abstract class Coconut {
         banana: banana,
       );
 
-  bool isTest1() => this is CoconutTest1 /*!*/;
+  bool /*!*/ isTest1() => this is CoconutTest1;
 
-  bool isTest2() => this is CoconutTest2 /*!*/;
+  bool /*!*/ isTest2() => this is CoconutTest2;
 
-  bool isHold() => this is CoconutHold /*!*/;
+  bool /*!*/ isHold() => this is CoconutHold;
 
-  CoconutTest1 /*!*/ asTest1() => this as CoconutTest1 /*!*/;
+  CoconutTest1 /*!*/ asTest1() => this as CoconutTest1;
 
-  CoconutTest2 /*!*/ asTest2() => this as CoconutTest2 /*!*/;
+  CoconutTest2 /*!*/ asTest2() => this as CoconutTest2;
 
-  CoconutHold /*!*/ asHold() => this as CoconutHold /*!*/;
+  CoconutHold /*!*/ asHold() => this as CoconutHold;
 
   CoconutTest1 /*?*/ asTest1OrNull() {
     final coconut = this;
-    return coconut is CoconutTest1 /*!*/ ? coconut : null;
+    return coconut is CoconutTest1 ? coconut : null;
   }
 
   CoconutTest2 /*?*/ asTest2OrNull() {
     final coconut = this;
-    return coconut is CoconutTest2 /*!*/ ? coconut : null;
+    return coconut is CoconutTest2 ? coconut : null;
   }
 
   CoconutHold /*?*/ asHoldOrNull() {
     final coconut = this;
-    return coconut is CoconutHold /*!*/ ? coconut : null;
+    return coconut is CoconutHold ? coconut : null;
   }
 
   R when<R extends Object /*?*/ >({
@@ -394,11 +394,11 @@ abstract class Coconut {
     assert(test2 != null);
     assert(hold != null);
     final coconut = this;
-    if (coconut is CoconutTest1 /*!*/) {
+    if (coconut is CoconutTest1) {
       return test1(coconut);
-    } else if (coconut is CoconutTest2 /*!*/) {
+    } else if (coconut is CoconutTest2) {
       return test2(coconut);
-    } else if (coconut is CoconutHold /*!*/) {
+    } else if (coconut is CoconutHold) {
       return hold(coconut);
     } else {
       throw AssertionError();
@@ -413,11 +413,11 @@ abstract class Coconut {
   }) {
     assert(orElse != null);
     final coconut = this;
-    if (coconut is CoconutTest1 /*!*/) {
+    if (coconut is CoconutTest1) {
       return test1 != null ? test1(coconut) : orElse(coconut);
-    } else if (coconut is CoconutTest2 /*!*/) {
+    } else if (coconut is CoconutTest2) {
       return test2 != null ? test2(coconut) : orElse(coconut);
-    } else if (coconut is CoconutHold /*!*/) {
+    } else if (coconut is CoconutHold) {
       return hold != null ? hold(coconut) : orElse(coconut);
     } else {
       throw AssertionError();
@@ -432,11 +432,11 @@ abstract class Coconut {
   }) {
     assert(orDefault != null);
     final coconut = this;
-    if (coconut is CoconutTest1 /*!*/) {
+    if (coconut is CoconutTest1) {
       return test1 != null ? test1(coconut) : orDefault;
-    } else if (coconut is CoconutTest2 /*!*/) {
+    } else if (coconut is CoconutTest2) {
       return test2 != null ? test2(coconut) : orDefault;
-    } else if (coconut is CoconutHold /*!*/) {
+    } else if (coconut is CoconutHold) {
       return hold != null ? hold(coconut) : orDefault;
     } else {
       throw AssertionError();
@@ -449,11 +449,11 @@ abstract class Coconut {
     R Function(CoconutHold /*!*/ hold) /*?*/ hold,
   }) {
     final coconut = this;
-    if (coconut is CoconutTest1 /*!*/) {
+    if (coconut is CoconutTest1) {
       return test1?.call(coconut);
-    } else if (coconut is CoconutTest2 /*!*/) {
+    } else if (coconut is CoconutTest2) {
       return test2?.call(coconut);
-    } else if (coconut is CoconutHold /*!*/) {
+    } else if (coconut is CoconutHold) {
       return hold?.call(coconut);
     } else {
       throw AssertionError();
@@ -466,11 +466,11 @@ abstract class Coconut {
     R Function(CoconutHold /*!*/ hold) /*?*/ hold,
   }) {
     final coconut = this;
-    if (coconut is CoconutTest1 /*!*/ && test1 != null) {
+    if (coconut is CoconutTest1 && test1 != null) {
       return test1(coconut);
-    } else if (coconut is CoconutTest2 /*!*/ && test2 != null) {
+    } else if (coconut is CoconutTest2 && test2 != null) {
       return test2(coconut);
-    } else if (coconut is CoconutHold /*!*/ && hold != null) {
+    } else if (coconut is CoconutHold && hold != null) {
       return hold(coconut);
     } else {
       throw AssertionError();
@@ -486,11 +486,11 @@ abstract class Coconut {
     assert(test2 != null);
     assert(hold != null);
     final coconut = this;
-    if (coconut is CoconutTest1 /*!*/) {
+    if (coconut is CoconutTest1) {
       test1(coconut);
-    } else if (coconut is CoconutTest2 /*!*/) {
+    } else if (coconut is CoconutTest2) {
       test2(coconut);
-    } else if (coconut is CoconutHold /*!*/) {
+    } else if (coconut is CoconutHold) {
       hold(coconut);
     } else {
       throw AssertionError();
@@ -503,11 +503,11 @@ abstract class Coconut {
     void Function(CoconutHold /*!*/ hold) /*?*/ hold,
   }) {
     final coconut = this;
-    if (coconut is CoconutTest1 /*!*/) {
+    if (coconut is CoconutTest1) {
       test1?.call(coconut);
-    } else if (coconut is CoconutTest2 /*!*/) {
+    } else if (coconut is CoconutTest2) {
       test2?.call(coconut);
-    } else if (coconut is CoconutHold /*!*/) {
+    } else if (coconut is CoconutHold) {
       hold?.call(coconut);
     } else {
       throw AssertionError();
@@ -522,19 +522,19 @@ abstract class Coconut {
   }) {
     assert(orElse != null);
     final coconut = this;
-    if (coconut is CoconutTest1 /*!*/) {
+    if (coconut is CoconutTest1) {
       if (test1 != null) {
         test1(coconut);
       } else {
         orElse(coconut);
       }
-    } else if (coconut is CoconutTest2 /*!*/) {
+    } else if (coconut is CoconutTest2) {
       if (test2 != null) {
         test2(coconut);
       } else {
         orElse(coconut);
       }
-    } else if (coconut is CoconutHold /*!*/) {
+    } else if (coconut is CoconutHold) {
       if (hold != null) {
         hold(coconut);
       } else {
@@ -551,11 +551,11 @@ abstract class Coconut {
     void Function(CoconutHold /*!*/ hold) /*?*/ hold,
   }) {
     final coconut = this;
-    if (coconut is CoconutTest1 /*!*/ && test1 != null) {
+    if (coconut is CoconutTest1 && test1 != null) {
       test1(coconut);
-    } else if (coconut is CoconutTest2 /*!*/ && test2 != null) {
+    } else if (coconut is CoconutTest2 && test2 != null) {
       test2(coconut);
-    } else if (coconut is CoconutHold /*!*/ && hold != null) {
+    } else if (coconut is CoconutHold && hold != null) {
       hold(coconut);
     } else {
       throw AssertionError();
@@ -563,7 +563,7 @@ abstract class Coconut {
   }
 }
 
-/// (([CoconutTest1] : [Coconut]) test1){[int?] x, [double?] y}
+/// (([CoconutTest1] : [Coconut]) test1){[int]? x, [double]? y}
 ///
 /// with data equality
 class CoconutTest1 extends Coconut with EquatableMixin {
@@ -585,7 +585,7 @@ class CoconutTest1 extends Coconut with EquatableMixin {
       ];
 }
 
-/// (([CoconutTest2] : [Coconut]) test2){[int?] x, [double?] y}
+/// (([CoconutTest2] : [Coconut]) test2){[int]? x, [double]? y}
 ///
 /// with data equality
 class CoconutTest2 extends Coconut with EquatableMixin {
@@ -607,7 +607,7 @@ class CoconutTest2 extends Coconut with EquatableMixin {
       ];
 }
 
-/// (([CoconutHold] : [Coconut]) hold){[Apple?] apple, [Banana?] banana}
+/// (([CoconutHold] : [Coconut]) hold){[Apple]? apple, [Banana]? banana}
 ///
 /// with data equality
 class CoconutHold extends Coconut with EquatableMixin {

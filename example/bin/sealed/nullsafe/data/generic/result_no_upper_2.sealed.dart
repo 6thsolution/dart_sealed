@@ -6,11 +6,11 @@ part of 'result_no_upper_2.dart';
 // Generator: sealed_generators
 // **************************************************************************
 
-/// [Result]<[D] extends [Object?], [E] extends [Object?]> {
+/// [Result]<[D] extends [Object]?, [E] extends [Object]?> {
 ///
-/// ([ResultSuccess] success){[D?] data} with data equality
+/// ([ResultSuccess] success){[D]? data} with data equality
 ///
-/// ([ResultError] error){[E?] exception} with data equality
+/// ([ResultError] error){[E]? exception} with data equality
 ///
 /// }
 @SealedManifest(_Result)
@@ -187,7 +187,7 @@ abstract class Result<D extends Object?, E extends Object?> {
   }
 }
 
-/// (([ResultSuccess] : [Result])<[D] extends [Object?], [E] extends [Object?]> success){[D?] data}
+/// (([ResultSuccess] : [Result])<[D] extends [Object]?, [E] extends [Object]?> success){[D]? data}
 ///
 /// with data equality
 class ResultSuccess<D extends Object?, E extends Object?> extends Result<D, E>
@@ -207,7 +207,7 @@ class ResultSuccess<D extends Object?, E extends Object?> extends Result<D, E>
       ];
 }
 
-/// (([ResultError] : [Result])<[D] extends [Object?], [E] extends [Object?]> error){[E?] exception}
+/// (([ResultError] : [Result])<[D] extends [Object]?, [E] extends [Object]?> error){[E]? exception}
 ///
 /// with data equality
 class ResultError<D extends Object?, E extends Object?> extends Result<D, E>

@@ -90,6 +90,6 @@ String doc1(String equality) => '''/// [Weather] {
 /// 
 /// ([WeatherRainy] rainy){[int] rain} with $equality equality
 /// 
-/// ([HelloWindy] windy){[double] velocity, [double?] angle} with $equality equality
+/// ([HelloWindy] windy){[double] velocity, [double]? angle} with $equality equality
 /// 
 /// }''';

@@ -39,10 +39,8 @@ class SubDocWriter extends BaseWriter {
       item.fields.map(_fieldDoc).joinArgsSimple().withBraces();
 
   String _fieldDoc(ManifestField field) => [
-        [
-          field.type.name,
-          if (field.type.isNullable) '?',
-        ].joinParts().withBraKet(),
+        field.type.name.withBraKet(),
+        if (field.type.isNullable) '?',
         ' ',
         field.name,
       ].joinParts();
@@ -53,9 +51,7 @@ class SubDocWriter extends BaseWriter {
   String _paramDoc(ManifestParam param) => [
         param.name.withBraKet(),
         ' extends ',
-        [
-          param.bound.name,
-          if (param.bound.isNullable) '?',
-        ].joinParts().withBraKet(),
+        param.bound.name.withBraKet(),
+        if (param.bound.isNullable) '?',
       ].joinParts();
 }

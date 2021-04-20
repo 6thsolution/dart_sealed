@@ -7,13 +7,13 @@ part of 'result_multi.dart';
 // Generator: sealed_generators
 // **************************************************************************
 
-/// [Result]<[D] extends [num?], [E] extends [Object?]> {
+/// [Result]<[D] extends [num]?, [E] extends [Object]?> {
 ///
-/// ([ResultSuccess] success){[D?] data} with data equality
+/// ([ResultSuccess] success){[D]? data} with data equality
 ///
-/// ([ResultError] error){[E?] exception} with data equality
+/// ([ResultError] error){[E]? exception} with data equality
 ///
-/// ([ResultMixed] mixed){[D?] data, [E?] exception} with data equality
+/// ([ResultMixed] mixed){[D]? data, [E]? exception} with data equality
 ///
 /// }
 @SealedManifest(_Result)
@@ -47,31 +47,31 @@ abstract class Result<D extends num /*?*/, E extends Object /*?*/ > {
         exception: exception,
       );
 
-  bool isSuccess() => this is ResultSuccess<D, E> /*!*/;
+  bool /*!*/ isSuccess() => this is ResultSuccess<D, E>;
 
-  bool isError() => this is ResultError<D, E> /*!*/;
+  bool /*!*/ isError() => this is ResultError<D, E>;
 
-  bool isMixed() => this is ResultMixed<D, E> /*!*/;
+  bool /*!*/ isMixed() => this is ResultMixed<D, E>;
 
-  ResultSuccess<D, E> /*!*/ asSuccess() => this as ResultSuccess<D, E> /*!*/;
+  ResultSuccess<D, E> /*!*/ asSuccess() => this as ResultSuccess<D, E>;
 
-  ResultError<D, E> /*!*/ asError() => this as ResultError<D, E> /*!*/;
+  ResultError<D, E> /*!*/ asError() => this as ResultError<D, E>;
 
-  ResultMixed<D, E> /*!*/ asMixed() => this as ResultMixed<D, E> /*!*/;
+  ResultMixed<D, E> /*!*/ asMixed() => this as ResultMixed<D, E>;
 
   ResultSuccess<D, E> /*?*/ asSuccessOrNull() {
     final result = this;
-    return result is ResultSuccess<D, E> /*!*/ ? result : null;
+    return result is ResultSuccess<D, E> ? result : null;
   }
 
   ResultError<D, E> /*?*/ asErrorOrNull() {
     final result = this;
-    return result is ResultError<D, E> /*!*/ ? result : null;
+    return result is ResultError<D, E> ? result : null;
   }
 
   ResultMixed<D, E> /*?*/ asMixedOrNull() {
     final result = this;
-    return result is ResultMixed<D, E> /*!*/ ? result : null;
+    return result is ResultMixed<D, E> ? result : null;
   }
 
   R when<R extends Object /*?*/ >({
@@ -83,11 +83,11 @@ abstract class Result<D extends num /*?*/, E extends Object /*?*/ > {
     assert(error != null);
     assert(mixed != null);
     final result = this;
-    if (result is ResultSuccess<D, E> /*!*/) {
+    if (result is ResultSuccess<D, E>) {
       return success(result);
-    } else if (result is ResultError<D, E> /*!*/) {
+    } else if (result is ResultError<D, E>) {
       return error(result);
-    } else if (result is ResultMixed<D, E> /*!*/) {
+    } else if (result is ResultMixed<D, E>) {
       return mixed(result);
     } else {
       throw AssertionError();
@@ -102,11 +102,11 @@ abstract class Result<D extends num /*?*/, E extends Object /*?*/ > {
   }) {
     assert(orElse != null);
     final result = this;
-    if (result is ResultSuccess<D, E> /*!*/) {
+    if (result is ResultSuccess<D, E>) {
       return success != null ? success(result) : orElse(result);
-    } else if (result is ResultError<D, E> /*!*/) {
+    } else if (result is ResultError<D, E>) {
       return error != null ? error(result) : orElse(result);
-    } else if (result is ResultMixed<D, E> /*!*/) {
+    } else if (result is ResultMixed<D, E>) {
       return mixed != null ? mixed(result) : orElse(result);
     } else {
       throw AssertionError();
@@ -121,11 +121,11 @@ abstract class Result<D extends num /*?*/, E extends Object /*?*/ > {
   }) {
     assert(orDefault != null);
     final result = this;
-    if (result is ResultSuccess<D, E> /*!*/) {
+    if (result is ResultSuccess<D, E>) {
       return success != null ? success(result) : orDefault;
-    } else if (result is ResultError<D, E> /*!*/) {
+    } else if (result is ResultError<D, E>) {
       return error != null ? error(result) : orDefault;
-    } else if (result is ResultMixed<D, E> /*!*/) {
+    } else if (result is ResultMixed<D, E>) {
       return mixed != null ? mixed(result) : orDefault;
     } else {
       throw AssertionError();
@@ -138,11 +138,11 @@ abstract class Result<D extends num /*?*/, E extends Object /*?*/ > {
     R Function(ResultMixed<D, E> /*!*/ mixed) /*?*/ mixed,
   }) {
     final result = this;
-    if (result is ResultSuccess<D, E> /*!*/) {
+    if (result is ResultSuccess<D, E>) {
       return success?.call(result);
-    } else if (result is ResultError<D, E> /*!*/) {
+    } else if (result is ResultError<D, E>) {
       return error?.call(result);
-    } else if (result is ResultMixed<D, E> /*!*/) {
+    } else if (result is ResultMixed<D, E>) {
       return mixed?.call(result);
     } else {
       throw AssertionError();
@@ -155,11 +155,11 @@ abstract class Result<D extends num /*?*/, E extends Object /*?*/ > {
     R Function(ResultMixed<D, E> /*!*/ mixed) /*?*/ mixed,
   }) {
     final result = this;
-    if (result is ResultSuccess<D, E> /*!*/ && success != null) {
+    if (result is ResultSuccess<D, E> && success != null) {
       return success(result);
-    } else if (result is ResultError<D, E> /*!*/ && error != null) {
+    } else if (result is ResultError<D, E> && error != null) {
       return error(result);
-    } else if (result is ResultMixed<D, E> /*!*/ && mixed != null) {
+    } else if (result is ResultMixed<D, E> && mixed != null) {
       return mixed(result);
     } else {
       throw AssertionError();
@@ -175,11 +175,11 @@ abstract class Result<D extends num /*?*/, E extends Object /*?*/ > {
     assert(error != null);
     assert(mixed != null);
     final result = this;
-    if (result is ResultSuccess<D, E> /*!*/) {
+    if (result is ResultSuccess<D, E>) {
       success(result);
-    } else if (result is ResultError<D, E> /*!*/) {
+    } else if (result is ResultError<D, E>) {
       error(result);
-    } else if (result is ResultMixed<D, E> /*!*/) {
+    } else if (result is ResultMixed<D, E>) {
       mixed(result);
     } else {
       throw AssertionError();
@@ -192,11 +192,11 @@ abstract class Result<D extends num /*?*/, E extends Object /*?*/ > {
     void Function(ResultMixed<D, E> /*!*/ mixed) /*?*/ mixed,
   }) {
     final result = this;
-    if (result is ResultSuccess<D, E> /*!*/) {
+    if (result is ResultSuccess<D, E>) {
       success?.call(result);
-    } else if (result is ResultError<D, E> /*!*/) {
+    } else if (result is ResultError<D, E>) {
       error?.call(result);
-    } else if (result is ResultMixed<D, E> /*!*/) {
+    } else if (result is ResultMixed<D, E>) {
       mixed?.call(result);
     } else {
       throw AssertionError();
@@ -211,19 +211,19 @@ abstract class Result<D extends num /*?*/, E extends Object /*?*/ > {
   }) {
     assert(orElse != null);
     final result = this;
-    if (result is ResultSuccess<D, E> /*!*/) {
+    if (result is ResultSuccess<D, E>) {
       if (success != null) {
         success(result);
       } else {
         orElse(result);
       }
-    } else if (result is ResultError<D, E> /*!*/) {
+    } else if (result is ResultError<D, E>) {
       if (error != null) {
         error(result);
       } else {
         orElse(result);
       }
-    } else if (result is ResultMixed<D, E> /*!*/) {
+    } else if (result is ResultMixed<D, E>) {
       if (mixed != null) {
         mixed(result);
       } else {
@@ -240,11 +240,11 @@ abstract class Result<D extends num /*?*/, E extends Object /*?*/ > {
     void Function(ResultMixed<D, E> /*!*/ mixed) /*?*/ mixed,
   }) {
     final result = this;
-    if (result is ResultSuccess<D, E> /*!*/ && success != null) {
+    if (result is ResultSuccess<D, E> && success != null) {
       success(result);
-    } else if (result is ResultError<D, E> /*!*/ && error != null) {
+    } else if (result is ResultError<D, E> && error != null) {
       error(result);
-    } else if (result is ResultMixed<D, E> /*!*/ && mixed != null) {
+    } else if (result is ResultMixed<D, E> && mixed != null) {
       mixed(result);
     } else {
       throw AssertionError();
@@ -252,7 +252,7 @@ abstract class Result<D extends num /*?*/, E extends Object /*?*/ > {
   }
 }
 
-/// (([ResultSuccess] : [Result])<[D] extends [num?], [E] extends [Object?]> success){[D?] data}
+/// (([ResultSuccess] : [Result])<[D] extends [num]?, [E] extends [Object]?> success){[D]? data}
 ///
 /// with data equality
 class ResultSuccess<D extends num /*?*/, E extends Object /*?*/ >
@@ -272,7 +272,7 @@ class ResultSuccess<D extends num /*?*/, E extends Object /*?*/ >
       ];
 }
 
-/// (([ResultError] : [Result])<[D] extends [num?], [E] extends [Object?]> error){[E?] exception}
+/// (([ResultError] : [Result])<[D] extends [num]?, [E] extends [Object]?> error){[E]? exception}
 ///
 /// with data equality
 class ResultError<D extends num /*?*/, E extends Object /*?*/ >
@@ -292,7 +292,7 @@ class ResultError<D extends num /*?*/, E extends Object /*?*/ >
       ];
 }
 
-/// (([ResultMixed] : [Result])<[D] extends [num?], [E] extends [Object?]> mixed){[D?] data, [E?] exception}
+/// (([ResultMixed] : [Result])<[D] extends [num]?, [E] extends [Object]?> mixed){[D]? data, [E]? exception}
 ///
 /// with data equality
 class ResultMixed<D extends num /*?*/, E extends Object /*?*/ >

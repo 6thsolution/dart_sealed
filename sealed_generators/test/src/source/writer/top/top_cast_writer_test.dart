@@ -57,7 +57,7 @@ void main() {
 
         expect(
           writer.topCastAs(item),
-          'HiSunny/*!*/ asSunny() => this as HiSunny/*!*/;',
+          'HiSunny/*!*/ asSunny() => this as HiSunny;',
         );
       });
     });
@@ -100,7 +100,7 @@ void main() {
           writer.topCastAsOrNull(item),
           'HiSunny/*?*/ asSunnyOrNull() {\n'
           'final weather = this;\n'
-          'return weather is HiSunny/*!*/ ? weather : null;\n'
+          'return weather is HiSunny ? weather : null;\n'
           '}',
         );
       });

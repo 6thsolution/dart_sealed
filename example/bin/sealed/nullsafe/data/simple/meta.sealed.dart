@@ -12,7 +12,7 @@ part of 'meta.dart';
 ///
 /// ([BadWeather] rainy){[int] rain} with data equality
 ///
-/// ([VeryBadWeather] windy){[double] velocity, [double?] angle} with distinct equality
+/// ([VeryBadWeather] windy){[double] velocity, [double]? angle} with distinct equality
 ///
 /// }
 @SealedManifest(_Weather)
@@ -277,7 +277,7 @@ class BadWeather extends Weather with EquatableMixin {
       ];
 }
 
-/// (([VeryBadWeather] : [Weather]) windy){[double] velocity, [double?] angle}
+/// (([VeryBadWeather] : [Weather]) windy){[double] velocity, [double]? angle}
 ///
 /// with distinct equality
 class VeryBadWeather extends Weather {

@@ -7,11 +7,11 @@ part of 'result_single.dart';
 // Generator: sealed_generators
 // **************************************************************************
 
-/// [Result]<[D] extends [num?]> {
+/// [Result]<[D] extends [num]?> {
 ///
-/// ([ResultSuccess] success){[D?] data} with data equality
+/// ([ResultSuccess] success){[D]? data} with data equality
 ///
-/// ([ResultError] error){[Object?] exception} with data equality
+/// ([ResultError] error){[Object]? exception} with data equality
 ///
 /// }
 @SealedManifest(_Result)
@@ -32,22 +32,22 @@ abstract class Result<D extends num /*?*/ > {
         exception: exception,
       );
 
-  bool isSuccess() => this is ResultSuccess<D> /*!*/;
+  bool /*!*/ isSuccess() => this is ResultSuccess<D>;
 
-  bool isError() => this is ResultError<D> /*!*/;
+  bool /*!*/ isError() => this is ResultError<D>;
 
-  ResultSuccess<D> /*!*/ asSuccess() => this as ResultSuccess<D> /*!*/;
+  ResultSuccess<D> /*!*/ asSuccess() => this as ResultSuccess<D>;
 
-  ResultError<D> /*!*/ asError() => this as ResultError<D> /*!*/;
+  ResultError<D> /*!*/ asError() => this as ResultError<D>;
 
   ResultSuccess<D> /*?*/ asSuccessOrNull() {
     final result = this;
-    return result is ResultSuccess<D> /*!*/ ? result : null;
+    return result is ResultSuccess<D> ? result : null;
   }
 
   ResultError<D> /*?*/ asErrorOrNull() {
     final result = this;
-    return result is ResultError<D> /*!*/ ? result : null;
+    return result is ResultError<D> ? result : null;
   }
 
   R when<R extends Object /*?*/ >({
@@ -57,9 +57,9 @@ abstract class Result<D extends num /*?*/ > {
     assert(success != null);
     assert(error != null);
     final result = this;
-    if (result is ResultSuccess<D> /*!*/) {
+    if (result is ResultSuccess<D>) {
       return success(result);
-    } else if (result is ResultError<D> /*!*/) {
+    } else if (result is ResultError<D>) {
       return error(result);
     } else {
       throw AssertionError();
@@ -73,9 +73,9 @@ abstract class Result<D extends num /*?*/ > {
   }) {
     assert(orElse != null);
     final result = this;
-    if (result is ResultSuccess<D> /*!*/) {
+    if (result is ResultSuccess<D>) {
       return success != null ? success(result) : orElse(result);
-    } else if (result is ResultError<D> /*!*/) {
+    } else if (result is ResultError<D>) {
       return error != null ? error(result) : orElse(result);
     } else {
       throw AssertionError();
@@ -89,9 +89,9 @@ abstract class Result<D extends num /*?*/ > {
   }) {
     assert(orDefault != null);
     final result = this;
-    if (result is ResultSuccess<D> /*!*/) {
+    if (result is ResultSuccess<D>) {
       return success != null ? success(result) : orDefault;
-    } else if (result is ResultError<D> /*!*/) {
+    } else if (result is ResultError<D>) {
       return error != null ? error(result) : orDefault;
     } else {
       throw AssertionError();
@@ -103,9 +103,9 @@ abstract class Result<D extends num /*?*/ > {
     R Function(ResultError<D> /*!*/ error) /*?*/ error,
   }) {
     final result = this;
-    if (result is ResultSuccess<D> /*!*/) {
+    if (result is ResultSuccess<D>) {
       return success?.call(result);
-    } else if (result is ResultError<D> /*!*/) {
+    } else if (result is ResultError<D>) {
       return error?.call(result);
     } else {
       throw AssertionError();
@@ -117,9 +117,9 @@ abstract class Result<D extends num /*?*/ > {
     R Function(ResultError<D> /*!*/ error) /*?*/ error,
   }) {
     final result = this;
-    if (result is ResultSuccess<D> /*!*/ && success != null) {
+    if (result is ResultSuccess<D> && success != null) {
       return success(result);
-    } else if (result is ResultError<D> /*!*/ && error != null) {
+    } else if (result is ResultError<D> && error != null) {
       return error(result);
     } else {
       throw AssertionError();
@@ -133,9 +133,9 @@ abstract class Result<D extends num /*?*/ > {
     assert(success != null);
     assert(error != null);
     final result = this;
-    if (result is ResultSuccess<D> /*!*/) {
+    if (result is ResultSuccess<D>) {
       success(result);
-    } else if (result is ResultError<D> /*!*/) {
+    } else if (result is ResultError<D>) {
       error(result);
     } else {
       throw AssertionError();
@@ -147,9 +147,9 @@ abstract class Result<D extends num /*?*/ > {
     void Function(ResultError<D> /*!*/ error) /*?*/ error,
   }) {
     final result = this;
-    if (result is ResultSuccess<D> /*!*/) {
+    if (result is ResultSuccess<D>) {
       success?.call(result);
-    } else if (result is ResultError<D> /*!*/) {
+    } else if (result is ResultError<D>) {
       error?.call(result);
     } else {
       throw AssertionError();
@@ -163,13 +163,13 @@ abstract class Result<D extends num /*?*/ > {
   }) {
     assert(orElse != null);
     final result = this;
-    if (result is ResultSuccess<D> /*!*/) {
+    if (result is ResultSuccess<D>) {
       if (success != null) {
         success(result);
       } else {
         orElse(result);
       }
-    } else if (result is ResultError<D> /*!*/) {
+    } else if (result is ResultError<D>) {
       if (error != null) {
         error(result);
       } else {
@@ -185,9 +185,9 @@ abstract class Result<D extends num /*?*/ > {
     void Function(ResultError<D> /*!*/ error) /*?*/ error,
   }) {
     final result = this;
-    if (result is ResultSuccess<D> /*!*/ && success != null) {
+    if (result is ResultSuccess<D> && success != null) {
       success(result);
-    } else if (result is ResultError<D> /*!*/ && error != null) {
+    } else if (result is ResultError<D> && error != null) {
       error(result);
     } else {
       throw AssertionError();
@@ -195,7 +195,7 @@ abstract class Result<D extends num /*?*/ > {
   }
 }
 
-/// (([ResultSuccess] : [Result])<[D] extends [num?]> success){[D?] data}
+/// (([ResultSuccess] : [Result])<[D] extends [num]?> success){[D]? data}
 ///
 /// with data equality
 class ResultSuccess<D extends num /*?*/ > extends Result<D>
@@ -215,7 +215,7 @@ class ResultSuccess<D extends num /*?*/ > extends Result<D>
       ];
 }
 
-/// (([ResultError] : [Result])<[D] extends [num?]> error){[Object?] exception}
+/// (([ResultError] : [Result])<[D] extends [num]?> error){[Object]? exception}
 ///
 /// with data equality
 class ResultError<D extends num /*?*/ > extends Result<D> with EquatableMixin {

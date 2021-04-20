@@ -8,7 +8,7 @@ part of 'result_single_3.dart';
 
 /// [Result]<[D] extends [num]> {
 ///
-/// ([ResultSuccess] success){[D?] data} with data equality
+/// ([ResultSuccess] success){[D]? data} with data equality
 ///
 /// ([ResultError] error){[Object] exception} with data equality
 ///
@@ -187,7 +187,7 @@ abstract class Result<D extends num> {
   }
 }
 
-/// (([ResultSuccess] : [Result])<[D] extends [num]> success){[D?] data}
+/// (([ResultSuccess] : [Result])<[D] extends [num]> success){[D]? data}
 ///
 /// with data equality
 class ResultSuccess<D extends num> extends Result<D> with EquatableMixin {

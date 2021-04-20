@@ -14,7 +14,7 @@ class TopCastWriter extends BaseCastUtilsWriter {
   @nonVirtual
   @visibleForTesting
   String topCastIs(ManifestItem item) =>
-      'bool is${subUpper(item)}() => this ${isSub(item)};';
+      'bool$nn is${subUpper(item)}() => this ${isSub(item)};';
 
   @nonVirtual
   @visibleForTesting

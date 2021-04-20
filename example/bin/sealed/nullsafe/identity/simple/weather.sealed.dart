@@ -12,7 +12,7 @@ part of 'weather.dart';
 ///
 /// ([WeatherRainy] rainy){[int] rain} with identity equality
 ///
-/// ([WeatherWindy] windy){[double] velocity, [double?] angle} with identity equality
+/// ([WeatherWindy] windy){[double] velocity, [double]? angle} with identity equality
 ///
 /// }
 @SealedManifest(_Weather)
@@ -269,7 +269,7 @@ class WeatherRainy extends Weather {
   String toString() => 'Weather.rainy(rain: $rain)';
 }
 
-/// (([WeatherWindy] : [Weather]) windy){[double] velocity, [double?] angle}
+/// (([WeatherWindy] : [Weather]) windy){[double] velocity, [double]? angle}
 ///
 /// with identity equality
 class WeatherWindy extends Weather {

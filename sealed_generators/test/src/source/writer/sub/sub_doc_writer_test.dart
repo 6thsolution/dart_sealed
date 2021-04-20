@@ -29,7 +29,7 @@ void main() {
         expect(
           writer.write(item3),
           '/// (([HelloWindy] : [Weather]) windy)'
-          '{[double] velocity, [double?] angle}\n'
+          '{[double] velocity, [double]? angle}\n'
           '/// \n'
           '/// with data equality',
         );

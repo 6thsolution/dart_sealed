@@ -12,7 +12,7 @@ part of 'weather.dart';
 ///
 /// ([WeatherRainy] rainy){[int] rain} with distinct equality
 ///
-/// ([WeatherWindy] windy){[double] velocity, [double?] angle} with distinct equality
+/// ([WeatherWindy] windy){[double] velocity, [double]? angle} with distinct equality
 ///
 /// }
 @SealedManifest(_Weather)
@@ -275,7 +275,7 @@ class WeatherRainy extends Weather {
   bool operator ==(Object other) => false;
 }
 
-/// (([WeatherWindy] : [Weather]) windy){[double] velocity, [double?] angle}
+/// (([WeatherWindy] : [Weather]) windy){[double] velocity, [double]? angle}
 ///
 /// with distinct equality
 class WeatherWindy extends Weather {

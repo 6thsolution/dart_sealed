@@ -36,7 +36,7 @@ void main() {
 
         expect(
           writer.isSub(item),
-          'is HiSunny/*!*/',
+          'is HiSunny',
         );
       });
     });
@@ -60,7 +60,7 @@ void main() {
 
         expect(
           writer.asSub(item),
-          'as HiSunny/*!*/',
+          'as HiSunny',
         );
       });
     });

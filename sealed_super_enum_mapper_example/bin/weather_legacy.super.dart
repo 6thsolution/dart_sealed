@@ -27,9 +27,9 @@ abstract class _Weather$ {
 ///
 /// ([Sunny] sunny){} with data equality
 ///
-/// ([Rainy] rainy){[int?] rain} with data equality
+/// ([Rainy] rainy){[int]? rain} with data equality
 ///
-/// ([Windy] windy){[double?] velocity, [double?] angle} with data equality
+/// ([Windy] windy){[double]? velocity, [double]? angle} with data equality
 ///
 /// }
 @SealedManifest(_Weather)
@@ -55,31 +55,31 @@ abstract class Weather {
         angle: angle,
       );
 
-  bool isSunny() => this is Sunny /*!*/;
+  bool /*!*/ isSunny() => this is Sunny;
 
-  bool isRainy() => this is Rainy /*!*/;
+  bool /*!*/ isRainy() => this is Rainy;
 
-  bool isWindy() => this is Windy /*!*/;
+  bool /*!*/ isWindy() => this is Windy;
 
-  Sunny /*!*/ asSunny() => this as Sunny /*!*/;
+  Sunny /*!*/ asSunny() => this as Sunny;
 
-  Rainy /*!*/ asRainy() => this as Rainy /*!*/;
+  Rainy /*!*/ asRainy() => this as Rainy;
 
-  Windy /*!*/ asWindy() => this as Windy /*!*/;
+  Windy /*!*/ asWindy() => this as Windy;
 
   Sunny /*?*/ asSunnyOrNull() {
     final weather = this;
-    return weather is Sunny /*!*/ ? weather : null;
+    return weather is Sunny ? weather : null;
   }
 
   Rainy /*?*/ asRainyOrNull() {
     final weather = this;
-    return weather is Rainy /*!*/ ? weather : null;
+    return weather is Rainy ? weather : null;
   }
 
   Windy /*?*/ asWindyOrNull() {
     final weather = this;
-    return weather is Windy /*!*/ ? weather : null;
+    return weather is Windy ? weather : null;
   }
 
   R when<R extends Object /*?*/ >({
@@ -91,11 +91,11 @@ abstract class Weather {
     assert(rainy != null);
     assert(windy != null);
     final weather = this;
-    if (weather is Sunny /*!*/) {
+    if (weather is Sunny) {
       return sunny(weather);
-    } else if (weather is Rainy /*!*/) {
+    } else if (weather is Rainy) {
       return rainy(weather);
-    } else if (weather is Windy /*!*/) {
+    } else if (weather is Windy) {
       return windy(weather);
     } else {
       throw AssertionError();
@@ -110,11 +110,11 @@ abstract class Weather {
   }) {
     assert(orElse != null);
     final weather = this;
-    if (weather is Sunny /*!*/) {
+    if (weather is Sunny) {
       return sunny != null ? sunny(weather) : orElse(weather);
-    } else if (weather is Rainy /*!*/) {
+    } else if (weather is Rainy) {
       return rainy != null ? rainy(weather) : orElse(weather);
-    } else if (weather is Windy /*!*/) {
+    } else if (weather is Windy) {
       return windy != null ? windy(weather) : orElse(weather);
     } else {
       throw AssertionError();
@@ -129,11 +129,11 @@ abstract class Weather {
   }) {
     assert(orDefault != null);
     final weather = this;
-    if (weather is Sunny /*!*/) {
+    if (weather is Sunny) {
       return sunny != null ? sunny(weather) : orDefault;
-    } else if (weather is Rainy /*!*/) {
+    } else if (weather is Rainy) {
       return rainy != null ? rainy(weather) : orDefault;
-    } else if (weather is Windy /*!*/) {
+    } else if (weather is Windy) {
       return windy != null ? windy(weather) : orDefault;
     } else {
       throw AssertionError();
@@ -146,11 +146,11 @@ abstract class Weather {
     R Function(Windy /*!*/ windy) /*?*/ windy,
   }) {
     final weather = this;
-    if (weather is Sunny /*!*/) {
+    if (weather is Sunny) {
       return sunny?.call(weather);
-    } else if (weather is Rainy /*!*/) {
+    } else if (weather is Rainy) {
       return rainy?.call(weather);
-    } else if (weather is Windy /*!*/) {
+    } else if (weather is Windy) {
       return windy?.call(weather);
     } else {
       throw AssertionError();
@@ -163,11 +163,11 @@ abstract class Weather {
     R Function(Windy /*!*/ windy) /*?*/ windy,
   }) {
     final weather = this;
-    if (weather is Sunny /*!*/ && sunny != null) {
+    if (weather is Sunny && sunny != null) {
       return sunny(weather);
-    } else if (weather is Rainy /*!*/ && rainy != null) {
+    } else if (weather is Rainy && rainy != null) {
       return rainy(weather);
-    } else if (weather is Windy /*!*/ && windy != null) {
+    } else if (weather is Windy && windy != null) {
       return windy(weather);
     } else {
       throw AssertionError();
@@ -183,11 +183,11 @@ abstract class Weather {
     assert(rainy != null);
     assert(windy != null);
     final weather = this;
-    if (weather is Sunny /*!*/) {
+    if (weather is Sunny) {
       sunny(weather);
-    } else if (weather is Rainy /*!*/) {
+    } else if (weather is Rainy) {
       rainy(weather);
-    } else if (weather is Windy /*!*/) {
+    } else if (weather is Windy) {
       windy(weather);
     } else {
       throw AssertionError();
@@ -200,11 +200,11 @@ abstract class Weather {
     void Function(Windy /*!*/ windy) /*?*/ windy,
   }) {
     final weather = this;
-    if (weather is Sunny /*!*/) {
+    if (weather is Sunny) {
       sunny?.call(weather);
-    } else if (weather is Rainy /*!*/) {
+    } else if (weather is Rainy) {
       rainy?.call(weather);
-    } else if (weather is Windy /*!*/) {
+    } else if (weather is Windy) {
       windy?.call(weather);
     } else {
       throw AssertionError();
@@ -219,19 +219,19 @@ abstract class Weather {
   }) {
     assert(orElse != null);
     final weather = this;
-    if (weather is Sunny /*!*/) {
+    if (weather is Sunny) {
       if (sunny != null) {
         sunny(weather);
       } else {
         orElse(weather);
       }
-    } else if (weather is Rainy /*!*/) {
+    } else if (weather is Rainy) {
       if (rainy != null) {
         rainy(weather);
       } else {
         orElse(weather);
       }
-    } else if (weather is Windy /*!*/) {
+    } else if (weather is Windy) {
       if (windy != null) {
         windy(weather);
       } else {
@@ -248,11 +248,11 @@ abstract class Weather {
     void Function(Windy /*!*/ windy) /*?*/ windy,
   }) {
     final weather = this;
-    if (weather is Sunny /*!*/ && sunny != null) {
+    if (weather is Sunny && sunny != null) {
       sunny(weather);
-    } else if (weather is Rainy /*!*/ && rainy != null) {
+    } else if (weather is Rainy && rainy != null) {
       rainy(weather);
-    } else if (weather is Windy /*!*/ && windy != null) {
+    } else if (weather is Windy && windy != null) {
       windy(weather);
     } else {
       throw AssertionError();
@@ -276,7 +276,7 @@ class Sunny extends Weather with EquatableMixin {
   List<Object /*?*/ > /*!*/ get props => [];
 }
 
-/// (([Rainy] : [Weather]) rainy){[int?] rain}
+/// (([Rainy] : [Weather]) rainy){[int]? rain}
 ///
 /// with data equality
 class Rainy extends Weather with EquatableMixin {
@@ -295,7 +295,7 @@ class Rainy extends Weather with EquatableMixin {
       ];
 }
 
-/// (([Windy] : [Weather]) windy){[double?] velocity, [double?] angle}
+/// (([Windy] : [Weather]) windy){[double]? velocity, [double]? angle}
 ///
 /// with data equality
 class Windy extends Weather with EquatableMixin {
