@@ -20,4 +20,4 @@ dev_dependencies:
     path: ../sealed_super_enum_mapper
   pedantic: ^1.9.0
   test: ^1.17.1
-  build_runner: ^2.0.1
+  build_runner: ^1.12.2
