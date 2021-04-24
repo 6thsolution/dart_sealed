@@ -6,25 +6,25 @@ import '../../utils/exception_utils.dart';
 void main() {
   group('method check', () {
     test('when true does not throw', () {
-      expect(() => check(true), isNot(throwsAssertion()));
+      expect(() => check(true), isNot(throwsInternal()));
     });
 
     test('when false does throw', () {
-      expect(() => check(false), throwsAssertion());
+      expect(() => check(false), throwsInternal());
     });
   });
 
   group('method require', () {
     group('with null argument', () {
       test('when true does not throw', () {
-        expect(() => require(true), isNot(throwsAssertion()));
+        expect(() => require(true), isNot(throwsInternal()));
       });
 
       test('when false does throw', () {
         expect(
           () => require(false),
           throwsA(allOf(
-            isSealedException(),
+            isSealedError(),
             hasMessage(isNull),
             hasCause(isNull),
           )),
@@ -34,14 +34,14 @@ void main() {
 
     group('with String argument', () {
       test('when true does not throw', () {
-        expect(() => require(true, 'msg'), isNot(throwsAssertion()));
+        expect(() => require(true, 'msg'), isNot(throwsInternal()));
       });
 
       test('when false does throw', () {
         expect(
               () => require(false, 'msg'),
           throwsA(allOf(
-            isSealedException(),
+            isSealedError(),
             hasMessage(equals('msg')),
             hasCause(isNull),
           )),
@@ -53,7 +53,7 @@ void main() {
       test('when true does not throw and not compute function', () {
         expect(
               () => require(true, () => throw 'should not happen!'),
-          isNot(throwsAssertion()),
+          isNot(throwsInternal()),
         );
       });
 
@@ -61,7 +61,7 @@ void main() {
         expect(
               () => require(false, () => 'm' * 2),
           throwsA(allOf(
-            isSealedException(),
+            isSealedError(),
             hasMessage(equals('mm')),
             hasCause(isNull),
           )),
@@ -73,7 +73,7 @@ void main() {
       test('when false does throw internal', () {
         expect(
               () => require(false, 1),
-          throwsAssertion(),
+          throwsInternal(),
         );
       });
     });
@@ -82,27 +82,27 @@ void main() {
   group('class SealedException', () {
     test('initialization', () {
       expect(
-        SealedException(),
+        SealedError(),
         allOf(
-          isSealedException(),
+          isSealedError(),
           hasMessage(isNull),
           hasCause(isNull),
         ),
       );
 
       expect(
-        SealedException('msg'),
+        SealedError('msg'),
         allOf(
-          isSealedException(),
+          isSealedError(),
           hasMessage(equals('msg')),
           hasCause(isNull),
         ),
       );
 
       expect(
-        SealedException('msg', 1),
+        SealedError('msg', 1),
         allOf(
-          isSealedException(),
+          isSealedError(),
           hasMessage(equals('msg')),
           hasCause(equals(1)),
         ),
@@ -111,7 +111,7 @@ void main() {
 
     test('method toString', () {
       expect(
-        SealedException().toString().toLowerCase(),
+        SealedError().toString().toLowerCase(),
         allOf(
           contains('unknown'),
           isNot(contains('cause')),
@@ -119,7 +119,7 @@ void main() {
       );
 
       expect(
-        SealedException('msg').toString().toLowerCase(),
+        SealedError('msg').toString().toLowerCase(),
         allOf(
           contains('msg'),
           isNot(contains('cause')),
@@ -127,7 +127,7 @@ void main() {
       );
 
       expect(
-        SealedException('msg', 1).toString().toLowerCase(),
+        SealedError('msg', 1).toString().toLowerCase(),
         allOf(
           contains('msg'),
           contains('cause'),

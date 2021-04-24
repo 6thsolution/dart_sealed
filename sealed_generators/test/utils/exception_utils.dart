@@ -6,24 +6,26 @@ Matcher hasMessage(dynamic matcher) => _HasMessage(matcher);
 
 Matcher hasCause(dynamic matcher) => _HasCause(matcher);
 
-Matcher isSealedException() => const TypeMatcher<SealedException>();
+Matcher isSealedError() => const TypeMatcher<SealedError>();
 
-Matcher throwsAssertion() => throwsA(const TypeMatcher<AssertionError>());
+Matcher isInternalSealedError() => const TypeMatcher<InternalSealedError>();
+
+Matcher throwsInternal() => throwsA(isInternalSealedError());
 
 @sealed
 class _HasMessage extends CustomMatcher {
   _HasMessage(dynamic matcher)
-      : super('SealedException with message that is', 'message', matcher);
+      : super('SealedError with message that is', 'message', matcher);
 
   @override
-  String? featureValueOf(dynamic actual) => (actual as SealedException).message;
+  String? featureValueOf(dynamic actual) => (actual as SealedError).message;
 }
 
 @sealed
 class _HasCause extends CustomMatcher {
   _HasCause(dynamic matcher)
-      : super('SealedException with cause that is', 'cause', matcher);
+      : super('SealedError with cause that is', 'cause', matcher);
 
   @override
-  Object? featureValueOf(dynamic actual) => (actual as SealedException).cause;
+  Object? featureValueOf(dynamic actual) => (actual as SealedError).cause;
 }

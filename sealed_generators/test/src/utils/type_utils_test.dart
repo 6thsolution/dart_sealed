@@ -101,12 +101,12 @@ void main() {
       expect(t2.name, equals('double'));
       expect(t2.isNullable, isTrue);
 
-      expect(() => 'Hello*'.readType(), throwsAssertion());
-      expect(() => 'Hello/*!*/'.readType(), throwsAssertion());
-      expect(() => 'Hello/*?*/'.readType(), throwsAssertion());
-      expect(() => ''.readType(), throwsAssertion());
-      expect(() => 'A '.readType(), throwsAssertion());
-      expect(() => 'A b'.readType(), throwsAssertion());
+      expect(() => 'Hello*'.readType(), throwsInternal());
+      expect(() => 'Hello/*!*/'.readType(), throwsInternal());
+      expect(() => 'Hello/*?*/'.readType(), throwsInternal());
+      expect(() => ''.readType(), throwsInternal());
+      expect(() => 'A '.readType(), throwsInternal());
+      expect(() => 'A b'.readType(), throwsInternal());
     });
   });
 }

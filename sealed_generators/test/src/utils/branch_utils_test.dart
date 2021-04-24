@@ -32,7 +32,7 @@ void main() {
       expect(branch1.els, e);
       expect(branch2.els, null);
 
-      expect(() => Branch(ifs: []), throwsAssertion());
+      expect(() => Branch(ifs: []), throwsInternal());
     });
 
     test('static method mapIf', () {

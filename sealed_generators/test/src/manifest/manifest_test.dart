@@ -13,7 +13,7 @@ void main() {
 
       expect(
         () => ManifestType(name: 'double?', isNullable: true),
-        throwsAssertion(),
+        throwsInternal(),
       );
     });
   });
@@ -28,7 +28,7 @@ void main() {
 
       expect(
         () => ManifestParam(name: 'double?', bound: bound),
-        throwsAssertion(),
+        throwsInternal(),
       );
     });
   });
@@ -46,11 +46,11 @@ void main() {
 
       expect(
         () => ManifestField(name: '_angle', type: type),
-        throwsAssertion(),
+        throwsInternal(),
       );
       expect(
         () => ManifestField(name: 'Angle', type: type),
-        throwsAssertion(),
+        throwsInternal(),
       );
     });
   });
@@ -88,7 +88,7 @@ void main() {
           equality: Equality.identity,
           fields: [],
         ),
-        throwsAssertion(),
+        throwsInternal(),
       );
       expect(
         () => ManifestItem(
@@ -97,7 +97,7 @@ void main() {
           equality: Equality.identity,
           fields: [],
         ),
-        throwsAssertion(),
+        throwsInternal(),
       );
       expect(
         () => ManifestItem(
@@ -106,7 +106,7 @@ void main() {
           equality: Equality.identity,
           fields: [],
         ),
-        throwsAssertion(),
+        throwsInternal(),
       );
       expect(
         () => ManifestItem(
@@ -115,7 +115,7 @@ void main() {
           equality: Equality.identity,
           fields: [],
         ),
-        throwsAssertion(),
+        throwsInternal(),
       );
     });
   });
@@ -144,19 +144,19 @@ void main() {
 
       expect(
         () => Manifest(name: 'weather', items: [item]),
-        throwsAssertion(),
+        throwsInternal(),
       );
       expect(
         () => Manifest(name: 'Weather?', items: [item]),
-        throwsAssertion(),
+        throwsInternal(),
       );
       expect(
         () => Manifest(name: 'Weather', items: []),
-        throwsAssertion(),
+        throwsInternal(),
       );
       expect(
         () => Manifest(name: '_Weather', items: []),
-        throwsAssertion(),
+        throwsInternal(),
       );
     });
   });

@@ -1,6 +1,6 @@
 import 'package:meta/meta.dart';
 
-/// message should be null, String or String Function()
+/// message should be `null`, `String` or `String Function()`
 void require(final bool value, [final dynamic message]) {
   if (!value) {
     String? m;
@@ -9,9 +9,9 @@ void require(final bool value, [final dynamic message]) {
     } else if (message is String Function()) {
       m = message();
     } else {
-      throw AssertionError();
+      throw InternalSealedError('message type is invalid');
     }
-    throw SealedException(m);
+    throw SealedError(m);
   }
 }
 
@@ -20,34 +20,33 @@ void require(final bool value, [final dynamic message]) {
 /// these should not happen even with malformed manifest.
 /// this is only for checking internal code flow and logic.
 void check(final bool value) {
-  if (!value) throw AssertionError();
+  if (!value) throw InternalSealedError('check failed');
 }
 
-/// SealedException
+/// sealed error
 @immutable
-@sealed
-class SealedException {
+class SealedError extends Error {
   final String? message;
   final Object? cause;
 
-  const SealedException([this.message, this.cause]);
+  SealedError([this.message, this.cause]);
 
   @override
   String toString() {
-    var s = 'SealedException';
-
-    if (message == null) {
-      s = '$s{unknown';
-    } else {
-      s = '$s{$message';
-    }
-
+    final s = StringBuffer('SealedError{');
+    s.write(message != null ? '"$message"' : 'unknown');
     if (cause != null) {
-      s = '$s, cause=$cause';
+      s.write(', cause={$cause}');
     }
-
-    s = '$s}';
-
-    return s;
+    s.write('}');
+    return Error.safeToString(s.toString());
   }
+}
+
+/// internal sealed error
+///
+/// for when errors which should not happen
+/// even in a malformed manifest happens.
+class InternalSealedError extends SealedError {
+  InternalSealedError([String? cause]) : super('internal error', cause);
 }
