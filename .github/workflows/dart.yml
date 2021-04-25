@@ -32,7 +32,7 @@ jobs:
         run: dart test
       - name: sealed_annotations run example
         working-directory: sealed_annotations
-        run: dart run example/sealed_annotations_example.dart
+        run: dart run example/example.dart
       - name: sealed_generators init
         working-directory: sealed_generators
         run: dart pub get
@@ -47,7 +47,7 @@ jobs:
         run: dart test
       - name: sealed_generators run example
         working-directory: sealed_generators
-        run: dart run example/sealed_generators_example.dart
+        run: dart run example/example.dart
       - name: example init
         working-directory: example
         run: dart pub get
@@ -80,7 +80,7 @@ jobs:
         run: dart --no-sound-null-safety run test/all_tests.dart
       - name: sealed_super_enum_mapper run example
         working-directory: sealed_super_enum_mapper
-        run: dart --no-sound-null-safety run example/sealed_super_enum_mapper_example.dart
+        run: dart --no-sound-null-safety run example/example.dart
       - name: sealed_super_enum_mapper_example init
         working-directory: sealed_super_enum_mapper_example
         run: dart pub get
