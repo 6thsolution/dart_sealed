@@ -15,6 +15,9 @@ jobs:
       - uses: dart-lang/setup-dart@v1
         with:
           sdk: stable
+      - name: install coverage package
+        working-directory: .
+        run: dart pub global activate coverage
       - name: sealed_annotations init
         working-directory: sealed_annotations
         run: dart pub get
@@ -100,10 +103,9 @@ jobs:
         working-directory: sealed_generators
         run: |
           dart test --coverage dart_coverage
-          dart pub global activate coverage
           dart pub global run coverage:format_coverage -i dart_coverage -o coverage/lcov.info --lcov --packages .packages --report-on lib
       - name: upload coverage to codecov
         uses: codecov/codecov-action@v1
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          files: ./sealed_annotations/coverage/lcov.info
+          files: ./sealed_generators/coverage/lcov.info
