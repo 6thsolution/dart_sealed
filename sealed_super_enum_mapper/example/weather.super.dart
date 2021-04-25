@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'weather_nullsafe.dart';
+part of 'weather.dart';
 
 // **************************************************************************
 // Generator: sealed_super_enum_mapper

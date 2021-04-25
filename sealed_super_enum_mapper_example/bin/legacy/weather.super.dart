@@ -1,7 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 // @dart=2.9
-part of 'weather_legacy.dart';
+part of 'weather.dart';
 
 // **************************************************************************
 // Generator: sealed_super_enum_mapper

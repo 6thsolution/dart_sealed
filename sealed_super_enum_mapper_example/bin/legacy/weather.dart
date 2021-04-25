@@ -1,8 +1,8 @@
+// @dart=2.9
 import 'package:sealed_annotations/sealed_annotations.dart';
-// ignore: import_of_legacy_library_into_null_safe
 import 'package:super_enum/super_enum.dart';
 
-part 'use_class_nullsafe.super.dart';
+part 'weather.super.dart';
 
 // ignore_for_file: unused_element, unused_field
 
@@ -10,6 +10,13 @@ part 'use_class_nullsafe.super.dart';
 enum _Weather {
   @object
   Sunny,
-  @UseClass(Object, name: 'Lollipop')
+  @Data(fields: [
+    DataField<int>('rain'),
+  ])
   Rainy,
+  @Data(fields: [
+    DataField<double>('velocity'),
+    DataField<double>('angle'),
+  ])
+  Windy,
 }

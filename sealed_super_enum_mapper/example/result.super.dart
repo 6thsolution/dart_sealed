@@ -1,7 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// @dart=2.9
-part of 'result_legacy.dart';
+part of 'result.dart';
 
 // **************************************************************************
 // Generator: sealed_super_enum_mapper
@@ -12,12 +11,12 @@ part of 'result_legacy.dart';
 /// substitute generated manifest for super enum
 /// and remove "$" at the end of class name.
 @Sealed()
-abstract class _Result$<Generic extends Object /*?*/ > {
+abstract class _Result$<Generic extends Object?> {
   @Meta(name: 'Success', equality: Equality.data)
-  void success(Generic /*?*/ data);
+  void success(Generic? data);
 
   @Meta(name: 'Error', equality: Equality.data)
-  void error(Object /*?*/ exception);
+  void error(Object? exception);
 }
 
 /// [Result]<[Generic] extends [Object]?> {
@@ -28,47 +27,45 @@ abstract class _Result$<Generic extends Object /*?*/ > {
 ///
 /// }
 @SealedManifest(_Result)
-abstract class Result<Generic extends Object /*?*/ > {
+abstract class Result<Generic extends Object?> {
   @factory
-  static Success<Generic> /*!*/ success<Generic extends Object /*?*/ >({
-    @required Generic /*?*/ data,
+  static Success<Generic> success<Generic extends Object?>({
+    required Generic? data,
   }) =>
       Success<Generic>(
         data: data,
       );
 
   @factory
-  static Error<Generic> /*!*/ error<Generic extends Object /*?*/ >({
-    @required Object /*?*/ exception,
+  static Error<Generic> error<Generic extends Object?>({
+    required Object? exception,
   }) =>
       Error<Generic>(
         exception: exception,
       );
 
-  bool /*!*/ isSuccess() => this is Success<Generic>;
+  bool isSuccess() => this is Success<Generic>;
 
-  bool /*!*/ isError() => this is Error<Generic>;
+  bool isError() => this is Error<Generic>;
 
-  Success<Generic> /*!*/ asSuccess() => this as Success<Generic>;
+  Success<Generic> asSuccess() => this as Success<Generic>;
 
-  Error<Generic> /*!*/ asError() => this as Error<Generic>;
+  Error<Generic> asError() => this as Error<Generic>;
 
-  Success<Generic> /*?*/ asSuccessOrNull() {
+  Success<Generic>? asSuccessOrNull() {
     final result = this;
     return result is Success<Generic> ? result : null;
   }
 
-  Error<Generic> /*?*/ asErrorOrNull() {
+  Error<Generic>? asErrorOrNull() {
     final result = this;
     return result is Error<Generic> ? result : null;
   }
 
-  R when<R extends Object /*?*/ >({
-    @required R Function(Success<Generic> /*!*/ success) /*!*/ success,
-    @required R Function(Error<Generic> /*!*/ error) /*!*/ error,
+  R when<R extends Object?>({
+    required R Function(Success<Generic> success) success,
+    required R Function(Error<Generic> error) error,
   }) {
-    assert(success != null);
-    assert(error != null);
     final result = this;
     if (result is Success<Generic>) {
       return success(result);
@@ -79,12 +76,11 @@ abstract class Result<Generic extends Object /*?*/ > {
     }
   }
 
-  R whenOrElse<R extends Object /*?*/ >({
-    R Function(Success<Generic> /*!*/ success) /*?*/ success,
-    R Function(Error<Generic> /*!*/ error) /*?*/ error,
-    @required R Function(Result<Generic> /*!*/ result) /*!*/ orElse,
+  R whenOrElse<R extends Object?>({
+    R Function(Success<Generic> success)? success,
+    R Function(Error<Generic> error)? error,
+    required R Function(Result<Generic> result) orElse,
   }) {
-    assert(orElse != null);
     final result = this;
     if (result is Success<Generic>) {
       return success != null ? success(result) : orElse(result);
@@ -95,12 +91,11 @@ abstract class Result<Generic extends Object /*?*/ > {
     }
   }
 
-  R whenOrDefault<R extends Object /*?*/ >({
-    R Function(Success<Generic> /*!*/ success) /*?*/ success,
-    R Function(Error<Generic> /*!*/ error) /*?*/ error,
-    @required R orDefault,
+  R whenOrDefault<R extends Object?>({
+    R Function(Success<Generic> success)? success,
+    R Function(Error<Generic> error)? error,
+    required R orDefault,
   }) {
-    assert(orDefault != null);
     final result = this;
     if (result is Success<Generic>) {
       return success != null ? success(result) : orDefault;
@@ -111,9 +106,9 @@ abstract class Result<Generic extends Object /*?*/ > {
     }
   }
 
-  R /*?*/ whenOrNull<R extends Object /*?*/ >({
-    R Function(Success<Generic> /*!*/ success) /*?*/ success,
-    R Function(Error<Generic> /*!*/ error) /*?*/ error,
+  R? whenOrNull<R extends Object?>({
+    R Function(Success<Generic> success)? success,
+    R Function(Error<Generic> error)? error,
   }) {
     final result = this;
     if (result is Success<Generic>) {
@@ -125,9 +120,9 @@ abstract class Result<Generic extends Object /*?*/ > {
     }
   }
 
-  R whenOrThrow<R extends Object /*?*/ >({
-    R Function(Success<Generic> /*!*/ success) /*?*/ success,
-    R Function(Error<Generic> /*!*/ error) /*?*/ error,
+  R whenOrThrow<R extends Object?>({
+    R Function(Success<Generic> success)? success,
+    R Function(Error<Generic> error)? error,
   }) {
     final result = this;
     if (result is Success<Generic> && success != null) {
@@ -140,11 +135,9 @@ abstract class Result<Generic extends Object /*?*/ > {
   }
 
   void branch({
-    @required void Function(Success<Generic> /*!*/ success) /*!*/ success,
-    @required void Function(Error<Generic> /*!*/ error) /*!*/ error,
+    required void Function(Success<Generic> success) success,
+    required void Function(Error<Generic> error) error,
   }) {
-    assert(success != null);
-    assert(error != null);
     final result = this;
     if (result is Success<Generic>) {
       success(result);
@@ -156,8 +149,8 @@ abstract class Result<Generic extends Object /*?*/ > {
   }
 
   void branchPartial({
-    void Function(Success<Generic> /*!*/ success) /*?*/ success,
-    void Function(Error<Generic> /*!*/ error) /*?*/ error,
+    void Function(Success<Generic> success)? success,
+    void Function(Error<Generic> error)? error,
   }) {
     final result = this;
     if (result is Success<Generic>) {
@@ -170,11 +163,10 @@ abstract class Result<Generic extends Object /*?*/ > {
   }
 
   void branchOrElse({
-    void Function(Success<Generic> /*!*/ success) /*?*/ success,
-    void Function(Error<Generic> /*!*/ error) /*?*/ error,
-    @required void Function(Result<Generic> /*!*/ result) /*!*/ orElse,
+    void Function(Success<Generic> success)? success,
+    void Function(Error<Generic> error)? error,
+    required void Function(Result<Generic> result) orElse,
   }) {
-    assert(orElse != null);
     final result = this;
     if (result is Success<Generic>) {
       if (success != null) {
@@ -194,8 +186,8 @@ abstract class Result<Generic extends Object /*?*/ > {
   }
 
   void branchOrThrow({
-    void Function(Success<Generic> /*!*/ success) /*?*/ success,
-    void Function(Error<Generic> /*!*/ error) /*?*/ error,
+    void Function(Success<Generic> success)? success,
+    void Function(Error<Generic> error)? error,
   }) {
     final result = this;
     if (result is Success<Generic> && success != null) {
@@ -211,19 +203,19 @@ abstract class Result<Generic extends Object /*?*/ > {
 /// (([Success] : [Result])<[Generic] extends [Object]?> success){[Generic]? data}
 ///
 /// with data equality
-class Success<Generic extends Object /*?*/ > extends Result<Generic>
+class Success<Generic extends Object?> extends Result<Generic>
     with EquatableMixin {
   Success({
-    @required this.data,
+    required this.data,
   });
 
-  final Generic /*?*/ data;
+  final Generic? data;
 
   @override
-  String /*!*/ toString() => 'Result.success(data: $data)';
+  String toString() => 'Result.success(data: $data)';
 
   @override
-  List<Object /*?*/ > /*!*/ get props => [
+  List<Object?> get props => [
         data,
       ];
 }
@@ -231,19 +223,19 @@ class Success<Generic extends Object /*?*/ > extends Result<Generic>
 /// (([Error] : [Result])<[Generic] extends [Object]?> error){[Object]? exception}
 ///
 /// with data equality
-class Error<Generic extends Object /*?*/ > extends Result<Generic>
+class Error<Generic extends Object?> extends Result<Generic>
     with EquatableMixin {
   Error({
-    @required this.exception,
+    required this.exception,
   });
 
-  final Object /*?*/ exception;
+  final Object? exception;
 
   @override
-  String /*!*/ toString() => 'Result.error(exception: $exception)';
+  String toString() => 'Result.error(exception: $exception)';
 
   @override
-  List<Object /*?*/ > /*!*/ get props => [
+  List<Object?> get props => [
         exception,
       ];
 }

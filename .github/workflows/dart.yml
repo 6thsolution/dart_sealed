@@ -19,98 +19,98 @@ jobs:
         working-directory: .
         run: dart pub global activate coverage
       - name: sealed_annotations init
-        working-directory: ./sealed_annotations
+        working-directory: sealed_annotations
         run: dart pub get
       - name: sealed_annotations format
-        working-directory: ./sealed_annotations
-        run: dart format --output=none --set-exit-if-changed ./example ./lib ./test
+        working-directory: sealed_annotations
+        run: dart format --output=none --set-exit-if-changed example lib test
       - name: sealed_annotations analyze
-        working-directory: ./sealed_annotations
+        working-directory: sealed_annotations
         run: dart analyze
       - name: sealed_annotations test
-        working-directory: ./sealed_annotations
-        run: dart test --coverage ./dart_coverage
+        working-directory: sealed_annotations
+        run: dart test --coverage dart_coverage
       - name: sealed_annotations coverage
-        working-directory: ./sealed_annotations
-        run: dart pub global run coverage:format_coverage -i ./dart_coverage -o ./coverage/lcov.info -l --packages ./.packages --report-on ./lib
+        working-directory: sealed_annotations
+        run: dart pub global run coverage:format_coverage -i dart_coverage -o coverage/lcov.info -l --packages .packages --report-on lib
       - name: sealed_annotations run example
-        working-directory: ./sealed_annotations
-        run: dart run ./example/sealed_annotations_example.dart
+        working-directory: sealed_annotations
+        run: dart run example/sealed_annotations_example.dart
       - name: sealed_generators init
-        working-directory: ./sealed_generators
+        working-directory: sealed_generators
         run: dart pub get
       - name: sealed_generators format
-        working-directory: ./sealed_generators
-        run: dart format --output=none --set-exit-if-changed ./example ./lib ./test
+        working-directory: sealed_generators
+        run: dart format --output=none --set-exit-if-changed example lib test
       - name: sealed_generators analyze
-        working-directory: ./sealed_generators
+        working-directory: sealed_generators
         run: dart analyze
       - name: sealed_generators test
-        working-directory: ./sealed_generators
-        run: dart test --coverage ./dart_coverage
+        working-directory: sealed_generators
+        run: dart test --coverage dart_coverage
       - name: sealed_generators coverage
-        working-directory: ./sealed_generators
-        run: dart pub global run coverage:format_coverage -i ./dart_coverage -o ./coverage/lcov.info -l --packages ./.packages --report-on ./lib
+        working-directory: sealed_generators
+        run: dart pub global run coverage:format_coverage -i dart_coverage -o coverage/lcov.info -l --packages .packages --report-on lib
       - name: sealed_generators run example
-        working-directory: ./sealed_generators
-        run: dart run ./example/sealed_generators_example.dart
+        working-directory: sealed_generators
+        run: dart run example/sealed_generators_example.dart
       - name: example init
-        working-directory: ./example
+        working-directory: example
         run: dart pub get
       - name: example build
-        working-directory: ./example
+        working-directory: example
         run: dart run build_runner build --delete-conflicting-outputs
       - name: example format
-        working-directory: ./example
-        run: dart format --output=none --set-exit-if-changed ./bin/example.dart ./test
+        working-directory: example
+        run: dart format --output=none --set-exit-if-changed bin/example.dart test
       - name: example analyze
-        working-directory: ./example
+        working-directory: example
         run: dart analyze
       - name: example test
-        working-directory: ./example
-        run: dart test --coverage ./dart_coverage
+        working-directory: example
+        run: dart test --coverage dart_coverage
       - name: example coverage
-        working-directory: ./example
-        run: dart pub global run coverage:format_coverage -i ./dart_coverage -o ./coverage/lcov.info -l --packages ./.packages --report-on ./bin
+        working-directory: example
+        run: dart pub global run coverage:format_coverage -i dart_coverage -o coverage/lcov.info -l --packages .packages --report-on bin
       - name: example run
-        working-directory: ./example
+        working-directory: example
         run: dart run
       - name: sealed_super_enum_mapper init
-        working-directory: ./sealed_super_enum_mapper
+        working-directory: sealed_super_enum_mapper
         run: dart pub get
       - name: sealed_super_enum_mapper format
-        working-directory: ./sealed_super_enum_mapper
-        run: dart format --output=none --set-exit-if-changed ./example ./lib ./test
+        working-directory: sealed_super_enum_mapper
+        run: dart format --output=none --set-exit-if-changed example lib test
       - name: sealed_super_enum_mapper analyze
-        working-directory: ./sealed_super_enum_mapper
+        working-directory: sealed_super_enum_mapper
         run: dart analyze
       - name: sealed_super_enum_mapper test
-        working-directory: ./sealed_super_enum_mapper
-        run: dart test --coverage ./dart_coverage
+        working-directory: sealed_super_enum_mapper
+        run: dart test --coverage dart_coverage
       - name: sealed_super_enum_mapper coverage
-        working-directory: ./sealed_super_enum_mapper
-        run: dart pub global run coverage:format_coverage -i ./dart_coverage -o ./coverage/lcov.info -l --packages ./.packages --report-on ./lib
+        working-directory: sealed_super_enum_mapper
+        run: dart pub global run coverage:format_coverage -i dart_coverage -o coverage/lcov.info -l --packages .packages --report-on lib
       - name: sealed_super_enum_mapper run example
-        working-directory: ./sealed_super_enum_mapper
-        run: dart run ./example/sealed_super_enum_mapper_example.dart
+        working-directory: sealed_super_enum_mapper
+        run: dart run example/sealed_super_enum_mapper_example.dart
       - name: sealed_super_enum_mapper_example init
-        working-directory: ./sealed_super_enum_mapper_example
+        working-directory: sealed_super_enum_mapper_example
         run: dart pub get
       - name: sealed_super_enum_mapper_example build
-        working-directory: ./sealed_super_enum_mapper_example
+        working-directory: sealed_super_enum_mapper_example
         run: dart run build_runner build --delete-conflicting-outputs
       - name: sealed_super_enum_mapper_example format
-        working-directory: ./sealed_super_enum_mapper_example
-        run: dart format --output=none --set-exit-if-changed ./bin/sealed_super_enum_mapper_example.dart ./test
+        working-directory: sealed_super_enum_mapper_example
+        run: dart format --output=none --set-exit-if-changed bin/sealed_super_enum_mapper_example.dart test
       - name: sealed_super_enum_mapper_example analyze
-        working-directory: ./sealed_super_enum_mapper_example
+        working-directory: sealed_super_enum_mapper_example
         run: dart analyze
       - name: sealed_super_enum_mapper_example test
-        working-directory: ./sealed_super_enum_mapper_example
-        run: dart test --coverage ./dart_coverage
+        working-directory: sealed_super_enum_mapper_example
+        run: dart test --coverage dart_coverage
       - name: sealed_super_enum_mapper_example coverage
-        working-directory: ./sealed_super_enum_mapper_example
-        run: dart pub global run coverage:format_coverage -i ./dart_coverage -o ./coverage/lcov.info -l --packages ./.packages --report-on ./bin
+        working-directory: sealed_super_enum_mapper_example
+        run: dart pub global run coverage:format_coverage -i dart_coverage -o coverage/lcov.info -l --packages .packages --report-on bin
       - name: sealed_super_enum_mapper_example run
-        working-directory: ./sealed_super_enum_mapper_example
+        working-directory: sealed_super_enum_mapper_example
         run: dart run

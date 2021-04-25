@@ -2,7 +2,7 @@
 import 'package:sealed_annotations/sealed_annotations.dart';
 import 'package:super_enum/super_enum.dart';
 
-part 'result_legacy.super.dart';
+part 'result.super.dart';
 
 // ignore_for_file: unused_element, unused_field
 
