@@ -1,7 +1,7 @@
 import 'package:test/test.dart';
 
-import 'src/test_annotations.dart' as test_annotations;
+import 'src/all.dart' as all_src;
 
 void main() {
-  group('test_annotations', test_annotations.main);
+  group('src', all_src.main);
 }

@@ -58,11 +58,11 @@ void main() {
         writer.topMatchBranchPartialBody(),
         'final weather = this;\n'
         'if (weather is HiSunny) {'
-            'sunny?.call(weather);}\n'
+        'sunny?.call(weather);}\n'
         'else if (weather is WeatherRainy) {'
-            'rainy?.call(weather);}\n'
+        'rainy?.call(weather);}\n'
         'else if (weather is HelloWindy) {'
-            'windy?.call(weather);}\n'
+        'windy?.call(weather);}\n'
         'else {throw AssertionError();}',
       );
     });

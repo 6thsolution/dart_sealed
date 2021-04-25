@@ -1,10 +1,10 @@
 import 'package:test/test.dart';
 
-import '../../../../../bin/sealed/nullsafe/data/generic/result_single_4.dart';
+import '../../../../../bin/sealed/nullsafe/data/generic/result_single_2.dart';
 import '../../../../utils/type_utils.dart';
 
 void main() {
-  group('nullsafe data generic result single 4', () {
+  group('class Result', () {
     test('initialization', () {
       final a = Result.error(exception: 12);
       expect(a.exception, equals(12));

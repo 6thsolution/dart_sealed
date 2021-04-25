@@ -1,11 +1,10 @@
-// @dart=2.9
 import 'package:test/test.dart';
 
-import '../../../../../bin/sealed/legacy/data/generic/result_single.dart';
+import '../../../../../bin/sealed/nullsafe/data/generic/result_single_3.dart';
 import '../../../../utils/type_utils.dart';
 
 void main() {
-  group('nullsafe data generic result single 1', () {
+  group('class Result', () {
     test('initialization', () {
       final a = Result.error(exception: 12);
       expect(a.exception, equals(12));
@@ -18,6 +17,10 @@ void main() {
       final c = Result.success(data: 1);
       expect(c.data, equals(1));
       expect(c, hasType<ResultSuccess<int>>());
+
+      final d = Result.success<int>(data: null);
+      expect(d.data, isNull);
+      expect(d, hasType<ResultSuccess<int>>());
     });
 
     test('equality', () {
@@ -25,11 +28,13 @@ void main() {
       final b = Result.success(data: 1);
       final c = Result.success(data: 2);
       final d = Result.success(data: 0.75);
+      final e = Result.success<int>(data: null);
 
       expect(a, equals(a));
       expect(a, equals(b));
       expect(a, isNot(equals(c)));
       expect(a, isNot(equals(d)));
+      expect(a, isNot(equals(e)));
     });
   });
 }

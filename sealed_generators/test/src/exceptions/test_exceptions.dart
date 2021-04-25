@@ -39,7 +39,7 @@ void main() {
 
       test('when false does throw', () {
         expect(
-              () => require(false, 'msg'),
+          () => require(false, 'msg'),
           throwsA(allOf(
             isSealedError(),
             hasMessage(equals('msg')),
@@ -52,14 +52,14 @@ void main() {
     group('with String Function() argument', () {
       test('when true does not throw and not compute function', () {
         expect(
-              () => require(true, () => throw 'should not happen!'),
+          () => require(true, () => throw 'should not happen!'),
           isNot(throwsInternal()),
         );
       });
 
       test('when false does throw and compute function', () {
         expect(
-              () => require(false, () => 'm' * 2),
+          () => require(false, () => 'm' * 2),
           throwsA(allOf(
             isSealedError(),
             hasMessage(equals('mm')),
@@ -72,7 +72,7 @@ void main() {
     group('with other argument', () {
       test('when false does throw internal', () {
         expect(
-              () => require(false, 1),
+          () => require(false, 1),
           throwsInternal(),
         );
       });

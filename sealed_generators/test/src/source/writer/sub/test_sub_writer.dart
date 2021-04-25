@@ -52,10 +52,10 @@ void main() {
 
         expect(
           writer.subClassStart(item2),
-            stringContainsInOrder([
-              writer.subDocWriter.write(item2),
-              'class WeatherRainy extends Weather',
-            ]),
+          stringContainsInOrder([
+            writer.subDocWriter.write(item2),
+            'class WeatherRainy extends Weather',
+          ]),
         );
       });
 
