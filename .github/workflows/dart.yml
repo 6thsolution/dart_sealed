@@ -95,7 +95,7 @@ jobs:
         run: dart analyze
       - name: sealed_super_enum_mapper_example test
         working-directory: sealed_super_enum_mapper_example
-        run: dart --no-sound-null-safety run test/test_all.dart
+        run: dart --no-sound-null-safety run test/all_test.dart
       - name: sealed_super_enum_mapper_example run
         working-directory: sealed_super_enum_mapper_example
         run: dart --no-sound-null-safety run
