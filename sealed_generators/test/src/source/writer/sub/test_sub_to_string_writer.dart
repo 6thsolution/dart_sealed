@@ -26,45 +26,61 @@ void main() {
     });
 
     group('method subToString', () {
-      test('null-safe', () {
-        final source = source1DataSafe;
-        // void sunny();
-        final item1 = source.manifest.items[0];
-        // void rainy(int rain);
-        final item2 = source.manifest.items[1];
-        // void windy(double velocity, double? angle);
-        final item3 = source.manifest.items[2];
-        final writer = SubToStringWriter(source);
+      group('simple', () {
+        test('null-safe', () {
+          final source = source1DataSafe;
+          // void sunny();
+          final item1 = source.manifest.items[0];
+          // void rainy(int rain);
+          final item2 = source.manifest.items[1];
+          // void windy(double velocity, double? angle);
+          final item3 = source.manifest.items[2];
+          final writer = SubToStringWriter(source);
 
-        expect(
-          writer.subToString(item1),
-          '@override\n'
-          r"String toString() => 'Weather.sunny()';",
-        );
-        expect(
-          writer.subToString(item2),
-          '@override\n'
-          r"String toString() => 'Weather.rainy(rain: $rain)';",
-        );
-        expect(
-          writer.subToString(item3),
-          '@override\n'
-          "String toString() => 'Weather.windy"
-          r"(velocity: $velocity, angle: $angle)';",
-        );
+          expect(
+            writer.subToString(item1),
+            '@override\n'
+            r"String toString() => 'Weather.sunny()';",
+          );
+          expect(
+            writer.subToString(item2),
+            '@override\n'
+            r"String toString() => 'Weather.rainy(rain: $rain)';",
+          );
+          expect(
+            writer.subToString(item3),
+            '@override\n'
+            "String toString() => 'Weather.windy"
+            r"(velocity: $velocity, angle: $angle)';",
+          );
+        });
+
+        test('legacy', () {
+          final source = source1DataLegacy;
+          // void rainy(int rain);
+          final item2 = source.manifest.items[1];
+          final writer = SubToStringWriter(source);
+
+          expect(
+            writer.subToString(item2),
+            '@override\n'
+            r"String/*!*/ toString() => 'Weather.rainy(rain: $rain)';",
+          );
+        });
       });
 
-      test('legacy', () {
-        final source = source1DataLegacy;
-        // void rainy(int rain);
-        final item2 = source.manifest.items[1];
-        final writer = SubToStringWriter(source);
+      group('generic', () {
+        test('null-safe', () {
+          final source = source2DataSafe;
+          final item1 = source.manifest.items[0];
+          final writer = SubToStringWriter(source);
 
-        expect(
-          writer.subToString(item2),
-          '@override\n'
-          r"String/*!*/ toString() => 'Weather.rainy(rain: $rain)';",
-        );
+          expect(
+            writer.subToString(item1),
+            '@override\n'
+            r"String toString() => 'Result.success(data: $data)';",
+          );
+        });
       });
     });
     // end of group SubToStringWriter

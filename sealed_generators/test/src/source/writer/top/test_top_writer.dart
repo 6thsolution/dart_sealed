@@ -67,40 +67,56 @@ void main() {
     });
 
     group('method topClassStart', () {
-      test('equality data', () {
-        final source = source1DataSafe;
-        final writer = TopWriter(source);
+      group('simple', () {
+        test('equality data', () {
+          final source = source1DataSafe;
+          final writer = TopWriter(source);
 
-        expect(
-          writer.topClassStart(),
-          '$doc1Data\n'
-          '@SealedManifest(_Weather)\n'
-          'abstract class Weather',
-        );
+          expect(
+            writer.topClassStart(),
+            '$doc1Data\n'
+            '@SealedManifest(_Weather)\n'
+            'abstract class Weather',
+          );
+        });
+
+        test('equality identity', () {
+          final source = source1IdentityLegacy;
+          final writer = TopWriter(source);
+
+          expect(
+            writer.topClassStart(),
+            '$doc1Identity\n'
+            '@SealedManifest(_Weather)\n'
+            'abstract class Weather',
+          );
+        });
+
+        test('equality distinct', () {
+          final source = source1DistinctLegacy;
+          final writer = TopWriter(source);
+
+          expect(
+            writer.topClassStart(),
+            '$doc1Distinct\n'
+            '@SealedManifest(_Weather)\n'
+            'abstract class Weather',
+          );
+        });
       });
 
-      test('equality identity', () {
-        final source = source1IdentityLegacy;
-        final writer = TopWriter(source);
+      group('generic', () {
+        test('equality data', () {
+          final source = source2DataSafe;
+          final writer = TopWriter(source);
 
-        expect(
-          writer.topClassStart(),
-          '$doc1Identity\n'
-          '@SealedManifest(_Weather)\n'
-          'abstract class Weather',
-        );
-      });
-
-      test('equality distinct', () {
-        final source = source1DistinctLegacy;
-        final writer = TopWriter(source);
-
-        expect(
-          writer.topClassStart(),
-          '$doc1Distinct\n'
-          '@SealedManifest(_Weather)\n'
-          'abstract class Weather',
-        );
+          expect(
+            writer.topClassStart(),
+            '$doc2Data\n'
+            '@SealedManifest(_Result)\n'
+            'abstract class Result<T extends num>',
+          );
+        });
       });
     });
 

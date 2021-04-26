@@ -72,19 +72,30 @@ void main() {
       );
     });
 
-    test('method subFieldDeclarations', () {
-      final source = source1DataSafe;
-      // void windy(double velocity, double? angle);
-      final item = source.manifest.items[2];
-      final writer = SubFieldWriter(source);
+    group('method subFieldDeclarations', () {
+      test('simple', () {
+        final source = source1DataSafe;
+        // void windy(double velocity, double? angle);
+        final item = source.manifest.items[2];
+        final writer = SubFieldWriter(source);
 
-      expect(
-        writer.subFieldDeclarations(item),
-        stringContainsInOrder([
-          'final double velocity;',
+        expect(
+          writer.subFieldDeclarations(item),
+          'final double velocity;\n'
           'final double? angle;',
-        ]),
-      );
+        );
+      });
+
+      test('generic', () {
+        final source = source2DataSafe;
+        final item = source.manifest.items[0];
+        final writer = SubFieldWriter(source);
+
+        expect(
+          writer.subFieldDeclarations(item),
+          'final T data;',
+        );
+      });
     });
     // end of group SubFieldWriter
   });

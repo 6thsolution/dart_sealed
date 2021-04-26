@@ -35,30 +35,46 @@ void main() {
     });
 
     group('method subEquatableEquality', () {
-      test('null-safe', () {
-        final source = source1DataSafe;
-        // void windy(double velocity, double? angle);
-        final item3 = source.manifest.items[2];
-        final writer = SubEquatableWriter(source);
+      group('simple', () {
+        test('null-safe', () {
+          final source = source1DataSafe;
+          // void windy(double velocity, double? angle);
+          final item3 = source.manifest.items[2];
+          final writer = SubEquatableWriter(source);
 
-        expect(
-          writer.subEquatableEquality(item3),
-          '@override\n'
-          'List<Object?> get props => [velocity, angle,];',
-        );
+          expect(
+            writer.subEquatableEquality(item3),
+            '@override\n'
+            'List<Object?> get props => [velocity, angle,];',
+          );
+        });
+
+        test('legacy', () {
+          final source = source1DataLegacy;
+          // void windy(double velocity, double? angle);
+          final item3 = source.manifest.items[2];
+          final writer = SubEquatableWriter(source);
+
+          expect(
+            writer.subEquatableEquality(item3),
+            '@override\n'
+            'List<Object/*?*/>/*!*/ get props => [velocity, angle,];',
+          );
+        });
       });
 
-      test('legacy', () {
-        final source = source1DataLegacy;
-        // void windy(double velocity, double? angle);
-        final item3 = source.manifest.items[2];
-        final writer = SubEquatableWriter(source);
+      group('generic', () {
+        test('null-safe', () {
+          final source = source2DataSafe;
+          final item1 = source.manifest.items[0];
+          final writer = SubEquatableWriter(source);
 
-        expect(
-          writer.subEquatableEquality(item3),
-          '@override\n'
-          'List<Object/*?*/>/*!*/ get props => [velocity, angle,];',
-        );
+          expect(
+            writer.subEquatableEquality(item1),
+            '@override\n'
+            'List<Object?> get props => [data,];',
+          );
+        });
       });
     });
     // end of group SubEquatableWriter

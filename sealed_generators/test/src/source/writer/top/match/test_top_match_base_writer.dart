@@ -13,224 +13,406 @@ void main() {
     });
 
     group('method topMatchParam', () {
-      test('null-safe', () {
-        final source = source1DataSafe;
-        final writer = TopMatchBaseWriter(source);
+      group('simple', () {
+        test('null-safe', () {
+          final source = source1DataSafe;
+          final writer = TopMatchBaseWriter(source);
 
-        expect(
-          writer.topMatchParam,
-          '<R extends Object?>',
-        );
+          expect(
+            writer.topMatchParam,
+            '<R extends Object?>',
+          );
+        });
+
+        test('legacy', () {
+          final source = source1DataLegacy;
+          final writer = TopMatchBaseWriter(source);
+
+          expect(
+            writer.topMatchParam,
+            '<R extends Object/*?*/>',
+          );
+        });
       });
 
-      test('legacy', () {
-        final source = source1DataLegacy;
-        final writer = TopMatchBaseWriter(source);
+      group('generic', () {
+        test('null-safe', () {
+          final source = source2DataSafe;
+          final writer = TopMatchBaseWriter(source);
 
-        expect(
-          writer.topMatchParam,
-          '<R extends Object/*?*/>',
-        );
+          expect(
+            writer.topMatchParam,
+            '<R extends Object?>',
+          );
+        });
+
+        test('legacy', () {
+          final source = source2DataLegacy;
+          final writer = TopMatchBaseWriter(source);
+
+          expect(
+            writer.topMatchParam,
+            '<R extends Object/*?*/>',
+          );
+        });
       });
     });
 
     group('method topMatchGenericNNArg', () {
-      test('null-safe', () {
-        final source = source1DataSafe;
-        final manifest = source.manifest;
-        // sunny
-        final item1 = manifest.items[0];
-        final writer = TopMatchBaseWriter(source);
+      group('simple', () {
+        test('null-safe', () {
+          final source = source1DataSafe;
+          final manifest = source.manifest;
+          // sunny
+          final item1 = manifest.items[0];
+          final writer = TopMatchBaseWriter(source);
 
-        expect(
-          writer.topMatchGenericNNArg(item1),
-          'required R Function(HiSunny sunny) sunny',
-        );
+          expect(
+            writer.topMatchGenericNNArg(item1),
+            'required R Function(HiSunny sunny) sunny',
+          );
+        });
+
+        test('legacy', () {
+          final source = source1DataLegacy;
+          final manifest = source.manifest;
+          // sunny
+          final item1 = manifest.items[0];
+          final writer = TopMatchBaseWriter(source);
+
+          expect(
+            writer.topMatchGenericNNArg(item1),
+            '@required R Function(HiSunny/*!*/ sunny)/*!*/ sunny',
+          );
+        });
       });
 
-      test('legacy', () {
-        final source = source1DataLegacy;
-        final manifest = source.manifest;
-        // sunny
-        final item1 = manifest.items[0];
-        final writer = TopMatchBaseWriter(source);
+      group('generic', () {
+        test('null-safe', () {
+          final source = source2DataSafe;
+          final manifest = source.manifest;
+          final item1 = manifest.items[0];
+          final writer = TopMatchBaseWriter(source);
 
-        expect(
-          writer.topMatchGenericNNArg(item1),
-          '@required R Function(HiSunny/*!*/ sunny)/*!*/ sunny',
-        );
+          expect(
+            writer.topMatchGenericNNArg(item1),
+            'required R Function(MySuccess<T> success) success',
+          );
+        });
+
+        test('legacy', () {
+          final source = source2DataLegacy;
+          final manifest = source.manifest;
+          final item1 = manifest.items[0];
+          final writer = TopMatchBaseWriter(source);
+
+          expect(
+            writer.topMatchGenericNNArg(item1),
+            '@required R Function(MySuccess<T>/*!*/ success)/*!*/ success',
+          );
+        });
       });
     });
 
     group('method topMatchGenericNNArgOrElse', () {
-      test('null-safe', () {
-        final source = source1DataSafe;
-        final writer = TopMatchBaseWriter(source);
+      group('simple', () {
+        test('null-safe', () {
+          final source = source1DataSafe;
+          final writer = TopMatchBaseWriter(source);
 
-        expect(
-          writer.topMatchGenericNNArgOrElse(),
-          'required R Function(Weather weather) orElse',
-        );
+          expect(
+            writer.topMatchGenericNNArgOrElse(),
+            'required R Function(Weather weather) orElse',
+          );
+        });
+
+        test('legacy', () {
+          final source = source1DataLegacy;
+          final writer = TopMatchBaseWriter(source);
+
+          expect(
+            writer.topMatchGenericNNArgOrElse(),
+            '@required R Function(Weather/*!*/ weather)/*!*/ orElse',
+          );
+        });
       });
+      group('generic', () {
+        test('null-safe', () {
+          final source = source2DataSafe;
+          final writer = TopMatchBaseWriter(source);
 
-      test('legacy', () {
-        final source = source1DataLegacy;
-        final writer = TopMatchBaseWriter(source);
+          expect(
+            writer.topMatchGenericNNArgOrElse(),
+            'required R Function(Result<T> result) orElse',
+          );
+        });
 
-        expect(
-          writer.topMatchGenericNNArgOrElse(),
-          '@required R Function(Weather/*!*/ weather)/*!*/ orElse',
-        );
+        test('legacy', () {
+          final source = source2DataLegacy;
+          final writer = TopMatchBaseWriter(source);
+
+          expect(
+            writer.topMatchGenericNNArgOrElse(),
+            '@required R Function(Result<T>/*!*/ result)/*!*/ orElse',
+          );
+        });
       });
     });
 
     group('method topMatchGenericNNArgOrDefault', () {
-      test('null-safe', () {
-        final source = source1DataSafe;
-        final writer = TopMatchBaseWriter(source);
+      group('simple', () {
+        test('null-safe', () {
+          final source = source1DataSafe;
+          final writer = TopMatchBaseWriter(source);
 
-        expect(
-          writer.topMatchGenericNNArgOrDefault(),
-          'required R orDefault',
-        );
+          expect(
+            writer.topMatchGenericNNArgOrDefault(),
+            'required R orDefault',
+          );
+        });
+
+        test('legacy', () {
+          final source = source1DataLegacy;
+          final writer = TopMatchBaseWriter(source);
+
+          expect(
+            writer.topMatchGenericNNArgOrDefault(),
+            '@required R orDefault',
+          );
+        });
       });
 
-      test('legacy', () {
-        final source = source1DataLegacy;
-        final writer = TopMatchBaseWriter(source);
+      group('generic', () {
+        test('null-safe', () {
+          final source = source2DataSafe;
+          final writer = TopMatchBaseWriter(source);
 
-        expect(
-          writer.topMatchGenericNNArgOrDefault(),
-          '@required R orDefault',
-        );
+          expect(
+            writer.topMatchGenericNNArgOrDefault(),
+            'required R orDefault',
+          );
+        });
+
+        test('legacy', () {
+          final source = source2DataLegacy;
+          final writer = TopMatchBaseWriter(source);
+
+          expect(
+            writer.topMatchGenericNNArgOrDefault(),
+            '@required R orDefault',
+          );
+        });
       });
     });
 
     group('method topMatchGenericNArg', () {
-      test('null-safe', () {
-        final source = source1DataSafe;
-        final manifest = source.manifest;
-        // sunny
-        final item1 = manifest.items[0];
-        final writer = TopMatchBaseWriter(source);
+      group('simple', () {
+        test('null-safe', () {
+          final source = source1DataSafe;
+          final manifest = source.manifest;
+          // sunny
+          final item1 = manifest.items[0];
+          final writer = TopMatchBaseWriter(source);
 
-        expect(
-          writer.topMatchGenericNArg(item1),
-          'R Function(HiSunny sunny)? sunny',
-        );
+          expect(
+            writer.topMatchGenericNArg(item1),
+            'R Function(HiSunny sunny)? sunny',
+          );
+        });
+
+        test('legacy', () {
+          final source = source1DataLegacy;
+          final manifest = source.manifest;
+          // sunny
+          final item1 = manifest.items[0];
+          final writer = TopMatchBaseWriter(source);
+
+          expect(
+            writer.topMatchGenericNArg(item1),
+            'R Function(HiSunny/*!*/ sunny)/*?*/ sunny',
+          );
+        });
       });
 
-      test('legacy', () {
-        final source = source1DataLegacy;
-        final manifest = source.manifest;
-        // sunny
-        final item1 = manifest.items[0];
-        final writer = TopMatchBaseWriter(source);
+      group('generic', () {
+        test('null-safe', () {
+          final source = source2DataSafe;
+          final manifest = source.manifest;
+          final item1 = manifest.items[0];
+          final writer = TopMatchBaseWriter(source);
 
-        expect(
-          writer.topMatchGenericNArg(item1),
-          'R Function(HiSunny/*!*/ sunny)/*?*/ sunny',
-        );
-      });
-    });
+          expect(
+            writer.topMatchGenericNArg(item1),
+            'R Function(MySuccess<T> success)? success',
+          );
+        });
 
-    group('method topMatchGenericReturn', () {
-      test('null-safe', () {
-        final source = source1DataSafe;
-        final writer = TopMatchBaseWriter(source);
+        test('legacy', () {
+          final source = source2DataLegacy;
+          final manifest = source.manifest;
+          final item1 = manifest.items[0];
+          final writer = TopMatchBaseWriter(source);
 
-        expect(
-          writer.topMatchParam,
-          '<R extends Object?>',
-        );
-      });
-
-      test('legacy', () {
-        final source = source1DataLegacy;
-        final writer = TopMatchBaseWriter(source);
-
-        expect(
-          writer.topMatchParam,
-          '<R extends Object/*?*/>',
-        );
+          expect(
+            writer.topMatchGenericNArg(item1),
+            'R Function(MySuccess<T>/*!*/ success)/*?*/ success',
+          );
+        });
       });
     });
 
     group('method topMatchVoidNNArg', () {
-      test('null-safe', () {
-        final source = source1DataSafe;
-        final manifest = source.manifest;
-        // sunny
-        final item1 = manifest.items[0];
-        final writer = TopMatchBaseWriter(source);
+      group('simple', () {
+        test('null-safe', () {
+          final source = source1DataSafe;
+          final manifest = source.manifest;
+          // sunny
+          final item1 = manifest.items[0];
+          final writer = TopMatchBaseWriter(source);
 
-        expect(
-          writer.topMatchVoidNNArg(item1),
-          'required void Function(HiSunny sunny) sunny',
-        );
+          expect(
+            writer.topMatchVoidNNArg(item1),
+            'required void Function(HiSunny sunny) sunny',
+          );
+        });
+
+        test('legacy', () {
+          final source = source1DataLegacy;
+          final manifest = source.manifest;
+          // sunny
+          final item1 = manifest.items[0];
+          final writer = TopMatchBaseWriter(source);
+
+          expect(
+            writer.topMatchVoidNNArg(item1),
+            '@required void Function(HiSunny/*!*/ sunny)/*!*/ sunny',
+          );
+        });
       });
+      group('generic', () {
+        test('null-safe', () {
+          final source = source2DataSafe;
+          final manifest = source.manifest;
+          final item1 = manifest.items[0];
+          final writer = TopMatchBaseWriter(source);
 
-      test('legacy', () {
-        final source = source1DataLegacy;
-        final manifest = source.manifest;
-        // sunny
-        final item1 = manifest.items[0];
-        final writer = TopMatchBaseWriter(source);
+          expect(
+            writer.topMatchVoidNNArg(item1),
+            'required void Function(MySuccess<T> success) success',
+          );
+        });
 
-        expect(
-          writer.topMatchVoidNNArg(item1),
-          '@required void Function(HiSunny/*!*/ sunny)/*!*/ sunny',
-        );
+        test('legacy', () {
+          final source = source2DataLegacy;
+          final manifest = source.manifest;
+          final item1 = manifest.items[0];
+          final writer = TopMatchBaseWriter(source);
+
+          expect(
+            writer.topMatchVoidNNArg(item1),
+            '@required void Function(MySuccess<T>/*!*/ success)/*!*/ success',
+          );
+        });
       });
     });
 
     group('method topMatchVoidNNArgOrElse', () {
-      test('null-safe', () {
-        final source = source1DataSafe;
-        final writer = TopMatchBaseWriter(source);
+      group('simple', () {
+        test('null-safe', () {
+          final source = source1DataSafe;
+          final writer = TopMatchBaseWriter(source);
 
-        expect(
-          writer.topMatchVoidNNArgOrElse(),
-          'required void Function(Weather weather) orElse',
-        );
+          expect(
+            writer.topMatchVoidNNArgOrElse(),
+            'required void Function(Weather weather) orElse',
+          );
+        });
+
+        test('legacy', () {
+          final source = source1DataLegacy;
+          final writer = TopMatchBaseWriter(source);
+
+          expect(
+            writer.topMatchVoidNNArgOrElse(),
+            '@required void Function(Weather/*!*/ weather)/*!*/ orElse',
+          );
+        });
       });
+      group('generic', () {
+        test('null-safe', () {
+          final source = source2DataSafe;
+          final writer = TopMatchBaseWriter(source);
 
-      test('legacy', () {
-        final source = source1DataLegacy;
-        final writer = TopMatchBaseWriter(source);
+          expect(
+            writer.topMatchVoidNNArgOrElse(),
+            'required void Function(Result<T> result) orElse',
+          );
+        });
 
-        expect(
-          writer.topMatchVoidNNArgOrElse(),
-          '@required void Function(Weather/*!*/ weather)/*!*/ orElse',
-        );
+        test('legacy', () {
+          final source = source2DataLegacy;
+          final writer = TopMatchBaseWriter(source);
+
+          expect(
+            writer.topMatchVoidNNArgOrElse(),
+            '@required void Function(Result<T>/*!*/ result)/*!*/ orElse',
+          );
+        });
       });
     });
 
     group('method topMatchVoidNArg', () {
-      test('null-safe', () {
-        final source = source1DataSafe;
-        final manifest = source.manifest;
-        // sunny
-        final item1 = manifest.items[0];
-        final writer = TopMatchBaseWriter(source);
+      group('simple', () {
+        test('null-safe', () {
+          final source = source1DataSafe;
+          final manifest = source.manifest;
+          // sunny
+          final item1 = manifest.items[0];
+          final writer = TopMatchBaseWriter(source);
 
-        expect(
-          writer.topMatchVoidNArg(item1),
-          'void Function(HiSunny sunny)? sunny',
-        );
+          expect(
+            writer.topMatchVoidNArg(item1),
+            'void Function(HiSunny sunny)? sunny',
+          );
+        });
+
+        test('legacy', () {
+          final source = source1DataLegacy;
+          final manifest = source.manifest;
+          // sunny
+          final item1 = manifest.items[0];
+          final writer = TopMatchBaseWriter(source);
+
+          expect(
+            writer.topMatchVoidNArg(item1),
+            'void Function(HiSunny/*!*/ sunny)/*?*/ sunny',
+          );
+        });
       });
+      group('generic', () {
+        test('null-safe', () {
+          final source = source2DataSafe;
+          final manifest = source.manifest;
+          final item1 = manifest.items[0];
+          final writer = TopMatchBaseWriter(source);
 
-      test('legacy', () {
-        final source = source1DataLegacy;
-        final manifest = source.manifest;
-        // sunny
-        final item1 = manifest.items[0];
-        final writer = TopMatchBaseWriter(source);
+          expect(
+            writer.topMatchVoidNArg(item1),
+            'void Function(MySuccess<T> success)? success',
+          );
+        });
 
-        expect(
-          writer.topMatchVoidNArg(item1),
-          'void Function(HiSunny/*!*/ sunny)/*?*/ sunny',
-        );
+        test('legacy', () {
+          final source = source2DataLegacy;
+          final manifest = source.manifest;
+          final item1 = manifest.items[0];
+          final writer = TopMatchBaseWriter(source);
+
+          expect(
+            writer.topMatchVoidNArg(item1),
+            'void Function(MySuccess<T>/*!*/ success)/*?*/ success',
+          );
+        });
       });
     });
 

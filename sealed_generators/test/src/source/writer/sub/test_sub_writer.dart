@@ -29,154 +29,216 @@ void main() {
     });
 
     group('method subClassStart', () {
-      test('equality data', () {
-        final source = source1DataSafe;
-        // void rainy(int rain);
-        final item2 = source.manifest.items[1];
-        final writer = SubWriter(source);
+      group('simple', () {
+        test('equality data', () {
+          final source = source1DataSafe;
+          // void rainy(int rain);
+          final item2 = source.manifest.items[1];
+          final writer = SubWriter(source);
 
-        expect(
-          writer.subClassStart(item2),
-          stringContainsInOrder([
-            writer.subDocWriter.write(item2),
-            'class WeatherRainy extends Weather with EquatableMixin',
-          ]),
-        );
+          expect(
+            writer.subClassStart(item2),
+            stringContainsInOrder([
+              writer.subDocWriter.write(item2),
+              'class WeatherRainy extends Weather with EquatableMixin',
+            ]),
+          );
+        });
+
+        test('equality identity', () {
+          final source = source1IdentitySafe;
+          // void rainy(int rain);
+          final item2 = source.manifest.items[1];
+          final writer = SubWriter(source);
+
+          expect(
+            writer.subClassStart(item2),
+            stringContainsInOrder([
+              writer.subDocWriter.write(item2),
+              'class WeatherRainy extends Weather',
+            ]),
+          );
+        });
+
+        test('equality distinct', () {
+          final source = source1DistinctSafe;
+          // void rainy(int rain);
+          final item2 = source.manifest.items[1];
+          final writer = SubWriter(source);
+
+          expect(
+            writer.subClassStart(item2),
+            stringContainsInOrder([
+              writer.subDocWriter.write(item2),
+              'class WeatherRainy extends Weather',
+            ]),
+          );
+        });
       });
 
-      test('equality identity', () {
-        final source = source1IdentitySafe;
-        // void rainy(int rain);
-        final item2 = source.manifest.items[1];
-        final writer = SubWriter(source);
+      group('generic', () {
+        test('equality data', () {
+          final source = source2DataSafe;
+          final item1 = source.manifest.items[0];
+          final writer = SubWriter(source);
 
-        expect(
-          writer.subClassStart(item2),
-          stringContainsInOrder([
-            writer.subDocWriter.write(item2),
-            'class WeatherRainy extends Weather',
-          ]),
-        );
-      });
-
-      test('equality distinct', () {
-        final source = source1DistinctSafe;
-        // void rainy(int rain);
-        final item2 = source.manifest.items[1];
-        final writer = SubWriter(source);
-
-        expect(
-          writer.subClassStart(item2),
-          stringContainsInOrder([
-            writer.subDocWriter.write(item2),
-            'class WeatherRainy extends Weather',
-          ]),
-        );
+          expect(
+            writer.subClassStart(item1),
+            stringContainsInOrder([
+              writer.subDocWriter.write(item1),
+              'class MySuccess<T extends num>'
+                  ' extends Result<T> with EquatableMixin',
+            ]),
+          );
+        });
       });
     });
 
     group('method topDistinctEquality', () {
-      test('null-safe', () {
-        final source = source1DataSafe;
-        final writer = SubWriter(source);
+      group('simple', () {
+        test('null-safe', () {
+          final source = source1DataSafe;
+          final writer = SubWriter(source);
 
-        expect(
-          writer.subDistinctEquality(),
-          '@override\n'
-          'bool operator ==(Object other) => false;',
-        );
+          expect(
+            writer.subDistinctEquality(),
+            '@override\n'
+            'bool operator ==(Object other) => false;',
+          );
+        });
+
+        test('legacy', () {
+          final source = source1DataLegacy;
+          final writer = SubWriter(source);
+
+          expect(
+            writer.subDistinctEquality(),
+            '@override\n'
+            'bool/*!*/ operator ==(Object other) => false;',
+          );
+        });
       });
 
-      test('legacy', () {
-        final source = source1DataLegacy;
-        final writer = SubWriter(source);
+      group('generic', () {
+        test('null-safe', () {
+          final source = source2DataSafe;
+          final writer = SubWriter(source);
 
-        expect(
-          writer.subDistinctEquality(),
-          '@override\n'
-          'bool/*!*/ operator ==(Object other) => false;',
-        );
+          expect(
+            writer.subDistinctEquality(),
+            '@override\n'
+            'bool operator ==(Object other) => false;',
+          );
+        });
       });
     });
 
     group('method subClass', () {
-      test('equality data', () {
-        final source = source1DataSafe;
-        // void rainy(int rain);
-        final item2 = source.manifest.items[1];
-        final writer = SubWriter(source);
+      group('simple', () {
+        test('equality data', () {
+          final source = source1DataSafe;
+          // void rainy(int rain);
+          final item2 = source.manifest.items[1];
+          final writer = SubWriter(source);
 
-        expect(
-          writer.subClass(item2),
-          allOf(
-            endsWith('}'),
-            stringContainsInOrder([
-              writer.subDocWriter.write(item2),
-              'class WeatherRainy extends Weather with EquatableMixin',
-              '{',
-              'WeatherRainy({required this.rain,});',
-              'final int rain;',
-              'WeatherRainy copy(',
-              'String toString(',
-              'get props'
-            ]),
-          ),
-        );
+          expect(
+            writer.subClass(item2),
+            allOf(
+              endsWith('}'),
+              stringContainsInOrder([
+                writer.subDocWriter.write(item2),
+                'class WeatherRainy extends Weather with EquatableMixin',
+                '{',
+                'WeatherRainy({required this.rain,});',
+                'final int rain;',
+                'WeatherRainy copy(',
+                'String toString(',
+                'get props'
+              ]),
+            ),
+          );
+        });
+
+        test('equality data generic', () {
+          final source = source2DataSafe;
+          // void rainy(int rain);
+          final item2 = source.manifest.items[1];
+          final writer = SubWriter(source);
+
+          expect(
+            writer.subClass(item2),
+            isNot(stringContainsInOrder(['copy'])),
+          );
+        });
+
+        test('equality data with nullable', () {
+          final source = source1DataSafe;
+          // void windy(double velocity, double? angle);
+          final item3 = source.manifest.items[2];
+          final writer = SubWriter(source);
+
+          expect(
+            writer.subClass(item3),
+            isNot(stringContainsInOrder(['copy('])),
+          );
+        });
+
+        test('equality identity', () {
+          final source = source1IdentitySafe;
+          // void rainy(int rain);
+          final item2 = source.manifest.items[1];
+          final writer = SubWriter(source);
+
+          expect(
+            writer.subClass(item2),
+            allOf(
+              isNot(stringContainsInOrder(['get props'])),
+              isNot(stringContainsInOrder(['EquatableMixin'])),
+            ),
+          );
+        });
+
+        test('equality distinct', () {
+          final source = source1DistinctSafe;
+          // void rainy(int rain);
+          final item2 = source.manifest.items[1];
+          final writer = SubWriter(source);
+
+          expect(
+            writer.subClass(item2),
+            allOf(
+              stringContainsInOrder(['operator ==']),
+              isNot(stringContainsInOrder(['get props'])),
+              isNot(stringContainsInOrder(['EquatableMixin'])),
+            ),
+          );
+        });
       });
 
-      test('equality data generic', () {
-        final source = source2DataSafe;
-        // void rainy(int rain);
-        final item2 = source.manifest.items[1];
-        final writer = SubWriter(source);
+      group('generic', () {
+        test('equality data', () {
+          final source = source2DataSafe;
+          final item1 = source.manifest.items[0];
+          final writer = SubWriter(source);
 
-        expect(
-          writer.subClass(item2),
-          isNot(stringContainsInOrder(['copy'])),
-        );
-      });
-
-      test('equality data with nullable', () {
-        final source = source1DataSafe;
-        // void windy(double velocity, double? angle);
-        final item3 = source.manifest.items[2];
-        final writer = SubWriter(source);
-
-        expect(
-          writer.subClass(item3),
-          isNot(stringContainsInOrder(['copy('])),
-        );
-      });
-
-      test('equality identity', () {
-        final source = source1IdentitySafe;
-        // void rainy(int rain);
-        final item2 = source.manifest.items[1];
-        final writer = SubWriter(source);
-
-        expect(
-          writer.subClass(item2),
-          allOf(
-            isNot(stringContainsInOrder(['get props'])),
-            isNot(stringContainsInOrder(['EquatableMixin'])),
-          ),
-        );
-      });
-
-      test('equality distinct', () {
-        final source = source1DistinctSafe;
-        // void rainy(int rain);
-        final item2 = source.manifest.items[1];
-        final writer = SubWriter(source);
-
-        expect(
-          writer.subClass(item2),
-          allOf(
-            stringContainsInOrder(['operator ==']),
-            isNot(stringContainsInOrder(['get props'])),
-            isNot(stringContainsInOrder(['EquatableMixin'])),
-          ),
-        );
+          expect(
+            writer.subClass(item1),
+            allOf(
+              endsWith('}'),
+              stringContainsInOrder([
+                writer.subDocWriter.write(item1),
+                'class MySuccess<T extends num>'
+                    ' extends Result<T> with EquatableMixin',
+                '{',
+                'MySuccess({required this.data,});',
+                'final T data;',
+                'String toString(',
+                'get props'
+              ]),
+              isNot(stringContainsInOrder(['copy'])),
+            ),
+          );
+        });
       });
     });
 

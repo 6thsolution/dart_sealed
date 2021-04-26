@@ -13,15 +13,42 @@ void main() {
       expect(writer.source, source);
     });
 
-    test('method topCastIs', () {
-      final source = source1DataSafe;
-      final item = source.manifest.items[0];
-      final writer = TopCastWriter(source);
+    group('method topCastIs', () {
+      group('simple', () {
+        test('null-safe', () {
+          final source = source1DataSafe;
+          final item = source.manifest.items[0];
+          final writer = TopCastWriter(source);
 
-      expect(
-        writer.topCastIs(item),
-        'bool isSunny() => this is HiSunny;',
-      );
+          expect(
+            writer.topCastIs(item),
+            'bool isSunny() => this is HiSunny;',
+          );
+        });
+        test('legacy', () {
+          final source = source1DataLegacy;
+          final item = source.manifest.items[0];
+          final writer = TopCastWriter(source);
+
+          expect(
+            writer.topCastIs(item),
+            'bool/*!*/ isSunny() => this is HiSunny;',
+          );
+        });
+      });
+
+      group('generic', () {
+        test('null-safe', () {
+          final source = source2DataSafe;
+          final item = source.manifest.items[0];
+          final writer = TopCastWriter(source);
+
+          expect(
+            writer.topCastIs(item),
+            'bool isSuccess() => this is MySuccess<T>;',
+          );
+        });
+      });
     });
 
     test('method topCastsIs', () {
@@ -39,26 +66,52 @@ void main() {
     });
 
     group('method topCastAs', () {
-      test('null-safe', () {
-        final source = source1DataSafe;
-        final item = source.manifest.items[0];
-        final writer = TopCastWriter(source);
+      group('simple', () {
+        test('null-safe', () {
+          final source = source1DataSafe;
+          final item = source.manifest.items[0];
+          final writer = TopCastWriter(source);
 
-        expect(
-          writer.topCastAs(item),
-          'HiSunny asSunny() => this as HiSunny;',
-        );
+          expect(
+            writer.topCastAs(item),
+            'HiSunny asSunny() => this as HiSunny;',
+          );
+        });
+
+        test('legacy', () {
+          final source = source1DataLegacy;
+          final item = source.manifest.items[0];
+          final writer = TopCastWriter(source);
+
+          expect(
+            writer.topCastAs(item),
+            'HiSunny/*!*/ asSunny() => this as HiSunny;',
+          );
+        });
       });
 
-      test('legacy', () {
-        final source = source1DataLegacy;
-        final item = source.manifest.items[0];
-        final writer = TopCastWriter(source);
+      group('generic', () {
+        test('null-safe', () {
+          final source = source2DataSafe;
+          final item = source.manifest.items[0];
+          final writer = TopCastWriter(source);
 
-        expect(
-          writer.topCastAs(item),
-          'HiSunny/*!*/ asSunny() => this as HiSunny;',
-        );
+          expect(
+            writer.topCastAs(item),
+            'MySuccess<T> asSuccess() => this as MySuccess<T>;',
+          );
+        });
+
+        test('legacy', () {
+          final source = source2DataLegacy;
+          final item = source.manifest.items[0];
+          final writer = TopCastWriter(source);
+
+          expect(
+            writer.topCastAs(item),
+            'MySuccess<T>/*!*/ asSuccess() => this as MySuccess<T>;',
+          );
+        });
       });
     });
 
@@ -77,32 +130,50 @@ void main() {
     });
 
     group('method topCastAsOrNull', () {
-      test('null-safe', () {
-        final source = source1DataSafe;
-        final item = source.manifest.items[0];
-        final writer = TopCastWriter(source);
+      group('simple', () {
+        test('null-safe', () {
+          final source = source1DataSafe;
+          final item = source.manifest.items[0];
+          final writer = TopCastWriter(source);
 
-        expect(
-          writer.topCastAsOrNull(item),
-          'HiSunny? asSunnyOrNull() {\n'
-          'final weather = this;\n'
-          'return weather is HiSunny ? weather : null;\n'
-          '}',
-        );
+          expect(
+            writer.topCastAsOrNull(item),
+            'HiSunny? asSunnyOrNull() {\n'
+            'final weather = this;\n'
+            'return weather is HiSunny ? weather : null;\n'
+            '}',
+          );
+        });
+
+        test('legacy', () {
+          final source = source1DataLegacy;
+          final item = source.manifest.items[0];
+          final writer = TopCastWriter(source);
+
+          expect(
+            writer.topCastAsOrNull(item),
+            'HiSunny/*?*/ asSunnyOrNull() {\n'
+            'final weather = this;\n'
+            'return weather is HiSunny ? weather : null;\n'
+            '}',
+          );
+        });
       });
 
-      test('legacy', () {
-        final source = source1DataLegacy;
-        final item = source.manifest.items[0];
-        final writer = TopCastWriter(source);
+      group('generic', () {
+        test('null-safe', () {
+          final source = source2DataSafe;
+          final item = source.manifest.items[0];
+          final writer = TopCastWriter(source);
 
-        expect(
-          writer.topCastAsOrNull(item),
-          'HiSunny/*?*/ asSunnyOrNull() {\n'
-          'final weather = this;\n'
-          'return weather is HiSunny ? weather : null;\n'
-          '}',
-        );
+          expect(
+            writer.topCastAsOrNull(item),
+            'MySuccess<T>? asSuccessOrNull() {\n'
+            'final result = this;\n'
+            'return result is MySuccess<T> ? result : null;\n'
+            '}',
+          );
+        });
       });
     });
 

@@ -18,50 +18,102 @@ void main() {
     });
 
     group('method isSub', () {
-      test('null-safe', () {
-        final source = source1DataSafe;
-        final item = source.manifest.items[0];
-        final writer = _Writer(source);
+      group('simple', () {
+        test('null-safe', () {
+          final source = source1DataSafe;
+          final item = source.manifest.items[0];
+          final writer = _Writer(source);
 
-        expect(
-          writer.isSub(item),
-          'is HiSunny',
-        );
+          expect(
+            writer.isSub(item),
+            'is HiSunny',
+          );
+        });
+
+        test('legacy', () {
+          final source = source1DataLegacy;
+          final item = source.manifest.items[0];
+          final writer = _Writer(source);
+
+          expect(
+            writer.isSub(item),
+            'is HiSunny',
+          );
+        });
       });
 
-      test('legacy', () {
-        final source = source1DataLegacy;
-        final item = source.manifest.items[0];
-        final writer = _Writer(source);
+      group('generic', () {
+        test('null-safe', () {
+          final source = source2DataSafe;
+          final item = source.manifest.items[0];
+          final writer = _Writer(source);
 
-        expect(
-          writer.isSub(item),
-          'is HiSunny',
-        );
+          expect(
+            writer.isSub(item),
+            'is MySuccess<T>',
+          );
+        });
+
+        test('legacy', () {
+          final source = source2DataLegacy;
+          final item = source.manifest.items[0];
+          final writer = _Writer(source);
+
+          expect(
+            writer.isSub(item),
+            'is MySuccess<T>',
+          );
+        });
       });
     });
 
     group('method asSub', () {
-      test('null-safe', () {
-        final source = source1DataSafe;
-        final item = source.manifest.items[0];
-        final writer = _Writer(source);
+      group('simple', () {
+        test('null-safe', () {
+          final source = source1DataSafe;
+          final item = source.manifest.items[0];
+          final writer = _Writer(source);
 
-        expect(
-          writer.asSub(item),
-          'as HiSunny',
-        );
+          expect(
+            writer.asSub(item),
+            'as HiSunny',
+          );
+        });
+
+        test('legacy', () {
+          final source = source1DataLegacy;
+          final item = source.manifest.items[0];
+          final writer = _Writer(source);
+
+          expect(
+            writer.asSub(item),
+            'as HiSunny',
+          );
+        });
       });
 
-      test('legacy', () {
-        final source = source1DataLegacy;
-        final item = source.manifest.items[0];
-        final writer = _Writer(source);
+      group('generic', () {
+        test('null-safe', () {
+          final source = source2DataSafe;
+          final item = source.manifest.items[0];
+          final writer = _Writer(source);
 
-        expect(
-          writer.asSub(item),
-          'as HiSunny',
-        );
+          expect(
+            writer.asSub(item),
+            'as MySuccess<T>',
+          );
+        });
+
+        test('legacy', () {
+          final source = source2DataLegacy;
+          final item = source.manifest.items[0];
+          final writer = _Writer(source);
+
+          expect(
+            writer.asSub(item),
+            'as MySuccess<T>',
+          );
+        });
       });
     });
     // end of group TopCastBaseWriter
