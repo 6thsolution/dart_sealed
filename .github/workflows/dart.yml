@@ -17,11 +17,21 @@ jobs:
       - name: init
         working-directory: .
         run: |
-          cd sealed_annotations & dart pub get & cd ..
-          cd sealed_generators & dart pub get & cd ..
-          cd example & dart pub get & cd ..
-          cd sealed_super_enum_mapper & dart pub get & cd ..
-          cd sealed_super_enum_mapper_example & dart pub get & cd ..
+          cd sealed_annotations
+          dart pub get
+          cd ..
+          cd sealed_generators
+          dart pub get
+          cd ..
+          cd example
+          dart pub get
+          cd ..
+          cd sealed_super_enum_mapper
+          dart pub get
+          cd ..
+          cd sealed_super_enum_mapper_example
+          dart pub get
+          cd ..
       - name: sealed_annotations format
         working-directory: sealed_annotations
         run: dart format --output=none --set-exit-if-changed example lib test example/example.dart
