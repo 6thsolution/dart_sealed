@@ -16,22 +16,7 @@ jobs:
           sdk: stable
       - name: init
         working-directory: .
-        run: |
-          cd sealed_annotations
-          dart pub get
-          cd ..
-          cd sealed_generators
-          dart pub get
-          cd ..
-          cd example
-          dart pub get
-          cd ..
-          cd sealed_super_enum_mapper
-          dart pub get
-          cd ..
-          cd sealed_super_enum_mapper_example
-          dart pub get
-          cd ..
+        run: .tools/init
       - name: sealed_annotations format
         working-directory: sealed_annotations
         run: dart format --output=none --set-exit-if-changed example lib test example/example.dart
@@ -73,22 +58,7 @@ jobs:
           sdk: stable
       - name: init
         working-directory: .
-        run: |
-          cd sealed_annotations
-          dart pub get
-          cd ..
-          cd sealed_generators
-          dart pub get
-          cd ..
-          cd example
-          dart pub get
-          cd ..
-          cd sealed_super_enum_mapper
-          dart pub get
-          cd ..
-          cd sealed_super_enum_mapper_example
-          dart pub get
-          cd ..
+        run: .tools/init
       - name: sealed_annotations test
         working-directory: sealed_annotations
         run: dart test test/all_test.dart
@@ -109,22 +79,7 @@ jobs:
           sdk: stable
       - name: init
         working-directory: .
-        run: |
-          cd sealed_annotations
-          dart pub get
-          cd ..
-          cd sealed_generators
-          dart pub get
-          cd ..
-          cd example
-          dart pub get
-          cd ..
-          cd sealed_super_enum_mapper
-          dart pub get
-          cd ..
-          cd sealed_super_enum_mapper_example
-          dart pub get
-          cd ..
+        run: .tools/init
       - name: example build
         working-directory: example
         run: dart run build_runner build --delete-conflicting-outputs
@@ -152,22 +107,7 @@ jobs:
           sdk: stable
       - name: init
         working-directory: .
-        run: |
-          cd sealed_annotations
-          dart pub get
-          cd ..
-          cd sealed_generators
-          dart pub get
-          cd ..
-          cd example
-          dart pub get
-          cd ..
-          cd sealed_super_enum_mapper
-          dart pub get
-          cd ..
-          cd sealed_super_enum_mapper_example
-          dart pub get
-          cd ..
+        run: .tools/init
       - name: sealed_annotations run example
         working-directory: sealed_annotations
         run: dart run example/example.dart
@@ -195,22 +135,7 @@ jobs:
           sdk: stable
       - name: init
         working-directory: .
-        run: |
-          cd sealed_annotations
-          dart pub get
-          cd ..
-          cd sealed_generators
-          dart pub get
-          cd ..
-          cd example
-          dart pub get
-          cd ..
-          cd sealed_super_enum_mapper
-          dart pub get
-          cd ..
-          cd sealed_super_enum_mapper_example
-          dart pub get
-          cd ..
+        run: .tools/init
       - name: install coverage package
         working-directory: .
         run: dart pub global activate coverage
