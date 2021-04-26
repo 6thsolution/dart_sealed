@@ -62,7 +62,9 @@ jobs:
         run: dart analyze
       - name: example test
         working-directory: example
-        run: dart --no-sound-null-safety run test/all_test.dart
+        run: |
+          dart test test/legacy_all_test.dart
+          dart test test/nullsafe_all_test.dart
       - name: example run
         working-directory: example
         run: dart run

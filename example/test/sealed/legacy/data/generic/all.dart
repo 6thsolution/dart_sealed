@@ -1,6 +1,6 @@
+// @dart=2.9
 import 'package:test/test.dart';
 
-// ignore: import_of_legacy_library_into_null_safe
 import 'test_result_single.dart' as test_result_single;
 
 void main() {
