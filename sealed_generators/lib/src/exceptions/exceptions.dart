@@ -26,7 +26,7 @@ void check(final bool value) {
 /// sealed error
 @immutable
 class SealedError extends Error {
-  final String? message;
+  final Object? message;
   final Object? cause;
 
   SealedError([this.message, this.cause]);
@@ -34,9 +34,11 @@ class SealedError extends Error {
   @override
   String toString() {
     final s = StringBuffer('SealedError{');
-    s.write(message != null ? '"$message"' : 'unknown');
+    if (message != null) {
+      s.write('message={$message}');
+    }
     if (cause != null) {
-      s.write(', cause={$cause}');
+      s.write(',cause={$cause}');
     }
     s.write('}');
     return Error.safeToString(s.toString());
@@ -48,5 +50,5 @@ class SealedError extends Error {
 /// for when errors which should not happen
 /// even in a malformed manifest happens.
 class InternalSealedError extends SealedError {
-  InternalSealedError([String? cause]) : super('internal error', cause);
+  InternalSealedError([Object? cause]) : super('internal error', cause);
 }

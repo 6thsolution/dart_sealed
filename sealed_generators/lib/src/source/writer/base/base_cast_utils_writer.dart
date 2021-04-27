@@ -3,7 +3,6 @@ import 'package:sealed_generators/src/manifest/manifest.dart';
 import 'package:sealed_generators/src/source/source.dart';
 import 'package:sealed_generators/src/source/writer/base/base_utils_writer.dart';
 
-
 /// top cast writer
 @immutable
 abstract class BaseCastUtilsWriter extends BaseUtilsWriter {

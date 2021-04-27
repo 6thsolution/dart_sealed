@@ -4,6 +4,7 @@ import 'package:sealed_annotations/sealed_annotations.dart';
 import 'package:sealed_generators/src/exceptions/exceptions.dart';
 import 'package:sealed_generators/src/manifest/reader/manifest_reader.dart';
 import 'package:sealed_generators/src/options/options.dart';
+import 'package:sealed_generators/src/utils/name_utils.dart';
 import 'package:sealed_generators/src/utils/type_utils.dart';
 import 'package:source_gen/src/constants/reader.dart';
 
@@ -68,8 +69,13 @@ class ManifestReaderBuilder {
     final name = cls.name;
     require(
       name.isGenTypeName() && name.isPrivate(),
-      () => 'malformed class name "$name"',
+      () => "malformed class name '$name'",
     );
-    return name.substring(1);
+    final str = name.substring(1);
+    require(
+      str.startsWithUpper(),
+      () => "class '$name' name should start with upper case letter",
+    );
+    return str;
   }
 }

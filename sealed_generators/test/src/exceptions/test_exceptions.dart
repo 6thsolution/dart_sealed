@@ -111,28 +111,18 @@ void main() {
 
     test('method toString', () {
       expect(
-        SealedError().toString().toLowerCase(),
-        allOf(
-          contains('unknown'),
-          isNot(contains('cause')),
-        ),
+        SealedError().toString(),
+        equals('"SealedError{}"'),
       );
 
       expect(
-        SealedError('msg').toString().toLowerCase(),
-        allOf(
-          contains('msg'),
-          isNot(contains('cause')),
-        ),
+        SealedError('msg').toString(),
+        equals('"SealedError{message={msg}}"'),
       );
 
       expect(
-        SealedError('msg', 1).toString().toLowerCase(),
-        allOf(
-          contains('msg'),
-          contains('cause'),
-          contains('1'),
-        ),
+        SealedError('msg', 1).toString(),
+        equals('"SealedError{message={msg},cause={1}}"'),
       );
     });
   });

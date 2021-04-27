@@ -53,11 +53,19 @@ class ManifestReader {
   List<ManifestParam> _extractParams() =>
       cls.typeParameters.map(_extractParam).toList();
 
-  /// extract sub class name, like "rainy"
+  /// extract sub class name, like 'rainy'
   String _extractShortSubName(MethodElement method) {
     require(
+      method.isPublic && method.name.isPublic(),
+      () => "method '${method.name}' should be pubic",
+    );
+    require(
+      method.name.startsWithLower(),
+      () => "method '${method.name}' should start with lower case letter",
+    );
+    require(
       method.name.isGenFieldName(),
-      () => 'malformed method name "${method.name}"',
+      () => "malformed method name '${method.name}'",
     );
     return method.name;
   }
@@ -67,8 +75,16 @@ class ManifestReader {
   /// assume legacy types as nullable
   ManifestField _extractField(ParameterElement arg) {
     require(
+      arg.name.isPublic(),
+      () => "method argument '${arg.name}' should not start with '_'",
+    );
+    require(
+      arg.name.startsWithLower(),
+      () => "method argument '${arg.name}' should start with lower case",
+    );
+    require(
       arg.name.isGenFieldName(),
-      () => 'malformed method argument name "${arg.name}"',
+      () => "malformed method argument name '${arg.name}'",
     );
     return ManifestField(
       name: arg.name,
@@ -83,16 +99,8 @@ class ManifestReader {
   /// extract item from method
   ManifestItem _extractItem(MethodElement method) {
     require(
-      method.isPublic && method.name.isPublic(),
-      () => 'method "${method.name}" should be pubic',
-    );
-    require(
-      method.name.startsWithLower(),
-      () => 'method "${method.name}" should start with lower case letter',
-    );
-    require(
       method.typeParameters.isEmpty,
-      () => 'method "${method.name}" can not have type parameters',
+      () => "method '${method.name}' can not have type parameters",
     );
     final lower = _extractShortSubName(method);
     final meta = _readMeta(method);
@@ -110,7 +118,14 @@ class ManifestReader {
       '$name${shortName.toUpperStart()}';
 
   /// extract items from class element
-  List<ManifestItem> _extractItems() => cls.methods.map(_extractItem).toList();
+  List<ManifestItem> _extractItems() {
+    final items = cls.methods.map(_extractItem).toList();
+    require(
+      items.isNotEmpty,
+      'sealed classes should have at least one item',
+    );
+    return items;
+  }
 
   /// type name without any nullability sign
   String _extractTypeName(DartType type) =>
@@ -165,7 +180,14 @@ class ManifestReader {
   /// read name from [Meta] object
   String? _readMetaNameNullable(ConstantReader obj) {
     final name = obj.read('name');
-    return name.isNull ? null : name.stringValue;
+    final out = name.isNull ? null : name.stringValue;
+    if (out != null) {
+      require(
+        out.isGenClassName(),
+        () => "malformed overridden item name '$out'",
+      );
+    }
+    return out;
   }
 
   /// read [Meta] from reader (which can be nullable)
@@ -196,7 +218,7 @@ class ManifestReader {
     if (typeName != null) {
       require(
         typeName.isSimpleOrNullableTypeName(),
-        () => 'malformed overridden type name "$typeName"',
+        () => "malformed overridden type name '$typeName'",
       );
       final type = typeName.readType();
       return options.isNullSafe

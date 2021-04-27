@@ -1,3 +1,6 @@
+/// annotations for sealed_annotations
+library sealed_annotations_annotations;
+
 import 'package:meta/meta_meta.dart';
 import 'package:sealed_annotations/sealed_annotations.dart';
 
