@@ -13,6 +13,8 @@ import 'package:sealed_generators/src/utils/list_utils.dart';
 import 'package:sealed_generators/src/utils/name_utils.dart';
 import 'package:sealed_generators/src/utils/string_utils.dart';
 import 'package:source_gen/source_gen.dart';
+// ignore: import_of_legacy_library_into_null_safe
+import 'package:super_enum/super_enum.dart';
 
 /// map super enum to dart sealed
 @sealed
@@ -75,7 +77,7 @@ class Mapper {
 
   /// read fields
   List<ManifestField> _readFields(FieldElement constant) =>
-      _readDataFields(constant.metadata).map(_readField).toList();
+      _readDataFields(constant).map(_readField).toList();
 
   /// read type parameters
   List<ManifestParam> _readParams(EnumElementImpl en) =>
@@ -84,27 +86,15 @@ class Mapper {
   /// read name
   String _readName(EnumElementImpl en) => en.name.substring(1);
 
-  /// find metas by name
-  List<ConstantReader> _filterMetas(
-    List<ElementAnnotation> metas,
-    String name,
-  ) =>
-      metas
-          .map((e) => e.computeConstantValue())
-          .where(
-              (e) => e?.type?.getDisplayString(withNullability: false) == name)
-          .map((e) => ConstantReader(e))
-          .toList();
-
   /// is generic
   bool _readIsGeneric(EnumElementImpl en) => en.constants
-      .any((constant) => _filterMetas(constant.metadata, 'Generic').isNotEmpty);
+      .any((constant) => _filterMetadata<Generic>(constant).isNotEmpty);
 
   /// read DataField objects of a item
   ///
   /// assume all constants without any Data annotations as empty sealed classes.
-  List<DartObject> _readDataFields(List<ElementAnnotation> metas) =>
-      _filterMetas(metas, 'Data').firstOrNull?.read('fields').listValue ??
+  List<DartObject> _readDataFields(FieldElement constant) =>
+      _filterMetadata<Data>(constant).firstOrNull?.read('fields').listValue ??
       const [];
 
   /// read a field from a DataField object
@@ -116,4 +106,11 @@ class Mapper {
           isNullable: true,
         ),
       );
+
+  /// filter metadata by type
+  List<ConstantReader> _filterMetadata<T>(Element element) =>
+      TypeChecker.fromRuntime(T)
+          .annotationsOf(element)
+          .map((e) => ConstantReader(e))
+          .toList();
 }

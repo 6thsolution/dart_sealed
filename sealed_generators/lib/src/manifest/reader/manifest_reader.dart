@@ -151,21 +151,16 @@ class ManifestReader {
     isNullable: true,
   );
 
-  /// filter metadata by class name
-  List<ConstantReader> _filterMetadataByName(
-    List<ElementAnnotation> metadata,
-    String metaName,
-  ) =>
-      metadata
-          .map((e) => e.computeConstantValue())
-          .where((e) =>
-              e?.type?.getDisplayString(withNullability: false) == metaName)
+  /// filter metadata by type
+  List<ConstantReader> _firstMetadataOrNull<T>(Element element) =>
+      TypeChecker.fromRuntime(T)
+          .annotationsOf(element)
           .map((e) => ConstantReader(e))
           .toList();
 
   /// [Meta] reader for an item or null if not present
   ConstantReader? _metaReaderOrNull(MethodElement method) =>
-      _filterMetadataByName(method.metadata, 'Meta').firstOrNull;
+      _firstMetadataOrNull<Meta>(method).firstOrNull;
 
   /// read equality from [Equality] object
   Equality? _readMetaEqualityNullable(ConstantReader obj) {
@@ -204,7 +199,7 @@ class ManifestReader {
 
   /// read [WithType] for a parameter or null
   ConstantReader? withTypeReaderOrNull(ParameterElement arg) =>
-      _filterMetadataByName(arg.metadata, 'WithType').firstOrNull;
+      _firstMetadataOrNull<WithType>(arg).firstOrNull;
 
   /// read type from [WithType] reader or null if not present
   String? _readTypeOfWithTypeOrNull(ConstantReader? obj) =>
