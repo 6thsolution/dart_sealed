@@ -1,6 +1,7 @@
 import 'package:meta/meta.dart';
 import 'package:sealed_annotations/sealed_annotations.dart';
 import 'package:sealed_generators/src/exceptions/exceptions.dart';
+import 'package:sealed_generators/src/utils/list_equality_utils.dart';
 import 'package:sealed_generators/src/utils/type_utils.dart';
 
 @immutable
@@ -9,7 +10,7 @@ class Manifest {
   Manifest({
     required this.name,
     required this.items,
-    this.params = const <ManifestParam>[],
+    required this.params,
   }) {
     check(name.isGenClassName());
     check(items.isNotEmpty);
@@ -25,7 +26,20 @@ class Manifest {
   final List<ManifestParam> params;
 
   @override
-  String toString() => 'Manifest{name: $name, items: $items}';
+  String toString() => 'Manifest{name: $name, items: $items, params: $params}';
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is Manifest &&
+          runtimeType == other.runtimeType &&
+          name == other.name &&
+          listEquals(items, other.items) &&
+          listEquals(params, other.params);
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^ name.hashCode ^ listHash(items) ^ listHash(params);
 }
 
 @immutable
@@ -56,6 +70,24 @@ class ManifestItem {
   @override
   String toString() => 'Item{name: $name, shortName: $shortName,'
       ' equality: $equality, fields: $fields}';
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is ManifestItem &&
+          runtimeType == other.runtimeType &&
+          name == other.name &&
+          shortName == other.shortName &&
+          equality == other.equality &&
+          listEquals(fields, other.fields);
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^
+      name.hashCode ^
+      shortName.hashCode ^
+      equality.hashCode ^
+      listHash(fields);
 }
 
 @immutable
@@ -76,6 +108,17 @@ class ManifestField {
 
   @override
   String toString() => 'Field{name: $name, type: $type}';
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is ManifestField &&
+          runtimeType == other.runtimeType &&
+          name == other.name &&
+          type == other.type;
+
+  @override
+  int get hashCode => runtimeType.hashCode ^ name.hashCode ^ type.hashCode;
 }
 
 /// nullable type
@@ -105,6 +148,18 @@ class ManifestType {
 
   @override
   String toString() => 'Type{name: $name, isNullable: $isNullable}';
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is ManifestType &&
+          runtimeType == other.runtimeType &&
+          name == other.name &&
+          isNullable == other.isNullable;
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^ name.hashCode ^ isNullable.hashCode;
 }
 
 /// ex. 'T extends Object?'
@@ -131,4 +186,15 @@ class ManifestParam {
 
   @override
   String toString() => 'Param{name: $name, bound: $bound}';
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is ManifestParam &&
+          runtimeType == other.runtimeType &&
+          name == other.name &&
+          bound == other.bound;
+
+  @override
+  int get hashCode => runtimeType.hashCode ^ name.hashCode ^ bound.hashCode;
 }

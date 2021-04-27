@@ -12,4 +12,14 @@ class Options {
 
   @override
   String toString() => 'Options{isNullSafe: $isNullSafe}';
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is Options &&
+          runtimeType == other.runtimeType &&
+          isNullSafe == other.isNullSafe;
+
+  @override
+  int get hashCode => runtimeType.hashCode ^ isNullSafe.hashCode;
 }

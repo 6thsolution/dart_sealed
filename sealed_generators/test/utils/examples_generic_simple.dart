@@ -1,6 +1,6 @@
 part of 'examples.dart';
 
-Manifest manifest2(Equality equality) => Manifest(
+Manifest manifest2([Equality equality = Equality.data]) => Manifest(
       name: 'Result',
       params: [
         ManifestParam(

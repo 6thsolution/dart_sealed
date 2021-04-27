@@ -8,8 +8,16 @@ void main() {
     test('initialization', () {
       final a = If(condition: 'cnd1', code: 'code1');
 
-      expect(a.code, 'code1');
-      expect(a.condition, 'cnd1');
+      expect(a.code, equals('code1'));
+      expect(a.condition, equals('cnd1'));
+    });
+
+    test('toString', () {
+      final a = If(condition: 'cnd1', code: 'code1');
+      expect(
+        a.toString(),
+        equals('if(cnd1){code1}'),
+      );
     });
   });
 
@@ -17,7 +25,15 @@ void main() {
     test('initialization', () {
       final a = Else(code: 'code3');
 
-      expect(a.code, 'code3');
+      expect(a.code, equals('code3'));
+    });
+
+    test('toString', () {
+      final a = Else(code: 'code3');
+      expect(
+        a.toString(),
+        equals('else{code3}'),
+      );
     });
   });
 
@@ -90,6 +106,16 @@ void main() {
           'else {code3}',
         );
       });
+    });
+
+    test('toString', () {
+      final a = If(condition: 'cnd1', code: 'code1');
+      final e = Else(code: 'code3');
+      final branch1 = Branch(ifs: [a], els: e);
+      expect(
+        branch1.toString(),
+        equals('Branch{ifs: [$a], else: $e}'),
+      );
     });
   });
 }

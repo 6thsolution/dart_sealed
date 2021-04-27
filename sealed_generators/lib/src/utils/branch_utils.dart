@@ -54,7 +54,7 @@ class If {
   final String code;
 
   @override
-  String toString() => 'if(condition){$code}';
+  String toString() => 'if($condition){$code}';
 }
 
 @immutable

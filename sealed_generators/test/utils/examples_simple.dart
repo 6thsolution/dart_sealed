@@ -1,6 +1,6 @@
 part of 'examples.dart';
 
-Manifest manifest1(Equality equality) => Manifest(
+Manifest manifest1([Equality equality = Equality.data]) => Manifest(
       name: 'Weather',
       items: [
         ManifestItem(
@@ -36,6 +36,7 @@ Manifest manifest1(Equality equality) => Manifest(
           ],
         ),
       ],
+      params: [],
     );
 
 final source1DataSafe = Source(

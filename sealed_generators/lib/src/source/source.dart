@@ -15,4 +15,16 @@ class Source {
 
   @override
   String toString() => 'Source{options: $options, manifest: $manifest}';
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is Source &&
+          runtimeType == other.runtimeType &&
+          options == other.options &&
+          manifest == other.manifest;
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^ options.hashCode ^ manifest.hashCode;
 }
