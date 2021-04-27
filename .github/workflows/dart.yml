@@ -17,7 +17,7 @@ jobs:
           sdk: stable
       - name: init
         working-directory: .
-        run: .tool/init
+        run: .tools/init
       - name: sealed_annotations format
         working-directory: sealed_annotations
         run: dart format --output=none --set-exit-if-changed example lib test example/example.dart
