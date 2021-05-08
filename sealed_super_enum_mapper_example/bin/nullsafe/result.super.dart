@@ -13,24 +13,24 @@ part of 'result.dart';
 @Sealed()
 abstract class _Result$<Generic extends Object?> {
   @Meta(name: 'Success', equality: Equality.data)
-  void success(Generic? data);
+  void success(Generic data);
 
   @Meta(name: 'Error', equality: Equality.data)
-  void error(Object? exception);
+  void error(Object exception);
 }
 
 /// [Result]<[Generic] extends [Object]?> {
 ///
-/// ([Success] success){[Generic]? data} with data equality
+/// ([Success] success){[Generic] data} with data equality
 ///
-/// ([Error] error){[Object]? exception} with data equality
+/// ([Error] error){[Object] exception} with data equality
 ///
 /// }
 @SealedManifest(_Result)
 abstract class Result<Generic extends Object?> {
   @factory
   static Success<Generic> success<Generic extends Object?>({
-    required Generic? data,
+    required Generic data,
   }) =>
       Success<Generic>(
         data: data,
@@ -38,7 +38,7 @@ abstract class Result<Generic extends Object?> {
 
   @factory
   static Error<Generic> error<Generic extends Object?>({
-    required Object? exception,
+    required Object exception,
   }) =>
       Error<Generic>(
         exception: exception,
@@ -200,7 +200,7 @@ abstract class Result<Generic extends Object?> {
   }
 }
 
-/// (([Success] : [Result])<[Generic] extends [Object]?> success){[Generic]? data}
+/// (([Success] : [Result])<[Generic] extends [Object]?> success){[Generic] data}
 ///
 /// with data equality
 class Success<Generic extends Object?> extends Result<Generic>
@@ -209,7 +209,7 @@ class Success<Generic extends Object?> extends Result<Generic>
     required this.data,
   });
 
-  final Generic? data;
+  final Generic data;
 
   @override
   String toString() => 'Result.success(data: $data)';
@@ -220,7 +220,7 @@ class Success<Generic extends Object?> extends Result<Generic>
       ];
 }
 
-/// (([Error] : [Result])<[Generic] extends [Object]?> error){[Object]? exception}
+/// (([Error] : [Result])<[Generic] extends [Object]?> error){[Object] exception}
 ///
 /// with data equality
 class Error<Generic extends Object?> extends Result<Generic>
@@ -229,7 +229,7 @@ class Error<Generic extends Object?> extends Result<Generic>
     required this.exception,
   });
 
-  final Object? exception;
+  final Object exception;
 
   @override
   String toString() => 'Result.error(exception: $exception)';

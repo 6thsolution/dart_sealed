@@ -16,19 +16,19 @@ abstract class _Weather$ {
   void sunny();
 
   @Meta(name: 'Rainy', equality: Equality.data)
-  void rainy(int? rain);
+  void rainy(int rain);
 
   @Meta(name: 'Windy', equality: Equality.data)
-  void windy(double? velocity, double? angle);
+  void windy(double velocity, double? angle);
 }
 
 /// [Weather] {
 ///
 /// ([Sunny] sunny){} with data equality
 ///
-/// ([Rainy] rainy){[int]? rain} with data equality
+/// ([Rainy] rainy){[int] rain} with data equality
 ///
-/// ([Windy] windy){[double]? velocity, [double]? angle} with data equality
+/// ([Windy] windy){[double] velocity, [double]? angle} with data equality
 ///
 /// }
 @SealedManifest(_Weather)
@@ -38,7 +38,7 @@ abstract class Weather {
 
   @factory
   static Rainy rainy({
-    required int? rain,
+    required int rain,
   }) =>
       Rainy(
         rain: rain,
@@ -46,7 +46,7 @@ abstract class Weather {
 
   @factory
   static Windy windy({
-    required double? velocity,
+    required double velocity,
     required double? angle,
   }) =>
       Windy(
@@ -266,7 +266,7 @@ class Sunny extends Weather with EquatableMixin {
   List<Object?> get props => [];
 }
 
-/// (([Rainy] : [Weather]) rainy){[int]? rain}
+/// (([Rainy] : [Weather]) rainy){[int] rain}
 ///
 /// with data equality
 class Rainy extends Weather with EquatableMixin {
@@ -274,7 +274,15 @@ class Rainy extends Weather with EquatableMixin {
     required this.rain,
   });
 
-  final int? rain;
+  final int rain;
+
+  @factory
+  Rainy copy({
+    int? rain,
+  }) =>
+      Rainy(
+        rain: rain ?? this.rain,
+      );
 
   @override
   String toString() => 'Weather.rainy(rain: $rain)';
@@ -285,7 +293,7 @@ class Rainy extends Weather with EquatableMixin {
       ];
 }
 
-/// (([Windy] : [Weather]) windy){[double]? velocity, [double]? angle}
+/// (([Windy] : [Weather]) windy){[double] velocity, [double]? angle}
 ///
 /// with data equality
 class Windy extends Weather with EquatableMixin {
@@ -294,7 +302,7 @@ class Windy extends Weather with EquatableMixin {
     required this.angle,
   });
 
-  final double? velocity;
+  final double velocity;
   final double? angle;
 
   @override

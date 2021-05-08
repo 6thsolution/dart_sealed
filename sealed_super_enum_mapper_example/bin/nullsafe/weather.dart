@@ -16,7 +16,7 @@ enum _Weather {
   Rainy,
   @Data(fields: [
     DataField<double>('velocity'),
-    DataField<double>('angle'),
+    DataField<double>('angle', required: false),
   ])
   Windy,
 }

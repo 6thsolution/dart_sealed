@@ -1,5 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// @dart=2.9
 part of 'use_class.dart';
 
 // **************************************************************************
@@ -16,7 +17,7 @@ abstract class _Weather$ {
   void sunny();
 
   @Meta(name: 'Rainy', equality: Equality.data)
-  void rainy(Hello? data);
+  void rainy(Hello /*?*/ data);
 }
 
 /// [Weather] {
@@ -29,38 +30,40 @@ abstract class _Weather$ {
 @SealedManifest(_Weather)
 abstract class Weather {
   @factory
-  static Sunny sunny() => Sunny();
+  static Sunny /*!*/ sunny() => Sunny();
 
   @factory
-  static Rainy rainy({
-    required Hello? data,
+  static Rainy /*!*/ rainy({
+    @required Hello /*?*/ data,
   }) =>
       Rainy(
         data: data,
       );
 
-  bool isSunny() => this is Sunny;
+  bool /*!*/ isSunny() => this is Sunny;
 
-  bool isRainy() => this is Rainy;
+  bool /*!*/ isRainy() => this is Rainy;
 
-  Sunny asSunny() => this as Sunny;
+  Sunny /*!*/ asSunny() => this as Sunny;
 
-  Rainy asRainy() => this as Rainy;
+  Rainy /*!*/ asRainy() => this as Rainy;
 
-  Sunny? asSunnyOrNull() {
+  Sunny /*?*/ asSunnyOrNull() {
     final weather = this;
     return weather is Sunny ? weather : null;
   }
 
-  Rainy? asRainyOrNull() {
+  Rainy /*?*/ asRainyOrNull() {
     final weather = this;
     return weather is Rainy ? weather : null;
   }
 
-  R when<R extends Object?>({
-    required R Function(Sunny sunny) sunny,
-    required R Function(Rainy rainy) rainy,
+  R when<R extends Object /*?*/ >({
+    @required R Function(Sunny /*!*/ sunny) /*!*/ sunny,
+    @required R Function(Rainy /*!*/ rainy) /*!*/ rainy,
   }) {
+    assert(sunny != null);
+    assert(rainy != null);
     final weather = this;
     if (weather is Sunny) {
       return sunny(weather);
@@ -71,11 +74,12 @@ abstract class Weather {
     }
   }
 
-  R whenOrElse<R extends Object?>({
-    R Function(Sunny sunny)? sunny,
-    R Function(Rainy rainy)? rainy,
-    required R Function(Weather weather) orElse,
+  R whenOrElse<R extends Object /*?*/ >({
+    R Function(Sunny /*!*/ sunny) /*?*/ sunny,
+    R Function(Rainy /*!*/ rainy) /*?*/ rainy,
+    @required R Function(Weather /*!*/ weather) /*!*/ orElse,
   }) {
+    assert(orElse != null);
     final weather = this;
     if (weather is Sunny) {
       return sunny != null ? sunny(weather) : orElse(weather);
@@ -86,11 +90,12 @@ abstract class Weather {
     }
   }
 
-  R whenOrDefault<R extends Object?>({
-    R Function(Sunny sunny)? sunny,
-    R Function(Rainy rainy)? rainy,
-    required R orDefault,
+  R whenOrDefault<R extends Object /*?*/ >({
+    R Function(Sunny /*!*/ sunny) /*?*/ sunny,
+    R Function(Rainy /*!*/ rainy) /*?*/ rainy,
+    @required R orDefault,
   }) {
+    assert(orDefault != null);
     final weather = this;
     if (weather is Sunny) {
       return sunny != null ? sunny(weather) : orDefault;
@@ -101,9 +106,9 @@ abstract class Weather {
     }
   }
 
-  R? whenOrNull<R extends Object?>({
-    R Function(Sunny sunny)? sunny,
-    R Function(Rainy rainy)? rainy,
+  R /*?*/ whenOrNull<R extends Object /*?*/ >({
+    R Function(Sunny /*!*/ sunny) /*?*/ sunny,
+    R Function(Rainy /*!*/ rainy) /*?*/ rainy,
   }) {
     final weather = this;
     if (weather is Sunny) {
@@ -115,9 +120,9 @@ abstract class Weather {
     }
   }
 
-  R whenOrThrow<R extends Object?>({
-    R Function(Sunny sunny)? sunny,
-    R Function(Rainy rainy)? rainy,
+  R whenOrThrow<R extends Object /*?*/ >({
+    R Function(Sunny /*!*/ sunny) /*?*/ sunny,
+    R Function(Rainy /*!*/ rainy) /*?*/ rainy,
   }) {
     final weather = this;
     if (weather is Sunny && sunny != null) {
@@ -130,9 +135,11 @@ abstract class Weather {
   }
 
   void branch({
-    required void Function(Sunny sunny) sunny,
-    required void Function(Rainy rainy) rainy,
+    @required void Function(Sunny /*!*/ sunny) /*!*/ sunny,
+    @required void Function(Rainy /*!*/ rainy) /*!*/ rainy,
   }) {
+    assert(sunny != null);
+    assert(rainy != null);
     final weather = this;
     if (weather is Sunny) {
       sunny(weather);
@@ -144,8 +151,8 @@ abstract class Weather {
   }
 
   void branchPartial({
-    void Function(Sunny sunny)? sunny,
-    void Function(Rainy rainy)? rainy,
+    void Function(Sunny /*!*/ sunny) /*?*/ sunny,
+    void Function(Rainy /*!*/ rainy) /*?*/ rainy,
   }) {
     final weather = this;
     if (weather is Sunny) {
@@ -158,10 +165,11 @@ abstract class Weather {
   }
 
   void branchOrElse({
-    void Function(Sunny sunny)? sunny,
-    void Function(Rainy rainy)? rainy,
-    required void Function(Weather weather) orElse,
+    void Function(Sunny /*!*/ sunny) /*?*/ sunny,
+    void Function(Rainy /*!*/ rainy) /*?*/ rainy,
+    @required void Function(Weather /*!*/ weather) /*!*/ orElse,
   }) {
+    assert(orElse != null);
     final weather = this;
     if (weather is Sunny) {
       if (sunny != null) {
@@ -181,8 +189,8 @@ abstract class Weather {
   }
 
   void branchOrThrow({
-    void Function(Sunny sunny)? sunny,
-    void Function(Rainy rainy)? rainy,
+    void Function(Sunny /*!*/ sunny) /*?*/ sunny,
+    void Function(Rainy /*!*/ rainy) /*?*/ rainy,
   }) {
     final weather = this;
     if (weather is Sunny && sunny != null) {
@@ -202,13 +210,13 @@ class Sunny extends Weather with EquatableMixin {
   Sunny();
 
   @factory
-  Sunny copy() => Sunny();
+  Sunny /*!*/ copy() => Sunny();
 
   @override
-  String toString() => 'Weather.sunny()';
+  String /*!*/ toString() => 'Weather.sunny()';
 
   @override
-  List<Object?> get props => [];
+  List<Object /*?*/ > /*!*/ get props => [];
 }
 
 /// (([Rainy] : [Weather]) rainy){[Hello]? data}
@@ -216,16 +224,16 @@ class Sunny extends Weather with EquatableMixin {
 /// with data equality
 class Rainy extends Weather with EquatableMixin {
   Rainy({
-    required this.data,
+    @required this.data,
   });
 
-  final Hello? data;
+  final Hello /*?*/ data;
 
   @override
-  String toString() => 'Weather.rainy(data: $data)';
+  String /*!*/ toString() => 'Weather.rainy(data: $data)';
 
   @override
-  List<Object?> get props => [
+  List<Object /*?*/ > /*!*/ get props => [
         data,
       ];
 }
