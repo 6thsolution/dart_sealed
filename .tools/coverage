@@ -20,4 +20,4 @@ dart pub global run coverage:format_coverage -i dart_coverage -o coverage/lcov.i
 popd || exit
 
 echo combining coverage
-type sealed_annotations/coverage/lcov.info sealed_generators/coverage/lcov.info >coverage/lcov.info
+cat sealed_annotations/coverage/lcov.info sealed_generators/coverage/lcov.info >coverage/lcov.info
