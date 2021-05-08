@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo HEADER analyze
+
 pushd sealed_annotations || exit
 echo NOTE sealed_annotations
 dart analyze

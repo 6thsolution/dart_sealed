@@ -1,5 +1,7 @@
 @echo off
 
+echo HEADER analyze
+
 pushd sealed_annotations || exit
 echo NOTE sealed_annotations
 call dart analyze

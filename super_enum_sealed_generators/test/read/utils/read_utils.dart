@@ -17,7 +17,9 @@ Future<Iterable<Element>> resolveSupers(
   }
   s.writeln('library temporary;');
   s.writeln();
-  s.writeln(r"import 'package:super_enum_sealed_annotations/super_enum_sealed_annotations.dart';");
+  s.writeln(
+    r"import 'package:super_enum_sealed_annotations/super_enum_sealed_annotations.dart';",
+  );
   s.writeln();
   s.writeln(code);
   final source = s.toString();

@@ -1,9 +1,9 @@
 #!/bin/bash
 
-./init
-./format
-./analyze
-./build
-./test
-./coverage
-./example
+.tools/init
+.tools/format
+.tools/analyze
+.tools/build
+.tools/test
+.tools/coverage
+.tools/example

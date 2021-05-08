@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo HEADER init
+
 pushd sealed_annotations || exit
 echo NOTE sealed_annotations
 dart pub get

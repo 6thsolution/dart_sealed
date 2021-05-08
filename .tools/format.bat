@@ -1,5 +1,7 @@
 @echo off
 
+echo HEADER format
+
 pushd sealed_annotations || exit
 echo NOTE sealed_annotations
 call dart format --output=none --set-exit-if-changed lib test

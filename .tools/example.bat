@@ -1,5 +1,7 @@
 @echo off
 
+echo HEADER example
+
 pushd sealed_annotations || exit
 echo NOTE sealed_annotations
 call dart run example/example.dart

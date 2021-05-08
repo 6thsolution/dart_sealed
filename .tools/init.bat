@@ -1,5 +1,7 @@
 @echo off
 
+echo HEADER init
+
 pushd sealed_annotations || exit
 echo NOTE sealed_annotations
 call dart pub get

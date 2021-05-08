@@ -1,5 +1,7 @@
 @echo off
 
+echo HEADER test
+
 pushd sealed_annotations || exit
 echo NOTE sealed_annotations
 call dart test

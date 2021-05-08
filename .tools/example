@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo HEADER example
+
 pushd sealed_annotations || exit
 echo NOTE sealed_annotations
 dart run example/example.dart

@@ -3,7 +3,6 @@ description: Dart and Flutter sealed class writer.
 version: 0.1.0
 homepage: https://github.com/6thsolution/dart_sealed
 
-# todo remove this
 publish_to: 'none'
 
 environment:

@@ -1,5 +1,7 @@
 @echo off
 
+echo HEADER build
+
 pushd sealed_example || exit
 echo NOTE sealed_example
 call dart run build_runner build --delete-conflicting-outputs
