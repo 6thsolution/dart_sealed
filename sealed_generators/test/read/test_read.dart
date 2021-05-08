@@ -1,8 +1,5 @@
-import 'package:sealed_annotations/sealed_annotations.dart';
-import 'package:sealed_generators/src/manifest/manifest.dart';
-import 'package:sealed_generators/src/options/options.dart';
-import 'package:sealed_generators/src/source/reader/source_reader.dart';
-import 'package:sealed_generators/src/source/source.dart';
+import 'package:sealed_generators/src/source/source_reader.dart';
+import 'package:sealed_writer/sealed_writer.dart';
 import 'package:test/test.dart';
 
 import '../utils/exception_utils.dart';
@@ -36,13 +33,13 @@ void two(int x, double? y);
                     ManifestItem(
                       name: 'BasicOne',
                       shortName: 'one',
-                      equality: Equality.data,
+                      equality: ManifestEquality.data,
                       fields: [],
                     ),
                     ManifestItem(
                       name: 'BasicTwo',
                       shortName: 'two',
-                      equality: Equality.data,
+                      equality: ManifestEquality.data,
                       fields: [
                         ManifestField(
                           name: 'x',
@@ -85,7 +82,7 @@ void one();
                     ManifestItem(
                       name: 'BasicOne',
                       shortName: 'one',
-                      equality: Equality.identity,
+                      equality: ManifestEquality.identity,
                       fields: [],
                     ),
                   ],
@@ -115,7 +112,7 @@ void one();
                       ManifestItem(
                         name: 'Hello',
                         shortName: 'one',
-                        equality: Equality.data,
+                        equality: ManifestEquality.data,
                         fields: [],
                       ),
                     ],
@@ -144,7 +141,7 @@ void one();
                       ManifestItem(
                         name: 'BasicOne',
                         shortName: 'one',
-                        equality: Equality.identity,
+                        equality: ManifestEquality.identity,
                         fields: [],
                       ),
                     ],
@@ -173,7 +170,7 @@ void one();
                       ManifestItem(
                         name: 'Hello',
                         shortName: 'one',
-                        equality: Equality.identity,
+                        equality: ManifestEquality.identity,
                         fields: [],
                       ),
                     ],
@@ -202,7 +199,7 @@ void one(@WithType('double?') x, @WithType('double') int? y);
                     ManifestItem(
                       name: 'BasicOne',
                       shortName: 'one',
-                      equality: Equality.data,
+                      equality: ManifestEquality.data,
                       fields: [
                         ManifestField(
                           name: 'x',
@@ -264,7 +261,7 @@ void three(T? z);
                     ManifestItem(
                       name: 'BasicOne',
                       shortName: 'one',
-                      equality: Equality.data,
+                      equality: ManifestEquality.data,
                       fields: [
                         ManifestField(
                           name: 'x',
@@ -278,7 +275,7 @@ void three(T? z);
                     ManifestItem(
                       name: 'BasicTwo',
                       shortName: 'two',
-                      equality: Equality.data,
+                      equality: ManifestEquality.data,
                       fields: [
                         ManifestField(
                           name: 'y',
@@ -292,7 +289,7 @@ void three(T? z);
                     ManifestItem(
                       name: 'BasicThree',
                       shortName: 'three',
-                      equality: Equality.data,
+                      equality: ManifestEquality.data,
                       fields: [
                         ManifestField(
                           name: 'z',
@@ -336,7 +333,7 @@ void one();
                     ManifestItem(
                       name: 'BasicOne',
                       shortName: 'one',
-                      equality: Equality.data,
+                      equality: ManifestEquality.data,
                       fields: [],
                     ),
                   ],
@@ -369,13 +366,13 @@ void two(int x, double y);
                     ManifestItem(
                       name: 'BasicOne',
                       shortName: 'one',
-                      equality: Equality.data,
+                      equality: ManifestEquality.data,
                       fields: [],
                     ),
                     ManifestItem(
                       name: 'BasicTwo',
                       shortName: 'two',
-                      equality: Equality.data,
+                      equality: ManifestEquality.data,
                       fields: [
                         ManifestField(
                           name: 'x',
@@ -418,7 +415,7 @@ void one();
                     ManifestItem(
                       name: 'BasicOne',
                       shortName: 'one',
-                      equality: Equality.identity,
+                      equality: ManifestEquality.identity,
                       fields: [],
                     ),
                   ],
@@ -448,7 +445,7 @@ void one();
                       ManifestItem(
                         name: 'Hello',
                         shortName: 'one',
-                        equality: Equality.data,
+                        equality: ManifestEquality.data,
                         fields: [],
                       ),
                     ],
@@ -477,7 +474,7 @@ void one();
                       ManifestItem(
                         name: 'BasicOne',
                         shortName: 'one',
-                        equality: Equality.identity,
+                        equality: ManifestEquality.identity,
                         fields: [],
                       ),
                     ],
@@ -506,7 +503,7 @@ void one();
                       ManifestItem(
                         name: 'Hello',
                         shortName: 'one',
-                        equality: Equality.identity,
+                        equality: ManifestEquality.identity,
                         fields: [],
                       ),
                     ],
@@ -535,7 +532,7 @@ void one(@WithType('double?') x, @WithType('double') int y);
                     ManifestItem(
                       name: 'BasicOne',
                       shortName: 'one',
-                      equality: Equality.data,
+                      equality: ManifestEquality.data,
                       fields: [
                         ManifestField(
                           name: 'x',
@@ -596,7 +593,7 @@ void two(E y);
                     ManifestItem(
                       name: 'BasicOne',
                       shortName: 'one',
-                      equality: Equality.data,
+                      equality: ManifestEquality.data,
                       fields: [
                         ManifestField(
                           name: 'x',
@@ -610,7 +607,7 @@ void two(E y);
                     ManifestItem(
                       name: 'BasicTwo',
                       shortName: 'two',
-                      equality: Equality.data,
+                      equality: ManifestEquality.data,
                       fields: [
                         ManifestField(
                           name: 'y',
@@ -654,7 +651,7 @@ void one();
                     ManifestItem(
                       name: 'BasicOne',
                       shortName: 'one',
-                      equality: Equality.data,
+                      equality: ManifestEquality.data,
                       fields: [],
                     ),
                   ],

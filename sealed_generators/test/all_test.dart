@@ -1,7 +1,7 @@
-import 'test_fast.dart' as test_fast;
-import 'test_slow.dart' as test_slow;
+import 'package:test/test.dart';
+
+import 'read/test_read.dart' as test_read;
 
 void main() {
-  test_fast.main();
-  test_slow.main();
+  group('test_read', test_read.main);
 }

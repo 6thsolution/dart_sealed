@@ -1,0 +1,36 @@
+#!/bin/bash
+
+pushd sealed_annotations || exit
+echo NOTE sealed_annotations
+dart format --output=none --set-exit-if-changed lib test
+popd || exit
+
+pushd sealed_writer || exit
+echo NOTE sealed_writer
+dart format --output=none --set-exit-if-changed lib test
+popd || exit
+
+pushd sealed_generators || exit
+echo NOTE sealed_generators
+dart format --output=none --set-exit-if-changed lib test
+popd || exit
+
+pushd sealed_example || exit
+echo NOTE sealed_example
+dart format --output=none --set-exit-if-changed test
+popd || exit
+
+pushd super_enum_sealed_annotations || exit
+echo NOTE super_enum_sealed_annotations
+dart format --output=none --set-exit-if-changed lib test
+popd || exit
+
+pushd super_enum_sealed_generators || exit
+echo NOTE super_enum_sealed_generators
+dart format --output=none --set-exit-if-changed lib test
+popd || exit
+
+pushd super_enum_sealed_example || exit
+echo NOTE super_enum_sealed_example
+dart format --output=none --set-exit-if-changed test
+popd || exit

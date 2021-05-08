@@ -16,81 +16,19 @@ jobs:
         with:
           sdk: stable
       - name: init
-        working-directory: .
         run: .tools/init
-      - name: sealed_annotations format
-        working-directory: sealed_annotations
-        run: dart format --output=none --set-exit-if-changed example lib test example/example.dart
-      - name: sealed_annotations analyze
-        working-directory: sealed_annotations
-        run: dart analyze
-      - name: sealed_annotations test
-        working-directory: sealed_annotations
-        run: dart test test/all_test.dart
-      - name: sealed_annotations run example
-        working-directory: sealed_annotations
-        run: dart run example/example.dart
-      - name: sealed_generators format
-        working-directory: sealed_generators
-        run: dart format --output=none --set-exit-if-changed example lib test example/example.dart
-      - name: sealed_generators analyze
-        working-directory: sealed_generators
-        run: dart analyze
-      - name: sealed_generators test
-        working-directory: sealed_generators
-        run: dart test test/all_test.dart
-      - name: sealed_generators run example
-        working-directory: sealed_generators
-        run: dart run example/example.dart
-      - name: example build
-        working-directory: example
-        run: dart run build_runner build --delete-conflicting-outputs
-      - name: example format
-        working-directory: example
-        run: dart format --output=none --set-exit-if-changed bin/example.dart test
-      - name: example analyze
-        working-directory: example
-        run: dart analyze
-      - name: example test
-        working-directory: example
-        run: |
-          dart test test/legacy_all_test.dart
-          dart test test/nullsafe_all_test.dart
-      - name: example run
-        working-directory: example
-        run: dart run
-      - name: sealed_super_enum_mapper format
-        working-directory: sealed_super_enum_mapper
-        run: dart format --output=none --set-exit-if-changed example lib test example/example.dart
-      - name: sealed_super_enum_mapper analyze
-        working-directory: sealed_super_enum_mapper
-        run: dart analyze
-      - name: sealed_super_enum_mapper test
-        working-directory: sealed_super_enum_mapper
-        run: dart --no-sound-null-safety run test/all_test.dart
-      - name: sealed_super_enum_mapper run example
-        working-directory: sealed_super_enum_mapper
-        run: dart --no-sound-null-safety run example/example.dart
-      - name: sealed_super_enum_mapper_example build
-        working-directory: sealed_super_enum_mapper_example
-        run: dart run build_runner build --delete-conflicting-outputs
-      - name: sealed_super_enum_mapper_example format
-        working-directory: sealed_super_enum_mapper_example
-        run: dart format --output=none --set-exit-if-changed bin/sealed_super_enum_mapper_example.dart test
-      - name: sealed_super_enum_mapper_example analyze
-        working-directory: sealed_super_enum_mapper_example
-        run: dart analyze
-      - name: sealed_super_enum_mapper_example test
-        working-directory: sealed_super_enum_mapper_example
-        run: |
-          dart --no-sound-null-safety run test/legacy_all_test.dart
-          dart --no-sound-null-safety run test/nullsafe_all_test.dart
-      - name: sealed_super_enum_mapper_example run
-        working-directory: sealed_super_enum_mapper_example
-        run: dart --no-sound-null-safety run
-      - name: test coverage
-        working-directory: .
+      - name: format
+        run: .tools/format
+      - name: analyze
+        run: .tools/analyze
+      - name: build
+        run: .tools/build
+      - name: test
+        run: .tools/test
+      - name: coverage
         run: .tools/coverage
+      - name: example
+        run: .tools/example
       - name: upload coverage to codecov
         uses: codecov/codecov-action@v1
         with:

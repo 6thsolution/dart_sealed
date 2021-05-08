@@ -1,22 +1,36 @@
 @echo off
 
 pushd sealed_annotations || exit
-echo init sealed_annotations
+echo NOTE sealed_annotations
 call dart pub get
 popd || exit
+
+pushd sealed_writer || exit
+echo NOTE sealed_writer
+call dart pub get
+popd || exit
+
 pushd sealed_generators || exit
-echo init sealed_generators
+echo NOTE sealed_generators
 call dart pub get
 popd || exit
-pushd example || exit
-echo init example
+
+pushd sealed_example || exit
+echo NOTE sealed_example
 call dart pub get
 popd || exit
-pushd sealed_super_enum_mapper || exit
-echo init sealed_super_enum_mapper
+
+pushd super_enum_sealed_annotations || exit
+echo NOTE super_enum_sealed_annotations
 call dart pub get
 popd || exit
-pushd sealed_super_enum_mapper_example || exit
-echo init sealed_super_enum_mapper_example
+
+pushd super_enum_sealed_generators || exit
+echo NOTE super_enum_sealed_generators
+call dart pub get
+popd || exit
+
+pushd super_enum_sealed_example || exit
+echo NOTE super_enum_sealed_example
 call dart pub get
 popd || exit

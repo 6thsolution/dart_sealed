@@ -1,0 +1,21 @@
+name: super_enum_sealed_example
+description: map super_enum manifest to dart_sealed manifest examples.
+version: 0.1.0
+homepage: https://github.com/6thsolution/dart_sealed
+publish_to: 'none'
+
+environment:
+  sdk: '>=2.12.0 <3.0.0'
+
+dependencies:
+  # todo change this
+  super_enum_sealed_annotations:
+    path: ../super_enum_sealed_annotations
+
+dev_dependencies:
+  # todo change this
+  super_enum_sealed_generators:
+    path: ../super_enum_sealed_generators
+  pedantic: ^1.9.0
+  test: ^1.17.1
+  build_runner: ^2.0.1

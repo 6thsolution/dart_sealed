@@ -1,0 +1,9 @@
+#!/bin/bash
+
+./init
+./format
+./analyze
+./build
+./test
+./coverage
+./example

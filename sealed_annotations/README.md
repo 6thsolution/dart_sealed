@@ -2,9 +2,11 @@
 
 [![build](https://img.shields.io/github/workflow/status/6thsolution/dart_sealed/Dart?label=build)](https://github.com/6thsolution/dart_sealed/actions/workflows/dart.yml)
 [![build](https://img.shields.io/codecov/c/gh/6thsolution/dart_sealed?label=coverage)](https://codecov.io/gh/6thsolution/dart_sealed)
-[![pub](https://img.shields.io/pub/v/sealed_generators.svg?color=blue&label=sealed_generators)](https://pub.dev/packages/sealed_generators)
 [![pub](https://img.shields.io/pub/v/sealed_annotations.svg?color=blue&label=sealed_annotations)](https://pub.dev/packages/sealed_annotations)
-[![pub](https://img.shields.io/pub/v/sealed_super_enum_mapper.svg?color=blue&label=sealed_super_enum_mapper)](https://pub.dev/packages/sealed_super_enum_mapper)
+[![pub](https://img.shields.io/pub/v/sealed_generators.svg?color=blue&label=sealed_generators)](https://pub.dev/packages/sealed_generators)
+[![pub](https://img.shields.io/pub/v/sealed_writer.svg?color=blue&label=sealed_writer)](https://pub.dev/packages/sealed_writer)
+[![pub](https://img.shields.io/pub/v/super_enum_sealed_annotations.svg?color=blue&label=super_enum_sealed_annotations)](https://pub.dev/packages/super_enum_sealed_annotations)
+[![pub](https://img.shields.io/pub/v/super_enum_sealed_generators.svg?color=blue&label=super_enum_sealed_generators)](https://pub.dev/packages/super_enum_sealed_generators)
 
 Generate sealed class hierarchy for Dart and Flutter, For null-safe and legacy projects.
 
@@ -80,7 +82,7 @@ The generated code will look like: (the following code is summarised)
 ```dart
 abstract class Weather {
   static WeatherRainy rainy({required int rain}) =>
-          WeatherRainy(rain: rain);
+      WeatherRainy(rain: rain);
 
   bool isRainy() => this is WeatherRainy;
 
@@ -178,7 +180,7 @@ class WeatherRainy extends Weather with EquatableMixin {
   final int rain;
 
   WeatherRainy copy({int? rain}) =>
-          WeatherRainy(rain: rain ?? this.rain);
+      WeatherRainy(rain: rain ?? this.rain);
 
   @override
   String toString() => 'Weather.rainy(rain: $rain)';
@@ -287,27 +289,35 @@ abstract class _WeatherInfo {
 }
 ```
 
-## Mapping super_enum
+## super_enum and super_enum_sealed
+
+The main purpose of `super_enum_sealed_annotations` and `super_enum_sealed_generators` is to ease migration
+from `super_enum` to `dart_sealed`. However, they can be used instead of `super_enum` as a standalone tool, but it is
+not recommended. `super_enum_sealed` has all features of `dart_sealed` instead of `@WithType` for dynamic types.
+
+### migrating from super_enum
 
 If you were using super_enum and now you want to change your dependency to dart_sealed.
 
-* 1 Add dependency to `sealed_annotations` near your dependency of `super_enum`.
-* 2 Change dependency of `super_enum_generator` to `sealed_super_enum_mapper`.
-* 3 Add import to `sealed_annotations` near imports of `super_enum`.
+* 1 Change dependency of `super_enum` with `super_enum_sealed_annotations`.
+* 2 Change dependency of `super_enum_generator` with `super_enum_sealed_generators`.
+* 3 Change imports of `super_enum` with `super_enum_sealed_annotations`.
 * 4 Run `dart run build_runner build`.
 * 5 Now instead of super_enum, sealed_generators will generate code for you in `.super` files. Apart from generated
   sealed classes a manifest class with `@Sealed` annotation, and the same name of your enum and a trailing `$` will be
   generated.
-* 6 Replace generated manifest class with `@Sealed` annotation with your `@super_enum` annotated enum. omit trailing `$`
-  and class comments. This tool does not recognize `required` and all fields are considered nullable. If your project is
-  null-safe start changing nullability of each field according to your needs. If your sealed class is generic
-  change `Generic` type argument name and if it is needed use multiple type arguments.
-* 7 Remove dependency to `super_enum`.
-* 8 Change dependency of `sealed_super_enum_mapper` to `sealed_generators`.
-* 9 Change `part` suffixes from `.super` to `.sealed`.
-* 10 Run `dart run build_runner build`.
-* 11 Remove `.super` files if it is not removed automatically.
-* Optional: 12 If you want to migrate your code to null-safety you should do it now. Then
+* 6 Here you may have some conflicts which should be fixed.
+* 7 Replace generated manifest class (which has `@Sealed` annotation) with your `@super_enum` annotated enum. omit
+  trailing `$` and class comments. This tool does not recognize `required` and all fields are considered nullable. Then
+  if your project is null-safe start changing nullability of each field according to your needs. If your sealed class is
+  generic change `Generic` type argument name and if it is needed to use multiple type arguments.
+* 7 Change dependency of `super_enum_sealed_annotations` to `sealed_annotations`.
+* 8 Change dependency of `super_enum_sealed_generators` to `sealed_generators`.
+* 9 Change imports of `super_enum_sealed_annotations` with `sealed_annotations`.
+* 10 Change `part` suffixes from `.super` to `.sealed`.
+* 11 Run `dart run build_runner build`.
+* 12 Remove `.super` files if it is not removed automatically.
+* 13 Optional: If you want to migrate your code to null-safety you should do it now using standard migration tool. Then
   run `dart run build_runner build` again and this library will handle it for you.
 
 For example for:
