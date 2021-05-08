@@ -88,17 +88,11 @@ jobs:
       - name: sealed_super_enum_mapper_example run
         working-directory: sealed_super_enum_mapper_example
         run: dart --no-sound-null-safety run
-      - name: install coverage package
+      - name: test coverage
         working-directory: .
-        run: dart pub global activate coverage
-      - name: get code coverage
-        working-directory: sealed_generators
-        run: dart test --coverage dart_coverage
-      - name: format code coverage
-        working-directory: sealed_generators
-        run: dart pub global run coverage:format_coverage -i dart_coverage -o coverage/lcov.info --lcov --packages .packages --report-on lib
+        run: .tools/coverage
       - name: upload coverage to codecov
         uses: codecov/codecov-action@v1
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          files: sealed_generators/coverage/lcov.info
+          files: coverage/lcov.info
