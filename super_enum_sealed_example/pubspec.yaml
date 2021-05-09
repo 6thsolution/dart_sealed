@@ -1,5 +1,5 @@
 name: super_enum_sealed_example
-description: map super_enum manifest to dart_sealed manifest examples.
+description: Dart and Flutter sealed class generator and annotations based on super_enum API.
 version: 0.1.0
 homepage: https://github.com/6thsolution/dart_sealed
 publish_to: 'none'
