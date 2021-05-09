@@ -2,6 +2,7 @@
 
 coverage/
 dart_coverage/
+html/
 
 flutter/
 

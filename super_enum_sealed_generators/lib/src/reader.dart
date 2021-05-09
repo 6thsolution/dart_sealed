@@ -12,26 +12,31 @@ import 'package:super_enum_sealed_generators/src/null_safety_reader.dart';
 @immutable
 class Reader {
   /// for items using @generic and Generic
+  ///
+  /// we can not do anything better than making upper bound nullable.
   static final _paramGeneric = ManifestParam(
     name: 'Generic',
-    bound: ManifestType(name: 'Object', isNullable: true),
+    bound: ManifestType(
+      name: 'Object',
+      isNullable: true,
+    ),
   );
 
   const Reader();
 
-  /// read source
+  /// read source.
   @nonVirtual
   Source read(Element element) => Source(
         manifest: _readManifest(element),
         options: _readOptions(element),
       );
 
-  /// extract options
+  /// extract options.
   Options _readOptions(Element element) => Options(
         isNullSafe: const NullSafetyReader().readIsNullSafe(element),
       );
 
-  /// extract manifest
+  /// extract manifest.
   Manifest _readManifest(Element element) {
     final en = element as EnumElementImpl;
     return Manifest(
@@ -41,11 +46,11 @@ class Reader {
     );
   }
 
-  /// read items
+  /// read items.
   List<ManifestItem> _readItems(EnumElementImpl en) =>
       en.constants.map(_readItem).toList();
 
-  /// read an item
+  /// read an item.
   ManifestItem _readItem(FieldElement constant) => ManifestItem(
         shortName: constant.name.toLowerStart(),
         name: constant.name,
@@ -53,7 +58,7 @@ class Reader {
         fields: _readFields(constant),
       );
 
-  /// read fields
+  /// read fields.
   ///
   /// first try to use [UseClass] then
   /// try to use [Data]
@@ -72,15 +77,15 @@ class Reader {
     }
   }
 
-  /// read type parameters
+  /// read type parameters.
   List<ManifestParam> _readParams(EnumElementImpl en) =>
       _readIsGeneric(en) ? [_paramGeneric] : const [];
 
-  /// read name
+  /// read name.
   // ! do not remove this line !
   String _readName(EnumElementImpl en) => en.name.substring(1);
 
-  /// is generic
+  /// is generic.
   bool _readIsGeneric(EnumElementImpl en) => en.constants
       .any((constant) => _filterMetadata<Generic>(constant).isNotEmpty);
 
@@ -88,7 +93,7 @@ class Reader {
   List<ManifestField> _readFieldsFromData(ConstantReader data) =>
       _readDataFields(data).map(_readField).toList();
 
-  /// read [DataField] objects of a item
+  /// read [DataField] objects of a item.
   ///
   /// assume all constants without any [Data]
   /// annotations as empty sealed classes.
@@ -96,34 +101,35 @@ class Reader {
   List<DartObject> _readDataFields(ConstantReader data) =>
       data.read('fields').listValue;
 
-  /// read a field from a [DataField] object
+  /// read a field from a [DataField] object.
   ManifestField _readField(DartObject obj) => ManifestField(
         name: ConstantReader(obj).read('name').stringValue,
         type: ManifestType(
           name: obj.type!.typeArguments.first
               .getDisplayString(withNullability: false),
-          isNullable:
-              !(ConstantReader(obj).peek('required')?.boolValue ?? false),
+          isNullable: !ConstantReader(obj).read('required').boolValue,
         ),
       );
 
-  /// filter metadata by type
+  /// filter metadata by type.
   List<ConstantReader> _filterMetadata<T>(Element element) =>
       TypeChecker.fromRuntime(T)
           .annotationsOf(element)
           .map((e) => ConstantReader(e))
           .toList();
 
-  /// read [UseClass] annotation
+  /// read [UseClass] annotation.
   ///
   /// we read [type] field and discard [name] field.
   ///
   /// we use `data` as field name.
+  ///
+  /// we assume UseClass data to be non nullable.
   ManifestField _readFieldFromUseClass(ConstantReader use) => ManifestField(
         name: 'data',
         type: ManifestType(
           name: _readUseClassTypeName(use),
-          isNullable: true,
+          isNullable: false,
         ),
       );
 

@@ -17,14 +17,14 @@ abstract class _Weather$ {
   void sunny();
 
   @Meta(name: 'Rainy', equality: Equality.data)
-  void rainy(Hello /*?*/ data);
+  void rainy(Hello /*!*/ data);
 }
 
 /// [Weather] {
 ///
 /// ([Sunny] sunny){} with data equality
 ///
-/// ([Rainy] rainy){[Hello]? data} with data equality
+/// ([Rainy] rainy){[Hello] data} with data equality
 ///
 /// }
 @SealedManifest(_Weather)
@@ -34,7 +34,7 @@ abstract class Weather {
 
   @factory
   static Rainy /*!*/ rainy({
-    @required Hello /*?*/ data,
+    @required Hello /*!*/ data,
   }) =>
       Rainy(
         data: data,
@@ -219,7 +219,7 @@ class Sunny extends Weather with EquatableMixin {
   List<Object /*?*/ > /*!*/ get props => [];
 }
 
-/// (([Rainy] : [Weather]) rainy){[Hello]? data}
+/// (([Rainy] : [Weather]) rainy){[Hello] data}
 ///
 /// with data equality
 class Rainy extends Weather with EquatableMixin {
@@ -227,7 +227,15 @@ class Rainy extends Weather with EquatableMixin {
     @required this.data,
   });
 
-  final Hello /*?*/ data;
+  final Hello /*!*/ data;
+
+  @factory
+  Rainy /*!*/ copy({
+    Hello /*?*/ data,
+  }) =>
+      Rainy(
+        data: data ?? this.data,
+      );
 
   @override
   String /*!*/ toString() => 'Weather.rainy(data: $data)';
