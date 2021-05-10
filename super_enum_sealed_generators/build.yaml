@@ -8,7 +8,7 @@ builders:
   super_enum_sealed_generators:
     target: ":super_enum_sealed_generators"
     import: "package:super_enum_sealed_generators/super_enum_sealed_generators.dart"
-    builder_factories: [ "sealedSuperEnumMapperBuilder" ]
+    builder_factories: [ "superEnumSealedGeneratorsBuilder" ]
     build_extensions: { ".dart": [ ".super.dart" ] }
     auto_apply: dependents
     build_to: source
