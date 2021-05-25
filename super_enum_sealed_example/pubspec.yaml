@@ -14,6 +14,6 @@ dependencies:
 dev_dependencies:
   super_enum_sealed_generators:
     path: ../super_enum_sealed_generators
-  pedantic: ^1.9.0
-  test: ^1.17.1
-  build_runner: ^2.0.1
+  pedantic: ^1.11.0
+  test: ^1.17.0
+  build_runner: ^2.0.0

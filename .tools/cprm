@@ -1,0 +1,18 @@
+#!/bin/bash
+
+echo COPY README FILE
+
+cp README.md sealed_annotations/
+cp README.md sealed_annotations/example/
+cp README.md sealed_example/
+cp README.md sealed_generators/
+cp README.md sealed_generators/example/
+cp README.md sealed_writer/
+cp README.md sealed_writer/example/
+cp README.md super_enum_sealed_annotations/
+cp README.md super_enum_sealed_annotations/example/
+cp README.md super_enum_sealed_example/
+cp README.md super_enum_sealed_generators/
+cp README.md super_enum_sealed_generators/example/
+
+echo DONE
