@@ -128,23 +128,7 @@ abstract class Result<D extends Object /*?*/, E extends Object /*?*/ > {
     }
   }
 
-  void branch({
-    @required void Function(ResultSuccess<D, E> /*!*/ success) /*!*/ success,
-    @required void Function(ResultError<D, E> /*!*/ error) /*!*/ error,
-  }) {
-    assert(success != null);
-    assert(error != null);
-    final result = this;
-    if (result is ResultSuccess<D, E>) {
-      success(result);
-    } else if (result is ResultError<D, E>) {
-      error(result);
-    } else {
-      throw AssertionError();
-    }
-  }
-
-  void branchPartial({
+  void whenPartial({
     void Function(ResultSuccess<D, E> /*!*/ success) /*?*/ success,
     void Function(ResultError<D, E> /*!*/ error) /*?*/ error,
   }) {
@@ -153,44 +137,6 @@ abstract class Result<D extends Object /*?*/, E extends Object /*?*/ > {
       success?.call(result);
     } else if (result is ResultError<D, E>) {
       error?.call(result);
-    } else {
-      throw AssertionError();
-    }
-  }
-
-  void branchOrElse({
-    void Function(ResultSuccess<D, E> /*!*/ success) /*?*/ success,
-    void Function(ResultError<D, E> /*!*/ error) /*?*/ error,
-    @required void Function(Result<D, E> /*!*/ result) /*!*/ orElse,
-  }) {
-    assert(orElse != null);
-    final result = this;
-    if (result is ResultSuccess<D, E>) {
-      if (success != null) {
-        success(result);
-      } else {
-        orElse(result);
-      }
-    } else if (result is ResultError<D, E>) {
-      if (error != null) {
-        error(result);
-      } else {
-        orElse(result);
-      }
-    } else {
-      throw AssertionError();
-    }
-  }
-
-  void branchOrThrow({
-    void Function(ResultSuccess<D, E> /*!*/ success) /*?*/ success,
-    void Function(ResultError<D, E> /*!*/ error) /*?*/ error,
-  }) {
-    final result = this;
-    if (result is ResultSuccess<D, E> && success != null) {
-      success(result);
-    } else if (result is ResultError<D, E> && error != null) {
-      error(result);
     } else {
       throw AssertionError();
     }

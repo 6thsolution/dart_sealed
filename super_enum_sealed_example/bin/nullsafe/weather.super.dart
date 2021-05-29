@@ -168,24 +168,7 @@ abstract class Weather {
     }
   }
 
-  void branch({
-    required void Function(Sunny sunny) sunny,
-    required void Function(Rainy rainy) rainy,
-    required void Function(Windy windy) windy,
-  }) {
-    final weather = this;
-    if (weather is Sunny) {
-      sunny(weather);
-    } else if (weather is Rainy) {
-      rainy(weather);
-    } else if (weather is Windy) {
-      windy(weather);
-    } else {
-      throw AssertionError();
-    }
-  }
-
-  void branchPartial({
+  void whenPartial({
     void Function(Sunny sunny)? sunny,
     void Function(Rainy rainy)? rainy,
     void Function(Windy windy)? windy,
@@ -197,53 +180,6 @@ abstract class Weather {
       rainy?.call(weather);
     } else if (weather is Windy) {
       windy?.call(weather);
-    } else {
-      throw AssertionError();
-    }
-  }
-
-  void branchOrElse({
-    void Function(Sunny sunny)? sunny,
-    void Function(Rainy rainy)? rainy,
-    void Function(Windy windy)? windy,
-    required void Function(Weather weather) orElse,
-  }) {
-    final weather = this;
-    if (weather is Sunny) {
-      if (sunny != null) {
-        sunny(weather);
-      } else {
-        orElse(weather);
-      }
-    } else if (weather is Rainy) {
-      if (rainy != null) {
-        rainy(weather);
-      } else {
-        orElse(weather);
-      }
-    } else if (weather is Windy) {
-      if (windy != null) {
-        windy(weather);
-      } else {
-        orElse(weather);
-      }
-    } else {
-      throw AssertionError();
-    }
-  }
-
-  void branchOrThrow({
-    void Function(Sunny sunny)? sunny,
-    void Function(Rainy rainy)? rainy,
-    void Function(Windy windy)? windy,
-  }) {
-    final weather = this;
-    if (weather is Sunny && sunny != null) {
-      sunny(weather);
-    } else if (weather is Rainy && rainy != null) {
-      rainy(weather);
-    } else if (weather is Windy && windy != null) {
-      windy(weather);
     } else {
       throw AssertionError();
     }

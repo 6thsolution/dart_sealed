@@ -166,27 +166,7 @@ abstract class Result<D extends num /*?*/, E extends Object /*?*/ > {
     }
   }
 
-  void branch({
-    @required void Function(ResultSuccess<D, E> /*!*/ success) /*!*/ success,
-    @required void Function(ResultError<D, E> /*!*/ error) /*!*/ error,
-    @required void Function(ResultMixed<D, E> /*!*/ mixed) /*!*/ mixed,
-  }) {
-    assert(success != null);
-    assert(error != null);
-    assert(mixed != null);
-    final result = this;
-    if (result is ResultSuccess<D, E>) {
-      success(result);
-    } else if (result is ResultError<D, E>) {
-      error(result);
-    } else if (result is ResultMixed<D, E>) {
-      mixed(result);
-    } else {
-      throw AssertionError();
-    }
-  }
-
-  void branchPartial({
+  void whenPartial({
     void Function(ResultSuccess<D, E> /*!*/ success) /*?*/ success,
     void Function(ResultError<D, E> /*!*/ error) /*?*/ error,
     void Function(ResultMixed<D, E> /*!*/ mixed) /*?*/ mixed,
@@ -198,54 +178,6 @@ abstract class Result<D extends num /*?*/, E extends Object /*?*/ > {
       error?.call(result);
     } else if (result is ResultMixed<D, E>) {
       mixed?.call(result);
-    } else {
-      throw AssertionError();
-    }
-  }
-
-  void branchOrElse({
-    void Function(ResultSuccess<D, E> /*!*/ success) /*?*/ success,
-    void Function(ResultError<D, E> /*!*/ error) /*?*/ error,
-    void Function(ResultMixed<D, E> /*!*/ mixed) /*?*/ mixed,
-    @required void Function(Result<D, E> /*!*/ result) /*!*/ orElse,
-  }) {
-    assert(orElse != null);
-    final result = this;
-    if (result is ResultSuccess<D, E>) {
-      if (success != null) {
-        success(result);
-      } else {
-        orElse(result);
-      }
-    } else if (result is ResultError<D, E>) {
-      if (error != null) {
-        error(result);
-      } else {
-        orElse(result);
-      }
-    } else if (result is ResultMixed<D, E>) {
-      if (mixed != null) {
-        mixed(result);
-      } else {
-        orElse(result);
-      }
-    } else {
-      throw AssertionError();
-    }
-  }
-
-  void branchOrThrow({
-    void Function(ResultSuccess<D, E> /*!*/ success) /*?*/ success,
-    void Function(ResultError<D, E> /*!*/ error) /*?*/ error,
-    void Function(ResultMixed<D, E> /*!*/ mixed) /*?*/ mixed,
-  }) {
-    final result = this;
-    if (result is ResultSuccess<D, E> && success != null) {
-      success(result);
-    } else if (result is ResultError<D, E> && error != null) {
-      error(result);
-    } else if (result is ResultMixed<D, E> && mixed != null) {
-      mixed(result);
     } else {
       throw AssertionError();
     }

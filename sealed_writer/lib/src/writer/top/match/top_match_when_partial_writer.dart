@@ -5,59 +5,56 @@ import 'package:sealed_writer/src/utils/branch_utils.dart';
 import 'package:sealed_writer/src/utils/string_utils.dart';
 import 'package:sealed_writer/src/writer/top/match/top_match_base_writer.dart';
 
-/// match method writer branchPartial()
+/// match method writer whenPartial()
 @sealed
 @immutable
-class TopMatchBranchPartialWriter extends TopMatchBaseWriter {
-  const TopMatchBranchPartialWriter(Source source) : super(source);
+class TopMatchWhenPartialWriter extends TopMatchBaseWriter {
+  const TopMatchWhenPartialWriter(Source source) : super(source);
 
   /// ex. if (weather is WeatherSunny) { sunny?.call(weather); }
   @nonVirtual
   @visibleForTesting
-  If topMatchBranchPartialIf(ManifestItem item) => If(
+  If topMatchWhenPartialIf(ManifestItem item) => If(
         condition: '$topLower ${isSub(item)}',
         code: '${subLower(item)}?.call($topLower);',
       );
 
   @nonVirtual
   @visibleForTesting
-  List<If> topMatchBranchPartialIfs() =>
-      manifest.items.map(topMatchBranchPartialIf).toList();
+  List<If> topMatchWhenPartialIfs() =>
+      manifest.items.map(topMatchWhenPartialIf).toList();
 
   /// body of when method
   @nonVirtual
   @visibleForTesting
-  String topMatchBranchPartialBody() => [
+  String topMatchWhenPartialBody() => [
         initThisValue(),
         Branch(
-          ifs: topMatchBranchPartialIfs(),
+          ifs: topMatchWhenPartialIfs(),
           els: throwingElse(),
         ).join(),
       ].joinLines();
 
   @nonVirtual
   @visibleForTesting
-  Iterable<String> topMatchBranchPartialArgs() =>
+  Iterable<String> topMatchWhenPartialArgs() =>
       manifest.items.map(topMatchVoidNArg);
 
   /// start of when method
   @nonVirtual
   @visibleForTesting
-  String topMatchBranchPartialStart() => [
-        'void branchPartial',
-        topMatchBranchPartialArgs()
-            .joinArgsFull()
-            .withBraces()
-            .withParenthesis(),
+  String topMatchWhenPartialStart() => [
+        'void whenPartial',
+        topMatchWhenPartialArgs().joinArgsFull().withBraces().withParenthesis(),
       ].joinParts();
 
-  /// void branchPartial(item...)
+  /// void WhenPartial(item...)
   /// {...}
   @nonVirtual
-  String topMatchBranchPartial() => [
-        topMatchBranchPartialStart(),
+  String topMatchWhenPartial() => [
+        topMatchWhenPartialStart(),
         '{',
-        topMatchBranchPartialBody(),
+        topMatchWhenPartialBody(),
         '}',
       ].joinLines();
 }

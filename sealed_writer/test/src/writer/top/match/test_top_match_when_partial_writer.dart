@@ -1,61 +1,61 @@
-import 'package:sealed_writer/src/writer/top/match/top_match_branch_partial_writer.dart';
+import 'package:sealed_writer/src/writer/top/match/top_match_when_partial_writer.dart';
 import 'package:test/test.dart';
 
 import '../../../../utils/examples.dart';
 
 void main() {
-  group('class TopMatchBranchPartialWriter', () {
+  group('class TopMatchWhenPartialWriter', () {
     test('initialization', () {
       final source = source1DataSafe;
-      final writer = TopMatchBranchPartialWriter(source);
+      final writer = TopMatchWhenPartialWriter(source);
 
       expect(writer.source, source);
     });
 
-    test('method topMatchBranchPartialIf', () {
+    test('method topMatchWhenPartialIf', () {
       final source = source1DataSafe;
       final manifest = source.manifest;
       // sunny
       final item1 = manifest.items[0];
-      final writer = TopMatchBranchPartialWriter(source);
-      final i = writer.topMatchBranchPartialIf(item1);
+      final writer = TopMatchWhenPartialWriter(source);
+      final i = writer.topMatchWhenPartialIf(item1);
 
       expect(i.condition, 'weather is HiSunny');
       expect(i.code, 'sunny?.call(weather);');
     });
 
-    test('method topMatchBranchPartialArgs', () {
+    test('method topMatchWhenPartialArgs', () {
       final source = source1DataSafe;
       final manifest = source.manifest;
       final items = manifest.items;
-      final writer = TopMatchBranchPartialWriter(source);
+      final writer = TopMatchWhenPartialWriter(source);
 
       expect(
-        writer.topMatchBranchPartialArgs(),
+        writer.topMatchWhenPartialArgs(),
         items.map(writer.topMatchVoidNArg),
       );
     });
 
-    test('method topMatchBranchPartialIfs', () {
+    test('method topMatchWhenPartialIfs', () {
       final source = source1DataSafe;
       final manifest = source.manifest;
       final items = manifest.items;
-      final writer = TopMatchBranchPartialWriter(source);
-      final ifs = writer.topMatchBranchPartialIfs();
+      final writer = TopMatchWhenPartialWriter(source);
+      final ifs = writer.topMatchWhenPartialIfs();
       final a = ifs[0];
-      final b = writer.topMatchBranchPartialIf(items[0]);
+      final b = writer.topMatchWhenPartialIf(items[0]);
 
       expect(ifs, hasLength(equals(items.length)));
       expect(a.code, b.code);
       expect(a.condition, b.condition);
     });
 
-    test('method topMatchBranchPartialBody', () {
+    test('method topMatchWhenPartialBody', () {
       final source = source1DataSafe;
-      final writer = TopMatchBranchPartialWriter(source);
+      final writer = TopMatchWhenPartialWriter(source);
 
       expect(
-        writer.topMatchBranchPartialBody(),
+        writer.topMatchWhenPartialBody(),
         'final weather = this;\n'
         'if (weather is HiSunny) {'
         'sunny?.call(weather);}\n'
@@ -67,13 +67,13 @@ void main() {
       );
     });
 
-    test('method topMatchBranchPartialStart', () {
+    test('method topMatchWhenPartialStart', () {
       final source = source1DataSafe;
-      final writer = TopMatchBranchPartialWriter(source);
+      final writer = TopMatchWhenPartialWriter(source);
 
       expect(
-        writer.topMatchBranchPartialStart(),
-        'void branchPartial({'
+        writer.topMatchWhenPartialStart(),
+        'void whenPartial({'
         'void Function(HiSunny sunny)? sunny,'
         ' void Function(WeatherRainy rainy)? rainy,'
         ' void Function(HelloWindy windy)? windy,'
@@ -81,17 +81,17 @@ void main() {
       );
     });
 
-    group('method topMatchBranchPartial', () {
+    group('method topMatchWhenPartial', () {
       test('null-safe', () {
         final source = source1DataSafe;
-        final writer = TopMatchBranchPartialWriter(source);
+        final writer = TopMatchWhenPartialWriter(source);
 
         expect(
-          writer.topMatchBranchPartial(),
+          writer.topMatchWhenPartial(),
           stringContainsInOrder([
-            writer.topMatchBranchPartialStart(),
+            writer.topMatchWhenPartialStart(),
             '{',
-            writer.topMatchBranchPartialBody(),
+            writer.topMatchWhenPartialBody(),
             '}',
           ]),
         );
@@ -99,19 +99,19 @@ void main() {
 
       test('legacy', () {
         final source = source1DataLegacy;
-        final writer = TopMatchBranchPartialWriter(source);
+        final writer = TopMatchWhenPartialWriter(source);
 
         expect(
-          writer.topMatchBranchPartial(),
+          writer.topMatchWhenPartial(),
           stringContainsInOrder([
-            writer.topMatchBranchPartialStart(),
+            writer.topMatchWhenPartialStart(),
             '{',
-            writer.topMatchBranchPartialBody(),
+            writer.topMatchWhenPartialBody(),
             '}',
           ]),
         );
       });
     });
-    // end of group TopMatchBranchPartialWriter
+    // end of group TopMatchWhenPartialWriter
   });
 }

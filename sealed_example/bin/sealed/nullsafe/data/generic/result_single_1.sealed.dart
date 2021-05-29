@@ -121,21 +121,7 @@ abstract class Result<D extends num> {
     }
   }
 
-  void branch({
-    required void Function(ResultSuccess<D> success) success,
-    required void Function(ResultError<D> error) error,
-  }) {
-    final result = this;
-    if (result is ResultSuccess<D>) {
-      success(result);
-    } else if (result is ResultError<D>) {
-      error(result);
-    } else {
-      throw AssertionError();
-    }
-  }
-
-  void branchPartial({
+  void whenPartial({
     void Function(ResultSuccess<D> success)? success,
     void Function(ResultError<D> error)? error,
   }) {
@@ -144,43 +130,6 @@ abstract class Result<D extends num> {
       success?.call(result);
     } else if (result is ResultError<D>) {
       error?.call(result);
-    } else {
-      throw AssertionError();
-    }
-  }
-
-  void branchOrElse({
-    void Function(ResultSuccess<D> success)? success,
-    void Function(ResultError<D> error)? error,
-    required void Function(Result<D> result) orElse,
-  }) {
-    final result = this;
-    if (result is ResultSuccess<D>) {
-      if (success != null) {
-        success(result);
-      } else {
-        orElse(result);
-      }
-    } else if (result is ResultError<D>) {
-      if (error != null) {
-        error(result);
-      } else {
-        orElse(result);
-      }
-    } else {
-      throw AssertionError();
-    }
-  }
-
-  void branchOrThrow({
-    void Function(ResultSuccess<D> success)? success,
-    void Function(ResultError<D> error)? error,
-  }) {
-    final result = this;
-    if (result is ResultSuccess<D> && success != null) {
-      success(result);
-    } else if (result is ResultError<D> && error != null) {
-      error(result);
     } else {
       throw AssertionError();
     }

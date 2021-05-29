@@ -14,7 +14,7 @@ Generate sealed class hierarchy for Dart and Flutter, For null-safe and legacy p
 
 * Generate sealed class with abstract super type and data sub classes.
 * Static factory methods. for example `Result.success(data: 0)`.
-* Cast methods. for example `a.asSuccess`, `a.isSuccess` or `a.isSuccessOrNull`.
+* Cast methods. for example `a.asSuccess()`, `a.isSuccess()` or `a.asSuccessOrNull()`.
 * Three types of equality and hashCode generation : data (like kotlin data classes), identity and distinct.
 * Implement data equality with popular equatable library.
 * Support for generics. even types can be mixed.
@@ -136,32 +136,7 @@ abstract class Weather {
     /* ... */
   }
 
-  void branch({
-    required void Function(WeatherSunny sunny) sunny,
-    required void Function(WeatherRainy rainy) rainy,
-    required void Function(WeatherWindy windy) windy,
-  }) {
-    /* ... */
-  }
-
   void branchPartial({
-    void Function(WeatherSunny sunny)? sunny,
-    void Function(WeatherRainy rainy)? rainy,
-    void Function(WeatherWindy windy)? windy,
-  }) {
-    /* ... */
-  }
-
-  void branchOrElse({
-    void Function(WeatherSunny sunny)? sunny,
-    void Function(WeatherRainy rainy)? rainy,
-    void Function(WeatherWindy windy)? windy,
-    required void Function(Weather weather) orElse,
-  }) {
-    /* ... */
-  }
-
-  void branchOrThrow({
     void Function(WeatherSunny sunny)? sunny,
     void Function(WeatherRainy rainy)? rainy,
     void Function(WeatherWindy windy)? windy,

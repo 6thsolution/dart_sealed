@@ -152,24 +152,7 @@ abstract class Weather {
     }
   }
 
-  void branch({
-    required void Function(WeatherSunny sunny) sunny,
-    required void Function(BadWeather rainy) rainy,
-    required void Function(VeryBadWeather windy) windy,
-  }) {
-    final weather = this;
-    if (weather is WeatherSunny) {
-      sunny(weather);
-    } else if (weather is BadWeather) {
-      rainy(weather);
-    } else if (weather is VeryBadWeather) {
-      windy(weather);
-    } else {
-      throw AssertionError();
-    }
-  }
-
-  void branchPartial({
+  void whenPartial({
     void Function(WeatherSunny sunny)? sunny,
     void Function(BadWeather rainy)? rainy,
     void Function(VeryBadWeather windy)? windy,
@@ -181,53 +164,6 @@ abstract class Weather {
       rainy?.call(weather);
     } else if (weather is VeryBadWeather) {
       windy?.call(weather);
-    } else {
-      throw AssertionError();
-    }
-  }
-
-  void branchOrElse({
-    void Function(WeatherSunny sunny)? sunny,
-    void Function(BadWeather rainy)? rainy,
-    void Function(VeryBadWeather windy)? windy,
-    required void Function(Weather weather) orElse,
-  }) {
-    final weather = this;
-    if (weather is WeatherSunny) {
-      if (sunny != null) {
-        sunny(weather);
-      } else {
-        orElse(weather);
-      }
-    } else if (weather is BadWeather) {
-      if (rainy != null) {
-        rainy(weather);
-      } else {
-        orElse(weather);
-      }
-    } else if (weather is VeryBadWeather) {
-      if (windy != null) {
-        windy(weather);
-      } else {
-        orElse(weather);
-      }
-    } else {
-      throw AssertionError();
-    }
-  }
-
-  void branchOrThrow({
-    void Function(WeatherSunny sunny)? sunny,
-    void Function(BadWeather rainy)? rainy,
-    void Function(VeryBadWeather windy)? windy,
-  }) {
-    final weather = this;
-    if (weather is WeatherSunny && sunny != null) {
-      sunny(weather);
-    } else if (weather is BadWeather && rainy != null) {
-      rainy(weather);
-    } else if (weather is VeryBadWeather && windy != null) {
-      windy(weather);
     } else {
       throw AssertionError();
     }

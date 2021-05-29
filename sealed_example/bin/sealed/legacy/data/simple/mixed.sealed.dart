@@ -91,52 +91,12 @@ abstract class Apple {
     }
   }
 
-  void branch({
-    @required void Function(AppleHold /*!*/ hold) /*!*/ hold,
-  }) {
-    assert(hold != null);
-    final apple = this;
-    if (apple is AppleHold) {
-      hold(apple);
-    } else {
-      throw AssertionError();
-    }
-  }
-
-  void branchPartial({
+  void whenPartial({
     void Function(AppleHold /*!*/ hold) /*?*/ hold,
   }) {
     final apple = this;
     if (apple is AppleHold) {
       hold?.call(apple);
-    } else {
-      throw AssertionError();
-    }
-  }
-
-  void branchOrElse({
-    void Function(AppleHold /*!*/ hold) /*?*/ hold,
-    @required void Function(Apple /*!*/ apple) /*!*/ orElse,
-  }) {
-    assert(orElse != null);
-    final apple = this;
-    if (apple is AppleHold) {
-      if (hold != null) {
-        hold(apple);
-      } else {
-        orElse(apple);
-      }
-    } else {
-      throw AssertionError();
-    }
-  }
-
-  void branchOrThrow({
-    void Function(AppleHold /*!*/ hold) /*?*/ hold,
-  }) {
-    final apple = this;
-    if (apple is AppleHold && hold != null) {
-      hold(apple);
     } else {
       throw AssertionError();
     }
@@ -246,52 +206,12 @@ abstract class Banana {
     }
   }
 
-  void branch({
-    @required void Function(BananaHold /*!*/ hold) /*!*/ hold,
-  }) {
-    assert(hold != null);
-    final banana = this;
-    if (banana is BananaHold) {
-      hold(banana);
-    } else {
-      throw AssertionError();
-    }
-  }
-
-  void branchPartial({
+  void whenPartial({
     void Function(BananaHold /*!*/ hold) /*?*/ hold,
   }) {
     final banana = this;
     if (banana is BananaHold) {
       hold?.call(banana);
-    } else {
-      throw AssertionError();
-    }
-  }
-
-  void branchOrElse({
-    void Function(BananaHold /*!*/ hold) /*?*/ hold,
-    @required void Function(Banana /*!*/ banana) /*!*/ orElse,
-  }) {
-    assert(orElse != null);
-    final banana = this;
-    if (banana is BananaHold) {
-      if (hold != null) {
-        hold(banana);
-      } else {
-        orElse(banana);
-      }
-    } else {
-      throw AssertionError();
-    }
-  }
-
-  void branchOrThrow({
-    void Function(BananaHold /*!*/ hold) /*?*/ hold,
-  }) {
-    final banana = this;
-    if (banana is BananaHold && hold != null) {
-      hold(banana);
     } else {
       throw AssertionError();
     }
@@ -477,27 +397,7 @@ abstract class Coconut {
     }
   }
 
-  void branch({
-    @required void Function(CoconutTest1 /*!*/ test1) /*!*/ test1,
-    @required void Function(CoconutTest2 /*!*/ test2) /*!*/ test2,
-    @required void Function(CoconutHold /*!*/ hold) /*!*/ hold,
-  }) {
-    assert(test1 != null);
-    assert(test2 != null);
-    assert(hold != null);
-    final coconut = this;
-    if (coconut is CoconutTest1) {
-      test1(coconut);
-    } else if (coconut is CoconutTest2) {
-      test2(coconut);
-    } else if (coconut is CoconutHold) {
-      hold(coconut);
-    } else {
-      throw AssertionError();
-    }
-  }
-
-  void branchPartial({
+  void whenPartial({
     void Function(CoconutTest1 /*!*/ test1) /*?*/ test1,
     void Function(CoconutTest2 /*!*/ test2) /*?*/ test2,
     void Function(CoconutHold /*!*/ hold) /*?*/ hold,
@@ -509,54 +409,6 @@ abstract class Coconut {
       test2?.call(coconut);
     } else if (coconut is CoconutHold) {
       hold?.call(coconut);
-    } else {
-      throw AssertionError();
-    }
-  }
-
-  void branchOrElse({
-    void Function(CoconutTest1 /*!*/ test1) /*?*/ test1,
-    void Function(CoconutTest2 /*!*/ test2) /*?*/ test2,
-    void Function(CoconutHold /*!*/ hold) /*?*/ hold,
-    @required void Function(Coconut /*!*/ coconut) /*!*/ orElse,
-  }) {
-    assert(orElse != null);
-    final coconut = this;
-    if (coconut is CoconutTest1) {
-      if (test1 != null) {
-        test1(coconut);
-      } else {
-        orElse(coconut);
-      }
-    } else if (coconut is CoconutTest2) {
-      if (test2 != null) {
-        test2(coconut);
-      } else {
-        orElse(coconut);
-      }
-    } else if (coconut is CoconutHold) {
-      if (hold != null) {
-        hold(coconut);
-      } else {
-        orElse(coconut);
-      }
-    } else {
-      throw AssertionError();
-    }
-  }
-
-  void branchOrThrow({
-    void Function(CoconutTest1 /*!*/ test1) /*?*/ test1,
-    void Function(CoconutTest2 /*!*/ test2) /*?*/ test2,
-    void Function(CoconutHold /*!*/ hold) /*?*/ hold,
-  }) {
-    final coconut = this;
-    if (coconut is CoconutTest1 && test1 != null) {
-      test1(coconut);
-    } else if (coconut is CoconutTest2 && test2 != null) {
-      test2(coconut);
-    } else if (coconut is CoconutHold && hold != null) {
-      hold(coconut);
     } else {
       throw AssertionError();
     }

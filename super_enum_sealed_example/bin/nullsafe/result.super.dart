@@ -134,21 +134,7 @@ abstract class Result<Generic extends Object?> {
     }
   }
 
-  void branch({
-    required void Function(Success<Generic> success) success,
-    required void Function(Error<Generic> error) error,
-  }) {
-    final result = this;
-    if (result is Success<Generic>) {
-      success(result);
-    } else if (result is Error<Generic>) {
-      error(result);
-    } else {
-      throw AssertionError();
-    }
-  }
-
-  void branchPartial({
+  void whenPartial({
     void Function(Success<Generic> success)? success,
     void Function(Error<Generic> error)? error,
   }) {
@@ -157,43 +143,6 @@ abstract class Result<Generic extends Object?> {
       success?.call(result);
     } else if (result is Error<Generic>) {
       error?.call(result);
-    } else {
-      throw AssertionError();
-    }
-  }
-
-  void branchOrElse({
-    void Function(Success<Generic> success)? success,
-    void Function(Error<Generic> error)? error,
-    required void Function(Result<Generic> result) orElse,
-  }) {
-    final result = this;
-    if (result is Success<Generic>) {
-      if (success != null) {
-        success(result);
-      } else {
-        orElse(result);
-      }
-    } else if (result is Error<Generic>) {
-      if (error != null) {
-        error(result);
-      } else {
-        orElse(result);
-      }
-    } else {
-      throw AssertionError();
-    }
-  }
-
-  void branchOrThrow({
-    void Function(Success<Generic> success)? success,
-    void Function(Error<Generic> error)? error,
-  }) {
-    final result = this;
-    if (result is Success<Generic> && success != null) {
-      success(result);
-    } else if (result is Error<Generic> && error != null) {
-      error(result);
     } else {
       throw AssertionError();
     }

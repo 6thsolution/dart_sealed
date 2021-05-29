@@ -24,10 +24,7 @@ void main() {
           writer.topMatchWhenOrDefaultWriter.topMatchWhenOrDefault(),
           writer.topMatchWhenOrNullWriter.topMatchWhenOrNull(),
           writer.topMatchWhenOrThrowWriter.topMatchWhenOrThrow(),
-          writer.topMatchBranchWriter.topMatchBranch(),
-          writer.topMatchBranchPartialWriter.topMatchBranchPartial(),
-          writer.topMatchBranchOrElseWriter.topMatchBranchOrElse(),
-          writer.topMatchBranchOrThrowWriter.topMatchBranchOrThrow(),
+          writer.topMatchWhenPartialWriter.topMatchWhenPartial(),
         ]),
       );
     });
