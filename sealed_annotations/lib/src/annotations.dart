@@ -7,8 +7,10 @@ import 'package:sealed_annotations/sealed_annotations.dart';
 /// annotate classes with @[Sealed] to generate sealed class code.
 ///
 /// ==, hashCode and toString are generated for each data class.
-/// [equality] will specify how equality is implemented.
-/// see [Equality] for further details.
+/// equality will specify how equality is implemented.
+/// see [Equality] and [WithEquality] if you want to override equality
+/// for all sub classes or only a specified group.
+/// by default all equalities are [Equality.data].
 ///
 /// annotated element should be an abstract private class without
 /// any super class, mixin or interfaces except [Object]. it's name
@@ -20,6 +22,13 @@ import 'package:sealed_annotations/sealed_annotations.dart';
 /// to sub data class names. methods should only have positional
 /// arguments with names becoming data class field names and
 /// types becoming their types. types can be nullable.
+///
+/// Top class name is derived from manifest class name and it
+/// will be also used as sub class name prefixes. You can not
+/// override top class name but you can override prefix for all
+/// sub classes by using [WithPrefix] and override full sub class
+/// names by using [WithName]. For example annotate top class by
+/// `@WithPrefix('')` to remove prefix generation.
 ///
 /// each generated sealed abstract super class is annotated
 /// with @[SealedManifest] targeting class which is annotated
@@ -43,11 +52,14 @@ import 'package:sealed_annotations/sealed_annotations.dart';
 @sealed
 @Target({TargetKind.classType})
 class Sealed {
-  /// equality strategy
+  /// equality
+  ///
+  /// THIS WILL BE REMOVED
   final Equality equality;
 
   @literal
   const Sealed({
+    /// THIS WILL BE REMOVED
     this.equality = Equality.data,
   });
 
@@ -86,6 +98,8 @@ class SealedManifest {
 ///   void rainy(int rain);
 /// }
 /// ```
+///
+/// THIS WILL BE REMOVED
 @sealed
 @Target({TargetKind.method})
 class Meta {
@@ -140,6 +154,111 @@ class WithType {
 
   @override
   String toString() => 'WithType(type: $type)';
+}
+
+/// Override generated sub class names.
+///
+/// If applied to sub classes it will change
+/// the specified sub class full name.
+///
+/// This can not be applied to top class.
+///
+/// for example:
+/// ```dart
+/// abstract class _Weather { // will become Weather
+///   void sunny(); // will become WeatherSunny
+///
+///   @WithName('Hello')
+///   void rainy(int rain); // will become Hello
+/// }
+/// ```
+@experimental
+@sealed
+@Target({TargetKind.method})
+class WithName {
+  /// name.
+  ///
+  /// If applied to sub classes it will change
+  /// the specified sub class full name.
+  final String name;
+
+  @literal
+  const WithName(this.name);
+
+  @override
+  String toString() => 'WithName(name: $name)';
+}
+
+/// Override prefix in generated class names.
+///
+/// If applied to top class it will change prefix names for all
+/// sub classes.
+///
+/// This can not be applied to sub classes.
+///
+/// for example:
+/// ```dart
+/// @WithPrefix('Lollipop')
+/// abstract class _Weather { // will become Weather
+///   void sunny(); // will become LollipopSunny
+///
+///   void rainy(int rain); // will become LollipopRainy
+/// }
+/// ```
+@experimental
+@sealed
+@Target({TargetKind.classType})
+class WithPrefix {
+  /// prefix.
+  ///
+  /// If applied to top class it will change prefix names for all
+  /// sub classes.
+  final String prefix;
+
+  @literal
+  const WithPrefix(this.prefix);
+
+  @override
+  String toString() => 'WithPrefix(prefix: $prefix)';
+}
+
+/// Override equality in generated classes.
+///
+/// If applied to top class it will change equality for all
+/// sub classes.
+///
+/// If applied to a sub class it will change equality for the
+/// specified sub class.
+///
+/// This can be applied to both sub classes and top class.
+///
+/// for example:
+/// ```dart
+/// @WithPrefix('Lollipop')
+/// abstract class _Weather { // will become Weather
+///   void sunny(); // will become LollipopSunny
+///
+///   void rainy(int rain); // will become LollipopRainy
+/// }
+/// ```
+@experimental
+@sealed
+@Target({TargetKind.classType, TargetKind.method})
+class WithEquality {
+  /// equality.
+  ///
+  /// If applied to top class it will change equality for all
+  /// sub classes.
+  ///
+  /// If applied to a sub class it will change equality for the
+  /// specified sub class.
+  final Equality equality;
+
+  @literal
+  const WithEquality(this.equality);
+
+  @override
+  String toString() => 'WithEquality(equality: $equality)';
 }
 
 /// different equality (and hash code) implementations

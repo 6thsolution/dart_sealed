@@ -67,4 +67,49 @@ void main() {
       );
     });
   });
+
+  group('annotation @WithName', () {
+    test('initialization', () {
+      const a = WithName('Hello');
+      expect(a.name, equals('Hello'));
+      expect(
+        a.toString(),
+        stringContainsInOrder([
+          'WithName',
+          'name',
+          'Hello',
+        ]),
+      );
+    });
+  });
+
+  group('annotation @WithPrefix', () {
+    test('initialization', () {
+      const a = WithPrefix('Hello');
+      expect(a.prefix, equals('Hello'));
+      expect(
+        a.toString(),
+        stringContainsInOrder([
+          'WithPrefix',
+          'prefix',
+          'Hello',
+        ]),
+      );
+    });
+  });
+
+  group('annotation @WithEquality', () {
+    test('initialization', () {
+      const a = WithEquality(Equality.identity);
+      expect(a.equality, equals(Equality.identity));
+      expect(
+        a.toString(),
+        stringContainsInOrder([
+          'WithEquality',
+          'equality',
+          'Equality.identity',
+        ]),
+      );
+    });
+  });
 }
