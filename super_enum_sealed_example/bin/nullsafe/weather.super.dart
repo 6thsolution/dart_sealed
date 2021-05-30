@@ -12,13 +12,16 @@ part of 'weather.dart';
 /// and remove "$" at the end of class name.
 @Sealed()
 abstract class _Weather$ {
-  @Meta(name: 'Sunny', equality: Equality.data)
+  @WithEquality(Equality.data)
+  @WithName('Sunny')
   void sunny();
 
-  @Meta(name: 'Rainy', equality: Equality.data)
+  @WithEquality(Equality.data)
+  @WithName('Rainy')
   void rainy(int rain);
 
-  @Meta(name: 'Windy', equality: Equality.data)
+  @WithEquality(Equality.data)
+  @WithName('Windy')
   void windy(double velocity, double? angle);
 }
 

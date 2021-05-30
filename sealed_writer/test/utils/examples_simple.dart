@@ -72,13 +72,16 @@ final code1Distinct = code1(ManifestEquality.distinct);
 String code1(ManifestEquality equality) => '''@Sealed()
 abstract class _Weather\$
 {
-@Meta(name: 'HiSunny', equality: ${_equality(equality)})
+@WithEquality(${_equality(equality)})
+@WithName('HiSunny')
 void sunny();
 
-@Meta(name: 'WeatherRainy', equality: ${_equality(equality)})
+@WithEquality(${_equality(equality)})
+@WithName('WeatherRainy')
 void rainy(int rain);
 
-@Meta(name: 'HelloWindy', equality: ${_equality(equality)})
+@WithEquality(${_equality(equality)})
+@WithName('HelloWindy')
 void windy(double velocity, double? angle);
 }''';
 

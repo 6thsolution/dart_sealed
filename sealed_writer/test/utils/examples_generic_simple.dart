@@ -67,10 +67,12 @@ final code2Distinct = code2(ManifestEquality.distinct);
 String code2(ManifestEquality equality) => '''@Sealed()
 abstract class _Result\$<T extends num>
 {
-@Meta(name: 'MySuccess', equality: ${_equality(equality)})
+@WithEquality(${_equality(equality)})
+@WithName('MySuccess')
 void success(T data);
 
-@Meta(name: 'HelloError', equality: ${_equality(equality)})
+@WithEquality(${_equality(equality)})
+@WithName('HelloError')
 void error(Object exception);
 }''';
 

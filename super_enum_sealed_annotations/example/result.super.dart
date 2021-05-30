@@ -12,25 +12,27 @@ part of 'result.dart';
 /// and remove "$" at the end of class name.
 @Sealed()
 abstract class _Result$<Generic extends Object?> {
-  @Meta(name: 'Success', equality: Equality.data)
-  void success(Generic? data);
+  @WithEquality(Equality.data)
+  @WithName('Success')
+  void success(Generic data);
 
-  @Meta(name: 'Error', equality: Equality.data)
-  void error(Object? exception);
+  @WithEquality(Equality.data)
+  @WithName('Error')
+  void error(Object exception);
 }
 
 /// [Result]<[Generic] extends [Object]?> {
 ///
-/// ([Success] success){[Generic]? data} with data equality
+/// ([Success] success){[Generic] data} with data equality
 ///
-/// ([Error] error){[Object]? exception} with data equality
+/// ([Error] error){[Object] exception} with data equality
 ///
 /// }
 @SealedManifest(_Result)
 abstract class Result<Generic extends Object?> {
   @factory
   static Success<Generic> success<Generic extends Object?>({
-    required Generic? data,
+    required Generic data,
   }) =>
       Success<Generic>(
         data: data,
@@ -38,7 +40,7 @@ abstract class Result<Generic extends Object?> {
 
   @factory
   static Error<Generic> error<Generic extends Object?>({
-    required Object? exception,
+    required Object exception,
   }) =>
       Error<Generic>(
         exception: exception,
@@ -134,21 +136,7 @@ abstract class Result<Generic extends Object?> {
     }
   }
 
-  void branch({
-    required void Function(Success<Generic> success) success,
-    required void Function(Error<Generic> error) error,
-  }) {
-    final result = this;
-    if (result is Success<Generic>) {
-      success(result);
-    } else if (result is Error<Generic>) {
-      error(result);
-    } else {
-      throw AssertionError();
-    }
-  }
-
-  void branchPartial({
+  void whenPartial({
     void Function(Success<Generic> success)? success,
     void Function(Error<Generic> error)? error,
   }) {
@@ -161,46 +149,9 @@ abstract class Result<Generic extends Object?> {
       throw AssertionError();
     }
   }
-
-  void branchOrElse({
-    void Function(Success<Generic> success)? success,
-    void Function(Error<Generic> error)? error,
-    required void Function(Result<Generic> result) orElse,
-  }) {
-    final result = this;
-    if (result is Success<Generic>) {
-      if (success != null) {
-        success(result);
-      } else {
-        orElse(result);
-      }
-    } else if (result is Error<Generic>) {
-      if (error != null) {
-        error(result);
-      } else {
-        orElse(result);
-      }
-    } else {
-      throw AssertionError();
-    }
-  }
-
-  void branchOrThrow({
-    void Function(Success<Generic> success)? success,
-    void Function(Error<Generic> error)? error,
-  }) {
-    final result = this;
-    if (result is Success<Generic> && success != null) {
-      success(result);
-    } else if (result is Error<Generic> && error != null) {
-      error(result);
-    } else {
-      throw AssertionError();
-    }
-  }
 }
 
-/// (([Success] : [Result])<[Generic] extends [Object]?> success){[Generic]? data}
+/// (([Success] : [Result])<[Generic] extends [Object]?> success){[Generic] data}
 ///
 /// with data equality
 class Success<Generic extends Object?> extends Result<Generic>
@@ -209,7 +160,7 @@ class Success<Generic extends Object?> extends Result<Generic>
     required this.data,
   });
 
-  final Generic? data;
+  final Generic data;
 
   @override
   String toString() => 'Result.success(data: $data)';
@@ -220,7 +171,7 @@ class Success<Generic extends Object?> extends Result<Generic>
       ];
 }
 
-/// (([Error] : [Result])<[Generic] extends [Object]?> error){[Object]? exception}
+/// (([Error] : [Result])<[Generic] extends [Object]?> error){[Object] exception}
 ///
 /// with data equality
 class Error<Generic extends Object?> extends Result<Generic>
@@ -229,7 +180,7 @@ class Error<Generic extends Object?> extends Result<Generic>
     required this.exception,
   });
 
-  final Object? exception;
+  final Object exception;
 
   @override
   String toString() => 'Result.error(exception: $exception)';

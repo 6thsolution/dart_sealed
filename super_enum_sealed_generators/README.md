@@ -23,7 +23,7 @@ Generate sealed class hierarchy for Dart and Flutter, For null-safe and legacy p
 * Support both legacy and null-safe projects.
 * Generate nullability comments for legacy projects to ease your migration.
 * Generate toString for data classes.
-* Generate 9 types of different matching methods. like `when` or `whenOrElse`.
+* Generate 6 types of different matching methods. like `when` or `whenOrElse`.
 
 ## Usage
 
@@ -51,12 +51,17 @@ part 'weather.sealed.dart';
 
 Add `@Sealed` annotation, and an abstract private class as a manifest for generated code.
 
-You can choose between three types of equality using `equality` parameter of `@Sealed(equality: Equality.*)`
-annotations. Default equality is `data`.
+You can choose between three types of equality using `@WithEquality(...)` annotation. Default equality is `data` if not
+specified. This will become default equality for all sub classes. You can change equality of each sub class by using
+this annotation on individual methods.
+
+Equality types:
 
 * `data` Equality is implemented with Equatable package. It behaves like kotlin data classes.
 * `identity` Only identical instances are equal. It's like when you don't implement any specific equality.
 * `distinct` All the instances are not equal with each other. Even an instance is not equal with itself.
+
+A basic example:
 
 ```dart
 @Sealed()
@@ -69,7 +74,60 @@ abstract class _Weather {
 }
 ```
 
-Note that you can have nullable and non-nullable fields. In legacy projects all fields are considered nullable.
+In the proceeding example all classes will have `data` equality. For example if you wanted `identity` equality for all
+classes but using `distinct` equality for `windy`:
+
+```dart
+@Sealed()
+@WithEquality(Equality.identity)
+abstract class _Weather {
+  void sunny();
+
+  void rainy(int rain);
+
+  @WithEquality(Equality.distinct)
+  void windy(double velocity, double? angle);
+}
+```
+
+An abstract super class is generated with name equal to name of manifest class without the underline (here `Weather`).
+Each method will become a sub class. There should be at least one method. Sub class names are based on method name
+prefixed with super class name (for example `WeatherSunny`). Naming process can be tailored with use of `@WithPrefix`
+and `@WithName` annotations. Each method argument will become a field in corresponding sub class. Field names are equal
+to argument names and field types are equal to argument types or dynamic if not specified. Argument types can be
+overridden using `@WithType` annotation for example when type information is not available at build time. Note that you
+can have nullable and non-nullable fields. In legacy projects all fields are considered nullable.
+
+To change prefix of sub class names which by default is top class name, you can use `@WithPrefix` annotation. for
+example:
+
+```dart
+@Sealed()
+@WithPrefix('Hello')
+abstract class _Weather {
+  void sunny();
+}
+```
+
+Now `sunny` will be named `HelloSunny` instead of the default `WeatherSunny`. You can use `@WithPrefix('')` to remove
+all prefix from sub class names.
+
+To change sub class names directly you can use `@WithName` annotation. It will override `WithPrefix` if specified. for
+example:
+
+```dart
+@Sealed()
+abstract class _Weather {
+  @WithName('Hello')
+  void sunny();
+}
+```
+
+Now `sunny` will be named `Hello` instead of the default `WeatherSunny`. This is use full if you want not to use prefix
+for some items.
+
+Almost all methods on sealed classes use short names extracted from manifest method names. Full sub class names are not
+used. It is recommended not to use sub classes directly. There are factory methods for each item on super class.
 
 Then run the following command to generate code for you.
 
@@ -136,7 +194,7 @@ abstract class Weather {
     /* ... */
   }
 
-  void branchPartial({
+  void whenPartial({
     void Function(WeatherSunny sunny)? sunny,
     void Function(WeatherRainy rainy)? rainy,
     void Function(WeatherWindy windy)? windy,
@@ -205,27 +263,6 @@ abstract class _Result<D extends num, E extends Object> {
   void error(E exception);
 
   void mixed(D data, E exception);
-}
-```
-
-## Changing sub class name and equality
-
-All sub classes have equality same as manifest equality, and their generated class name by default is concatenation of
-manifest name and method name. You can change these by using `@Meta` annotation.
-
-For example:
-
-```dart
-@Sealed(equality: Equality.data)
-abstract class _Weather {
-  @Meta(name: 'BestWeather')
-  void sunny();
-
-  @Meta(equality: Equality.identity)
-  void rainy(int rain);
-
-  @Meta(name: 'WorstWeather', equality: Equality.distinct)
-  void windy(double velocity, double? angle);
 }
 ```
 
@@ -319,14 +356,17 @@ It will generate sealed classes and the following manifest class.
 ```dart
 @Sealed()
 abstract class _Weather$ {
-  @Meta(name: 'Sunny', equality: Equality.data)
+  @WithEquality(Equality.data)
+  @WithName('Sunny')
   void sunny();
 
-  @Meta(name: 'Rainy', equality: Equality.data)
-  void rainy(int? rain);
+  @WithEquality(Equality.data)
+  @WithName('Rainy')
+  void rainy(int rain);
 
-  @Meta(name: 'Windy', equality: Equality.data)
-  void windy(double? velocity, double? angle);
+  @WithEquality(Equality.data)
+  @WithName('Windy')
+  void windy(double velocity, double? angle);
 }
 ```
 

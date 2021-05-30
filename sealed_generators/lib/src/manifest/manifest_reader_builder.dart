@@ -1,9 +1,9 @@
 import 'package:analyzer/dart/element/element.dart';
 import 'package:meta/meta.dart';
 import 'package:sealed_annotations/sealed_annotations.dart';
+import 'package:sealed_generators/src/manifest/annotation_utils.dart';
 import 'package:sealed_generators/src/manifest/manifest_reader.dart';
 import 'package:sealed_writer/sealed_writer.dart';
-import 'package:source_gen/src/constants/reader.dart';
 
 /// provides options and details not general to the manifest to reader
 @sealed
@@ -16,28 +16,27 @@ class ManifestReaderBuilder {
   });
 
   /// build manifest reader
-  ManifestReader build(
-    Element element,
-    ConstantReader annotation,
-  ) {
-    final defaultEquality = _readDefaultEquality(annotation);
-    final cls = _extractClassElement(element);
-    final name = _extractTopName(cls);
+  ManifestReader build(Element element) {
+    final topClass = _extractClassElement(element);
+    final topName = _extractTopName(topClass);
+    final topEquality = _extractTopEquality(element);
+    final topPrefix = _extractTopPrefix(element, topName);
     return ManifestReader(
       options: options,
-      name: name,
-      defaultEquality: defaultEquality,
-      cls: cls,
+      topName: topName,
+      topEquality: topEquality,
+      topPrefix: topPrefix,
+      topClass: topClass,
     );
   }
 
-  /// read default equality from [Sealed] annotations
-  Equality _readDefaultEquality(ConstantReader annotation) =>
-      _readEquality(annotation.read('equality'));
+  /// extract top prefix
+  String _extractTopPrefix(Element element, String topName) =>
+      extractWithPrefixOrNull(element) ?? topName;
 
-  /// read equality from enum object
-  Equality _readEquality(ConstantReader obj) =>
-      Equality.values[obj.read('index').intValue];
+  /// extract top equality
+  ManifestEquality _extractTopEquality(Element element) =>
+      extractWithEqualityOrNull(element) ?? ManifestEquality.data;
 
   /// extract class element
   ClassElement _extractClassElement(Element e) {
@@ -56,7 +55,7 @@ class ManifestReaderBuilder {
     );
     require(
       cls.allSupertypes.length == 1,
-      'class can only have Object as super type',
+      'class should have only Object as super type',
     );
     return cls;
   }
@@ -66,7 +65,7 @@ class ManifestReaderBuilder {
     final name = cls.name;
     require(
       name.isGenTypeName() && name.isPrivate(),
-      () => "malformed class name '$name'",
+      () => "class name '$name' should be a valid private type name",
     );
     final str = name.substring(1);
     require(

@@ -12,10 +12,12 @@ part of 'result.dart';
 /// and remove "$" at the end of class name.
 @Sealed()
 abstract class _Result$<Generic extends Object?> {
-  @Meta(name: 'Success', equality: Equality.data)
+  @WithEquality(Equality.data)
+  @WithName('Success')
   void success(Generic data);
 
-  @Meta(name: 'Error', equality: Equality.data)
+  @WithEquality(Equality.data)
+  @WithName('Error')
   void error(Object exception);
 }
 

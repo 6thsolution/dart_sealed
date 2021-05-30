@@ -12,23 +12,26 @@ part of 'weather.dart';
 /// and remove "$" at the end of class name.
 @Sealed()
 abstract class _Weather$ {
-  @Meta(name: 'Sunny', equality: Equality.data)
+  @WithEquality(Equality.data)
+  @WithName('Sunny')
   void sunny();
 
-  @Meta(name: 'Rainy', equality: Equality.data)
-  void rainy(int? rain);
+  @WithEquality(Equality.data)
+  @WithName('Rainy')
+  void rainy(int rain);
 
-  @Meta(name: 'Windy', equality: Equality.data)
-  void windy(double? velocity, double? angle);
+  @WithEquality(Equality.data)
+  @WithName('Windy')
+  void windy(double velocity, double? angle);
 }
 
 /// [Weather] {
 ///
 /// ([Sunny] sunny){} with data equality
 ///
-/// ([Rainy] rainy){[int]? rain} with data equality
+/// ([Rainy] rainy){[int] rain} with data equality
 ///
-/// ([Windy] windy){[double]? velocity, [double]? angle} with data equality
+/// ([Windy] windy){[double] velocity, [double]? angle} with data equality
 ///
 /// }
 @SealedManifest(_Weather)
@@ -38,7 +41,7 @@ abstract class Weather {
 
   @factory
   static Rainy rainy({
-    required int? rain,
+    required int rain,
   }) =>
       Rainy(
         rain: rain,
@@ -46,7 +49,7 @@ abstract class Weather {
 
   @factory
   static Windy windy({
-    required double? velocity,
+    required double velocity,
     required double? angle,
   }) =>
       Windy(
@@ -168,24 +171,7 @@ abstract class Weather {
     }
   }
 
-  void branch({
-    required void Function(Sunny sunny) sunny,
-    required void Function(Rainy rainy) rainy,
-    required void Function(Windy windy) windy,
-  }) {
-    final weather = this;
-    if (weather is Sunny) {
-      sunny(weather);
-    } else if (weather is Rainy) {
-      rainy(weather);
-    } else if (weather is Windy) {
-      windy(weather);
-    } else {
-      throw AssertionError();
-    }
-  }
-
-  void branchPartial({
+  void whenPartial({
     void Function(Sunny sunny)? sunny,
     void Function(Rainy rainy)? rainy,
     void Function(Windy windy)? windy,
@@ -197,53 +183,6 @@ abstract class Weather {
       rainy?.call(weather);
     } else if (weather is Windy) {
       windy?.call(weather);
-    } else {
-      throw AssertionError();
-    }
-  }
-
-  void branchOrElse({
-    void Function(Sunny sunny)? sunny,
-    void Function(Rainy rainy)? rainy,
-    void Function(Windy windy)? windy,
-    required void Function(Weather weather) orElse,
-  }) {
-    final weather = this;
-    if (weather is Sunny) {
-      if (sunny != null) {
-        sunny(weather);
-      } else {
-        orElse(weather);
-      }
-    } else if (weather is Rainy) {
-      if (rainy != null) {
-        rainy(weather);
-      } else {
-        orElse(weather);
-      }
-    } else if (weather is Windy) {
-      if (windy != null) {
-        windy(weather);
-      } else {
-        orElse(weather);
-      }
-    } else {
-      throw AssertionError();
-    }
-  }
-
-  void branchOrThrow({
-    void Function(Sunny sunny)? sunny,
-    void Function(Rainy rainy)? rainy,
-    void Function(Windy windy)? windy,
-  }) {
-    final weather = this;
-    if (weather is Sunny && sunny != null) {
-      sunny(weather);
-    } else if (weather is Rainy && rainy != null) {
-      rainy(weather);
-    } else if (weather is Windy && windy != null) {
-      windy(weather);
     } else {
       throw AssertionError();
     }
@@ -266,7 +205,7 @@ class Sunny extends Weather with EquatableMixin {
   List<Object?> get props => [];
 }
 
-/// (([Rainy] : [Weather]) rainy){[int]? rain}
+/// (([Rainy] : [Weather]) rainy){[int] rain}
 ///
 /// with data equality
 class Rainy extends Weather with EquatableMixin {
@@ -274,7 +213,15 @@ class Rainy extends Weather with EquatableMixin {
     required this.rain,
   });
 
-  final int? rain;
+  final int rain;
+
+  @factory
+  Rainy copy({
+    int? rain,
+  }) =>
+      Rainy(
+        rain: rain ?? this.rain,
+      );
 
   @override
   String toString() => 'Weather.rainy(rain: $rain)';
@@ -285,7 +232,7 @@ class Rainy extends Weather with EquatableMixin {
       ];
 }
 
-/// (([Windy] : [Weather]) windy){[double]? velocity, [double]? angle}
+/// (([Windy] : [Weather]) windy){[double] velocity, [double]? angle}
 ///
 /// with data equality
 class Windy extends Weather with EquatableMixin {
@@ -294,7 +241,7 @@ class Windy extends Weather with EquatableMixin {
     required this.angle,
   });
 
-  final double? velocity;
+  final double velocity;
   final double? angle;
 
   @override

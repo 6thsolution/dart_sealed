@@ -9,6 +9,17 @@ import 'package:sealed_writer/src/writer/base/base_utils_writer.dart';
 @sealed
 @immutable
 class BackwardWriter extends BaseUtilsWriter {
+  /// map equality
+  static const _equalityMapping = {
+    ManifestEquality.data: 'Equality.data',
+    ManifestEquality.identity: 'Equality.identity',
+    ManifestEquality.distinct: 'Equality.distinct',
+  };
+
+  /// ex. Equality.data
+  static String _equality(ManifestEquality equality) =>
+      _equalityMapping[equality]!;
+
   const BackwardWriter(Source source) : super(source);
 
   String _topAnnotation() => '@Sealed()';
@@ -20,12 +31,15 @@ class BackwardWriter extends BaseUtilsWriter {
   Iterable<String> _fields(ManifestItem item) => item.fields.map(_field);
 
   String _item(ManifestItem item) => [
-        _itemAnnotation(item),
+        _itemEqualityAnnotation(item),
+        _itemNameAnnotation(item),
         _itemMethod(item),
       ].joinLines();
 
-  String _itemAnnotation(ManifestItem item) =>
-      "@Meta(name: '${item.name}', equality: ${_equality(item.equality)})";
+  String _itemEqualityAnnotation(ManifestItem item) =>
+      '@WithEquality(${_equality(item.equality)})';
+
+  String _itemNameAnnotation(ManifestItem item) => "@WithName('${item.name}')";
 
   String _itemMethod(ManifestItem item) => [
         'void ',
@@ -45,18 +59,4 @@ class BackwardWriter extends BaseUtilsWriter {
         ..._items().insertEmptyLinesBetween(),
         '}',
       ].joinLines();
-
-  /// ex. Equality.data
-  String _equality(ManifestEquality equality) {
-    switch (equality) {
-      case ManifestEquality.data:
-        return 'Equality.data';
-      case ManifestEquality.identity:
-        return 'Equality.identity';
-      case ManifestEquality.distinct:
-        return 'Equality.distinct';
-      default:
-        throw InternalSealedError();
-    }
-  }
 }

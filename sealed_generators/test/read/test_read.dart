@@ -21,7 +21,7 @@ void one();
 void two(int x, double? y);
 }''');
             final reader = const SourceReader();
-            final source = reader.read(x.element, x.annotation);
+            final source = reader.read(x.element);
             expect(
               source,
               Source(
@@ -65,12 +65,13 @@ void two(int x, double? y);
 
           test('equality', () async {
             final x = await resolveSealedSafe('''
-@Sealed(equality: Equality.identity)
+@Sealed()
+@WithEquality(Equality.identity)
 abstract class _Basic {
 void one();
 }''');
             final reader = const SourceReader();
-            final source = reader.read(x.element, x.annotation);
+            final source = reader.read(x.element);
             expect(
               source,
               Source(
@@ -96,11 +97,11 @@ void one();
               final x = await resolveSealedSafe('''
 @Sealed()
 abstract class _Basic {
-@Meta(name: 'Hello')
+@WithName('Hello')
 void one();
 }''');
               final reader = const SourceReader();
-              final source = reader.read(x.element, x.annotation);
+              final source = reader.read(x.element);
               expect(
                 source,
                 Source(
@@ -125,11 +126,11 @@ void one();
               final x = await resolveSealedSafe('''
 @Sealed()
 abstract class _Basic {
-@Meta(equality: Equality.identity)
+@WithEquality(Equality.identity)
 void one();
 }''');
               final reader = const SourceReader();
-              final source = reader.read(x.element, x.annotation);
+              final source = reader.read(x.element);
               expect(
                 source,
                 Source(
@@ -150,15 +151,16 @@ void one();
               );
             });
 
-            test('change both', () async {
+            test('change name and equality', () async {
               final x = await resolveSealedSafe('''
 @Sealed()
 abstract class _Basic {
-@Meta(name: 'Hello', equality: Equality.identity)
+@WithName('Hello')
+@WithEquality(Equality.identity)
 void one();
 }''');
               final reader = const SourceReader();
-              final source = reader.read(x.element, x.annotation);
+              final source = reader.read(x.element);
               expect(
                 source,
                 Source(
@@ -178,6 +180,65 @@ void one();
                 ),
               );
             });
+
+            test('change prefix', () async {
+              final x = await resolveSealedSafe('''
+@Sealed()
+@WithPrefix('Pre')
+abstract class _Basic {
+void one();
+}''');
+              final reader = const SourceReader();
+              final source = reader.read(x.element);
+              expect(
+                source,
+                Source(
+                  options: optionsSafe,
+                  manifest: Manifest(
+                    name: 'Basic',
+                    params: [],
+                    items: [
+                      ManifestItem(
+                        name: 'PreOne',
+                        shortName: 'one',
+                        equality: ManifestEquality.data,
+                        fields: [],
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            });
+
+            test('change prefix and name', () async {
+              final x = await resolveSealedSafe('''
+@Sealed()
+@WithPrefix('Pre')
+abstract class _Basic {
+@WithName('Hello')
+void one();
+}''');
+              final reader = const SourceReader();
+              final source = reader.read(x.element);
+              expect(
+                source,
+                Source(
+                  options: optionsSafe,
+                  manifest: Manifest(
+                    name: 'Basic',
+                    params: [],
+                    items: [
+                      ManifestItem(
+                        name: 'Hello',
+                        shortName: 'one',
+                        equality: ManifestEquality.data,
+                        fields: [],
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            });
           });
 
           test('withType', () async {
@@ -187,7 +248,7 @@ abstract class _Basic {
 void one(@WithType('double?') x, @WithType('double') int? y);
 }''');
             final reader = const SourceReader();
-            final source = reader.read(x.element, x.annotation);
+            final source = reader.read(x.element);
             expect(
               source,
               Source(
@@ -234,7 +295,7 @@ void two(E y);
 void three(T? z);
 }''');
             final reader = const SourceReader();
-            final source = reader.read(x.element, x.annotation);
+            final source = reader.read(x.element);
             expect(
               source,
               Source(
@@ -313,7 +374,7 @@ abstract class _Basic<T> {
 void one();
 }''');
             final reader = const SourceReader();
-            final source = reader.read(x.element, x.annotation);
+            final source = reader.read(x.element);
             expect(
               source,
               Source(
@@ -354,7 +415,7 @@ void one();
 void two(int x, double y);
 }''');
             final reader = const SourceReader();
-            final source = reader.read(x.element, x.annotation);
+            final source = reader.read(x.element);
             expect(
               source,
               Source(
@@ -398,12 +459,13 @@ void two(int x, double y);
 
           test('equality', () async {
             final x = await resolveSealedLegacy('''
-@Sealed(equality: Equality.identity)
+@Sealed()
+@WithEquality(Equality.identity)
 abstract class _Basic {
 void one();
 }''');
             final reader = const SourceReader();
-            final source = reader.read(x.element, x.annotation);
+            final source = reader.read(x.element);
             expect(
               source,
               Source(
@@ -429,11 +491,11 @@ void one();
               final x = await resolveSealedLegacy('''
 @Sealed()
 abstract class _Basic {
-@Meta(name: 'Hello')
+@WithName('Hello')
 void one();
 }''');
               final reader = const SourceReader();
-              final source = reader.read(x.element, x.annotation);
+              final source = reader.read(x.element);
               expect(
                 source,
                 Source(
@@ -458,11 +520,11 @@ void one();
               final x = await resolveSealedLegacy('''
 @Sealed()
 abstract class _Basic {
-@Meta(equality: Equality.identity)
+@WithEquality(Equality.identity)
 void one();
 }''');
               final reader = const SourceReader();
-              final source = reader.read(x.element, x.annotation);
+              final source = reader.read(x.element);
               expect(
                 source,
                 Source(
@@ -483,15 +545,16 @@ void one();
               );
             });
 
-            test('change both', () async {
+            test('change name and equality', () async {
               final x = await resolveSealedLegacy('''
 @Sealed()
 abstract class _Basic {
-@Meta(name: 'Hello', equality: Equality.identity)
+@WithName('Hello')
+@WithEquality(Equality.identity)
 void one();
 }''');
               final reader = const SourceReader();
-              final source = reader.read(x.element, x.annotation);
+              final source = reader.read(x.element);
               expect(
                 source,
                 Source(
@@ -511,6 +574,65 @@ void one();
                 ),
               );
             });
+
+            test('change prefix', () async {
+              final x = await resolveSealedLegacy('''
+@Sealed()
+@WithPrefix('Pre')
+abstract class _Basic {
+void one();
+}''');
+              final reader = const SourceReader();
+              final source = reader.read(x.element);
+              expect(
+                source,
+                Source(
+                  options: optionsLegacy,
+                  manifest: Manifest(
+                    name: 'Basic',
+                    params: [],
+                    items: [
+                      ManifestItem(
+                        name: 'PreOne',
+                        shortName: 'one',
+                        equality: ManifestEquality.data,
+                        fields: [],
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            });
+
+            test('change prefix and name', () async {
+              final x = await resolveSealedLegacy('''
+@Sealed()
+@WithPrefix('Pre')
+abstract class _Basic {
+@WithName('Hello')
+void one();
+}''');
+              final reader = const SourceReader();
+              final source = reader.read(x.element);
+              expect(
+                source,
+                Source(
+                  options: optionsLegacy,
+                  manifest: Manifest(
+                    name: 'Basic',
+                    params: [],
+                    items: [
+                      ManifestItem(
+                        name: 'Hello',
+                        shortName: 'one',
+                        equality: ManifestEquality.data,
+                        fields: [],
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            });
           });
 
           test('withType', () async {
@@ -520,7 +642,7 @@ abstract class _Basic {
 void one(@WithType('double?') x, @WithType('double') int y);
 }''');
             final reader = const SourceReader();
-            final source = reader.read(x.element, x.annotation);
+            final source = reader.read(x.element);
             expect(
               source,
               Source(
@@ -566,7 +688,7 @@ void one(T x);
 void two(E y);
 }''');
             final reader = const SourceReader();
-            final source = reader.read(x.element, x.annotation);
+            final source = reader.read(x.element);
             expect(
               source,
               Source(
@@ -631,7 +753,7 @@ abstract class _Basic<T> {
 void one();
 }''');
             final reader = const SourceReader();
-            final source = reader.read(x.element, x.annotation);
+            final source = reader.read(x.element);
             expect(
               source,
               Source(
@@ -672,7 +794,7 @@ void One();
 }''');
         final reader = const SourceReader();
         expect(
-          () => reader.read(x.element, x.annotation),
+          () => reader.read(x.element),
           throwsSealedErrorNotInternal(),
         );
       });
@@ -685,7 +807,7 @@ void one();
 }''');
         final reader = const SourceReader();
         expect(
-          () => reader.read(x.element, x.annotation),
+          () => reader.read(x.element),
           throwsSealedErrorNotInternal(),
         );
       });
@@ -698,7 +820,7 @@ void one(int X);
 }''');
         final reader = const SourceReader();
         expect(
-          () => reader.read(x.element, x.annotation),
+          () => reader.read(x.element),
           throwsSealedErrorNotInternal(),
         );
       });
@@ -711,7 +833,7 @@ a, b, c,
 }''');
         final reader = const SourceReader();
         expect(
-          () => reader.read(x.element, x.annotation),
+          () => reader.read(x.element),
           throwsSealedErrorNotInternal(),
         );
       });
@@ -723,7 +845,7 @@ void hello() {}
 ''');
         final reader = const SourceReader();
         expect(
-          () => reader.read(x.element, x.annotation),
+          () => reader.read(x.element),
           throwsSealedErrorNotInternal(),
         );
       });
@@ -736,7 +858,7 @@ void one();
 }''');
         final reader = const SourceReader();
         expect(
-          () => reader.read(x.element, x.annotation),
+          () => reader.read(x.element),
           throwsSealedErrorNotInternal(),
         );
       });
@@ -749,7 +871,7 @@ void _one();
 }''');
         final reader = const SourceReader();
         expect(
-          () => reader.read(x.element, x.annotation),
+          () => reader.read(x.element),
           throwsSealedErrorNotInternal(),
         );
       });
@@ -762,7 +884,7 @@ void one(int _x);
 }''');
         final reader = const SourceReader();
         expect(
-          () => reader.read(x.element, x.annotation),
+          () => reader.read(x.element),
           throwsSealedErrorNotInternal(),
         );
       });
@@ -777,7 +899,7 @@ void one();
 }''');
         final reader = const SourceReader();
         expect(
-          () => reader.read(x.element, x.annotation),
+          () => reader.read(x.element),
           throwsSealedErrorNotInternal(),
         );
       });
@@ -792,7 +914,7 @@ void one();
 }''');
         final reader = const SourceReader();
         expect(
-          () => reader.read(x.element, x.annotation),
+          () => reader.read(x.element),
           throwsSealedErrorNotInternal(),
         );
       });
@@ -805,7 +927,7 @@ void one();
 }''');
         final reader = const SourceReader();
         expect(
-          () => reader.read(x.element, x.annotation),
+          () => reader.read(x.element),
           isNot(throwsA(anything)),
         );
       });
@@ -817,7 +939,7 @@ abstract class _Basic {
 }''');
         final reader = const SourceReader();
         expect(
-          () => reader.read(x.element, x.annotation),
+          () => reader.read(x.element),
           throwsSealedErrorNotInternal(),
         );
       });
@@ -830,7 +952,7 @@ void one<T>();
 }''');
         final reader = const SourceReader();
         expect(
-          () => reader.read(x.element, x.annotation),
+          () => reader.read(x.element),
           throwsSealedErrorNotInternal(),
         );
       });
@@ -844,7 +966,7 @@ void one(@WithType("Hel llo") x);
 }''');
           final reader = const SourceReader();
           expect(
-            () => reader.read(x.element, x.annotation),
+            () => reader.read(x.element),
             throwsSealedErrorNotInternal(),
           );
         });
@@ -857,65 +979,121 @@ void one(@WithType("double/*?*/") x);
 }''');
           final reader = const SourceReader();
           expect(
-            () => reader.read(x.element, x.annotation),
+            () => reader.read(x.element),
             throwsSealedErrorNotInternal(),
           );
         });
       });
 
       group('Meta with bad name', () {
-        test('space', () async {
+        test('top space', () async {
           final x = await resolveSealedSafe('''
 @Sealed()
+@WithPrefix("Hel lo")
 abstract class _Basic {
-@Meta(name: "Hel lo")
 void one();
 }''');
           final reader = const SourceReader();
           expect(
-            () => reader.read(x.element, x.annotation),
+            () => reader.read(x.element),
             throwsSealedErrorNotInternal(),
           );
         });
 
-        test('nullability', () async {
+        test('sub space', () async {
           final x = await resolveSealedSafe('''
 @Sealed()
 abstract class _Basic {
-@Meta(name: "Hello?")
+@WithName("Hel lo")
 void one();
 }''');
           final reader = const SourceReader();
           expect(
-            () => reader.read(x.element, x.annotation),
+            () => reader.read(x.element),
             throwsSealedErrorNotInternal(),
           );
         });
 
-        test('lower start', () async {
+        test('top nullability', () async {
           final x = await resolveSealedSafe('''
 @Sealed()
+@WithPrefix("Hello?")
 abstract class _Basic {
-@Meta(name: "hello")
 void one();
 }''');
           final reader = const SourceReader();
           expect(
-            () => reader.read(x.element, x.annotation),
+            () => reader.read(x.element),
             throwsSealedErrorNotInternal(),
           );
         });
 
-        test('private', () async {
+        test('sub nullability', () async {
           final x = await resolveSealedSafe('''
 @Sealed()
 abstract class _Basic {
-@Meta(name: "_Hello")
+@WithName("Hello?")
 void one();
 }''');
           final reader = const SourceReader();
           expect(
-            () => reader.read(x.element, x.annotation),
+            () => reader.read(x.element),
+            throwsSealedErrorNotInternal(),
+          );
+        });
+
+        test('top lower start', () async {
+          final x = await resolveSealedSafe('''
+@Sealed()
+@WithPrefix("hello")
+abstract class _Basic {
+void one();
+}''');
+          final reader = const SourceReader();
+          expect(
+            () => reader.read(x.element),
+            throwsSealedErrorNotInternal(),
+          );
+        });
+
+        test('sub lower start', () async {
+          final x = await resolveSealedSafe('''
+@Sealed()
+abstract class _Basic {
+@WithName("hello")
+void one();
+}''');
+          final reader = const SourceReader();
+          expect(
+            () => reader.read(x.element),
+            throwsSealedErrorNotInternal(),
+          );
+        });
+
+        test('top private', () async {
+          final x = await resolveSealedSafe('''
+@Sealed()
+@WithPrefix("_Hello")
+abstract class _Basic {
+void one();
+}''');
+          final reader = const SourceReader();
+          expect(
+            () => reader.read(x.element),
+            throwsSealedErrorNotInternal(),
+          );
+        });
+
+        test('sub private', () async {
+          final x = await resolveSealedSafe('''
+@Sealed()
+abstract class _Basic {
+@WithName("_Hello")
+void one();
+}''');
+          final reader = const SourceReader();
+          expect(
+            () => reader.read(x.element),
             throwsSealedErrorNotInternal(),
           );
         });

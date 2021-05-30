@@ -9,7 +9,7 @@ part of 'meta.dart';
 
 /// [Weather] {
 ///
-/// ([WeatherSunny] sunny){} with data equality
+/// ([PrefixSunny] sunny){} with data equality
 ///
 /// ([BadWeather] rainy){[int]? rain} with data equality
 ///
@@ -19,7 +19,7 @@ part of 'meta.dart';
 @SealedManifest(_Weather)
 abstract class Weather {
   @factory
-  static WeatherSunny /*!*/ sunny() => WeatherSunny();
+  static PrefixSunny /*!*/ sunny() => PrefixSunny();
 
   @factory
   static BadWeather /*!*/ rainy({
@@ -39,21 +39,21 @@ abstract class Weather {
         angle: angle,
       );
 
-  bool /*!*/ isSunny() => this is WeatherSunny;
+  bool /*!*/ isSunny() => this is PrefixSunny;
 
   bool /*!*/ isRainy() => this is BadWeather;
 
   bool /*!*/ isWindy() => this is VeryBadWeather;
 
-  WeatherSunny /*!*/ asSunny() => this as WeatherSunny;
+  PrefixSunny /*!*/ asSunny() => this as PrefixSunny;
 
   BadWeather /*!*/ asRainy() => this as BadWeather;
 
   VeryBadWeather /*!*/ asWindy() => this as VeryBadWeather;
 
-  WeatherSunny /*?*/ asSunnyOrNull() {
+  PrefixSunny /*?*/ asSunnyOrNull() {
     final weather = this;
-    return weather is WeatherSunny ? weather : null;
+    return weather is PrefixSunny ? weather : null;
   }
 
   BadWeather /*?*/ asRainyOrNull() {
@@ -67,7 +67,7 @@ abstract class Weather {
   }
 
   R when<R extends Object /*?*/ >({
-    @required R Function(WeatherSunny /*!*/ sunny) /*!*/ sunny,
+    @required R Function(PrefixSunny /*!*/ sunny) /*!*/ sunny,
     @required R Function(BadWeather /*!*/ rainy) /*!*/ rainy,
     @required R Function(VeryBadWeather /*!*/ windy) /*!*/ windy,
   }) {
@@ -75,7 +75,7 @@ abstract class Weather {
     assert(rainy != null);
     assert(windy != null);
     final weather = this;
-    if (weather is WeatherSunny) {
+    if (weather is PrefixSunny) {
       return sunny(weather);
     } else if (weather is BadWeather) {
       return rainy(weather);
@@ -87,14 +87,14 @@ abstract class Weather {
   }
 
   R whenOrElse<R extends Object /*?*/ >({
-    R Function(WeatherSunny /*!*/ sunny) /*?*/ sunny,
+    R Function(PrefixSunny /*!*/ sunny) /*?*/ sunny,
     R Function(BadWeather /*!*/ rainy) /*?*/ rainy,
     R Function(VeryBadWeather /*!*/ windy) /*?*/ windy,
     @required R Function(Weather /*!*/ weather) /*!*/ orElse,
   }) {
     assert(orElse != null);
     final weather = this;
-    if (weather is WeatherSunny) {
+    if (weather is PrefixSunny) {
       return sunny != null ? sunny(weather) : orElse(weather);
     } else if (weather is BadWeather) {
       return rainy != null ? rainy(weather) : orElse(weather);
@@ -106,14 +106,14 @@ abstract class Weather {
   }
 
   R whenOrDefault<R extends Object /*?*/ >({
-    R Function(WeatherSunny /*!*/ sunny) /*?*/ sunny,
+    R Function(PrefixSunny /*!*/ sunny) /*?*/ sunny,
     R Function(BadWeather /*!*/ rainy) /*?*/ rainy,
     R Function(VeryBadWeather /*!*/ windy) /*?*/ windy,
     @required R orDefault,
   }) {
     assert(orDefault != null);
     final weather = this;
-    if (weather is WeatherSunny) {
+    if (weather is PrefixSunny) {
       return sunny != null ? sunny(weather) : orDefault;
     } else if (weather is BadWeather) {
       return rainy != null ? rainy(weather) : orDefault;
@@ -125,12 +125,12 @@ abstract class Weather {
   }
 
   R /*?*/ whenOrNull<R extends Object /*?*/ >({
-    R Function(WeatherSunny /*!*/ sunny) /*?*/ sunny,
+    R Function(PrefixSunny /*!*/ sunny) /*?*/ sunny,
     R Function(BadWeather /*!*/ rainy) /*?*/ rainy,
     R Function(VeryBadWeather /*!*/ windy) /*?*/ windy,
   }) {
     final weather = this;
-    if (weather is WeatherSunny) {
+    if (weather is PrefixSunny) {
       return sunny?.call(weather);
     } else if (weather is BadWeather) {
       return rainy?.call(weather);
@@ -142,12 +142,12 @@ abstract class Weather {
   }
 
   R whenOrThrow<R extends Object /*?*/ >({
-    R Function(WeatherSunny /*!*/ sunny) /*?*/ sunny,
+    R Function(PrefixSunny /*!*/ sunny) /*?*/ sunny,
     R Function(BadWeather /*!*/ rainy) /*?*/ rainy,
     R Function(VeryBadWeather /*!*/ windy) /*?*/ windy,
   }) {
     final weather = this;
-    if (weather is WeatherSunny && sunny != null) {
+    if (weather is PrefixSunny && sunny != null) {
       return sunny(weather);
     } else if (weather is BadWeather && rainy != null) {
       return rainy(weather);
@@ -159,12 +159,12 @@ abstract class Weather {
   }
 
   void whenPartial({
-    void Function(WeatherSunny /*!*/ sunny) /*?*/ sunny,
+    void Function(PrefixSunny /*!*/ sunny) /*?*/ sunny,
     void Function(BadWeather /*!*/ rainy) /*?*/ rainy,
     void Function(VeryBadWeather /*!*/ windy) /*?*/ windy,
   }) {
     final weather = this;
-    if (weather is WeatherSunny) {
+    if (weather is PrefixSunny) {
       sunny?.call(weather);
     } else if (weather is BadWeather) {
       rainy?.call(weather);
@@ -176,14 +176,14 @@ abstract class Weather {
   }
 }
 
-/// (([WeatherSunny] : [Weather]) sunny){}
+/// (([PrefixSunny] : [Weather]) sunny){}
 ///
 /// with data equality
-class WeatherSunny extends Weather with EquatableMixin {
-  WeatherSunny();
+class PrefixSunny extends Weather with EquatableMixin {
+  PrefixSunny();
 
   @factory
-  WeatherSunny /*!*/ copy() => WeatherSunny();
+  PrefixSunny /*!*/ copy() => PrefixSunny();
 
   @override
   String /*!*/ toString() => 'Weather.sunny()';

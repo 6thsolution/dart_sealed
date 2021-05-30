@@ -3,34 +3,41 @@ import 'package:analyzer/dart/element/nullability_suffix.dart';
 import 'package:analyzer/dart/element/type.dart';
 import 'package:meta/meta.dart';
 import 'package:sealed_annotations/sealed_annotations.dart';
+import 'package:sealed_generators/src/manifest/annotation_utils.dart';
 import 'package:sealed_writer/sealed_writer.dart';
-import 'package:source_gen/source_gen.dart';
 
 /// manifest reader built by manifest reader builder
 @sealed
 class ManifestReader {
   ManifestReader({
     required this.options,
-    required this.name,
-    required this.defaultEquality,
-    required this.cls,
-  });
+    required this.topName,
+    required this.topEquality,
+    required this.topPrefix,
+    required this.topClass,
+  }) {
+    check(topName.isGenClassName());
+    check(topPrefix.isGenClassName());
+  }
 
   /// options.
   final Options options;
 
   /// top class name, like: Weather.
-  final String name;
+  final String topName;
 
   /// default equality.
-  final Equality defaultEquality;
+  final ManifestEquality topEquality;
+
+  /// default prefix.
+  final String topPrefix;
 
   /// checked class element for manifest
-  final ClassElement cls;
+  final ClassElement topClass;
 
   /// read manifest
   Manifest read() => Manifest(
-        name: name,
+        name: topName,
         params: _extractParams(),
         items: _extractItems(),
       );
@@ -40,49 +47,57 @@ class ManifestReader {
     final bound = p.bound;
     return ManifestParam(
       name: p.name,
-      bound: bound != null ? _extractManifestType(bound) : _defaultUpperBound,
+      bound: bound != null ? _extractManifestType(bound) : _defaultUpperBound(),
     );
   }
 
   /// extract class params
   List<ManifestParam> _extractParams() =>
-      cls.typeParameters.map(_extractParam).toList();
+      topClass.typeParameters.map(_extractParam).toList();
 
   /// extract sub class name, like 'rainy'
-  String _extractShortSubName(MethodElement method) {
+  String _extractSubShortName(MethodElement method) {
+    final name = method.name;
     require(
-      method.isPublic && method.name.isPublic(),
-      () => "method '${method.name}' should be pubic",
+      name.isGenTypeName(),
+      () => "method name '$name' should be a valid type name",
     );
     require(
-      method.name.startsWithLower(),
-      () => "method '${method.name}' should start with lower case letter",
+      method.isPublic && name.isPublic(),
+      () => "method name '$name' should be pubic",
     );
     require(
-      method.name.isGenFieldName(),
-      () => "malformed method name '${method.name}'",
+      name.startsWithLower(),
+      () => "method name '$name' should start with lower case letter",
     );
-    return method.name;
+    return name;
+  }
+
+  /// extract field name from method argument
+  String _extractFieldName(ParameterElement arg) {
+    final name = arg.name;
+    require(
+      name.isGenTypeName(),
+      () => "method argument name '$name' should be valid type name",
+    );
+    require(
+      name.isPublic(),
+      () => "method argument name '$name' should not start with '_'",
+    );
+    require(
+      name.startsWithLower(),
+      () => "method argument name '$name' should start with lower case",
+    );
+    return name;
   }
 
   /// extract field from method argument without overrides
   ///
   /// assume legacy types as nullable
   ManifestField _extractField(ParameterElement arg) {
-    require(
-      arg.name.isPublic(),
-      () => "method argument '${arg.name}' should not start with '_'",
-    );
-    require(
-      arg.name.startsWithLower(),
-      () => "method argument '${arg.name}' should start with lower case",
-    );
-    require(
-      arg.name.isGenFieldName(),
-      () => "malformed method argument name '${arg.name}'",
-    );
+    final name = _extractFieldName(arg);
     return ManifestField(
-      name: arg.name,
+      name: name,
       type: _readOverriddenTypeOrNull(arg) ?? _extractManifestType(arg.type),
     );
   }
@@ -97,38 +112,30 @@ class ManifestReader {
       method.typeParameters.isEmpty,
       () => "method '${method.name}' can not have type parameters",
     );
-    final lower = _extractShortSubName(method);
-    final meta = _readMeta(method);
     return ManifestItem(
-      shortName: lower,
-      name: meta.name ?? _defaultFullName(lower),
-      equality: _mapEquality(meta.equality ?? defaultEquality),
+      shortName: _extractSubShortName(method),
+      name: _extractSubFullName(method, _extractSubShortName(method)),
+      equality: _extractSubEquality(method),
       fields: _extractFields(method),
     );
   }
 
-  /// map equality
-  ManifestEquality _mapEquality(Equality equality) {
-    switch (equality) {
-      case Equality.data:
-        return ManifestEquality.data;
-      case Equality.identity:
-        return ManifestEquality.identity;
-      case Equality.distinct:
-        return ManifestEquality.distinct;
-      default:
-        throw InternalSealedError();
-    }
-  }
+  /// extract sub class full equality accounting overridden equality
+  ManifestEquality _extractSubEquality(MethodElement method) =>
+      extractWithEqualityOrNull(method) ?? topEquality;
+
+  /// extract sub class full name accounting overridden name
+  String _extractSubFullName(MethodElement method, String lower) =>
+      extractWithNameOrNull(method) ?? _defaultFullName(lower);
 
   /// default full name of a sub class,
   /// like WeatherRainy.
   String _defaultFullName(String shortName) =>
-      '$name${shortName.toUpperStart()}';
+      '$topPrefix${shortName.toUpperStart()}';
 
   /// extract items from class element
   List<ManifestItem> _extractItems() {
-    final items = cls.methods.map(_extractItem).toList();
+    final items = topClass.methods.map(_extractItem).toList();
     require(
       items.isNotEmpty,
       'sealed classes should have at least one item',
@@ -155,75 +162,17 @@ class ManifestReader {
   /// default upper bound
   ///
   /// all no bound types are considered nullable
-  static final _defaultUpperBound = ManifestType(
-    name: 'Object',
-    isNullable: true,
-  );
-
-  /// filter metadata by type
-  List<ConstantReader> _firstMetadataOrNull<T>(Element element) =>
-      TypeChecker.fromRuntime(T)
-          .annotationsOf(element)
-          .map((e) => ConstantReader(e))
-          .toList();
-
-  /// [Meta] reader for an item or null if not present
-  ConstantReader? _metaReaderOrNull(MethodElement method) =>
-      _firstMetadataOrNull<Meta>(method).firstOrNull;
-
-  /// read equality from [Equality] object
-  Equality? _readMetaEqualityNullable(ConstantReader obj) {
-    final eq = obj.read('equality');
-    return eq.isNull ? null : _readEquality(eq);
-  }
-
-  /// read equality from enum object
-  Equality _readEquality(ConstantReader obj) =>
-      Equality.values[obj.read('index').intValue];
-
-  /// read name from [Meta] object
-  String? _readMetaNameNullable(ConstantReader obj) {
-    final name = obj.read('name');
-    final out = name.isNull ? null : name.stringValue;
-    if (out != null) {
-      require(
-        out.isGenClassName(),
-        () => "malformed overridden item name '$out'",
+  ManifestType _defaultUpperBound() => ManifestType(
+        name: 'Object',
+        isNullable: true,
       );
-    }
-    return out;
-  }
-
-  /// read [Meta] from reader (which can be nullable)
-  Meta _readMetaFromReader(ConstantReader? obj) => obj != null
-      ? Meta(
-          equality: _readMetaEqualityNullable(obj),
-          name: _readMetaNameNullable(obj),
-        )
-      : const Meta();
-
-  /// read [Meta] for an method or empty Meta if not present
-  Meta _readMeta(MethodElement method) =>
-      _readMetaFromReader(_metaReaderOrNull(method));
-
-  /// read [WithType] for a parameter or null
-  ConstantReader? withTypeReaderOrNull(ParameterElement arg) =>
-      _firstMetadataOrNull<WithType>(arg).firstOrNull;
-
-  /// read type from [WithType] reader or null if not present
-  String? _readTypeOfWithTypeOrNull(ConstantReader? obj) =>
-      obj?.read('type').stringValue;
 
   /// read overridden type for an argument or null
   ///
   /// and fix nullability for legacy projects
   ManifestType? _readOverriddenTypeOrNull(ParameterElement arg) {
-    final typeName = _readTypeOfWithTypeOrNull(withTypeReaderOrNull(arg));
+    final typeName = extractWithTypeOrNull(arg);
     if (typeName != null) {
-      require(
-        typeName.isSimpleOrNullableTypeName(),
-        () => "malformed overridden type name '$typeName'",
-      );
       final type = typeName.readType();
       return options.isNullSafe
           ? type

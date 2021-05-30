@@ -3,7 +3,6 @@ import 'package:meta/meta.dart';
 import 'package:sealed_annotations/sealed_annotations.dart';
 import 'package:sealed_generators/src/options/null_safety_reader.dart';
 import 'package:sealed_writer/sealed_writer.dart';
-import 'package:source_gen/source_gen.dart';
 
 /// options reader
 @sealed
@@ -11,11 +10,7 @@ import 'package:source_gen/source_gen.dart';
 class OptionsReader {
   const OptionsReader();
 
-  Options read(
-    Element element,
-    ConstantReader annotation,
-  ) =>
-      Options(
+  Options read(Element element) => Options(
         isNullSafe: const NullSafetyReader().readIsNullSafe(element),
       );
 }

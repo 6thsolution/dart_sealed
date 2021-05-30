@@ -52,19 +52,11 @@ import 'package:sealed_annotations/sealed_annotations.dart';
 @sealed
 @Target({TargetKind.classType})
 class Sealed {
-  /// equality
-  ///
-  /// THIS WILL BE REMOVED
-  final Equality equality;
-
   @literal
-  const Sealed({
-    /// THIS WILL BE REMOVED
-    this.equality = Equality.data,
-  });
+  const Sealed();
 
   @override
-  String toString() => 'Sealed(equality: $equality)';
+  String toString() => 'Sealed()';
 }
 
 /// used to target @[Sealed] [manifest] class which
@@ -83,47 +75,6 @@ class SealedManifest {
 
   @override
   String toString() => 'SealedManifest(manifest: $manifest)';
-}
-
-/// Override generated class name and
-/// equality for each item.
-///
-/// for example:
-/// ```dart
-/// @Sealed(equality: Equality.data)
-/// abstract class _Weather {
-///   void sunny();
-///
-///   @Meta(name: 'BadWeather', equality: Equality.distinct)
-///   void rainy(int rain);
-/// }
-/// ```
-///
-/// THIS WILL BE REMOVED
-@sealed
-@Target({TargetKind.method})
-class Meta {
-  /// override generated class name.
-  ///
-  /// generated class will be
-  /// (manifest class name + item name)
-  /// [name] is not specified.
-  final String? name;
-
-  /// override equality for each item.
-  ///
-  /// item equality will be based on manifest
-  /// class equality if [equality] is not specified.
-  final Equality? equality;
-
-  @literal
-  const Meta({
-    this.name,
-    this.equality,
-  });
-
-  @override
-  String toString() => 'Meta(name: $name, equality: $equality)';
 }
 
 /// Override type of a field in a data class.
@@ -172,7 +123,6 @@ class WithType {
 ///   void rainy(int rain); // will become Hello
 /// }
 /// ```
-@experimental
 @sealed
 @Target({TargetKind.method})
 class WithName {
@@ -205,7 +155,6 @@ class WithName {
 ///   void rainy(int rain); // will become LollipopRainy
 /// }
 /// ```
-@experimental
 @sealed
 @Target({TargetKind.classType})
 class WithPrefix {
@@ -232,6 +181,10 @@ class WithPrefix {
 ///
 /// This can be applied to both sub classes and top class.
 ///
+/// Sub class equality will be based on top
+/// class equality if [equality] is not specified.
+/// By default top class equality is [Equality.data].
+///
 /// for example:
 /// ```dart
 /// @WithPrefix('Lollipop')
@@ -241,7 +194,6 @@ class WithPrefix {
 ///   void rainy(int rain); // will become LollipopRainy
 /// }
 /// ```
-@experimental
 @sealed
 @Target({TargetKind.classType, TargetKind.method})
 class WithEquality {
