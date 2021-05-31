@@ -107,6 +107,7 @@ enum _Basic {
                           ),
                         ),
                       ],
+                      isWrapped: true,
                     ),
                     ManifestItem(
                       name: 'Three',
@@ -121,6 +122,7 @@ enum _Basic {
                           ),
                         ),
                       ],
+                      isWrapped: true,
                     ),
                   ],
                 ),
@@ -295,6 +297,7 @@ enum _Basic {
                           ),
                         ),
                       ],
+                      isWrapped: true,
                     ),
                     ManifestItem(
                       name: 'Three',
@@ -309,6 +312,7 @@ enum _Basic {
                           ),
                         ),
                       ],
+                      isWrapped: true,
                     ),
                   ],
                 ),
