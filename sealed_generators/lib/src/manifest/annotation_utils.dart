@@ -33,7 +33,7 @@ Equality _readEquality(ConstantReader obj) =>
 Equality _readWithEquality(ConstantReader obj) =>
     _readEquality(obj.read('equality'));
 
-/// extract with equality or null
+/// extract @[WithEquality] or null
 ManifestEquality? extractWithEqualityOrNull(Element element) {
   final obj = _findWithEqualityOrNull(element);
   if (obj != null) {
@@ -51,7 +51,7 @@ ConstantReader? _findWithPrefixOrNull(Element element) =>
 /// read [WithPrefix]
 String _readWithPrefix(ConstantReader obj) => obj.read('prefix').stringValue;
 
-/// extract with prefix or null
+/// extract @[WithPrefix] or null
 String? extractWithPrefixOrNull(Element element) {
   final obj = _findWithPrefixOrNull(element);
   if (obj != null) {
@@ -81,7 +81,7 @@ ConstantReader? _findWithNameOrNull(Element element) =>
 /// read [WithName]
 String _readWithName(ConstantReader obj) => obj.read('name').stringValue;
 
-/// extract with name or null
+/// extract @[WithName] or null
 String? extractWithNameOrNull(Element element) {
   final obj = _findWithNameOrNull(element);
   if (obj != null) {
@@ -111,7 +111,7 @@ ConstantReader? _findWithTypeOrNull(Element element) =>
 /// read [WithType]
 String _readWithType(ConstantReader obj) => obj.read('type').stringValue;
 
-/// extract with type or null
+/// extract @[WithName] or null
 String? extractWithTypeOrNull(Element element) {
   final obj = _findWithTypeOrNull(element);
   if (obj != null) {
@@ -126,3 +126,10 @@ String? extractWithTypeOrNull(Element element) {
     return null;
   }
 }
+
+/// find @[Wrap] or null
+ConstantReader? _findWrapOrNull(Element element) =>
+    _filterMetadataOfType<WithType>(element).firstOrNull;
+
+/// extract has @[Wrap] or null
+bool extractHasWrap(Element element) => _findWrapOrNull(element) != null;
