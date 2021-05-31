@@ -12,8 +12,11 @@ part of 'mixed.dart';
 /// ([AppleHold] hold){[Banana]? banana} with data equality
 ///
 /// }
+@immutable
 @SealedManifest(_Apple)
 abstract class Apple {
+  const Apple._internal();
+
   @factory
   static AppleHold /*!*/ hold({
     @required Banana /*?*/ banana,
@@ -106,10 +109,11 @@ abstract class Apple {
 /// (([AppleHold] : [Apple]) hold){[Banana]? banana}
 ///
 /// with data equality
+@immutable
 class AppleHold extends Apple with EquatableMixin {
-  AppleHold({
+  const AppleHold({
     @required this.banana,
-  });
+  }) : super._internal();
 
   final Banana /*?*/ banana;
 
@@ -127,8 +131,11 @@ class AppleHold extends Apple with EquatableMixin {
 /// ([BananaHold] hold){[Apple]? apple} with data equality
 ///
 /// }
+@immutable
 @SealedManifest(_Banana)
 abstract class Banana {
+  const Banana._internal();
+
   @factory
   static BananaHold /*!*/ hold({
     @required Apple /*?*/ apple,
@@ -221,10 +228,11 @@ abstract class Banana {
 /// (([BananaHold] : [Banana]) hold){[Apple]? apple}
 ///
 /// with data equality
+@immutable
 class BananaHold extends Banana with EquatableMixin {
-  BananaHold({
+  const BananaHold({
     @required this.apple,
-  });
+  }) : super._internal();
 
   final Apple /*?*/ apple;
 
@@ -246,8 +254,11 @@ class BananaHold extends Banana with EquatableMixin {
 /// ([CoconutHold] hold){[Apple]? apple, [Banana]? banana} with data equality
 ///
 /// }
+@immutable
 @SealedManifest(_Coconut)
 abstract class Coconut {
+  const Coconut._internal();
+
   @factory
   static CoconutTest1 /*!*/ test1({
     @required int /*?*/ x,
@@ -418,11 +429,12 @@ abstract class Coconut {
 /// (([CoconutTest1] : [Coconut]) test1){[int]? x, [double]? y}
 ///
 /// with data equality
+@immutable
 class CoconutTest1 extends Coconut with EquatableMixin {
-  CoconutTest1({
+  const CoconutTest1({
     @required this.x,
     @required this.y,
-  });
+  }) : super._internal();
 
   final int /*?*/ x;
   final double /*?*/ y;
@@ -440,11 +452,12 @@ class CoconutTest1 extends Coconut with EquatableMixin {
 /// (([CoconutTest2] : [Coconut]) test2){[int]? x, [double]? y}
 ///
 /// with data equality
+@immutable
 class CoconutTest2 extends Coconut with EquatableMixin {
-  CoconutTest2({
+  const CoconutTest2({
     @required this.x,
     @required this.y,
-  });
+  }) : super._internal();
 
   final int /*?*/ x;
   final double /*?*/ y;
@@ -462,11 +475,12 @@ class CoconutTest2 extends Coconut with EquatableMixin {
 /// (([CoconutHold] : [Coconut]) hold){[Apple]? apple, [Banana]? banana}
 ///
 /// with data equality
+@immutable
 class CoconutHold extends Coconut with EquatableMixin {
-  CoconutHold({
+  const CoconutHold({
     @required this.apple,
     @required this.banana,
-  });
+  }) : super._internal();
 
   final Apple /*?*/ apple;
   final Banana /*?*/ banana;

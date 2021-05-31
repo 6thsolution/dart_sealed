@@ -15,8 +15,11 @@ part of 'result_multi_1.dart';
 /// ([ResultMixed] mixed){[D] data, [E] exception} with data equality
 ///
 /// }
+@immutable
 @SealedManifest(_Result)
 abstract class Result<D extends num, E extends Object> {
+  const Result._internal();
+
   @factory
   static ResultSuccess<D, E> success<D extends num, E extends Object>({
     required D data,
@@ -178,11 +181,12 @@ abstract class Result<D extends num, E extends Object> {
 /// (([ResultSuccess] : [Result])<[D] extends [num], [E] extends [Object]> success){[D] data}
 ///
 /// with data equality
+@immutable
 class ResultSuccess<D extends num, E extends Object> extends Result<D, E>
     with EquatableMixin {
-  ResultSuccess({
+  const ResultSuccess({
     required this.data,
-  });
+  }) : super._internal();
 
   final D data;
 
@@ -198,11 +202,12 @@ class ResultSuccess<D extends num, E extends Object> extends Result<D, E>
 /// (([ResultError] : [Result])<[D] extends [num], [E] extends [Object]> error){[E] exception}
 ///
 /// with data equality
+@immutable
 class ResultError<D extends num, E extends Object> extends Result<D, E>
     with EquatableMixin {
-  ResultError({
+  const ResultError({
     required this.exception,
-  });
+  }) : super._internal();
 
   final E exception;
 
@@ -218,12 +223,13 @@ class ResultError<D extends num, E extends Object> extends Result<D, E>
 /// (([ResultMixed] : [Result])<[D] extends [num], [E] extends [Object]> mixed){[D] data, [E] exception}
 ///
 /// with data equality
+@immutable
 class ResultMixed<D extends num, E extends Object> extends Result<D, E>
     with EquatableMixin {
-  ResultMixed({
+  const ResultMixed({
     required this.data,
     required this.exception,
-  });
+  }) : super._internal();
 
   final D data;
   final E exception;

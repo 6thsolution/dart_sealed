@@ -16,8 +16,11 @@ part of 'weather.dart';
 /// ([WeatherWindy] windy){[double]? velocity, [double]? angle} with distinct equality
 ///
 /// }
+@immutable
 @SealedManifest(_Weather)
 abstract class Weather {
+  const Weather._internal();
+
   @factory
   static WeatherSunny /*!*/ sunny() => WeatherSunny();
 
@@ -179,8 +182,9 @@ abstract class Weather {
 /// (([WeatherSunny] : [Weather]) sunny){}
 ///
 /// with distinct equality
+@immutable
 class WeatherSunny extends Weather {
-  WeatherSunny();
+  const WeatherSunny() : super._internal();
 
   @factory
   WeatherSunny /*!*/ copy() => WeatherSunny();
@@ -195,10 +199,11 @@ class WeatherSunny extends Weather {
 /// (([WeatherRainy] : [Weather]) rainy){[int]? rain}
 ///
 /// with distinct equality
+@immutable
 class WeatherRainy extends Weather {
-  WeatherRainy({
+  const WeatherRainy({
     @required this.rain,
-  });
+  }) : super._internal();
 
   final int /*?*/ rain;
 
@@ -212,11 +217,12 @@ class WeatherRainy extends Weather {
 /// (([WeatherWindy] : [Weather]) windy){[double]? velocity, [double]? angle}
 ///
 /// with distinct equality
+@immutable
 class WeatherWindy extends Weather {
-  WeatherWindy({
+  const WeatherWindy({
     @required this.velocity,
     @required this.angle,
-  });
+  }) : super._internal();
 
   final double /*?*/ velocity;
   final double /*?*/ angle;

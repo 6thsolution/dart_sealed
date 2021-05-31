@@ -24,11 +24,12 @@ class SubConstructorWriter extends BaseUtilsWriter {
   /// ex. WeatherRainy({required this.rain, ...});
   @nonVirtual
   String subConstructorDeclaration(ManifestItem item) => [
+        'const ',
         subFull(item),
         subConstructorDeclarationParts(item)
             .joinArgsFull()
             .withBracesOrNot()
             .withParenthesis(),
-        ';',
+        ': super._internal();',
       ].joinParts();
 }

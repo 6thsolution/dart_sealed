@@ -29,8 +29,11 @@ abstract class _Result$<Generic extends Object /*?*/ > {
 /// ([Error] error){[Object] exception} with data equality
 ///
 /// }
+@immutable
 @SealedManifest(_Result)
 abstract class Result<Generic extends Object /*?*/ > {
+  const Result._internal();
+
   @factory
   static Success<Generic> /*!*/ success<Generic extends Object /*?*/ >({
     @required Generic /*!*/ data,
@@ -159,11 +162,12 @@ abstract class Result<Generic extends Object /*?*/ > {
 /// (([Success] : [Result])<[Generic] extends [Object]?> success){[Generic] data}
 ///
 /// with data equality
+@immutable
 class Success<Generic extends Object /*?*/ > extends Result<Generic>
     with EquatableMixin {
-  Success({
+  const Success({
     @required this.data,
-  });
+  }) : super._internal();
 
   final Generic /*!*/ data;
 
@@ -179,11 +183,12 @@ class Success<Generic extends Object /*?*/ > extends Result<Generic>
 /// (([Error] : [Result])<[Generic] extends [Object]?> error){[Object] exception}
 ///
 /// with data equality
+@immutable
 class Error<Generic extends Object /*?*/ > extends Result<Generic>
     with EquatableMixin {
-  Error({
+  const Error({
     @required this.exception,
-  });
+  }) : super._internal();
 
   final Object /*!*/ exception;
 

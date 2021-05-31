@@ -41,6 +41,10 @@ class TopWriter extends BaseUtilsWriter {
 
   @nonVirtual
   @visibleForTesting
+  String topConstructor() => 'const $top._internal();';
+
+  @nonVirtual
+  @visibleForTesting
   Iterable<String> topMethods() => [
         ...topBuilderWriter.topBuilderMethods(),
         ...topCastWriter.topCastMethods(),
@@ -51,6 +55,7 @@ class TopWriter extends BaseUtilsWriter {
   @visibleForTesting
   String topClassStart() => [
         topDocWriter.write(),
+        annotationImmutable,
         topManifest(),
         'abstract class $topDec',
       ].joinLines();
@@ -59,6 +64,7 @@ class TopWriter extends BaseUtilsWriter {
   String topClass() => [
         topClassStart(),
         '{',
+        topConstructor(),
         ...topMethods(),
         '}',
       ].joinMethods();

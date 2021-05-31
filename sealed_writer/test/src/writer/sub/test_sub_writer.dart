@@ -149,7 +149,7 @@ void main() {
                 writer.subDocWriter.write(item2),
                 'class WeatherRainy extends Weather with EquatableMixin',
                 '{',
-                'WeatherRainy({required this.rain,});',
+                'const WeatherRainy({required this.rain,}): super._internal();',
                 'final int rain;',
                 'WeatherRainy copy(',
                 'String toString(',
@@ -230,7 +230,8 @@ void main() {
                 'class MySuccess<T extends num>'
                     ' extends Result<T> with EquatableMixin',
                 '{',
-                'MySuccess({required this.data,});',
+                'const MySuccess({required this.data,})'
+                    ': super._internal();',
                 'final T data;',
                 'String toString(',
                 'get props'

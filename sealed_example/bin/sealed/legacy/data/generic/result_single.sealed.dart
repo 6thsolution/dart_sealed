@@ -14,8 +14,11 @@ part of 'result_single.dart';
 /// ([ResultError] error){[Object]? exception} with data equality
 ///
 /// }
+@immutable
 @SealedManifest(_Result)
 abstract class Result<D extends num /*?*/ > {
+  const Result._internal();
+
   @factory
   static ResultSuccess<D> /*!*/ success<D extends num /*?*/ >({
     @required D /*?*/ data,
@@ -144,11 +147,12 @@ abstract class Result<D extends num /*?*/ > {
 /// (([ResultSuccess] : [Result])<[D] extends [num]?> success){[D]? data}
 ///
 /// with data equality
+@immutable
 class ResultSuccess<D extends num /*?*/ > extends Result<D>
     with EquatableMixin {
-  ResultSuccess({
+  const ResultSuccess({
     @required this.data,
-  });
+  }) : super._internal();
 
   final D /*?*/ data;
 
@@ -164,10 +168,11 @@ class ResultSuccess<D extends num /*?*/ > extends Result<D>
 /// (([ResultError] : [Result])<[D] extends [num]?> error){[Object]? exception}
 ///
 /// with data equality
+@immutable
 class ResultError<D extends num /*?*/ > extends Result<D> with EquatableMixin {
-  ResultError({
+  const ResultError({
     @required this.exception,
-  });
+  }) : super._internal();
 
   final Object /*?*/ exception;
 

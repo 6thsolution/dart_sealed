@@ -22,6 +22,16 @@ void main() {
       );
     });
 
+    test('method topConstructor', () {
+      final source = source1DataSafe;
+      final writer = TopWriter(source);
+
+      expect(
+        writer.topConstructor(),
+        'const Weather._internal();',
+      );
+    });
+
     group('method topMethods', () {
       test('equality data', () {
         final source = source1DataSafe;
@@ -75,6 +85,7 @@ void main() {
           expect(
             writer.topClassStart(),
             '$doc1Data\n'
+            '@immutable\n'
             '@SealedManifest(_Weather)\n'
             'abstract class Weather',
           );
@@ -87,6 +98,7 @@ void main() {
           expect(
             writer.topClassStart(),
             '$doc1Identity\n'
+            '@immutable\n'
             '@SealedManifest(_Weather)\n'
             'abstract class Weather',
           );
@@ -99,6 +111,7 @@ void main() {
           expect(
             writer.topClassStart(),
             '$doc1Distinct\n'
+            '@immutable\n'
             '@SealedManifest(_Weather)\n'
             'abstract class Weather',
           );
@@ -113,6 +126,7 @@ void main() {
           expect(
             writer.topClassStart(),
             '$doc2Data\n'
+            '@immutable\n'
             '@SealedManifest(_Result)\n'
             'abstract class Result<T extends num>',
           );
@@ -129,6 +143,7 @@ void main() {
         stringContainsInOrder([
           writer.topClassStart(),
           '{',
+          writer.topConstructor(),
           ...writer.topMethods(),
           '}',
         ]),

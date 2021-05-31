@@ -60,6 +60,7 @@ class SubWriter extends BaseUtilsWriter {
   @visibleForTesting
   String subClassStart(ManifestItem item) => [
         subDocWriter.write(item),
+        annotationImmutable,
         [
           'class ${subDec(item)} extends $topCall',
           if (item.equality == ManifestEquality.data) ' with EquatableMixin',

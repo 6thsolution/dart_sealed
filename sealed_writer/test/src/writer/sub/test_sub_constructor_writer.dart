@@ -85,15 +85,18 @@ void main() {
 
         expect(
           writer.subConstructorDeclaration(item1),
-          'HiSunny();',
+          'const HiSunny()'
+          ': super._internal();',
         );
         expect(
           writer.subConstructorDeclaration(item2),
-          'WeatherRainy({required this.rain,});',
+          'const WeatherRainy({required this.rain,})'
+          ': super._internal();',
         );
         expect(
           writer.subConstructorDeclaration(item3),
-          'HelloWindy({required this.velocity, required this.angle,});',
+          'const HelloWindy({required this.velocity, required this.angle,})'
+          ': super._internal();',
         );
       });
 
@@ -105,7 +108,8 @@ void main() {
 
         expect(
           writer.subConstructorDeclaration(item1),
-          'MySuccess({required this.data,});',
+          'const MySuccess({required this.data,})'
+          ': super._internal();',
         );
       });
     });
