@@ -84,6 +84,8 @@ class SealedManifest {
 /// this is needed when you are using one sealed generated type
 /// in another.
 ///
+/// This can be applied only to method arguments.
+///
 /// for example:
 /// ```dart
 /// @Sealed(equality: Equality.data)
@@ -211,6 +213,44 @@ class WithEquality {
 
   @override
   String toString() => 'WithEquality(equality: $equality)';
+}
+
+/// Annotate class to use wrapping for all sub classes and
+/// annotate a method to use wrapping for a specific sub class.
+///
+/// This can be applied to both sub classes and top class.
+///
+/// Sub class equality will be based on top
+/// class equality if [equality] is not specified.
+/// By default top class equality is [Equality.data].
+///
+/// for example:
+/// ```dart
+/// @Wrap()
+/// abstract class _Weather {
+///   void sunny();
+///
+///   void rainy(int rain);
+/// }
+/// ```
+///
+/// or for a specific item:
+/// ```dart
+/// abstract class _Weather {
+///   @Wrap()
+///   void sunny();
+///
+///   void rainy(int rain);
+/// }
+/// ```
+@sealed
+@Target({TargetKind.classType, TargetKind.method})
+class Wrap {
+  @literal
+  const Wrap();
+
+  @override
+  String toString() => 'Wrap()';
 }
 
 /// different equality (and hash code) implementations

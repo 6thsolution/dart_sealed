@@ -86,4 +86,14 @@ void main() {
       );
     });
   });
+
+  group('annotation @Wrap', () {
+    test('initialization', () {
+      const a = Wrap();
+      expect(
+        a.toString(),
+        stringContainsInOrder(['Wrap']),
+      );
+    });
+  });
 }
