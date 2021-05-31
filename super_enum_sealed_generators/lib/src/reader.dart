@@ -11,6 +11,13 @@ import 'package:super_enum_sealed_generators/src/null_safety_reader.dart';
 @sealed
 @immutable
 class Reader {
+  /// this will be used to check if we read using use class,
+  /// so I want to make sure it is not cached,
+  /// so I can use identical(,).
+  ///
+  /// 'data'
+  static final useClassFieldName = (StringBuffer('da')..write('ta')).toString();
+
   /// for items using @generic and Generic
   ///
   /// we can not do anything better than making upper bound nullable.
@@ -51,12 +58,21 @@ class Reader {
       en.constants.map(_readItem).toList();
 
   /// read an item.
-  ManifestItem _readItem(FieldElement constant) => ManifestItem(
-        shortName: constant.name.toLowerStart(),
-        name: constant.name,
-        equality: ManifestEquality.data,
-        fields: _readFields(constant),
-      );
+  ManifestItem _readItem(FieldElement constant) {
+    final fields = _readFields(constant);
+    final isWrapped = fields.length == 1 &&
+        identical(
+          fields.first.name,
+          useClassFieldName,
+        );
+    return ManifestItem(
+      shortName: constant.name.toLowerStart(),
+      name: constant.name,
+      equality: ManifestEquality.data,
+      fields: fields,
+      isWrapped: isWrapped,
+    );
+  }
 
   /// read fields.
   ///
@@ -83,6 +99,7 @@ class Reader {
 
   /// read name.
   // ! do not remove this line !
+  // ! there is weird error which removes this line unless !
   String _readName(EnumElementImpl en) => en.name.substring(1);
 
   /// is generic.
@@ -126,7 +143,7 @@ class Reader {
   ///
   /// we assume UseClass data to be non nullable.
   ManifestField _readFieldFromUseClass(ConstantReader use) => ManifestField(
-        name: 'data',
+        name: useClassFieldName,
         type: ManifestType(
           name: _readUseClassTypeName(use),
           isNullable: false,

@@ -74,6 +74,38 @@ void main() {
           '/// with data equality',
         );
       });
+
+      test('data equality wrapped', () {
+        final source = source3DataSafe;
+        final writer = SubDocWriter(source);
+        final item3 = source.manifest.items[2];
+
+        expect(
+          writer.write(item3),
+          '/// (([BaseThree] : [Base]) three)'
+          '{[int] y, [int]? z}\n'
+          '/// \n'
+          '/// with data equality\n'
+          '/// \n'
+          '/// with wrap',
+        );
+      });
+
+      test('data equality generic wrapped', () {
+        final source = source4DataSafe;
+        final writer = SubDocWriter(source);
+        final item1 = source.manifest.items[0];
+
+        expect(
+          writer.write(item1),
+          '/// (([BaseOne] : [Base])<[T] extends [num]> one)'
+          '{[T] x}\n'
+          '/// \n'
+          '/// with data equality\n'
+          '/// \n'
+          '/// with wrap',
+        );
+      });
     });
 
     test('constant equalityNames', () {

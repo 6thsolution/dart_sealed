@@ -89,10 +89,10 @@ void main() {
 
   group('annotation @Wrap', () {
     test('initialization', () {
-      const a = Wrap();
+      const a = WithWrap();
       expect(
         a.toString(),
-        stringContainsInOrder(['Wrap']),
+        stringContainsInOrder(['WithWrap']),
       );
     });
   });

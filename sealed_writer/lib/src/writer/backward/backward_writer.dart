@@ -31,6 +31,7 @@ class BackwardWriter extends BaseUtilsWriter {
   Iterable<String> _fields(ManifestItem item) => item.fields.map(_field);
 
   String _item(ManifestItem item) => [
+        if (item.isWrapped) '@WithWrap()',
         _itemEqualityAnnotation(item),
         _itemNameAnnotation(item),
         _itemMethod(item),

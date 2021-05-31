@@ -41,6 +41,20 @@ void main() {
 
         expect(writer.write(), doc2Data);
       });
+
+      test('data equality simple wrapped', () {
+        final source = source3DataSafe;
+        final writer = TopDocWriter(source);
+
+        expect(writer.write(), doc3Data);
+      });
+
+      test('data equality generic wrapped', () {
+        final source = source4DataSafe;
+        final writer = TopDocWriter(source);
+
+        expect(writer.write(), doc4Data);
+      });
     });
 
     test('constant equalityNames', () {

@@ -3,7 +3,9 @@ import 'package:sealed_writer/src/options/options.dart';
 import 'package:sealed_writer/src/source/source.dart';
 
 part 'examples_generic_simple.dart';
+part 'examples_generic_simple_wrap.dart';
 part 'examples_simple.dart';
+part 'examples_simple_wrap.dart';
 
 const optionsSafe = Options(isNullSafe: true);
 

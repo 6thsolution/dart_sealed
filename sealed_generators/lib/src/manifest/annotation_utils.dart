@@ -127,9 +127,9 @@ String? extractWithTypeOrNull(Element element) {
   }
 }
 
-/// find @[Wrap] or null
+/// find @[WithWrap] or null
 ConstantReader? _findWrapOrNull(Element element) =>
-    _filterMetadataOfType<WithType>(element).firstOrNull;
+    _filterMetadataOfType<WithWrap>(element).firstOrNull;
 
-/// extract has @[Wrap] or null
+/// extract has @[WithWrap] or null
 bool extractHasWrap(Element element) => _findWrapOrNull(element) != null;

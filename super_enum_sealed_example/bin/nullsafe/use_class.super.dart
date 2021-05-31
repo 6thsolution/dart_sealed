@@ -16,6 +16,7 @@ abstract class _Weather$ {
   @WithName('Sunny')
   void sunny();
 
+  @WithWrap()
   @WithEquality(Equality.data)
   @WithName('Rainy')
   void rainy(Hello data);
@@ -25,7 +26,7 @@ abstract class _Weather$ {
 ///
 /// ([Sunny] sunny){} with data equality
 ///
-/// ([Rainy] rainy){[Hello] data} with data equality
+/// ([Rainy] rainy){[Hello] data} with data equality with wrap
 ///
 /// }
 @immutable
@@ -169,6 +170,8 @@ class Sunny extends Weather with EquatableMixin {
 /// (([Rainy] : [Weather]) rainy){[Hello] data}
 ///
 /// with data equality
+///
+/// with wrap
 @immutable
 class Rainy extends Weather with EquatableMixin {
   const Rainy({

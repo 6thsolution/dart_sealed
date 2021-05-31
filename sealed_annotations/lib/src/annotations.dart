@@ -245,12 +245,12 @@ class WithEquality {
 /// ```
 @sealed
 @Target({TargetKind.classType, TargetKind.method})
-class Wrap {
+class WithWrap {
   @literal
-  const Wrap();
+  const WithWrap();
 
   @override
-  String toString() => 'Wrap()';
+  String toString() => 'WithWrap()';
 }
 
 /// different equality (and hash code) implementations

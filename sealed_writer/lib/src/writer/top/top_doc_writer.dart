@@ -31,7 +31,8 @@ class TopDocWriter extends BaseWriter {
           item.shortName,
         ].joinParts().withParenthesis(),
         _fieldsDoc(item),
-        ' with ${_equality(item.equality)} equality'
+        ' with ${_equality(item.equality)} equality',
+        if (item.isWrapped) ' with wrap',
       ].joinParts();
 
   String _topDoc() => [
