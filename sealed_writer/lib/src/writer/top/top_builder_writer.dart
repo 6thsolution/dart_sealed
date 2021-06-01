@@ -11,16 +11,10 @@ class TopBuilderWriter extends BaseUtilsWriter {
   const TopBuilderWriter(Source source) : super(source);
 
   /// ex. angle: angle
-
-  @nonVirtual
-  @visibleForTesting
   String subConstructorCallArg(ManifestField field) =>
       '${field.name}: ${field.name}';
 
   /// ex. required double? angle
-
-  @nonVirtual
-  @visibleForTesting
   String topBuilderArg(ManifestField field) =>
       '$req ${typeSL(field.type)} ${field.name}';
 
@@ -28,8 +22,6 @@ class TopBuilderWriter extends BaseUtilsWriter {
   ///
   /// ex. static ResultSuccess<T> <T extends num>success(...) =>
   /// ResultSuccess<T>(...)
-  @nonVirtual
-  @visibleForTesting
   String topBuilder(ManifestItem item) => [
         annotationFactory,
         [
@@ -48,6 +40,5 @@ class TopBuilderWriter extends BaseUtilsWriter {
         ].joinParts(),
       ].joinLines();
 
-  @nonVirtual
   Iterable<String> topBuilderMethods() => manifest.items.map(topBuilder);
 }

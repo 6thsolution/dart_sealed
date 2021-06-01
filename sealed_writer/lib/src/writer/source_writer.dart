@@ -23,22 +23,14 @@ class SourceWriter extends BaseWriter {
         subWriter = SubWriter(source),
         super(source);
 
-  @nonVirtual
-  @visibleForTesting
   final TopWriter topWriter;
 
-  @nonVirtual
-  @visibleForTesting
   final SubWriter subWriter;
 
-  @protected
-  @nonVirtual
-  @visibleForTesting
   Iterable<String> classes() => [
         topWriter.topClass(),
         ...subWriter.subClasses(),
       ];
 
-  @nonVirtual
   String write() => classes().joinMethods();
 }

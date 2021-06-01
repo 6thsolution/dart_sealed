@@ -11,18 +11,12 @@ class SubFieldWriter extends BaseUtilsWriter {
   const SubFieldWriter(Source source) : super(source);
 
   /// ex. final double direction;
-  @protected
-  @nonVirtual
-  @visibleForTesting
   String subFieldDeclaration(ManifestField field) =>
       'final ${typeSL(field.type)} ${field.name};';
 
-  @nonVirtual
-  @visibleForTesting
   Iterable<String> subFieldDeclarationList(ManifestItem item) =>
       item.fields.map(subFieldDeclaration);
 
-  @nonVirtual
   String subFieldDeclarations(ManifestItem item) =>
       subFieldDeclarationList(item).joinLines();
 }

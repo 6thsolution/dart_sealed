@@ -23,41 +23,23 @@ class SubWriter extends BaseUtilsWriter {
         subDocWriter = SubDocWriter(source),
         super(source);
 
-  @nonVirtual
-  @visibleForTesting
   final SubCopyWriter subCopyWriter;
 
-  @nonVirtual
-  @visibleForTesting
   final SubToStringWriter subToStringWriter;
 
-  @nonVirtual
-  @visibleForTesting
   final SubFieldWriter subFieldWriter;
 
-  @nonVirtual
-  @visibleForTesting
   final SubConstructorWriter subConstructorWriter;
 
-  @nonVirtual
-  @visibleForTesting
   final SubEquatableWriter subEquatableWriter;
 
-  @nonVirtual
-  @visibleForTesting
   final SubDocWriter subDocWriter;
 
   /// has nullable fields
-  @protected
-  @nonVirtual
-  @visibleForTesting
   bool hasNullable(ManifestItem item) =>
       item.fields.map((field) => field.type).any((type) => type.isNullable);
 
   /// subclass start
-  @protected
-  @nonVirtual
-  @visibleForTesting
   String subClassStart(ManifestItem item) => [
         subDocWriter.write(item),
         annotationImmutable,
@@ -68,17 +50,12 @@ class SubWriter extends BaseUtilsWriter {
       ].joinLines();
 
   /// bool operator ==(Object other) => false;
-  @nonVirtual
-  @visibleForTesting
   String subDistinctEquality() => [
         annotationOverride,
         'bool$nn operator ==(Object other) => false;',
       ].joinLines();
 
   /// subclass
-  @protected
-  @nonVirtual
-  @visibleForTesting
   String subClass(ManifestItem item) => [
         subClassStart(item),
         '{',
@@ -93,6 +70,5 @@ class SubWriter extends BaseUtilsWriter {
         '}',
       ].joinMethods();
 
-  @nonVirtual
   Iterable<String> subClasses() => manifest.items.map(subClass);
 }

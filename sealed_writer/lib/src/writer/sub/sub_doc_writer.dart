@@ -8,13 +8,11 @@ import 'package:sealed_writer/src/writer/base/base_writer.dart';
 @sealed
 @immutable
 class SubDocWriter extends BaseWriter {
-  @visibleForTesting
   static const equalityNames = ['data', 'identity', 'distinct'];
 
   const SubDocWriter(Source source) : super(source);
 
   /// ex. ((WeatherRainy : Weather) rainy){int rain} with data equality
-  @nonVirtual
   String write(ManifestItem item) => [
         [
           [

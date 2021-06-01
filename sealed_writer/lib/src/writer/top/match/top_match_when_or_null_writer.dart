@@ -14,21 +14,15 @@ class TopMatchWhenOrNullWriter extends TopMatchBaseWriter {
   /// ex. if (weather is WeatherSunny) {
   /// return sunny != null ? sunny(weather) : null;
   /// }
-  @nonVirtual
-  @visibleForTesting
   If topMatchWhenOrNullIf(ManifestItem item) => If(
         condition: '$topLower ${isSub(item)}',
         code: 'return ${subLower(item)}?.call($topLower);',
       );
 
-  @nonVirtual
-  @visibleForTesting
   List<If> topMatchWhenOrNullIfs() =>
       manifest.items.map(topMatchWhenOrNullIf).toList();
 
   /// body of when method
-  @nonVirtual
-  @visibleForTesting
   String topMatchWhenOrNullBody() => [
         initThisValue(),
         Branch(
@@ -37,21 +31,16 @@ class TopMatchWhenOrNullWriter extends TopMatchBaseWriter {
         ).join(),
       ].joinLines();
 
-  @nonVirtual
-  @visibleForTesting
   Iterable<String> topMatchWhenOrNullArgs() =>
       manifest.items.map(topMatchGenericNArg);
 
   /// start of when method
-  @nonVirtual
-  @visibleForTesting
   String topMatchWhenOrNullStart() => [
         'R$n whenOrNull$topMatchParam',
         topMatchWhenOrNullArgs().joinArgsFull().withBraces().withParenthesis(),
       ].joinParts();
 
   /// R? whenOrNull<R extends Object?>(item...) {...}
-  @nonVirtual
   String topMatchWhenOrNull() => [
         topMatchWhenOrNullStart(),
         '{',

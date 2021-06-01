@@ -11,18 +11,13 @@ class SubConstructorWriter extends BaseUtilsWriter {
   SubConstructorWriter(Source source) : super(source);
 
   /// ex. required this.angle or @required this.angle
-  @nonVirtual
-  @visibleForTesting
   String subConstructorDeclarationPart(ManifestField field) =>
       '$req this.${field.name}';
 
-  @nonVirtual
-  @visibleForTesting
   Iterable<String> subConstructorDeclarationParts(ManifestItem item) =>
       item.fields.map(subConstructorDeclarationPart);
 
   /// ex. WeatherRainy({required this.rain, ...});
-  @nonVirtual
   String subConstructorDeclaration(ManifestItem item) => [
         'const ',
         subFull(item),

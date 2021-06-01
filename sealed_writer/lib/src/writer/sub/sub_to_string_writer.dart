@@ -11,14 +11,11 @@ class SubToStringWriter extends BaseUtilsWriter {
   const SubToStringWriter(Source source) : super(source);
 
   /// ex. rain: $rain
-  @nonVirtual
-  @visibleForTesting
   String subToStringPart(ManifestField field) =>
       '${field.name}: \$${field.name}';
 
   /// ex. @override String toString() => 'Weather.rainy(rain: $rain)'
   /// or: String/*!*/
-  @nonVirtual
   String subToString(ManifestItem item) => [
         annotationOverride,
         [

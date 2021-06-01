@@ -14,22 +14,16 @@ class TopMatchWhenOrDefaultWriter extends TopMatchBaseWriter {
   /// ex. if (weather is WeatherSunny) {
   /// return sunny != null ? sunny(weather) : orDefault;
   /// }
-  @nonVirtual
-  @visibleForTesting
   If topMatchWhenOrDefaultIf(ManifestItem item) => If(
         condition: '$topLower ${isSub(item)}',
         code: 'return ${subLower(item)} != null ?'
             ' ${subLower(item)}($topLower) : orDefault;',
       );
 
-  @nonVirtual
-  @visibleForTesting
   List<If> topMatchWhenOrDefaultIfs() =>
       manifest.items.map(topMatchWhenOrDefaultIf).toList();
 
   /// body of when method
-  @nonVirtual
-  @visibleForTesting
   String topMatchWhenOrDefaultBody() => [
         initThisValue(),
         Branch(
@@ -38,21 +32,15 @@ class TopMatchWhenOrDefaultWriter extends TopMatchBaseWriter {
         ).join(),
       ].joinLines();
 
-  @nonVirtual
-  @visibleForTesting
   Iterable<String> topMatchWhenOrDefaultItemArgs() =>
       manifest.items.map(topMatchGenericNArg);
 
-  @nonVirtual
-  @visibleForTesting
   Iterable<String> topMatchWhenOrDefaultArgs() => [
         ...topMatchWhenOrDefaultItemArgs(),
         topMatchGenericNNArgOrDefault(),
       ];
 
   /// start of when method
-  @nonVirtual
-  @visibleForTesting
   String topMatchWhenOrDefaultStart() => [
         'R whenOrDefault$topMatchParam',
         topMatchWhenOrDefaultArgs()
@@ -62,7 +50,6 @@ class TopMatchWhenOrDefaultWriter extends TopMatchBaseWriter {
       ].joinParts();
 
   /// R whenOrDefault<R extends Object?>(item..., required orDefault) {...}
-  @nonVirtual
   String topMatchWhenOrDefault() => [
         topMatchWhenOrDefaultStart(),
         '{',

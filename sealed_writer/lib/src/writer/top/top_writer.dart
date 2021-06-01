@@ -18,41 +18,25 @@ class TopWriter extends BaseUtilsWriter {
         topDocWriter = TopDocWriter(source),
         super(source);
 
-  @nonVirtual
-  @visibleForTesting
   final TopBuilderWriter topBuilderWriter;
 
-  @nonVirtual
-  @visibleForTesting
   final TopCastWriter topCastWriter;
 
-  @nonVirtual
-  @visibleForTesting
   final TopMatchWriter topMatchWriter;
 
-  @nonVirtual
-  @visibleForTesting
   final TopDocWriter topDocWriter;
 
   /// ex. @SealedManifest(_Weather)
-  @nonVirtual
-  @visibleForTesting
   String topManifest() => '@SealedManifest(_$top)';
 
-  @nonVirtual
-  @visibleForTesting
   String topConstructor() => 'const $top._internal();';
 
-  @nonVirtual
-  @visibleForTesting
   Iterable<String> topMethods() => [
         ...topBuilderWriter.topBuilderMethods(),
         ...topCastWriter.topCastMethods(),
         ...topMatchWriter.topMatchMethods(),
       ];
 
-  @nonVirtual
-  @visibleForTesting
   String topClassStart() => [
         topDocWriter.write(),
         annotationImmutable,
@@ -60,7 +44,6 @@ class TopWriter extends BaseUtilsWriter {
         'abstract class $topDec',
       ].joinLines();
 
-  @nonVirtual
   String topClass() => [
         topClassStart(),
         '{',

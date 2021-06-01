@@ -32,7 +32,6 @@ class Reader {
   const Reader();
 
   /// read source.
-  @nonVirtual
   Source read(Element element) => Source(
         manifest: _readManifest(element),
         options: _readOptions(element),

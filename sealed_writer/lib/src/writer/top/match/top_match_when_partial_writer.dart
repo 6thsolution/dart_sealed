@@ -12,21 +12,15 @@ class TopMatchWhenPartialWriter extends TopMatchBaseWriter {
   const TopMatchWhenPartialWriter(Source source) : super(source);
 
   /// ex. if (weather is WeatherSunny) { sunny?.call(weather); }
-  @nonVirtual
-  @visibleForTesting
   If topMatchWhenPartialIf(ManifestItem item) => If(
         condition: '$topLower ${isSub(item)}',
         code: '${subLower(item)}?.call($topLower);',
       );
 
-  @nonVirtual
-  @visibleForTesting
   List<If> topMatchWhenPartialIfs() =>
       manifest.items.map(topMatchWhenPartialIf).toList();
 
   /// body of when method
-  @nonVirtual
-  @visibleForTesting
   String topMatchWhenPartialBody() => [
         initThisValue(),
         Branch(
@@ -35,14 +29,10 @@ class TopMatchWhenPartialWriter extends TopMatchBaseWriter {
         ).join(),
       ].joinLines();
 
-  @nonVirtual
-  @visibleForTesting
   Iterable<String> topMatchWhenPartialArgs() =>
       manifest.items.map(topMatchVoidNArg);
 
   /// start of when method
-  @nonVirtual
-  @visibleForTesting
   String topMatchWhenPartialStart() => [
         'void whenPartial',
         topMatchWhenPartialArgs().joinArgsFull().withBraces().withParenthesis(),
@@ -50,7 +40,6 @@ class TopMatchWhenPartialWriter extends TopMatchBaseWriter {
 
   /// void WhenPartial(item...)
   /// {...}
-  @nonVirtual
   String topMatchWhenPartial() => [
         topMatchWhenPartialStart(),
         '{',

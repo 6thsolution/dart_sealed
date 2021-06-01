@@ -21,31 +21,18 @@ class TopMatchWriter extends BaseWriter {
         topMatchWhenPartialWriter = TopMatchWhenPartialWriter(source),
         super(source);
 
-  @nonVirtual
-  @visibleForTesting
   final TopMatchWhenWriter topMatchWhenWriter;
 
-  @nonVirtual
-  @visibleForTesting
   final TopMatchWhenOrElseWriter topMatchWhenOrElseWriter;
 
-  @nonVirtual
-  @visibleForTesting
   final TopMatchWhenOrDefaultWriter topMatchWhenOrDefaultWriter;
 
-  @nonVirtual
-  @visibleForTesting
   final TopMatchWhenOrNullWriter topMatchWhenOrNullWriter;
 
-  @nonVirtual
-  @visibleForTesting
   final TopMatchWhenOrThrowWriter topMatchWhenOrThrowWriter;
 
-  @nonVirtual
-  @visibleForTesting
   final TopMatchWhenPartialWriter topMatchWhenPartialWriter;
 
-  @nonVirtual
   Iterable<String> topMatchMethods() => [
         topMatchWhenWriter.topMatchWhen(),
         topMatchWhenOrElseWriter.topMatchWhenOrElse(),

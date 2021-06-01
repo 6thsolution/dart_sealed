@@ -9,14 +9,8 @@ abstract class BaseCastUtilsWriter extends BaseUtilsWriter {
   const BaseCastUtilsWriter(Source source) : super(source);
 
   /// ex. is WeatherRainy
-  @protected
-  @nonVirtual
-  @visibleForTesting
   String isSub(ManifestItem item) => 'is ${subCall(item)}';
 
   /// ex. as WeatherRainy
-  @protected
-  @nonVirtual
-  @visibleForTesting
   String asSub(ManifestItem item) => 'as ${subCall(item)}';
 }

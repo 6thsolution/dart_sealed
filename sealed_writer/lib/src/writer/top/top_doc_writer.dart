@@ -8,12 +8,10 @@ import 'package:sealed_writer/src/writer/base/base_writer.dart';
 @sealed
 @immutable
 class TopDocWriter extends BaseWriter {
-  @visibleForTesting
   static const equalityNames = ['data', 'identity', 'distinct'];
 
   const TopDocWriter(Source source) : super(source);
 
-  @nonVirtual
   String write() => [
         '${_topDoc()} {',
         ..._itemsDoc(),

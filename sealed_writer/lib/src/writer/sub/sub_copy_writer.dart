@@ -11,24 +11,16 @@ class SubCopyWriter extends BaseUtilsWriter {
   const SubCopyWriter(Source source) : super(source);
 
   /// ex. int? rain
-  @nonVirtual
-  @visibleForTesting
   String subCopyDeclarationPart(ManifestField field) =>
       '${field.type.name}$n ${field.name}';
 
-  @nonVirtual
-  @visibleForTesting
   Iterable<String> subCopyDeclarationParts(ManifestItem item) =>
       item.fields.map(subCopyDeclarationPart);
 
   /// ex. rain: rain ?? this.rain
-  @nonVirtual
-  @visibleForTesting
   String subCopyCalcPart(ManifestField field) =>
       '${field.name}: ${field.name} ?? this.${field.name}';
 
-  @nonVirtual
-  @visibleForTesting
   Iterable<String> subCopyCalcParts(ManifestItem item) =>
       item.fields.map(subCopyCalcPart);
 
@@ -36,7 +28,6 @@ class SubCopyWriter extends BaseUtilsWriter {
   /// => WeatherRainy(rain: rain ?? this.rain);
   ///
   /// this is not suitable for generics.
-  @nonVirtual
   String subCopyDeclaration(ManifestItem item) => [
         annotationFactory,
         [

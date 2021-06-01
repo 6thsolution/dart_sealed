@@ -16,15 +16,12 @@ class Branch {
   final Else? els;
 
   /// if (condition) {code}
-  @visibleForTesting
   static String mapIf(If i) => 'if (${i.condition}) {${i.code}}';
 
   /// else if (condition) {code}
-  @visibleForTesting
   static String mapElseIf(If i) => 'else ${mapIf(i)}';
 
   /// else {code}
-  @visibleForTesting
   static String mapElse(Else e) => 'else {${e.code}}';
 
   /// if (cnd1) {code1}

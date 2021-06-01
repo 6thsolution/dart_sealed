@@ -52,7 +52,6 @@ class BackwardWriter extends BaseUtilsWriter {
   Iterable<String> _items() => manifest.items.map(_item);
 
   /// write docs
-  @nonVirtual
   String write() => [
         _topAnnotation(),
         _topStart(),
