@@ -10,14 +10,14 @@ import 'test_top_match_when_or_null_writer.dart'
 import 'test_top_match_when_or_throw_writer.dart'
     as test_top_match_when_or_throw_writer;
 import 'test_top_match_when_partial_writer.dart'
-    as test_top_match_branch_partial_writer;
+    as test_top_match_when_partial_writer;
 import 'test_top_match_when_writer.dart' as test_top_match_when_writer;
 import 'test_top_match_writer.dart' as test_top_match_writer;
 
 void main() {
   group('test_top_match_base_writer', test_top_match_base_writer.main);
-  group('test_top_match_branch_partial_writer',
-      test_top_match_branch_partial_writer.main);
+  group('test_top_match_when_partial_writer',
+      test_top_match_when_partial_writer.main);
   group('test_top_match_when_or_default_writer',
       test_top_match_when_or_default_writer.main);
   group('test_top_match_when_or_else_writer',

@@ -12,16 +12,27 @@ void main() {
       expect(writer.source, source);
     });
 
-    test('method topMatchWhenPartialIf', () {
-      final source = source1DataSafe;
-      final manifest = source.manifest;
-      // sunny
-      final item1 = manifest.items[0];
-      final writer = TopMatchWhenPartialWriter(source);
-      final i = writer.topMatchWhenPartialIf(item1);
+    group('method topMatchWhenPartialIf', () {
+      test('non-wrapped', () {
+        final source = source1DataSafe;
+        final manifest = source.manifest;
+        // sunny
+        final item1 = manifest.items[0];
+        final writer = TopMatchWhenPartialWriter(source);
+        final i = writer.topMatchWhenPartialIf(item1);
 
-      expect(i.condition, 'weather is HiSunny');
-      expect(i.code, 'sunny?.call(weather);');
+        expect(i.condition, 'weather is HiSunny');
+        expect(i.code, 'sunny?.call(weather);');
+      });
+
+      test('wrapped', () {
+        final source = source3DataSafe;
+        final item2 = source.manifest.items[1];
+        final writer = TopMatchWhenPartialWriter(source);
+        final i = writer.topMatchWhenPartialIf(item2);
+
+        expect(i.code, 'two?.call(base.x);');
+      });
     });
 
     test('method topMatchWhenPartialArgs', () {
@@ -67,18 +78,34 @@ void main() {
       );
     });
 
-    test('method topMatchWhenPartialStart', () {
-      final source = source1DataSafe;
-      final writer = TopMatchWhenPartialWriter(source);
+    group('method topMatchWhenPartialStart', () {
+      test('non-wrapped', () {
+        final source = source1DataSafe;
+        final writer = TopMatchWhenPartialWriter(source);
 
-      expect(
-        writer.topMatchWhenPartialStart(),
-        'void whenPartial({'
-        'void Function(HiSunny sunny)? sunny,'
-        ' void Function(WeatherRainy rainy)? rainy,'
-        ' void Function(HelloWindy windy)? windy,'
-        '})',
-      );
+        expect(
+          writer.topMatchWhenPartialStart(),
+          'void whenPartial({'
+          'void Function(HiSunny sunny)? sunny,'
+          ' void Function(WeatherRainy rainy)? rainy,'
+          ' void Function(HelloWindy windy)? windy,'
+          '})',
+        );
+      });
+
+      test('wrapped', () {
+        final source = source3DataSafe;
+        final writer = TopMatchWhenPartialWriter(source);
+
+        expect(
+          writer.topMatchWhenPartialStart(),
+          'void whenPartial({'
+          'void Function()? one,'
+          ' void Function(int x)? two,'
+          ' void Function(int y, int? z)? three,'
+          '})',
+        );
+      });
     });
 
     group('method topMatchWhenPartial', () {

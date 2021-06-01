@@ -14,8 +14,14 @@ class TopMatchWhenOrElseWriter extends TopMatchBaseWriter {
   /// ex. if (weather is WeatherSunny) { return (sunny ?? orElse)(weather); }
   If topMatchWhenOrElseIf(ManifestItem item) => If(
         condition: '$topLower ${isSub(item)}',
-        code: 'return ${subLower(item)} != null ?'
-            ' ${subLower(item)}($topLower) : orElse($topLower);',
+        code: [
+          'return ${subLower(item)} != null ?',
+          ' ${subLower(item)}',
+          topMatchNonOrWrappedItemCallArgs(item),
+          ' : orElse',
+          topMatchItemCallArgs(),
+          ';',
+        ].joinParts(),
       );
 
   List<If> topMatchWhenOrElseIfs() =>
@@ -31,7 +37,7 @@ class TopMatchWhenOrElseWriter extends TopMatchBaseWriter {
       ].joinLines();
 
   Iterable<String> topMatchWhenOrElseItemArgs() =>
-      manifest.items.map(topMatchGenericNArg);
+      manifest.items.map(topMatchNonOrWrappedGenericNArg);
 
   Iterable<String> topMatchWhenOrElseArgs() => [
         ...topMatchWhenOrElseItemArgs(),

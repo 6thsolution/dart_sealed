@@ -14,7 +14,11 @@ class TopMatchWhenPartialWriter extends TopMatchBaseWriter {
   /// ex. if (weather is WeatherSunny) { sunny?.call(weather); }
   If topMatchWhenPartialIf(ManifestItem item) => If(
         condition: '$topLower ${isSub(item)}',
-        code: '${subLower(item)}?.call($topLower);',
+        code: [
+          '${subLower(item)}?.call',
+          topMatchNonOrWrappedItemCallArgs(item),
+          ';',
+        ].joinParts(),
       );
 
   List<If> topMatchWhenPartialIfs() =>
@@ -30,7 +34,7 @@ class TopMatchWhenPartialWriter extends TopMatchBaseWriter {
       ].joinLines();
 
   Iterable<String> topMatchWhenPartialArgs() =>
-      manifest.items.map(topMatchVoidNArg);
+      manifest.items.map(topMatchNonOrWrappedVoidNArg);
 
   /// start of when method
   String topMatchWhenPartialStart() => [

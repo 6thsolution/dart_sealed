@@ -526,6 +526,230 @@ void main() {
         );
       });
     });
+
+    group('method topMatchWrappedGenericNArg', () {
+      test('null-safe', () {
+        final source = source3DataSafe;
+        final item = source.manifest.items[2];
+        final writer = TopMatchBaseWriter(source);
+
+        expect(
+          writer.topMatchWrappedGenericNArg(item),
+          'R Function(int y, int? z)? three',
+        );
+      });
+
+      test('legacy', () {
+        final source = source3DataLegacy;
+        final item = source.manifest.items[2];
+        final writer = TopMatchBaseWriter(source);
+
+        expect(
+          writer.topMatchWrappedGenericNArg(item),
+          'R Function(int/*!*/ y, int/*?*/ z)/*?*/ three',
+        );
+      });
+    });
+
+    group('method topMatchWrappedVoidNNArg', () {
+      test('null-safe', () {
+        final source = source3DataSafe;
+        final item = source.manifest.items[2];
+        final writer = TopMatchBaseWriter(source);
+
+        expect(
+          writer.topMatchWrappedVoidNNArg(item),
+          'required void Function(int y, int? z) three',
+        );
+      });
+
+      test('legacy', () {
+        final source = source3DataLegacy;
+        final item = source.manifest.items[2];
+        final writer = TopMatchBaseWriter(source);
+
+        expect(
+          writer.topMatchWrappedVoidNNArg(item),
+          '@required void Function(int/*!*/ y, int/*?*/ z)/*!*/ three',
+        );
+      });
+    });
+
+    group('method topMatchWrappedVoidNArg', () {
+      test('null-safe', () {
+        final source = source3DataSafe;
+        final item = source.manifest.items[2];
+        final writer = TopMatchBaseWriter(source);
+
+        expect(
+          writer.topMatchWrappedVoidNArg(item),
+          'void Function(int y, int? z)? three',
+        );
+      });
+
+      test('legacy', () {
+        final source = source3DataLegacy;
+        final item = source.manifest.items[2];
+        final writer = TopMatchBaseWriter(source);
+
+        expect(
+          writer.topMatchWrappedVoidNArg(item),
+          'void Function(int/*!*/ y, int/*?*/ z)/*?*/ three',
+        );
+      });
+    });
+
+    test('method topMatchWrappedItemCallArg', () {
+      final source = source3DataSafe;
+      final field = source.manifest.items[2].fields[1];
+      final writer = TopMatchBaseWriter(source);
+
+      expect(
+        writer.topMatchWrappedItemCallArg(field),
+        'base.z',
+      );
+    });
+
+    test('method topMatchWrappedItemCallArgs', () {
+      final source = source3DataSafe;
+      final item = source.manifest.items[2];
+      final writer = TopMatchBaseWriter(source);
+
+      expect(
+        writer.topMatchWrappedItemCallArgs(item),
+        '(base.y, base.z)',
+      );
+    });
+
+    test('method topMatchItemCallArgs', () {
+      final source = source1DataSafe;
+      final writer = TopMatchBaseWriter(source);
+
+      expect(
+        writer.topMatchItemCallArgs(),
+        '(weather)',
+      );
+    });
+
+    group('method topMatchNonOrWrappedItemCallArgs', () {
+      test('wrapped', () {
+        final source = source3DataSafe;
+        final item = source.manifest.items[2];
+        final writer = TopMatchBaseWriter(source);
+
+        expect(
+          writer.topMatchNonOrWrappedItemCallArgs(item),
+          '(base.y, base.z)',
+        );
+      });
+
+      test('non-wrapped', () {
+        final source = source1DataSafe;
+        final item = source.manifest.items[2];
+        final writer = TopMatchBaseWriter(source);
+
+        expect(
+          writer.topMatchNonOrWrappedItemCallArgs(item),
+          '(weather)',
+        );
+      });
+    });
+
+    group('method topMatchNonOrWrappedGenericNNArg', () {
+      test('wrapped', () {
+        final source = source3DataSafe;
+        final item = source.manifest.items[2];
+        final writer = TopMatchBaseWriter(source);
+
+        expect(
+          writer.topMatchNonOrWrappedGenericNNArg(item),
+          'required R Function(int y, int? z) three',
+        );
+      });
+
+      test('non-wrapped', () {
+        final source = source1DataSafe;
+        final item = source.manifest.items[2];
+        final writer = TopMatchBaseWriter(source);
+
+        expect(
+          writer.topMatchNonOrWrappedGenericNNArg(item),
+          'required R Function(HelloWindy windy) windy',
+        );
+      });
+    });
+
+    group('method topMatchNonOrWrappedGenericNArg', () {
+      test('wrapped', () {
+        final source = source3DataSafe;
+        final item = source.manifest.items[2];
+        final writer = TopMatchBaseWriter(source);
+
+        expect(
+          writer.topMatchNonOrWrappedGenericNArg(item),
+          'R Function(int y, int? z)? three',
+        );
+      });
+
+      test('non-wrapped', () {
+        final source = source1DataSafe;
+        final item = source.manifest.items[2];
+        final writer = TopMatchBaseWriter(source);
+
+        expect(
+          writer.topMatchNonOrWrappedGenericNArg(item),
+          'R Function(HelloWindy windy)? windy',
+        );
+      });
+    });
+
+    group('method topMatchNonOrWrappedVoidNNArg', () {
+      test('wrapped', () {
+        final source = source3DataSafe;
+        final item = source.manifest.items[2];
+        final writer = TopMatchBaseWriter(source);
+
+        expect(
+          writer.topMatchNonOrWrappedVoidNNArg(item),
+          'required void Function(int y, int? z) three',
+        );
+      });
+
+      test('non-wrapped', () {
+        final source = source1DataSafe;
+        final item = source.manifest.items[2];
+        final writer = TopMatchBaseWriter(source);
+
+        expect(
+          writer.topMatchNonOrWrappedVoidNNArg(item),
+          'required void Function(HelloWindy windy) windy',
+        );
+      });
+    });
+
+    group('method topMatchNonOrWrappedVoidNArg', () {
+      test('wrapped', () {
+        final source = source3DataSafe;
+        final item = source.manifest.items[2];
+        final writer = TopMatchBaseWriter(source);
+
+        expect(
+          writer.topMatchNonOrWrappedVoidNArg(item),
+          'void Function(int y, int? z)? three',
+        );
+      });
+
+      test('non-wrapped', () {
+        final source = source1DataSafe;
+        final item = source.manifest.items[2];
+        final writer = TopMatchBaseWriter(source);
+
+        expect(
+          writer.topMatchNonOrWrappedVoidNArg(item),
+          'void Function(HelloWindy windy)? windy',
+        );
+      });
+    });
     // end of group TopMatchBaseWriter
   });
 }

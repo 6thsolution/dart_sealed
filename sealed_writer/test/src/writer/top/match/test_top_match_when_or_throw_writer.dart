@@ -12,19 +12,27 @@ void main() {
       expect(writer.source, source);
     });
 
-    test('method topMatchWhenOrThrowIf', () {
-      final source = source1DataSafe;
-      final manifest = source.manifest;
-      // sunny
-      final item1 = manifest.items[0];
-      final writer = TopMatchWhenOrThrowWriter(source);
-      final i = writer.topMatchWhenOrThrowIf(item1);
+    group('method topMatchWhenOrThrowIf', () {
+      test('non-wrapped', () {
+        final source = source1DataSafe;
+        final manifest = source.manifest;
+        // sunny
+        final item1 = manifest.items[0];
+        final writer = TopMatchWhenOrThrowWriter(source);
+        final i = writer.topMatchWhenOrThrowIf(item1);
 
-      expect(i.condition, 'weather is HiSunny && sunny != null');
-      expect(
-        i.code,
-        'return sunny(weather);',
-      );
+        expect(i.condition, 'weather is HiSunny && sunny != null');
+        expect(i.code, 'return sunny(weather);');
+      });
+
+      test('wrapped', () {
+        final source = source3DataSafe;
+        final item2 = source.manifest.items[1];
+        final writer = TopMatchWhenOrThrowWriter(source);
+        final i = writer.topMatchWhenOrThrowIf(item2);
+
+        expect(i.code, 'return two(base.x);');
+      });
     });
 
     test('method topMatchWhenOrThrowArgs', () {
@@ -70,18 +78,34 @@ void main() {
       );
     });
 
-    test('method topMatchWhenOrThrowStart', () {
-      final source = source1DataSafe;
-      final writer = TopMatchWhenOrThrowWriter(source);
+    group('method topMatchWhenOrThrowStart', () {
+      test('non-wrapped', () {
+        final source = source1DataSafe;
+        final writer = TopMatchWhenOrThrowWriter(source);
 
-      expect(
-        writer.topMatchWhenOrThrowStart(),
-        'R whenOrThrow<R extends Object?>({'
-        'R Function(HiSunny sunny)? sunny,'
-        ' R Function(WeatherRainy rainy)? rainy,'
-        ' R Function(HelloWindy windy)? windy,'
-        '})',
-      );
+        expect(
+          writer.topMatchWhenOrThrowStart(),
+          'R whenOrThrow<R extends Object?>({'
+          'R Function(HiSunny sunny)? sunny,'
+          ' R Function(WeatherRainy rainy)? rainy,'
+          ' R Function(HelloWindy windy)? windy,'
+          '})',
+        );
+      });
+
+      test('wrapped', () {
+        final source = source3DataSafe;
+        final writer = TopMatchWhenOrThrowWriter(source);
+
+        expect(
+          writer.topMatchWhenOrThrowStart(),
+          'R whenOrThrow<R extends Object?>({'
+          'R Function()? one,'
+          ' R Function(int x)? two,'
+          ' R Function(int y, int? z)? three,'
+          '})',
+        );
+      });
     });
 
     group('method topMatchWhenOrThrow', () {

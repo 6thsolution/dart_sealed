@@ -74,104 +74,106 @@ abstract class Complete<T extends num?, U extends Object> {
   }
 
   R when<R extends Object?>({
-    required R Function(CompleteOne<T, U> one) one,
-    required R Function(CompleteTwo<T, U> two) two,
-    required R Function(CompleteThree<T, U> three) three,
+    required R Function() one,
+    required R Function(T x, U y, U? z) two,
+    required R Function(int a, T b) three,
   }) {
     final complete = this;
     if (complete is CompleteOne<T, U>) {
-      return one(complete);
+      return one();
     } else if (complete is CompleteTwo<T, U>) {
-      return two(complete);
+      return two(complete.x, complete.y, complete.z);
     } else if (complete is CompleteThree<T, U>) {
-      return three(complete);
+      return three(complete.a, complete.b);
     } else {
       throw AssertionError();
     }
   }
 
   R whenOrElse<R extends Object?>({
-    R Function(CompleteOne<T, U> one)? one,
-    R Function(CompleteTwo<T, U> two)? two,
-    R Function(CompleteThree<T, U> three)? three,
+    R Function()? one,
+    R Function(T x, U y, U? z)? two,
+    R Function(int a, T b)? three,
     required R Function(Complete<T, U> complete) orElse,
   }) {
     final complete = this;
     if (complete is CompleteOne<T, U>) {
-      return one != null ? one(complete) : orElse(complete);
+      return one != null ? one() : orElse(complete);
     } else if (complete is CompleteTwo<T, U>) {
-      return two != null ? two(complete) : orElse(complete);
+      return two != null
+          ? two(complete.x, complete.y, complete.z)
+          : orElse(complete);
     } else if (complete is CompleteThree<T, U>) {
-      return three != null ? three(complete) : orElse(complete);
+      return three != null ? three(complete.a, complete.b) : orElse(complete);
     } else {
       throw AssertionError();
     }
   }
 
   R whenOrDefault<R extends Object?>({
-    R Function(CompleteOne<T, U> one)? one,
-    R Function(CompleteTwo<T, U> two)? two,
-    R Function(CompleteThree<T, U> three)? three,
+    R Function()? one,
+    R Function(T x, U y, U? z)? two,
+    R Function(int a, T b)? three,
     required R orDefault,
   }) {
     final complete = this;
     if (complete is CompleteOne<T, U>) {
-      return one != null ? one(complete) : orDefault;
+      return one != null ? one() : orDefault;
     } else if (complete is CompleteTwo<T, U>) {
-      return two != null ? two(complete) : orDefault;
+      return two != null ? two(complete.x, complete.y, complete.z) : orDefault;
     } else if (complete is CompleteThree<T, U>) {
-      return three != null ? three(complete) : orDefault;
+      return three != null ? three(complete.a, complete.b) : orDefault;
     } else {
       throw AssertionError();
     }
   }
 
   R? whenOrNull<R extends Object?>({
-    R Function(CompleteOne<T, U> one)? one,
-    R Function(CompleteTwo<T, U> two)? two,
-    R Function(CompleteThree<T, U> three)? three,
+    R Function()? one,
+    R Function(T x, U y, U? z)? two,
+    R Function(int a, T b)? three,
   }) {
     final complete = this;
     if (complete is CompleteOne<T, U>) {
-      return one?.call(complete);
+      return one?.call();
     } else if (complete is CompleteTwo<T, U>) {
-      return two?.call(complete);
+      return two?.call(complete.x, complete.y, complete.z);
     } else if (complete is CompleteThree<T, U>) {
-      return three?.call(complete);
+      return three?.call(complete.a, complete.b);
     } else {
       throw AssertionError();
     }
   }
 
   R whenOrThrow<R extends Object?>({
-    R Function(CompleteOne<T, U> one)? one,
-    R Function(CompleteTwo<T, U> two)? two,
-    R Function(CompleteThree<T, U> three)? three,
+    R Function()? one,
+    R Function(T x, U y, U? z)? two,
+    R Function(int a, T b)? three,
   }) {
     final complete = this;
     if (complete is CompleteOne<T, U> && one != null) {
-      return one(complete);
+      return one();
     } else if (complete is CompleteTwo<T, U> && two != null) {
-      return two(complete);
+      return two(complete.x, complete.y, complete.z);
     } else if (complete is CompleteThree<T, U> && three != null) {
-      return three(complete);
+      return three(complete.a, complete.b);
     } else {
       throw AssertionError();
     }
   }
 
   void whenPartial({
-    void Function(CompleteOne<T, U> one)? one,
-    void Function(CompleteTwo<T, U> two)? two,
-    void Function(CompleteThree<T, U> three)? three,
+    void Function()? one,
+    void Function(T x, U y, U? z)? two,
+    void Function(int a, T b)? three,
   }) {
     final complete = this;
     if (complete is CompleteOne<T, U>) {
-      one?.call(complete);
+      one?.call();
     } else if (complete is CompleteTwo<T, U>) {
-      two?.call(complete);
+      two?.call(complete.x, complete.y, complete.z);
     } else if (complete is CompleteThree<T, U>) {
-      three?.call(complete);
+      three?.call(complete.a, complete.b);
     } else {
       throw AssertionError();
     }

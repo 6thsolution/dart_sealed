@@ -16,7 +16,11 @@ class TopMatchWhenOrThrowWriter extends TopMatchBaseWriter {
   /// }
   If topMatchWhenOrThrowIf(ManifestItem item) => If(
         condition: '$topLower ${isSub(item)} && ${subLower(item)} != null',
-        code: 'return ${subLower(item)}($topLower);',
+        code: [
+          'return ${subLower(item)}',
+          topMatchNonOrWrappedItemCallArgs(item),
+          ';',
+        ].joinParts(),
       );
 
   List<If> topMatchWhenOrThrowIfs() =>
@@ -32,7 +36,7 @@ class TopMatchWhenOrThrowWriter extends TopMatchBaseWriter {
       ].joinLines();
 
   Iterable<String> topMatchWhenOrThrowArgs() =>
-      manifest.items.map(topMatchGenericNArg);
+      manifest.items.map(topMatchNonOrWrappedGenericNArg);
 
   /// start of when method
   String topMatchWhenOrThrowStart() => [

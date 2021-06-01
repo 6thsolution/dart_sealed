@@ -16,8 +16,12 @@ class TopMatchWhenOrDefaultWriter extends TopMatchBaseWriter {
   /// }
   If topMatchWhenOrDefaultIf(ManifestItem item) => If(
         condition: '$topLower ${isSub(item)}',
-        code: 'return ${subLower(item)} != null ?'
-            ' ${subLower(item)}($topLower) : orDefault;',
+        code: [
+          'return ${subLower(item)} != null ?',
+          ' ${subLower(item)}',
+          topMatchNonOrWrappedItemCallArgs(item),
+          ' : orDefault;',
+        ].joinParts(),
       );
 
   List<If> topMatchWhenOrDefaultIfs() =>
@@ -33,7 +37,7 @@ class TopMatchWhenOrDefaultWriter extends TopMatchBaseWriter {
       ].joinLines();
 
   Iterable<String> topMatchWhenOrDefaultItemArgs() =>
-      manifest.items.map(topMatchGenericNArg);
+      manifest.items.map(topMatchNonOrWrappedGenericNArg);
 
   Iterable<String> topMatchWhenOrDefaultArgs() => [
         ...topMatchWhenOrDefaultItemArgs(),

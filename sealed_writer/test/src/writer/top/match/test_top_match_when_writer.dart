@@ -12,16 +12,27 @@ void main() {
       expect(writer.source, source);
     });
 
-    test('method topMatchWhenIf', () {
-      final source = source1DataSafe;
-      final manifest = source.manifest;
-      // sunny
-      final item1 = manifest.items[0];
-      final writer = TopMatchWhenWriter(source);
-      final i = writer.topMatchWhenIf(item1);
+    group('method topMatchWhenIf', () {
+      test('non-wrapped', () {
+        final source = source1DataSafe;
+        final manifest = source.manifest;
+        // sunny
+        final item1 = manifest.items[0];
+        final writer = TopMatchWhenWriter(source);
+        final i = writer.topMatchWhenIf(item1);
 
-      expect(i.condition, 'weather is HiSunny');
-      expect(i.code, 'return sunny(weather);');
+        expect(i.condition, 'weather is HiSunny');
+        expect(i.code, 'return sunny(weather);');
+      });
+
+      test('wrapped', () {
+        final source = source3DataSafe;
+        final item2 = source.manifest.items[1];
+        final writer = TopMatchWhenWriter(source);
+        final i = writer.topMatchWhenIf(item2);
+
+        expect(i.code, 'return two(base.x);');
+      });
     });
 
     test('method topMatchWhenArgs', () {
@@ -64,18 +75,34 @@ void main() {
       );
     });
 
-    test('method topMatchWhenStart', () {
-      final source = source1DataSafe;
-      final writer = TopMatchWhenWriter(source);
+    group('method topMatchWhenStart', () {
+      test('non-wrapped', () {
+        final source = source1DataSafe;
+        final writer = TopMatchWhenWriter(source);
 
-      expect(
-        writer.topMatchWhenStart(),
-        'R when<R extends Object?>({'
-        'required R Function(HiSunny sunny) sunny,'
-        ' required R Function(WeatherRainy rainy) rainy,'
-        ' required R Function(HelloWindy windy) windy,'
-        '})',
-      );
+        expect(
+          writer.topMatchWhenStart(),
+          'R when<R extends Object?>({'
+          'required R Function(HiSunny sunny) sunny,'
+          ' required R Function(WeatherRainy rainy) rainy,'
+          ' required R Function(HelloWindy windy) windy,'
+          '})',
+        );
+      });
+
+      test('wrapped', () {
+        final source = source3DataSafe;
+        final writer = TopMatchWhenWriter(source);
+
+        expect(
+          writer.topMatchWhenStart(),
+          'R when<R extends Object?>({'
+          'required R Function() one,'
+          ' required R Function(int x) two,'
+          ' required R Function(int y, int? z) three,'
+          '})',
+        );
+      });
     });
 
     group('method topMatchWhen', () {

@@ -70,109 +70,109 @@ abstract class Complete {
   }
 
   R when<R extends Object /*?*/ >({
-    @required R Function(CompleteOne /*!*/ one) /*!*/ one,
-    @required R Function(CompleteTwo /*!*/ two) /*!*/ two,
-    @required R Function(CompleteThree /*!*/ three) /*!*/ three,
+    @required R Function() /*!*/ one,
+    @required R Function(int /*?*/ x) /*!*/ two,
+    @required R Function(double /*?*/ y, double /*?*/ z) /*!*/ three,
   }) {
     assert(one != null);
     assert(two != null);
     assert(three != null);
     final complete = this;
     if (complete is CompleteOne) {
-      return one(complete);
+      return one();
     } else if (complete is CompleteTwo) {
-      return two(complete);
+      return two(complete.x);
     } else if (complete is CompleteThree) {
-      return three(complete);
+      return three(complete.y, complete.z);
     } else {
       throw AssertionError();
     }
   }
 
   R whenOrElse<R extends Object /*?*/ >({
-    R Function(CompleteOne /*!*/ one) /*?*/ one,
-    R Function(CompleteTwo /*!*/ two) /*?*/ two,
-    R Function(CompleteThree /*!*/ three) /*?*/ three,
+    R Function() /*?*/ one,
+    R Function(int /*?*/ x) /*?*/ two,
+    R Function(double /*?*/ y, double /*?*/ z) /*?*/ three,
     @required R Function(Complete /*!*/ complete) /*!*/ orElse,
   }) {
     assert(orElse != null);
     final complete = this;
     if (complete is CompleteOne) {
-      return one != null ? one(complete) : orElse(complete);
+      return one != null ? one() : orElse(complete);
     } else if (complete is CompleteTwo) {
-      return two != null ? two(complete) : orElse(complete);
+      return two != null ? two(complete.x) : orElse(complete);
     } else if (complete is CompleteThree) {
-      return three != null ? three(complete) : orElse(complete);
+      return three != null ? three(complete.y, complete.z) : orElse(complete);
     } else {
       throw AssertionError();
     }
   }
 
   R whenOrDefault<R extends Object /*?*/ >({
-    R Function(CompleteOne /*!*/ one) /*?*/ one,
-    R Function(CompleteTwo /*!*/ two) /*?*/ two,
-    R Function(CompleteThree /*!*/ three) /*?*/ three,
+    R Function() /*?*/ one,
+    R Function(int /*?*/ x) /*?*/ two,
+    R Function(double /*?*/ y, double /*?*/ z) /*?*/ three,
     @required R orDefault,
   }) {
     assert(orDefault != null);
     final complete = this;
     if (complete is CompleteOne) {
-      return one != null ? one(complete) : orDefault;
+      return one != null ? one() : orDefault;
     } else if (complete is CompleteTwo) {
-      return two != null ? two(complete) : orDefault;
+      return two != null ? two(complete.x) : orDefault;
     } else if (complete is CompleteThree) {
-      return three != null ? three(complete) : orDefault;
+      return three != null ? three(complete.y, complete.z) : orDefault;
     } else {
       throw AssertionError();
     }
   }
 
   R /*?*/ whenOrNull<R extends Object /*?*/ >({
-    R Function(CompleteOne /*!*/ one) /*?*/ one,
-    R Function(CompleteTwo /*!*/ two) /*?*/ two,
-    R Function(CompleteThree /*!*/ three) /*?*/ three,
+    R Function() /*?*/ one,
+    R Function(int /*?*/ x) /*?*/ two,
+    R Function(double /*?*/ y, double /*?*/ z) /*?*/ three,
   }) {
     final complete = this;
     if (complete is CompleteOne) {
-      return one?.call(complete);
+      return one?.call();
     } else if (complete is CompleteTwo) {
-      return two?.call(complete);
+      return two?.call(complete.x);
     } else if (complete is CompleteThree) {
-      return three?.call(complete);
+      return three?.call(complete.y, complete.z);
     } else {
       throw AssertionError();
     }
   }
 
   R whenOrThrow<R extends Object /*?*/ >({
-    R Function(CompleteOne /*!*/ one) /*?*/ one,
-    R Function(CompleteTwo /*!*/ two) /*?*/ two,
-    R Function(CompleteThree /*!*/ three) /*?*/ three,
+    R Function() /*?*/ one,
+    R Function(int /*?*/ x) /*?*/ two,
+    R Function(double /*?*/ y, double /*?*/ z) /*?*/ three,
   }) {
     final complete = this;
     if (complete is CompleteOne && one != null) {
-      return one(complete);
+      return one();
     } else if (complete is CompleteTwo && two != null) {
-      return two(complete);
+      return two(complete.x);
     } else if (complete is CompleteThree && three != null) {
-      return three(complete);
+      return three(complete.y, complete.z);
     } else {
       throw AssertionError();
     }
   }
 
   void whenPartial({
-    void Function(CompleteOne /*!*/ one) /*?*/ one,
-    void Function(CompleteTwo /*!*/ two) /*?*/ two,
-    void Function(CompleteThree /*!*/ three) /*?*/ three,
+    void Function() /*?*/ one,
+    void Function(int /*?*/ x) /*?*/ two,
+    void Function(double /*?*/ y, double /*?*/ z) /*?*/ three,
   }) {
     final complete = this;
     if (complete is CompleteOne) {
-      one?.call(complete);
+      one?.call();
     } else if (complete is CompleteTwo) {
-      two?.call(complete);
+      two?.call(complete.x);
     } else if (complete is CompleteThree) {
-      three?.call(complete);
+      three?.call(complete.y, complete.z);
     } else {
       throw AssertionError();
     }
@@ -310,7 +310,7 @@ abstract class Partial {
   R when<R extends Object /*?*/ >({
     @required R Function(PartialOne /*!*/ one) /*!*/ one,
     @required R Function(PartialTwo /*!*/ two) /*!*/ two,
-    @required R Function(PartialThree /*!*/ three) /*!*/ three,
+    @required R Function(double /*?*/ y, double /*?*/ z) /*!*/ three,
   }) {
     assert(one != null);
     assert(two != null);
@@ -321,7 +321,7 @@ abstract class Partial {
     } else if (partial is PartialTwo) {
       return two(partial);
     } else if (partial is PartialThree) {
-      return three(partial);
+      return three(partial.y, partial.z);
     } else {
       throw AssertionError();
     }
@@ -330,7 +330,7 @@ abstract class Partial {
   R whenOrElse<R extends Object /*?*/ >({
     R Function(PartialOne /*!*/ one) /*?*/ one,
     R Function(PartialTwo /*!*/ two) /*?*/ two,
-    R Function(PartialThree /*!*/ three) /*?*/ three,
+    R Function(double /*?*/ y, double /*?*/ z) /*?*/ three,
     @required R Function(Partial /*!*/ partial) /*!*/ orElse,
   }) {
     assert(orElse != null);
@@ -340,7 +340,7 @@ abstract class Partial {
     } else if (partial is PartialTwo) {
       return two != null ? two(partial) : orElse(partial);
     } else if (partial is PartialThree) {
-      return three != null ? three(partial) : orElse(partial);
+      return three != null ? three(partial.y, partial.z) : orElse(partial);
     } else {
       throw AssertionError();
     }
@@ -349,7 +349,7 @@ abstract class Partial {
   R whenOrDefault<R extends Object /*?*/ >({
     R Function(PartialOne /*!*/ one) /*?*/ one,
     R Function(PartialTwo /*!*/ two) /*?*/ two,
-    R Function(PartialThree /*!*/ three) /*?*/ three,
+    R Function(double /*?*/ y, double /*?*/ z) /*?*/ three,
     @required R orDefault,
   }) {
     assert(orDefault != null);
@@ -359,7 +359,7 @@ abstract class Partial {
     } else if (partial is PartialTwo) {
       return two != null ? two(partial) : orDefault;
     } else if (partial is PartialThree) {
-      return three != null ? three(partial) : orDefault;
+      return three != null ? three(partial.y, partial.z) : orDefault;
     } else {
       throw AssertionError();
     }
@@ -368,7 +368,7 @@ abstract class Partial {
   R /*?*/ whenOrNull<R extends Object /*?*/ >({
     R Function(PartialOne /*!*/ one) /*?*/ one,
     R Function(PartialTwo /*!*/ two) /*?*/ two,
-    R Function(PartialThree /*!*/ three) /*?*/ three,
+    R Function(double /*?*/ y, double /*?*/ z) /*?*/ three,
   }) {
     final partial = this;
     if (partial is PartialOne) {
@@ -376,7 +376,7 @@ abstract class Partial {
     } else if (partial is PartialTwo) {
       return two?.call(partial);
     } else if (partial is PartialThree) {
-      return three?.call(partial);
+      return three?.call(partial.y, partial.z);
     } else {
       throw AssertionError();
     }
@@ -385,7 +385,7 @@ abstract class Partial {
   R whenOrThrow<R extends Object /*?*/ >({
     R Function(PartialOne /*!*/ one) /*?*/ one,
     R Function(PartialTwo /*!*/ two) /*?*/ two,
-    R Function(PartialThree /*!*/ three) /*?*/ three,
+    R Function(double /*?*/ y, double /*?*/ z) /*?*/ three,
   }) {
     final partial = this;
     if (partial is PartialOne && one != null) {
@@ -393,7 +393,7 @@ abstract class Partial {
     } else if (partial is PartialTwo && two != null) {
       return two(partial);
     } else if (partial is PartialThree && three != null) {
-      return three(partial);
+      return three(partial.y, partial.z);
     } else {
       throw AssertionError();
     }
@@ -402,7 +402,7 @@ abstract class Partial {
   void whenPartial({
     void Function(PartialOne /*!*/ one) /*?*/ one,
     void Function(PartialTwo /*!*/ two) /*?*/ two,
-    void Function(PartialThree /*!*/ three) /*?*/ three,
+    void Function(double /*?*/ y, double /*?*/ z) /*?*/ three,
   }) {
     final partial = this;
     if (partial is PartialOne) {
@@ -410,7 +410,7 @@ abstract class Partial {
     } else if (partial is PartialTwo) {
       two?.call(partial);
     } else if (partial is PartialThree) {
-      three?.call(partial);
+      three?.call(partial.y, partial.z);
     } else {
       throw AssertionError();
     }

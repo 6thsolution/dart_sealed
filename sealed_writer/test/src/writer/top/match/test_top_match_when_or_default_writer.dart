@@ -12,16 +12,27 @@ void main() {
       expect(writer.source, source);
     });
 
-    test('method topMatchWhenOrDefaultIf', () {
-      final source = source1DataSafe;
-      final manifest = source.manifest;
-      // sunny
-      final item1 = manifest.items[0];
-      final writer = TopMatchWhenOrDefaultWriter(source);
-      final i = writer.topMatchWhenOrDefaultIf(item1);
+    group('method topMatchWhenOrDefaultIf', () {
+      test('non-wrapped', () {
+        final source = source1DataSafe;
+        final manifest = source.manifest;
+        // sunny
+        final item1 = manifest.items[0];
+        final writer = TopMatchWhenOrDefaultWriter(source);
+        final i = writer.topMatchWhenOrDefaultIf(item1);
 
-      expect(i.condition, 'weather is HiSunny');
-      expect(i.code, 'return sunny != null ? sunny(weather) : orDefault;');
+        expect(i.condition, 'weather is HiSunny');
+        expect(i.code, 'return sunny != null ? sunny(weather) : orDefault;');
+      });
+
+      test('wrapped', () {
+        final source = source3DataSafe;
+        final item2 = source.manifest.items[1];
+        final writer = TopMatchWhenOrDefaultWriter(source);
+        final i = writer.topMatchWhenOrDefaultIf(item2);
+
+        expect(i.code, 'return two != null ? two(base.x) : orDefault;');
+      });
     });
 
     test('method topMatchWhenOrDefaultItemArgs', () {
@@ -80,19 +91,36 @@ void main() {
       );
     });
 
-    test('method topMatchWhenOrDefaultStart', () {
-      final source = source1DataSafe;
-      final writer = TopMatchWhenOrDefaultWriter(source);
+    group('method topMatchWhenOrDefaultStart', () {
+      test('non-wrapped', () {
+        final source = source1DataSafe;
+        final writer = TopMatchWhenOrDefaultWriter(source);
 
-      expect(
-        writer.topMatchWhenOrDefaultStart(),
-        'R whenOrDefault<R extends Object?>({'
-        'R Function(HiSunny sunny)? sunny,'
-        ' R Function(WeatherRainy rainy)? rainy,'
-        ' R Function(HelloWindy windy)? windy,'
-        ' required R orDefault,'
-        '})',
-      );
+        expect(
+          writer.topMatchWhenOrDefaultStart(),
+          'R whenOrDefault<R extends Object?>({'
+          'R Function(HiSunny sunny)? sunny,'
+          ' R Function(WeatherRainy rainy)? rainy,'
+          ' R Function(HelloWindy windy)? windy,'
+          ' required R orDefault,'
+          '})',
+        );
+      });
+
+      test('wrapped', () {
+        final source = source3DataSafe;
+        final writer = TopMatchWhenOrDefaultWriter(source);
+
+        expect(
+          writer.topMatchWhenOrDefaultStart(),
+          'R whenOrDefault<R extends Object?>({'
+          'R Function()? one,'
+          ' R Function(int x)? two,'
+          ' R Function(int y, int? z)? three,'
+          ' required R orDefault,'
+          '})',
+        );
+      });
     });
 
     group('method topMatchWhenOrDefault', () {

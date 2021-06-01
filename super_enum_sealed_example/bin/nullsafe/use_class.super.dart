@@ -65,13 +65,13 @@ abstract class Weather {
 
   R when<R extends Object?>({
     required R Function(Sunny sunny) sunny,
-    required R Function(Rainy rainy) rainy,
+    required R Function(Hello data) rainy,
   }) {
     final weather = this;
     if (weather is Sunny) {
       return sunny(weather);
     } else if (weather is Rainy) {
-      return rainy(weather);
+      return rainy(weather.data);
     } else {
       throw AssertionError();
     }
@@ -79,14 +79,14 @@ abstract class Weather {
 
   R whenOrElse<R extends Object?>({
     R Function(Sunny sunny)? sunny,
-    R Function(Rainy rainy)? rainy,
+    R Function(Hello data)? rainy,
     required R Function(Weather weather) orElse,
   }) {
     final weather = this;
     if (weather is Sunny) {
       return sunny != null ? sunny(weather) : orElse(weather);
     } else if (weather is Rainy) {
-      return rainy != null ? rainy(weather) : orElse(weather);
+      return rainy != null ? rainy(weather.data) : orElse(weather);
     } else {
       throw AssertionError();
     }
@@ -94,14 +94,14 @@ abstract class Weather {
 
   R whenOrDefault<R extends Object?>({
     R Function(Sunny sunny)? sunny,
-    R Function(Rainy rainy)? rainy,
+    R Function(Hello data)? rainy,
     required R orDefault,
   }) {
     final weather = this;
     if (weather is Sunny) {
       return sunny != null ? sunny(weather) : orDefault;
     } else if (weather is Rainy) {
-      return rainy != null ? rainy(weather) : orDefault;
+      return rainy != null ? rainy(weather.data) : orDefault;
     } else {
       throw AssertionError();
     }
@@ -109,13 +109,13 @@ abstract class Weather {
 
   R? whenOrNull<R extends Object?>({
     R Function(Sunny sunny)? sunny,
-    R Function(Rainy rainy)? rainy,
+    R Function(Hello data)? rainy,
   }) {
     final weather = this;
     if (weather is Sunny) {
       return sunny?.call(weather);
     } else if (weather is Rainy) {
-      return rainy?.call(weather);
+      return rainy?.call(weather.data);
     } else {
       throw AssertionError();
     }
@@ -123,13 +123,13 @@ abstract class Weather {
 
   R whenOrThrow<R extends Object?>({
     R Function(Sunny sunny)? sunny,
-    R Function(Rainy rainy)? rainy,
+    R Function(Hello data)? rainy,
   }) {
     final weather = this;
     if (weather is Sunny && sunny != null) {
       return sunny(weather);
     } else if (weather is Rainy && rainy != null) {
-      return rainy(weather);
+      return rainy(weather.data);
     } else {
       throw AssertionError();
     }
@@ -137,13 +137,13 @@ abstract class Weather {
 
   void whenPartial({
     void Function(Sunny sunny)? sunny,
-    void Function(Rainy rainy)? rainy,
+    void Function(Hello data)? rainy,
   }) {
     final weather = this;
     if (weather is Sunny) {
       sunny?.call(weather);
     } else if (weather is Rainy) {
-      rainy?.call(weather);
+      rainy?.call(weather.data);
     } else {
       throw AssertionError();
     }

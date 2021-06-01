@@ -14,7 +14,11 @@ class TopMatchWhenWriter extends TopMatchBaseWriter {
   /// ex. if (weather is WeatherSunny) { return sunny(weather); }
   If topMatchWhenIf(ManifestItem item) => If(
         condition: '$topLower ${isSub(item)}',
-        code: 'return ${subLower(item)}($topLower);',
+        code: [
+          'return ${subLower(item)}',
+          topMatchNonOrWrappedItemCallArgs(item),
+          ';',
+        ].joinParts(),
       );
 
   List<If> topMatchWhenIfs() => manifest.items.map(topMatchWhenIf).toList();
@@ -29,7 +33,7 @@ class TopMatchWhenWriter extends TopMatchBaseWriter {
       ].joinLines();
 
   Iterable<String> topMatchWhenArgs() =>
-      manifest.items.map(topMatchGenericNNArg);
+      manifest.items.map(topMatchNonOrWrappedGenericNNArg);
 
   /// start of when method
   String topMatchWhenStart() => [

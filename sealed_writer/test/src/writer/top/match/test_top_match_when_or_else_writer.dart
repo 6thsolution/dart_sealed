@@ -12,19 +12,30 @@ void main() {
       expect(writer.source, source);
     });
 
-    test('method topMatchWhenOrElseIf', () {
-      final source = source1DataSafe;
-      final manifest = source.manifest;
-      // sunny
-      final item1 = manifest.items[0];
-      final writer = TopMatchWhenOrElseWriter(source);
-      final i = writer.topMatchWhenOrElseIf(item1);
+    group('method topMatchWhenOrElseIf', () {
+      test('non-wrapped', () {
+        final source = source1DataSafe;
+        final manifest = source.manifest;
+        // sunny
+        final item1 = manifest.items[0];
+        final writer = TopMatchWhenOrElseWriter(source);
+        final i = writer.topMatchWhenOrElseIf(item1);
 
-      expect(i.condition, 'weather is HiSunny');
-      expect(
-        i.code,
-        'return sunny != null ? sunny(weather) : orElse(weather);',
-      );
+        expect(i.condition, 'weather is HiSunny');
+        expect(
+          i.code,
+          'return sunny != null ? sunny(weather) : orElse(weather);',
+        );
+      });
+
+      test('wrapped', () {
+        final source = source3DataSafe;
+        final item2 = source.manifest.items[1];
+        final writer = TopMatchWhenOrElseWriter(source);
+        final i = writer.topMatchWhenOrElseIf(item2);
+
+        expect(i.code, 'return two != null ? two(base.x) : orElse(base);');
+      });
     });
 
     test('method topMatchWhenOrElseItemArgs', () {
@@ -83,19 +94,36 @@ void main() {
       );
     });
 
-    test('method topMatchWhenOrElseStart', () {
-      final source = source1DataSafe;
-      final writer = TopMatchWhenOrElseWriter(source);
+    group('method topMatchWhenOrElseStart', () {
+      test('non-wrapped', () {
+        final source = source1DataSafe;
+        final writer = TopMatchWhenOrElseWriter(source);
 
-      expect(
-        writer.topMatchWhenOrElseStart(),
-        'R whenOrElse<R extends Object?>({'
-        'R Function(HiSunny sunny)? sunny,'
-        ' R Function(WeatherRainy rainy)? rainy,'
-        ' R Function(HelloWindy windy)? windy,'
-        ' required R Function(Weather weather) orElse,'
-        '})',
-      );
+        expect(
+          writer.topMatchWhenOrElseStart(),
+          'R whenOrElse<R extends Object?>({'
+          'R Function(HiSunny sunny)? sunny,'
+          ' R Function(WeatherRainy rainy)? rainy,'
+          ' R Function(HelloWindy windy)? windy,'
+          ' required R Function(Weather weather) orElse,'
+          '})',
+        );
+      });
+
+      test('wrapped', () {
+        final source = source3DataSafe;
+        final writer = TopMatchWhenOrElseWriter(source);
+
+        expect(
+          writer.topMatchWhenOrElseStart(),
+          'R whenOrElse<R extends Object?>({'
+          'R Function()? one,'
+          ' R Function(int x)? two,'
+          ' R Function(int y, int? z)? three,'
+          ' required R Function(Base base) orElse,'
+          '})',
+        );
+      });
     });
 
     group('method topMatchWhenOrElse', () {
