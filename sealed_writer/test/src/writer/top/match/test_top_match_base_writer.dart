@@ -480,6 +480,52 @@ void main() {
 
       expect(e.code, 'throw AssertionError();');
     });
+
+    test('method topMatchWrappedItemArg', () {
+      final source = source3DataSafe;
+      final field = source.manifest.items[2].fields[1];
+      final writer = TopMatchBaseWriter(source);
+
+      expect(
+        writer.topMatchWrappedItemArg(field),
+        'int? z',
+      );
+    });
+
+    test('method topMatchWrappedItemArgs', () {
+      final source = source3DataSafe;
+      final item = source.manifest.items[2];
+      final writer = TopMatchBaseWriter(source);
+
+      expect(
+        writer.topMatchWrappedItemArgs(item),
+        '(int y, int? z)',
+      );
+    });
+
+    group('method topMatchWrappedGenericNNArg', () {
+      test('null-safe', () {
+        final source = source3DataSafe;
+        final item = source.manifest.items[2];
+        final writer = TopMatchBaseWriter(source);
+
+        expect(
+          writer.topMatchWrappedGenericNNArg(item),
+          'required R Function(int y, int? z) three',
+        );
+      });
+
+      test('legacy', () {
+        final source = source3DataLegacy;
+        final item = source.manifest.items[2];
+        final writer = TopMatchBaseWriter(source);
+
+        expect(
+          writer.topMatchWrappedGenericNNArg(item),
+          '@required R Function(int/*!*/ y, int/*?*/ z)/*!*/ three',
+        );
+      });
+    });
     // end of group TopMatchBaseWriter
   });
 }

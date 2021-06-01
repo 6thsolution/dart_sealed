@@ -102,4 +102,30 @@ class TopMatchBaseWriter extends BaseCastUtilsWriter {
   Else throwingElse() => Else(
         code: throwAssertion(),
       );
+
+  /// ex. double? angle
+  @protected
+  @nonVirtual
+  @visibleForTesting
+  String topMatchWrappedItemArg(ManifestField field) =>
+      '${typeSL(field.type)} ${field.name}';
+
+  /// ex. (double velocity, double? angle)
+  @protected
+  @nonVirtual
+  @visibleForTesting
+  String topMatchWrappedItemArgs(ManifestItem item) => item.fields
+      .map(topMatchWrappedItemArg)
+      .joinArgsSimple()
+      .withParenthesis();
+
+  /// required R Function(double velocity, double? angle) sunny
+  @protected
+  @nonVirtual
+  @visibleForTesting
+  String topMatchWrappedGenericNNArg(ManifestItem item) => [
+        '$req R Function',
+        topMatchWrappedItemArgs(item),
+        '$nn ${subLower(item)}',
+      ].joinParts();
 }
