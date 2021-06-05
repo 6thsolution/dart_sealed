@@ -18,6 +18,8 @@ void main() {
 enum _Basic {
   @object
   One,
+  @Data(fields: [])
+  Other,
   @Data(fields: [
     DataField<int>('x', required: true),
     DataField<double>('y', required: false),
@@ -39,6 +41,14 @@ enum _Basic {
                       shortName: 'one',
                       equality: ManifestEquality.data,
                       fields: [],
+                      isWrapped: true,
+                    ),
+                    ManifestItem(
+                      name: 'Other',
+                      shortName: 'other',
+                      equality: ManifestEquality.data,
+                      fields: [],
+                      isWrapped: false,
                     ),
                     ManifestItem(
                       name: 'Two',
@@ -93,6 +103,7 @@ enum _Basic {
                       shortName: 'one',
                       equality: ManifestEquality.data,
                       fields: [],
+                      isWrapped: true,
                     ),
                     ManifestItem(
                       name: 'Two',
@@ -229,6 +240,7 @@ enum _Basic {
                       shortName: 'one',
                       equality: ManifestEquality.data,
                       fields: [],
+                      isWrapped: true,
                     ),
                     ManifestItem(
                       name: 'Two',
@@ -283,6 +295,7 @@ enum _Basic {
                       shortName: 'one',
                       equality: ManifestEquality.data,
                       fields: [],
+                      isWrapped: true,
                     ),
                     ManifestItem(
                       name: 'Two',
