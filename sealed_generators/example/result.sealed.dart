@@ -13,8 +13,11 @@ part of 'result.dart';
 /// ([ResultError] error){[Object] exception} with data equality
 ///
 /// }
+@immutable
 @SealedManifest(_Result)
 abstract class Result<D extends num> {
+  const Result._internal();
+
   @factory
   static ResultSuccess<D> success<D extends num>({
     required D data,
@@ -121,21 +124,7 @@ abstract class Result<D extends num> {
     }
   }
 
-  void branch({
-    required void Function(ResultSuccess<D> success) success,
-    required void Function(ResultError<D> error) error,
-  }) {
-    final result = this;
-    if (result is ResultSuccess<D>) {
-      success(result);
-    } else if (result is ResultError<D>) {
-      error(result);
-    } else {
-      throw AssertionError();
-    }
-  }
-
-  void branchPartial({
+  void whenPartial({
     void Function(ResultSuccess<D> success)? success,
     void Function(ResultError<D> error)? error,
   }) {
@@ -148,52 +137,16 @@ abstract class Result<D extends num> {
       throw AssertionError();
     }
   }
-
-  void branchOrElse({
-    void Function(ResultSuccess<D> success)? success,
-    void Function(ResultError<D> error)? error,
-    required void Function(Result<D> result) orElse,
-  }) {
-    final result = this;
-    if (result is ResultSuccess<D>) {
-      if (success != null) {
-        success(result);
-      } else {
-        orElse(result);
-      }
-    } else if (result is ResultError<D>) {
-      if (error != null) {
-        error(result);
-      } else {
-        orElse(result);
-      }
-    } else {
-      throw AssertionError();
-    }
-  }
-
-  void branchOrThrow({
-    void Function(ResultSuccess<D> success)? success,
-    void Function(ResultError<D> error)? error,
-  }) {
-    final result = this;
-    if (result is ResultSuccess<D> && success != null) {
-      success(result);
-    } else if (result is ResultError<D> && error != null) {
-      error(result);
-    } else {
-      throw AssertionError();
-    }
-  }
 }
 
 /// (([ResultSuccess] : [Result])<[D] extends [num]> success){[D] data}
 ///
 /// with data equality
+@immutable
 class ResultSuccess<D extends num> extends Result<D> with EquatableMixin {
-  ResultSuccess({
+  const ResultSuccess({
     required this.data,
-  });
+  }) : super._internal();
 
   final D data;
 
@@ -209,10 +162,11 @@ class ResultSuccess<D extends num> extends Result<D> with EquatableMixin {
 /// (([ResultError] : [Result])<[D] extends [num]> error){[Object] exception}
 ///
 /// with data equality
+@immutable
 class ResultError<D extends num> extends Result<D> with EquatableMixin {
-  ResultError({
+  const ResultError({
     required this.exception,
-  });
+  }) : super._internal();
 
   final Object exception;
 

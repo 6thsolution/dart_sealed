@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'weather.dart';
+part of 'use_class.dart';
 
 // **************************************************************************
 // Generator: super_enum_sealed_generators
@@ -16,22 +16,17 @@ abstract class _Weather$ {
   @WithName('Sunny')
   void sunny();
 
+  @WithWrap()
   @WithEquality(Equality.data)
   @WithName('Rainy')
-  void rainy(int rain);
-
-  @WithEquality(Equality.data)
-  @WithName('Windy')
-  void windy(double velocity, double? angle);
+  void rainy(Hello data);
 }
 
 /// [Weather] {
 ///
 /// ([Sunny] sunny){} with data equality
 ///
-/// ([Rainy] rainy){[int] rain} with data equality
-///
-/// ([Windy] windy){[double] velocity, [double]? angle} with data equality
+/// ([Rainy] rainy){[Hello] data} with data equality with wrap
 ///
 /// }
 @immutable
@@ -44,33 +39,19 @@ abstract class Weather {
 
   @factory
   static Rainy rainy({
-    required int rain,
+    required Hello data,
   }) =>
       Rainy(
-        rain: rain,
-      );
-
-  @factory
-  static Windy windy({
-    required double velocity,
-    required double? angle,
-  }) =>
-      Windy(
-        velocity: velocity,
-        angle: angle,
+        data: data,
       );
 
   bool isSunny() => this is Sunny;
 
   bool isRainy() => this is Rainy;
 
-  bool isWindy() => this is Windy;
-
   Sunny asSunny() => this as Sunny;
 
   Rainy asRainy() => this as Rainy;
-
-  Windy asWindy() => this as Windy;
 
   Sunny? asSunnyOrNull() {
     final weather = this;
@@ -82,23 +63,15 @@ abstract class Weather {
     return weather is Rainy ? weather : null;
   }
 
-  Windy? asWindyOrNull() {
-    final weather = this;
-    return weather is Windy ? weather : null;
-  }
-
   R when<R extends Object?>({
     required R Function(Sunny sunny) sunny,
-    required R Function(Rainy rainy) rainy,
-    required R Function(Windy windy) windy,
+    required R Function(Hello data) rainy,
   }) {
     final weather = this;
     if (weather is Sunny) {
       return sunny(weather);
     } else if (weather is Rainy) {
-      return rainy(weather);
-    } else if (weather is Windy) {
-      return windy(weather);
+      return rainy(weather.data);
     } else {
       throw AssertionError();
     }
@@ -106,17 +79,14 @@ abstract class Weather {
 
   R whenOrElse<R extends Object?>({
     R Function(Sunny sunny)? sunny,
-    R Function(Rainy rainy)? rainy,
-    R Function(Windy windy)? windy,
+    R Function(Hello data)? rainy,
     required R Function(Weather weather) orElse,
   }) {
     final weather = this;
     if (weather is Sunny) {
       return sunny != null ? sunny(weather) : orElse(weather);
     } else if (weather is Rainy) {
-      return rainy != null ? rainy(weather) : orElse(weather);
-    } else if (weather is Windy) {
-      return windy != null ? windy(weather) : orElse(weather);
+      return rainy != null ? rainy(weather.data) : orElse(weather);
     } else {
       throw AssertionError();
     }
@@ -124,17 +94,14 @@ abstract class Weather {
 
   R whenOrDefault<R extends Object?>({
     R Function(Sunny sunny)? sunny,
-    R Function(Rainy rainy)? rainy,
-    R Function(Windy windy)? windy,
+    R Function(Hello data)? rainy,
     required R orDefault,
   }) {
     final weather = this;
     if (weather is Sunny) {
       return sunny != null ? sunny(weather) : orDefault;
     } else if (weather is Rainy) {
-      return rainy != null ? rainy(weather) : orDefault;
-    } else if (weather is Windy) {
-      return windy != null ? windy(weather) : orDefault;
+      return rainy != null ? rainy(weather.data) : orDefault;
     } else {
       throw AssertionError();
     }
@@ -142,16 +109,13 @@ abstract class Weather {
 
   R? whenOrNull<R extends Object?>({
     R Function(Sunny sunny)? sunny,
-    R Function(Rainy rainy)? rainy,
-    R Function(Windy windy)? windy,
+    R Function(Hello data)? rainy,
   }) {
     final weather = this;
     if (weather is Sunny) {
       return sunny?.call(weather);
     } else if (weather is Rainy) {
-      return rainy?.call(weather);
-    } else if (weather is Windy) {
-      return windy?.call(weather);
+      return rainy?.call(weather.data);
     } else {
       throw AssertionError();
     }
@@ -159,16 +123,13 @@ abstract class Weather {
 
   R whenOrThrow<R extends Object?>({
     R Function(Sunny sunny)? sunny,
-    R Function(Rainy rainy)? rainy,
-    R Function(Windy windy)? windy,
+    R Function(Hello data)? rainy,
   }) {
     final weather = this;
     if (weather is Sunny && sunny != null) {
       return sunny(weather);
     } else if (weather is Rainy && rainy != null) {
-      return rainy(weather);
-    } else if (weather is Windy && windy != null) {
-      return windy(weather);
+      return rainy(weather.data);
     } else {
       throw AssertionError();
     }
@@ -176,16 +137,13 @@ abstract class Weather {
 
   void whenPartial({
     void Function(Sunny sunny)? sunny,
-    void Function(Rainy rainy)? rainy,
-    void Function(Windy windy)? windy,
+    void Function(Hello data)? rainy,
   }) {
     final weather = this;
     if (weather is Sunny) {
       sunny?.call(weather);
     } else if (weather is Rainy) {
-      rainy?.call(weather);
-    } else if (weather is Windy) {
-      windy?.call(weather);
+      rainy?.call(weather.data);
     } else {
       throw AssertionError();
     }
@@ -209,53 +167,32 @@ class Sunny extends Weather with EquatableMixin {
   List<Object?> get props => [];
 }
 
-/// (([Rainy] : [Weather]) rainy){[int] rain}
+/// (([Rainy] : [Weather]) rainy){[Hello] data}
 ///
 /// with data equality
+///
+/// with wrap
 @immutable
 class Rainy extends Weather with EquatableMixin {
   const Rainy({
-    required this.rain,
+    required this.data,
   }) : super._internal();
 
-  final int rain;
+  final Hello data;
 
   @factory
   Rainy copy({
-    int? rain,
+    Hello? data,
   }) =>
       Rainy(
-        rain: rain ?? this.rain,
+        data: data ?? this.data,
       );
 
   @override
-  String toString() => 'Weather.rainy(rain: $rain)';
+  String toString() => 'Weather.rainy(data: $data)';
 
   @override
   List<Object?> get props => [
-        rain,
-      ];
-}
-
-/// (([Windy] : [Weather]) windy){[double] velocity, [double]? angle}
-///
-/// with data equality
-@immutable
-class Windy extends Weather with EquatableMixin {
-  const Windy({
-    required this.velocity,
-    required this.angle,
-  }) : super._internal();
-
-  final double velocity;
-  final double? angle;
-
-  @override
-  String toString() => 'Weather.windy(velocity: $velocity, angle: $angle)';
-
-  @override
-  List<Object?> get props => [
-        velocity,
-        angle,
+        data,
       ];
 }

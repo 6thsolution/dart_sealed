@@ -34,8 +34,11 @@ abstract class _Weather$ {
 /// ([Windy] windy){[double] velocity, [double]? angle} with data equality
 ///
 /// }
+@immutable
 @SealedManifest(_Weather)
 abstract class Weather {
+  const Weather._internal();
+
   @factory
   static Sunny sunny() => Sunny();
 
@@ -192,8 +195,9 @@ abstract class Weather {
 /// (([Sunny] : [Weather]) sunny){}
 ///
 /// with data equality
+@immutable
 class Sunny extends Weather with EquatableMixin {
-  Sunny();
+  const Sunny() : super._internal();
 
   @factory
   Sunny copy() => Sunny();
@@ -208,10 +212,11 @@ class Sunny extends Weather with EquatableMixin {
 /// (([Rainy] : [Weather]) rainy){[int] rain}
 ///
 /// with data equality
+@immutable
 class Rainy extends Weather with EquatableMixin {
-  Rainy({
+  const Rainy({
     required this.rain,
-  });
+  }) : super._internal();
 
   final int rain;
 
@@ -235,11 +240,12 @@ class Rainy extends Weather with EquatableMixin {
 /// (([Windy] : [Weather]) windy){[double] velocity, [double]? angle}
 ///
 /// with data equality
+@immutable
 class Windy extends Weather with EquatableMixin {
-  Windy({
+  const Windy({
     required this.velocity,
     required this.angle,
-  });
+  }) : super._internal();
 
   final double velocity;
   final double? angle;

@@ -15,8 +15,11 @@ part of 'weather.dart';
 /// ([WeatherWindy] windy){[double] velocity, [double]? angle} with data equality
 ///
 /// }
+@immutable
 @SealedManifest(_Weather)
 abstract class Weather {
+  const Weather._internal();
+
   @factory
   static WeatherSunny sunny() => WeatherSunny();
 
@@ -152,24 +155,7 @@ abstract class Weather {
     }
   }
 
-  void branch({
-    required void Function(WeatherSunny sunny) sunny,
-    required void Function(WeatherRainy rainy) rainy,
-    required void Function(WeatherWindy windy) windy,
-  }) {
-    final weather = this;
-    if (weather is WeatherSunny) {
-      sunny(weather);
-    } else if (weather is WeatherRainy) {
-      rainy(weather);
-    } else if (weather is WeatherWindy) {
-      windy(weather);
-    } else {
-      throw AssertionError();
-    }
-  }
-
-  void branchPartial({
+  void whenPartial({
     void Function(WeatherSunny sunny)? sunny,
     void Function(WeatherRainy rainy)? rainy,
     void Function(WeatherWindy windy)? windy,
@@ -185,60 +171,14 @@ abstract class Weather {
       throw AssertionError();
     }
   }
-
-  void branchOrElse({
-    void Function(WeatherSunny sunny)? sunny,
-    void Function(WeatherRainy rainy)? rainy,
-    void Function(WeatherWindy windy)? windy,
-    required void Function(Weather weather) orElse,
-  }) {
-    final weather = this;
-    if (weather is WeatherSunny) {
-      if (sunny != null) {
-        sunny(weather);
-      } else {
-        orElse(weather);
-      }
-    } else if (weather is WeatherRainy) {
-      if (rainy != null) {
-        rainy(weather);
-      } else {
-        orElse(weather);
-      }
-    } else if (weather is WeatherWindy) {
-      if (windy != null) {
-        windy(weather);
-      } else {
-        orElse(weather);
-      }
-    } else {
-      throw AssertionError();
-    }
-  }
-
-  void branchOrThrow({
-    void Function(WeatherSunny sunny)? sunny,
-    void Function(WeatherRainy rainy)? rainy,
-    void Function(WeatherWindy windy)? windy,
-  }) {
-    final weather = this;
-    if (weather is WeatherSunny && sunny != null) {
-      sunny(weather);
-    } else if (weather is WeatherRainy && rainy != null) {
-      rainy(weather);
-    } else if (weather is WeatherWindy && windy != null) {
-      windy(weather);
-    } else {
-      throw AssertionError();
-    }
-  }
 }
 
 /// (([WeatherSunny] : [Weather]) sunny){}
 ///
 /// with data equality
+@immutable
 class WeatherSunny extends Weather with EquatableMixin {
-  WeatherSunny();
+  const WeatherSunny() : super._internal();
 
   @factory
   WeatherSunny copy() => WeatherSunny();
@@ -253,10 +193,11 @@ class WeatherSunny extends Weather with EquatableMixin {
 /// (([WeatherRainy] : [Weather]) rainy){[int] rain}
 ///
 /// with data equality
+@immutable
 class WeatherRainy extends Weather with EquatableMixin {
-  WeatherRainy({
+  const WeatherRainy({
     required this.rain,
-  });
+  }) : super._internal();
 
   final int rain;
 
@@ -280,11 +221,12 @@ class WeatherRainy extends Weather with EquatableMixin {
 /// (([WeatherWindy] : [Weather]) windy){[double] velocity, [double]? angle}
 ///
 /// with data equality
+@immutable
 class WeatherWindy extends Weather with EquatableMixin {
-  WeatherWindy({
+  const WeatherWindy({
     required this.velocity,
     required this.angle,
-  });
+  }) : super._internal();
 
   final double velocity;
   final double? angle;
