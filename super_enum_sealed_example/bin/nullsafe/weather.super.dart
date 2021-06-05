@@ -12,6 +12,7 @@ part of 'weather.dart';
 /// and remove "$" at the end of class name.
 @Sealed()
 abstract class _Weather$ {
+  @WithWrap()
   @WithEquality(Equality.data)
   @WithName('Sunny')
   void sunny();
@@ -27,7 +28,7 @@ abstract class _Weather$ {
 
 /// [Weather] {
 ///
-/// ([Sunny] sunny){} with data equality
+/// ([Sunny] sunny){} with data equality with wrap
 ///
 /// ([Rainy] rainy){[int] rain} with data equality
 ///
@@ -88,13 +89,13 @@ abstract class Weather {
   }
 
   R when<R extends Object?>({
-    required R Function(Sunny sunny) sunny,
+    required R Function() sunny,
     required R Function(Rainy rainy) rainy,
     required R Function(Windy windy) windy,
   }) {
     final weather = this;
     if (weather is Sunny) {
-      return sunny(weather);
+      return sunny();
     } else if (weather is Rainy) {
       return rainy(weather);
     } else if (weather is Windy) {
@@ -105,14 +106,14 @@ abstract class Weather {
   }
 
   R whenOrElse<R extends Object?>({
-    R Function(Sunny sunny)? sunny,
+    R Function()? sunny,
     R Function(Rainy rainy)? rainy,
     R Function(Windy windy)? windy,
     required R Function(Weather weather) orElse,
   }) {
     final weather = this;
     if (weather is Sunny) {
-      return sunny != null ? sunny(weather) : orElse(weather);
+      return sunny != null ? sunny() : orElse(weather);
     } else if (weather is Rainy) {
       return rainy != null ? rainy(weather) : orElse(weather);
     } else if (weather is Windy) {
@@ -123,14 +124,14 @@ abstract class Weather {
   }
 
   R whenOrDefault<R extends Object?>({
-    R Function(Sunny sunny)? sunny,
+    R Function()? sunny,
     R Function(Rainy rainy)? rainy,
     R Function(Windy windy)? windy,
     required R orDefault,
   }) {
     final weather = this;
     if (weather is Sunny) {
-      return sunny != null ? sunny(weather) : orDefault;
+      return sunny != null ? sunny() : orDefault;
     } else if (weather is Rainy) {
       return rainy != null ? rainy(weather) : orDefault;
     } else if (weather is Windy) {
@@ -141,13 +142,13 @@ abstract class Weather {
   }
 
   R? whenOrNull<R extends Object?>({
-    R Function(Sunny sunny)? sunny,
+    R Function()? sunny,
     R Function(Rainy rainy)? rainy,
     R Function(Windy windy)? windy,
   }) {
     final weather = this;
     if (weather is Sunny) {
-      return sunny?.call(weather);
+      return sunny?.call();
     } else if (weather is Rainy) {
       return rainy?.call(weather);
     } else if (weather is Windy) {
@@ -158,13 +159,13 @@ abstract class Weather {
   }
 
   R whenOrThrow<R extends Object?>({
-    R Function(Sunny sunny)? sunny,
+    R Function()? sunny,
     R Function(Rainy rainy)? rainy,
     R Function(Windy windy)? windy,
   }) {
     final weather = this;
     if (weather is Sunny && sunny != null) {
-      return sunny(weather);
+      return sunny();
     } else if (weather is Rainy && rainy != null) {
       return rainy(weather);
     } else if (weather is Windy && windy != null) {
@@ -175,13 +176,13 @@ abstract class Weather {
   }
 
   void whenPartial({
-    void Function(Sunny sunny)? sunny,
+    void Function()? sunny,
     void Function(Rainy rainy)? rainy,
     void Function(Windy windy)? windy,
   }) {
     final weather = this;
     if (weather is Sunny) {
-      sunny?.call(weather);
+      sunny?.call();
     } else if (weather is Rainy) {
       rainy?.call(weather);
     } else if (weather is Windy) {
@@ -195,6 +196,8 @@ abstract class Weather {
 /// (([Sunny] : [Weather]) sunny){}
 ///
 /// with data equality
+///
+/// with wrap
 @immutable
 class Sunny extends Weather with EquatableMixin {
   const Sunny() : super._internal();

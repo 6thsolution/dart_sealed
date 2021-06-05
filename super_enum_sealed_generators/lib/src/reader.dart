@@ -11,13 +11,6 @@ import 'package:super_enum_sealed_generators/src/null_safety_reader.dart';
 @sealed
 @immutable
 class Reader {
-  /// this will be used to check if we read using use class,
-  /// so I want to make sure it is not cached,
-  /// so I can use identical(,).
-  ///
-  /// 'data'
-  static final useClassFieldName = (StringBuffer('da')..write('ta')).toString();
-
   /// for items using @generic and Generic
   ///
   /// we can not do anything better than making upper bound nullable.
@@ -58,18 +51,13 @@ class Reader {
 
   /// read an item.
   ManifestItem _readItem(FieldElement constant) {
-    final fields = _readFields(constant);
-    final isWrapped = fields.length == 1 &&
-        identical(
-          fields.first.name,
-          useClassFieldName,
-        );
+    final read = _readFields(constant);
     return ManifestItem(
       shortName: constant.name.toLowerStart(),
       name: constant.name,
       equality: ManifestEquality.data,
-      fields: fields,
-      isWrapped: isWrapped,
+      fields: read.fields,
+      isWrapped: read.isWrapped,
     );
   }
 
@@ -78,16 +66,16 @@ class Reader {
   /// first try to use [UseClass] then
   /// try to use [Data]
   /// then assume this field is [object].
-  List<ManifestField> _readFields(FieldElement constant) {
+  _ReadFields _readFields(FieldElement constant) {
     final use = _filterMetadata<UseClass>(constant).firstOrNull;
     if (use != null) {
-      return [_readFieldFromUseClass(use)];
+      return _ReadFields([_readFieldFromUseClass(use)], true);
     } else {
       final data = _filterMetadata<Data>(constant).firstOrNull;
       if (data != null) {
-        return _readFieldsFromData(data);
+        return _ReadFields(_readFieldsFromData(data), false);
       } else {
-        return const [];
+        return _ReadFields(const [], true);
       }
     }
   }
@@ -142,7 +130,7 @@ class Reader {
   ///
   /// we assume UseClass data to be non nullable.
   ManifestField _readFieldFromUseClass(ConstantReader use) => ManifestField(
-        name: useClassFieldName,
+        name: 'data',
         type: ManifestType(
           name: _readUseClassTypeName(use),
           isNullable: false,
@@ -152,4 +140,15 @@ class Reader {
   /// read [type] filed of [UseClass] and return it's name.
   String _readUseClassTypeName(ConstantReader use) =>
       use.read('type').typeValue.getDisplayString(withNullability: false);
+}
+
+/// model class
+class _ReadFields {
+  final List<ManifestField> fields;
+  final bool isWrapped;
+
+  const _ReadFields(this.fields, this.isWrapped);
+
+  @override
+  String toString() => '_ReadFields{fields: $fields, isWrapped: $isWrapped}';
 }
