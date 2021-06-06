@@ -15,6 +15,10 @@ void main() async {
   s = s.substring(start.length);
   s = s.substring(0, s.indexOf(end));
   print('FIXCOV extra: $s');
+  if (s.isEmpty) {
+    print('FIXCOV empty replace, done');
+    return;
+  }
   final content = lines.map((e) => e.replaceAll(s, '')).join('\n');
 
   print('FIXCOV writing ...');
