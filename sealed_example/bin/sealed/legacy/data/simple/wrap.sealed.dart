@@ -25,18 +25,18 @@ abstract class Complete {
   static CompleteOne /*!*/ one() => CompleteOne();
 
   @factory
-  static CompleteTwo /*!*/ two({
-    @required int /*?*/ x,
-  }) =>
+  static CompleteTwo /*!*/ two(
+    int /*?*/ x,
+  ) =>
       CompleteTwo(
         x: x,
       );
 
   @factory
-  static CompleteThree /*!*/ three({
-    @required double /*?*/ y,
-    @required double /*?*/ z,
-  }) =>
+  static CompleteThree /*!*/ three(
+    double /*?*/ y,
+    double /*?*/ z,
+  ) =>
       CompleteThree(
         y: y,
         z: z,
@@ -271,10 +271,10 @@ abstract class Partial {
       );
 
   @factory
-  static PartialThree /*!*/ three({
-    @required double /*?*/ y,
-    @required double /*?*/ z,
-  }) =>
+  static PartialThree /*!*/ three(
+    double /*?*/ y,
+    double /*?*/ z,
+  ) =>
       PartialThree(
         y: y,
         z: z,

@@ -25,11 +25,11 @@ abstract class Complete<T extends num?, U extends Object> {
       CompleteOne<T, U>();
 
   @factory
-  static CompleteTwo<T, U> two<T extends num?, U extends Object>({
-    required T x,
-    required U y,
-    required U? z,
-  }) =>
+  static CompleteTwo<T, U> two<T extends num?, U extends Object>(
+    T x,
+    U y,
+    U? z,
+  ) =>
       CompleteTwo<T, U>(
         x: x,
         y: y,
@@ -37,10 +37,10 @@ abstract class Complete<T extends num?, U extends Object> {
       );
 
   @factory
-  static CompleteThree<T, U> three<T extends num?, U extends Object>({
-    required int a,
-    required T b,
-  }) =>
+  static CompleteThree<T, U> three<T extends num?, U extends Object>(
+    int a,
+    T b,
+  ) =>
       CompleteThree<T, U>(
         a: a,
         b: b,

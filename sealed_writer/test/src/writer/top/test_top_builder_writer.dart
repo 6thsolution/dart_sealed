@@ -57,14 +57,14 @@ void main() {
 
           test('non-nullable field', () {
             expect(
-              writer.topBuilderArg(field1),
+              writer.topBuilderDecArg(field1),
               'required double velocity',
             );
           });
 
           test('nullable field', () {
             expect(
-              writer.topBuilderArg(field2),
+              writer.topBuilderDecArg(field2),
               'required double? angle',
             );
           });
@@ -80,14 +80,14 @@ void main() {
 
           test('non-nullable field', () {
             expect(
-              writer.topBuilderArg(field1),
+              writer.topBuilderDecArg(field1),
               '@required double/*!*/ velocity',
             );
           });
 
           test('nullable field', () {
             expect(
-              writer.topBuilderArg(field2),
+              writer.topBuilderDecArg(field2),
               '@required double/*?*/ angle',
             );
           });
@@ -103,7 +103,7 @@ void main() {
 
           test('non-nullable field', () {
             expect(
-              writer.topBuilderArg(field1),
+              writer.topBuilderDecArg(field1),
               'required T data',
             );
           });
@@ -111,7 +111,129 @@ void main() {
       });
     });
 
-    group('method topBuilderItem', () {
+    test('method topBuilderDecArgs', () {
+      final source = source1DataSafe;
+      final item3 = source.manifest.items[2];
+      final writer = TopBuilderWriter(source);
+
+      expect(
+        writer.topBuilderDecArgs(item3),
+        '({required double velocity, required double? angle,})',
+      );
+    });
+
+    test('method topBuilderCallArgs', () {
+      final source = source1DataSafe;
+      final item3 = source.manifest.items[2];
+      final writer = TopBuilderWriter(source);
+
+      expect(
+        writer.topBuilderCallArgs(item3),
+        '(velocity: velocity, angle: angle,)',
+      );
+    });
+
+    group('method topBuilderWrappedDecArg', () {
+      group('simple', () {
+        group('null-safe', () {
+          final source = source3DataSafe;
+          // void windy(double velocity, double? angle);
+          final item = source.manifest.items[2];
+          final field1 = item.fields[0];
+          final field2 = item.fields[1];
+          final writer = TopBuilderWriter(source);
+
+          test('non-nullable field', () {
+            expect(
+              writer.topBuilderWrappedDecArg(field1),
+              'int y',
+            );
+          });
+
+          test('nullable field', () {
+            expect(
+              writer.topBuilderWrappedDecArg(field2),
+              'int? z',
+            );
+          });
+        });
+
+        group('legacy', () {
+          final source = source3DataLegacy;
+          final item = source.manifest.items[2];
+          final field1 = item.fields[0];
+          final field2 = item.fields[1];
+          final writer = TopBuilderWriter(source);
+
+          test('non-nullable field', () {
+            expect(
+              writer.topBuilderWrappedDecArg(field1),
+              'int/*!*/ y',
+            );
+          });
+
+          test('nullable field', () {
+            expect(
+              writer.topBuilderWrappedDecArg(field2),
+              'int/*?*/ z',
+            );
+          });
+        });
+      });
+
+      group('generic', () {
+        group('null-safe', () {
+          final source = source4DataSafe;
+          final item = source.manifest.items[0];
+          final field1 = item.fields[0];
+          final writer = TopBuilderWriter(source);
+
+          test('non-nullable field', () {
+            expect(
+              writer.topBuilderWrappedDecArg(field1),
+              'T x',
+            );
+          });
+        });
+      });
+    });
+
+    test('method topBuilderWrappedDecArgs', () {
+      final source = source3DataSafe;
+      final item3 = source.manifest.items[2];
+      final writer = TopBuilderWriter(source);
+
+      expect(
+        writer.topBuilderWrappedDecArgs(item3),
+        '(int y, int? z,)',
+      );
+    });
+
+    group('method topBuilderNonOrWrappedDecArgs', () {
+      test('non-wrapped', () {
+        final source = source1DataSafe;
+        final item3 = source.manifest.items[2];
+        final writer = TopBuilderWriter(source);
+
+        expect(
+          writer.topBuilderNonOrWrappedDecArgs(item3),
+          '({required double velocity, required double? angle,})',
+        );
+      });
+
+      test('wrapped', () {
+        final source = source3DataSafe;
+        final item3 = source.manifest.items[2];
+        final writer = TopBuilderWriter(source);
+
+        expect(
+          writer.topBuilderNonOrWrappedDecArgs(item3),
+          '(int y, int? z,)',
+        );
+      });
+    });
+
+    group('method topBuilder', () {
       group('simple', () {
         test('null-safe', () {
           final source = source1DataSafe;
@@ -192,6 +314,18 @@ void main() {
             ');',
           );
         });
+      });
+
+      test('simple wrapped null-safe', () {
+        final source = source3DataSafe;
+        final item2 = source.manifest.items[1];
+        final writer = TopBuilderWriter(source);
+
+        expect(
+          writer.topBuilder(item2),
+          '@factory\n'
+          'static BaseTwo two(int x,) => BaseTwo(x: x,);',
+        );
       });
     });
 

@@ -39,9 +39,9 @@ abstract class Weather {
   static Sunny sunny() => Sunny();
 
   @factory
-  static Rainy rainy({
-    required Hello data,
-  }) =>
+  static Rainy rainy(
+    Hello data,
+  ) =>
       Rainy(
         data: data,
       );
