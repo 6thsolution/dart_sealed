@@ -27,8 +27,8 @@ void main() {
 
   group('class DataField', () {
     test('initialization', () {
-      const a = DataField('one', required: false);
-      const b = DataField('two');
+      const a = DataField<int>('one', required: false);
+      const b = DataField<String>('two');
       expect(a.name, equals('one'));
       expect(a.required, isFalse);
       expect(b.name, equals('two'));

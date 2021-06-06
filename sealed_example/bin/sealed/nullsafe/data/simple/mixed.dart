@@ -4,12 +4,14 @@ part 'mixed.sealed.dart';
 
 @Sealed()
 abstract class _Apple {
-  void hold(@WithType('Banana?') banana);
+  // note: you can omit type or use any type for banana
+  void hold(@WithType('Banana?') void banana);
 }
 
 @Sealed()
 abstract class _Banana {
-  void hold(@WithType('Apple') apple);
+  // note: you can omit type or use any type for apple
+  void hold(@WithType('Apple') dynamic apple);
 }
 
 @Sealed()
@@ -18,5 +20,9 @@ abstract class _Coconut {
 
   void test2(@WithType('int?') double x, double? y);
 
-  void hold(@WithType('Apple?') apple, @WithType('Banana?') banana);
+  // note: you can omit type or use any type for banana and apple
+  void hold(
+    @WithType('Apple?') dynamic apple,
+    @WithType('Banana?') String banana,
+  );
 }

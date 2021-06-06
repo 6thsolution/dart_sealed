@@ -19,7 +19,7 @@ void main() {
 
       expect(
         writer.classes(),
-        containsAllInOrder([
+        containsAllInOrder(<String>[
           writer.topWriter.topClass(),
           ...writer.subWriter.subClasses(),
         ]),

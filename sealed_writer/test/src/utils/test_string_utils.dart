@@ -48,7 +48,7 @@ void main() {
     });
 
     test('method insertEmptyLinesBetween', () {
-      expect(<String>[].insertEmptyLinesBetween(), equals([]));
+      expect(<String>[].insertEmptyLinesBetween(), equals(<String>[]));
       expect(['a'].insertEmptyLinesBetween(), equals(['a']));
       expect(['a', 'b'].insertEmptyLinesBetween(), equals(['a', '', 'b']));
     });

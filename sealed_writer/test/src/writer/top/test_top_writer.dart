@@ -39,7 +39,7 @@ void main() {
 
         expect(
           writer.topMethods(),
-          containsAll([
+          containsAll(<String>[
             ...writer.topBuilderWriter.topBuilderMethods(),
             ...writer.topCastWriter.topCastMethods(),
             ...writer.topMatchWriter.topMatchMethods(),
@@ -53,7 +53,7 @@ void main() {
 
         expect(
           writer.topMethods(),
-          containsAll([
+          containsAll(<String>[
             ...writer.topBuilderWriter.topBuilderMethods(),
             ...writer.topCastWriter.topCastMethods(),
             ...writer.topMatchWriter.topMatchMethods(),
@@ -67,7 +67,7 @@ void main() {
 
         expect(
           writer.topMethods(),
-          containsAll([
+          containsAll(<String>[
             ...writer.topBuilderWriter.topBuilderMethods(),
             ...writer.topCastWriter.topCastMethods(),
             ...writer.topMatchWriter.topMatchMethods(),

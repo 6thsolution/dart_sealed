@@ -67,7 +67,7 @@ class _Logging implements Matcher {
 
   @override
   Description describeMismatch(
-    item,
+    dynamic item,
     Description mismatchDescription,
     Map<dynamic, dynamic> matchState,
     bool verbose,
@@ -80,7 +80,7 @@ class _Logging implements Matcher {
       );
 
   @override
-  bool matches(item, Map<dynamic, dynamic> matchState) {
+  bool matches(dynamic item, Map<dynamic, dynamic> matchState) {
     print(item);
 
     return matcher.matches(item, matchState);

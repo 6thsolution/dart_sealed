@@ -18,7 +18,7 @@ void main() {
 
       expect(
         writer.topMatchMethods(),
-        containsAll([
+        containsAll(<String>[
           writer.topMatchWhenWriter.topMatchWhen(),
           writer.topMatchWhenOrElseWriter.topMatchWhenOrElse(),
           writer.topMatchWhenOrDefaultWriter.topMatchWhenOrDefault(),
