@@ -12,3 +12,4 @@ call .tools\coverage || exit 1
 call .tools\example || exit 1
 
 git add .
+git status

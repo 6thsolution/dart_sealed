@@ -47,3 +47,6 @@ type^
  super_enum_sealed_annotations\coverage\lcov.info^
  super_enum_sealed_generators\coverage\lcov.info^
  > coverage\lcov.info
+
+echo NOTE fixing coverage
+call dart run .tools/fixcov.dart
