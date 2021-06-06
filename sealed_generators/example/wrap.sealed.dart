@@ -28,7 +28,7 @@ abstract class Complete {
     int x,
   ) =>
       CompleteTwo(
-        x: x,
+        x,
       );
 
   @factory
@@ -37,8 +37,8 @@ abstract class Complete {
     double? z,
   ) =>
       CompleteThree(
-        y: y,
-        z: z,
+        y,
+        z,
       );
 
   bool isOne() => this is CompleteOne;
@@ -182,9 +182,6 @@ abstract class Complete {
 class CompleteOne extends Complete with EquatableMixin {
   const CompleteOne() : super._internal();
 
-  @factory
-  CompleteOne copy() => CompleteOne();
-
   @override
   String toString() => 'Complete.one()';
 
@@ -199,19 +196,11 @@ class CompleteOne extends Complete with EquatableMixin {
 /// with wrap
 @immutable
 class CompleteTwo extends Complete with EquatableMixin {
-  const CompleteTwo({
-    required this.x,
-  }) : super._internal();
+  const CompleteTwo(
+    this.x,
+  ) : super._internal();
 
   final int x;
-
-  @factory
-  CompleteTwo copy({
-    int? x,
-  }) =>
-      CompleteTwo(
-        x: x ?? this.x,
-      );
 
   @override
   String toString() => 'Complete.two(x: $x)';
@@ -229,10 +218,10 @@ class CompleteTwo extends Complete with EquatableMixin {
 /// with wrap
 @immutable
 class CompleteThree extends Complete with EquatableMixin {
-  const CompleteThree({
-    required this.y,
-    required this.z,
-  }) : super._internal();
+  const CompleteThree(
+    this.y,
+    this.z,
+  ) : super._internal();
 
   final double y;
   final double? z;
@@ -278,8 +267,8 @@ abstract class Partial {
     double? z,
   ) =>
       PartialThree(
-        y: y,
-        z: z,
+        y,
+        z,
       );
 
   bool isOne() => this is PartialOne;
@@ -466,10 +455,10 @@ class PartialTwo extends Partial with EquatableMixin {
 /// with wrap
 @immutable
 class PartialThree extends Partial with EquatableMixin {
-  const PartialThree({
-    required this.y,
-    required this.z,
-  }) : super._internal();
+  const PartialThree(
+    this.y,
+    this.z,
+  ) : super._internal();
 
   final double y;
   final double? z;

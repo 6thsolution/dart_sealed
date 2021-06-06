@@ -41,6 +41,20 @@ class TopBuilderWriter extends BaseUtilsWriter {
   String topBuilderNonOrWrappedDecArgs(ManifestItem item) =>
       item.isWrapped ? topBuilderWrappedDecArgs(item) : topBuilderDecArgs(item);
 
+  /// ex. angle
+  String subConstructorWrappedCallArg(ManifestField field) => '${field.name}';
+
+  /// ex. (angle,)
+  String topBuilderWrappedCallArgs(ManifestItem item) => item.fields
+      .map(subConstructorWrappedCallArg)
+      .joinArgsFull()
+      .withParenthesis();
+
+  /// adaptive
+  String topBuilderNonOrWrappedCallArgs(ManifestItem item) => item.isWrapped
+      ? topBuilderWrappedCallArgs(item)
+      : topBuilderCallArgs(item);
+
   /// ex. static WeatherSunny sunny() => WeatherSunny();
   ///
   /// ex. static ResultSuccess<T> <T extends num>success(...) =>
@@ -51,7 +65,7 @@ class TopBuilderWriter extends BaseUtilsWriter {
           'static ${subCall(item)}$nn ${subLower(item)}$genericDec',
           topBuilderNonOrWrappedDecArgs(item),
           ' => ${subCall(item)}',
-          topBuilderCallArgs(item),
+          topBuilderNonOrWrappedCallArgs(item),
           ';',
         ].joinParts(),
       ].joinLines();

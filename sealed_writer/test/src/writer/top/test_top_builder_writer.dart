@@ -233,6 +233,52 @@ void main() {
       });
     });
 
+    test('method subConstructorWrappedCallArg', () {
+      final source = source3DataSafe;
+      final field = source.manifest.items[1].fields[0];
+      final writer = TopBuilderWriter(source);
+
+      expect(
+        writer.subConstructorWrappedCallArg(field),
+        'x',
+      );
+    });
+
+    test('method topBuilderWrappedCallArgs', () {
+      final source = source3DataSafe;
+      final item = source.manifest.items[1];
+      final writer = TopBuilderWriter(source);
+
+      expect(
+        writer.topBuilderWrappedCallArgs(item),
+        '(x,)',
+      );
+    });
+
+    group('method topBuilderNonOrWrappedCallArgs', () {
+      test('non-wrapped', () {
+        final source = source1DataSafe;
+        final item = source.manifest.items[1];
+        final writer = TopBuilderWriter(source);
+
+        expect(
+          writer.topBuilderNonOrWrappedCallArgs(item),
+          '(rain: rain,)',
+        );
+      });
+
+      test('wrapped', () {
+        final source = source3DataSafe;
+        final item = source.manifest.items[1];
+        final writer = TopBuilderWriter(source);
+
+        expect(
+          writer.topBuilderNonOrWrappedCallArgs(item),
+          '(x,)',
+        );
+      });
+    });
+
     group('method topBuilder', () {
       group('simple', () {
         test('null-safe', () {
@@ -324,7 +370,7 @@ void main() {
         expect(
           writer.topBuilder(item2),
           '@factory\n'
-          'static BaseTwo two(int x,) => BaseTwo(x: x,);',
+          'static BaseTwo two(int x,) => BaseTwo(x,);',
         );
       });
     });

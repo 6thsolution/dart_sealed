@@ -12,7 +12,7 @@ void main() {
       expect(writer.source, source);
     });
 
-    group('method subConstructorDeclarationPart', () {
+    group('method subConstructorDecArg', () {
       group('null-safe', () {
         final source = source1DataSafe;
         // void windy(double velocity, double? angle);
@@ -23,14 +23,14 @@ void main() {
 
         test('non-nullable field', () {
           expect(
-            writer.subConstructorDeclarationPart(field1),
+            writer.subConstructorDecArg(field1),
             'required this.velocity',
           );
         });
 
         test('nullable field', () {
           expect(
-            writer.subConstructorDeclarationPart(field2),
+            writer.subConstructorDecArg(field2),
             'required this.angle',
           );
         });
@@ -46,30 +46,76 @@ void main() {
 
         test('non-nullable field', () {
           expect(
-            writer.subConstructorDeclarationPart(field1),
+            writer.subConstructorDecArg(field1),
             '@required this.velocity',
           );
         });
 
         test('nullable field', () {
           expect(
-            writer.subConstructorDeclarationPart(field2),
+            writer.subConstructorDecArg(field2),
             '@required this.angle',
           );
         });
       });
     });
 
-    test('method subConstructorDeclarationParts', () {
+    test('method subConstructorDecArgs', () {
       final source = source1DataSafe;
       // void windy(double velocity, double? angle);
       final item3 = source.manifest.items[2];
       final writer = SubConstructorWriter(source);
 
       expect(
-        writer.subConstructorDeclarationParts(item3),
-        item3.fields.map(writer.subConstructorDeclarationPart),
+        writer.subConstructorDecArgs(item3),
+        '({required this.velocity, required this.angle,})',
       );
+    });
+
+    test('method subConstructorWrappedDecArg', () {
+      final source = source3DataSafe;
+      final field = source.manifest.items[1].fields[0];
+      final writer = SubConstructorWriter(source);
+
+      expect(
+        writer.subConstructorWrappedDecArg(field),
+        'this.x',
+      );
+    });
+
+    test('method subConstructorWrappedDecArgs', () {
+      final source = source3DataSafe;
+      final item3 = source.manifest.items[2];
+      final writer = SubConstructorWriter(source);
+
+      expect(
+        writer.subConstructorWrappedDecArgs(item3),
+        '(this.y, this.z,)',
+      );
+    });
+
+    group('method subConstructorNoneOrWrappedDecArgs', () {
+      test('non-wrapped', () {
+        final source = source1DataSafe;
+        final item = source.manifest.items[1];
+        final writer = SubConstructorWriter(source);
+
+        expect(
+          writer.subConstructorNoneOrWrappedDecArgs(item),
+          '({required this.rain,})',
+        );
+      });
+
+      test('wrapped', () {
+        final source = source3DataSafe;
+        final item = source.manifest.items[1];
+        final writer = SubConstructorWriter(source);
+
+        expect(
+          writer.subConstructorNoneOrWrappedDecArgs(item),
+          '(this.x,)',
+        );
+      });
     });
 
     group('method subConstructorDeclaration', () {
@@ -110,6 +156,17 @@ void main() {
           writer.subConstructorDeclaration(item1),
           'const MySuccess({required this.data,})'
           ': super._internal();',
+        );
+      });
+
+      test('simple wrapped null-safe', () {
+        final source = source3DataSafe;
+        final item2 = source.manifest.items[1];
+        final writer = SubConstructorWriter(source);
+
+        expect(
+          writer.subConstructorDeclaration(item2),
+          'const BaseTwo(this.x,): super._internal();',
         );
       });
     });

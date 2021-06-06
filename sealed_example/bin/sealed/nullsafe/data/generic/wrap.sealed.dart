@@ -31,9 +31,9 @@ abstract class Complete<T extends num?, U extends Object> {
     U? z,
   ) =>
       CompleteTwo<T, U>(
-        x: x,
-        y: y,
-        z: z,
+        x,
+        y,
+        z,
       );
 
   @factory
@@ -42,8 +42,8 @@ abstract class Complete<T extends num?, U extends Object> {
     T b,
   ) =>
       CompleteThree<T, U>(
-        a: a,
-        b: b,
+        a,
+        b,
       );
 
   bool isOne() => this is CompleteOne<T, U>;
@@ -205,11 +205,11 @@ class CompleteOne<T extends num?, U extends Object> extends Complete<T, U>
 @immutable
 class CompleteTwo<T extends num?, U extends Object> extends Complete<T, U>
     with EquatableMixin {
-  const CompleteTwo({
-    required this.x,
-    required this.y,
-    required this.z,
-  }) : super._internal();
+  const CompleteTwo(
+    this.x,
+    this.y,
+    this.z,
+  ) : super._internal();
 
   final T x;
   final U y;
@@ -234,10 +234,10 @@ class CompleteTwo<T extends num?, U extends Object> extends Complete<T, U>
 @immutable
 class CompleteThree<T extends num?, U extends Object> extends Complete<T, U>
     with EquatableMixin {
-  const CompleteThree({
-    required this.a,
-    required this.b,
-  }) : super._internal();
+  const CompleteThree(
+    this.a,
+    this.b,
+  ) : super._internal();
 
   final int a;
   final T b;

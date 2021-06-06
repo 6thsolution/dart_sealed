@@ -11,20 +11,35 @@ class SubConstructorWriter extends BaseUtilsWriter {
   SubConstructorWriter(Source source) : super(source);
 
   /// ex. required this.angle or @required this.angle
-  String subConstructorDeclarationPart(ManifestField field) =>
-      '$req this.${field.name}';
+  String subConstructorDecArg(ManifestField field) => '$req this.${field.name}';
 
-  Iterable<String> subConstructorDeclarationParts(ManifestItem item) =>
-      item.fields.map(subConstructorDeclarationPart);
+  /// ex. ({required this.angle,})
+  String subConstructorDecArgs(ManifestItem item) => item.fields
+      .map(subConstructorDecArg)
+      .joinArgsFull()
+      .withBracesOrNot()
+      .withParenthesis();
+
+  /// ex. required this.angle or @required this.angle
+  String subConstructorWrappedDecArg(ManifestField field) =>
+      'this.${field.name}';
+
+  /// ex. ({required this.angle,})
+  String subConstructorWrappedDecArgs(ManifestItem item) => item.fields
+      .map(subConstructorWrappedDecArg)
+      .joinArgsFull()
+      .withParenthesis();
+
+  /// adaptive
+  String subConstructorNoneOrWrappedDecArgs(ManifestItem item) => item.isWrapped
+      ? subConstructorWrappedDecArgs(item)
+      : subConstructorDecArgs(item);
 
   /// ex. WeatherRainy({required this.rain, ...});
   String subConstructorDeclaration(ManifestItem item) => [
         'const ',
         subFull(item),
-        subConstructorDeclarationParts(item)
-            .joinArgsFull()
-            .withBracesOrNot()
-            .withParenthesis(),
+        subConstructorNoneOrWrappedDecArgs(item),
         ': super._internal();',
       ].joinParts();
 }

@@ -43,7 +43,7 @@ abstract class Weather {
     Hello data,
   ) =>
       Rainy(
-        data: data,
+        data,
       );
 
   bool isSunny() => this is Sunny;
@@ -160,9 +160,6 @@ abstract class Weather {
 class Sunny extends Weather with EquatableMixin {
   const Sunny() : super._internal();
 
-  @factory
-  Sunny copy() => Sunny();
-
   @override
   String toString() => 'Weather.sunny()';
 
@@ -177,19 +174,11 @@ class Sunny extends Weather with EquatableMixin {
 /// with wrap
 @immutable
 class Rainy extends Weather with EquatableMixin {
-  const Rainy({
-    required this.data,
-  }) : super._internal();
+  const Rainy(
+    this.data,
+  ) : super._internal();
 
   final Hello data;
-
-  @factory
-  Rainy copy({
-    Hello? data,
-  }) =>
-      Rainy(
-        data: data ?? this.data,
-      );
 
   @override
   String toString() => 'Weather.rainy(data: $data)';
