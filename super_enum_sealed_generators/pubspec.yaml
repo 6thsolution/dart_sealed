@@ -14,6 +14,8 @@ environment:
 dependencies:
   super_enum_sealed_annotations:
     path: ../super_enum_sealed_annotations
+  sealed_annotations:
+    path: ../sealed_annotations
   sealed_writer:
     path: ../sealed_writer
   meta: ^1.3.0
