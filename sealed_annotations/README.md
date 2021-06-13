@@ -228,6 +228,12 @@ class WeatherWindy extends Weather {
 }
 ```
 
+Notes:
+
+- Always use exact match method that you need, for example do not use `whenOrNull` instead of `whenPartial`.
+- Prefer using factories in super class instead of sub class constructors.
+- Minimize usage of cast methods, most of the time they can be replaced with a match method.
+
 ## Generic Usage
 
 For generic sealed classes you should write manifest class like a generic class which you are implementing.
@@ -342,7 +348,18 @@ abstract class State {
 }
 ```
 
-As you see `data` will not be automatically unwrapped.
+In previous example `data` will not be automatically unwrapped.
+
+Also, when making a sealed sub class wrapped, its constructor and the corresponding factory in sealed super class will
+be using positional arguments instead of named arguments. For example for `data`:
+
+```dart
+// when not wrapped:
+final d1 = State.data(obj: 'hello');
+
+// when wrapped:
+final d2 = State.data('hello');
+```
 
 ## Dynamic types and Using one sealed type in another
 
