@@ -1,5 +1,4 @@
 import 'package:meta/meta.dart';
-import 'package:sealed_writer/sealed_writer.dart';
 import 'package:sealed_writer/src/manifest/manifest.dart';
 import 'package:sealed_writer/src/source/source.dart';
 import 'package:sealed_writer/src/utils/string_utils.dart';
@@ -68,7 +67,4 @@ class BackwardWriter extends BaseUtilsWriter {
         ..._groups().insertEmptyLinesBetween(),
         '}',
       ].joinLines();
-
-  /// write as comments
-  String writeAsComment() => write().splitLines().addComments().joinLines();
 }
