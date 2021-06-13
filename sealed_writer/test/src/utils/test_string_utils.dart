@@ -90,5 +90,11 @@ void main() {
     test('method withBraKet', () {
       expect('abc'.withBraKet(), equals('[abc]'));
     });
+
+    test('method splitLines', () {
+      expect('abc'.splitLines(), equals(['abc']));
+      expect('abc\ncde'.splitLines(), equals(['abc', 'cde']));
+      expect('abc\ncde\n'.splitLines(), equals(['abc', 'cde', '']));
+    });
   });
 }

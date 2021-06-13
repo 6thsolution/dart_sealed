@@ -70,7 +70,7 @@ final code1Identity = code1(ManifestEquality.identity);
 final code1Distinct = code1(ManifestEquality.distinct);
 
 String code1(ManifestEquality equality) => '''@Sealed()
-abstract class _Weather\$
+abstract class _Weather
 {
 @WithEquality(${_equality(equality)})
 @WithName('HiSunny')
@@ -84,6 +84,22 @@ void rainy(int rain);
 @WithName('HelloWindy')
 void windy(double velocity, double? angle);
 }''';
+
+final code1DataAsComments = '''// @Sealed()
+// abstract class _Weather
+// {
+// @WithEquality(Equality.data)
+// @WithName('HiSunny')
+// void sunny();
+// 
+// @WithEquality(Equality.data)
+// @WithName('WeatherRainy')
+// void rainy(int rain);
+// 
+// @WithEquality(Equality.data)
+// @WithName('HelloWindy')
+// void windy(double velocity, double? angle);
+// }''';
 
 final doc1Data = doc1('data');
 final doc1Identity = doc1('identity');

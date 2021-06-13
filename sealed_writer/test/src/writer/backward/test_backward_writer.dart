@@ -20,6 +20,13 @@ void main() {
         expect(writer.write(), code1Data);
       });
 
+      test('data equality as comments', () {
+        final source = source1DataSafe;
+        final writer = BackwardWriter(source);
+
+        expect(writer.writeAsComment(), code1DataAsComments);
+      });
+
       test('identity equality', () {
         final source = source1IdentitySafe;
         final writer = BackwardWriter(source);

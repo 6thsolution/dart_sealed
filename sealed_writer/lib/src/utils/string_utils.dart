@@ -70,4 +70,7 @@ extension StringUtils on String {
 
   /// add []
   String withBraKet() => '[$this]';
+
+  /// split lines
+  List<String> splitLines() => split('\n');
 }

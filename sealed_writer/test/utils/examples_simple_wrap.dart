@@ -54,7 +54,7 @@ final source3DataLegacy = Source(
 final code3Data = code3();
 
 String code3() => '''@Sealed()
-abstract class _Base\$
+abstract class _Base
 {
 @WithWrap
 @WithEquality(Equality.data)

@@ -22,41 +22,53 @@ class BackwardWriter extends BaseUtilsWriter {
 
   const BackwardWriter(Source source) : super(source);
 
+  /// single-line
   String _topAnnotation() => '@Sealed()';
 
-  String _topStart() => 'abstract class _$top\$$genericDec';
+  /// single-line
+  String _topStart() => 'abstract class _$topDec';
 
-  String _field(ManifestField field) => '${typeSL(field.type)} ${field.name}';
+  String _arg(ManifestField field) => '${typeSL(field.type)} ${field.name}';
 
-  Iterable<String> _fields(ManifestItem item) => item.fields.map(_field);
+  String _args(ManifestItem item) =>
+      item.fields.map(_arg).joinArgsSimple().withParenthesis();
 
-  String _item(ManifestItem item) => [
-        if (item.isWrapped) '@WithWrap()',
-        _itemEqualityAnnotation(item),
-        _itemNameAnnotation(item),
-        _itemMethod(item),
-      ].joinLines();
-
-  String _itemEqualityAnnotation(ManifestItem item) =>
-      '@WithEquality(${_equality(item.equality)})';
-
-  String _itemNameAnnotation(ManifestItem item) => "@WithName('${item.name}')";
-
-  String _itemMethod(ManifestItem item) => [
+  /// single-line
+  String _method(ManifestItem item) => [
         'void ',
         subLower(item),
-        _fields(item).joinArgsSimple().withParenthesis(),
+        _args(item),
         ';',
       ].joinParts();
 
-  Iterable<String> _items() => manifest.items.map(_item);
+  /// single-line
+  String _equalityAnnotation(ManifestItem item) =>
+      '@WithEquality(${_equality(item.equality)})';
 
-  /// write docs
+  /// single-line
+  String _nameAnnotation(ManifestItem item) => "@WithName('${item.name}')";
+
+  /// single-line
+  String _wrapAnnotation() => '@WithWrap()';
+
+  String _group(ManifestItem item) => [
+        if (item.isWrapped) _wrapAnnotation(),
+        _equalityAnnotation(item),
+        _nameAnnotation(item),
+        _method(item),
+      ].joinLines();
+
+  Iterable<String> _groups() => manifest.items.map(_group);
+
+  /// write
   String write() => [
         _topAnnotation(),
         _topStart(),
         '{',
-        ..._items().insertEmptyLinesBetween(),
+        ..._groups().insertEmptyLinesBetween(),
         '}',
       ].joinLines();
+
+  /// write as comments
+  String writeAsComment() => write().splitLines().addComments().joinLines();
 }
