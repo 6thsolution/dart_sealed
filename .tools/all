@@ -1,5 +1,7 @@
 #!/bin/bash
 
+.tools/cpls || exit 1
+.tools/cpch || exit 1
 .tools/cprm || exit 1
 .tools/init || exit 1
 .tools/fix || exit 1

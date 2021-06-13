@@ -1,5 +1,7 @@
 @echo off
 
+call .tools\cpls || exit 1
+call .tools\cpch || exit 1
 call .tools\cprm || exit 1
 call .tools\init || exit 1
 call .tools\fix || exit 1
