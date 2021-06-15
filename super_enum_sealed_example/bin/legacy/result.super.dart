@@ -9,18 +9,32 @@ part of 'result.dart';
 
 // ignore_for_file: unused_element, unused_field
 
-/// substitute generated manifest for super enum
-/// and remove "$" at the end of class name.
-@Sealed()
-abstract class _Result$<Generic extends Object /*?*/ > {
-  @WithEquality(Equality.data)
-  @WithName('Success')
-  void success(Generic /*!*/ data);
-
-  @WithEquality(Equality.data)
-  @WithName('Error')
-  void error(Object /*!*/ exception);
-}
+// Migration guide for Result:
+// For migration to dart_sealed, uncomment
+// following generated manifest code, then
+// replace it with your super_enum manifest
+// then add dependencies to sealed_annotations
+// and sealed_generators, then import
+// sealed_annotations instead of
+// super_enum_sealed_annotations, then change
+// part file name from *.super.dart to
+// *.sealed.dart, then rerun the build_runner.
+// When you are done with migrating all sealed
+// classes to dart_sealed, you can remove
+// super_enum_sealed_annotations and
+// super_enum_sealed_generators dependencies.
+//
+// @Sealed()
+// abstract class _Result<Generic extends Object/*?*/>
+// {
+// @WithEquality(Equality.data)
+// @WithName('Success')
+// void success(Generic/*!*/ data);
+//
+// @WithEquality(Equality.data)
+// @WithName('Error')
+// void error(Object/*!*/ exception);
+// }
 
 /// [Result]<[Generic] extends [Object]?> {
 ///
@@ -30,7 +44,6 @@ abstract class _Result$<Generic extends Object /*?*/ > {
 ///
 /// }
 @immutable
-@SealedManifest(_Result)
 abstract class Result<Generic extends Object /*?*/ > {
   const Result._internal();
 

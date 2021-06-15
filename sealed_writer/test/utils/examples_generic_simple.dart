@@ -65,7 +65,7 @@ final code2Identity = code2(ManifestEquality.identity);
 final code2Distinct = code2(ManifestEquality.distinct);
 
 String code2(ManifestEquality equality) => '''@Sealed()
-abstract class _Result\$<T extends num>
+abstract class _Result<T extends num>
 {
 @WithEquality(${_equality(equality)})
 @WithName('MySuccess')

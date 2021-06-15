@@ -42,7 +42,7 @@ final source4DataLegacy = Source(
 final code4Data = code4();
 
 String code4() => '''@Sealed()
-abstract class _Base<T extends num>\$
+abstract class _Base<T extends num>
 {
 @WithWrap
 @WithEquality(Equality.data)

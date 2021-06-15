@@ -70,7 +70,7 @@ final code1Identity = code1(ManifestEquality.identity);
 final code1Distinct = code1(ManifestEquality.distinct);
 
 String code1(ManifestEquality equality) => '''@Sealed()
-abstract class _Weather\$
+abstract class _Weather
 {
 @WithEquality(${_equality(equality)})
 @WithName('HiSunny')

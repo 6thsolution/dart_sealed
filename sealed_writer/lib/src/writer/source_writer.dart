@@ -18,8 +18,12 @@ import 'package:sealed_writer/src/writer/top/top_writer.dart';
 @sealed
 @immutable
 class SourceWriter extends BaseWriter {
-  SourceWriter(Source source)
-      : topWriter = TopWriter(source),
+  /// [referenceManifest] dictates weather to reference
+  /// manifest with @SealedManifest or not, it is true by default
+  SourceWriter(
+    Source source, {
+    bool referenceManifest = true,
+  })  : topWriter = TopWriter(source, referenceManifest: referenceManifest),
         subWriter = SubWriter(source),
         super(source);
 

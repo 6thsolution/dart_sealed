@@ -8,20 +8,34 @@ part of 'use_class.dart';
 
 // ignore_for_file: unused_element, unused_field
 
-/// substitute generated manifest for super enum
-/// and remove "$" at the end of class name.
-@Sealed()
-abstract class _Weather$ {
-  @WithWrap()
-  @WithEquality(Equality.data)
-  @WithName('Sunny')
-  void sunny();
-
-  @WithWrap()
-  @WithEquality(Equality.data)
-  @WithName('Rainy')
-  void rainy(Hello data);
-}
+// Migration guide for Weather:
+// For migration to dart_sealed, uncomment
+// following generated manifest code, then
+// replace it with your super_enum manifest
+// then add dependencies to sealed_annotations
+// and sealed_generators, then import
+// sealed_annotations instead of
+// super_enum_sealed_annotations, then change
+// part file name from *.super.dart to
+// *.sealed.dart, then rerun the build_runner.
+// When you are done with migrating all sealed
+// classes to dart_sealed, you can remove
+// super_enum_sealed_annotations and
+// super_enum_sealed_generators dependencies.
+//
+// @Sealed()
+// abstract class _Weather
+// {
+// @WithWrap()
+// @WithEquality(Equality.data)
+// @WithName('Sunny')
+// void sunny();
+//
+// @WithWrap()
+// @WithEquality(Equality.data)
+// @WithName('Rainy')
+// void rainy(Hello data);
+// }
 
 /// [Weather] {
 ///
@@ -31,7 +45,6 @@ abstract class _Weather$ {
 ///
 /// }
 @immutable
-@SealedManifest(_Weather)
 abstract class Weather {
   const Weather._internal();
 
