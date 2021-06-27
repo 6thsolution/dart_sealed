@@ -21,26 +21,16 @@ part of 'wrap.dart';
 abstract class Complete {
   const Complete._internal();
 
-  @factory
-  static CompleteOne /*!*/ one() => CompleteOne();
+  factory Complete.one() = CompleteOne;
 
-  @factory
-  static CompleteTwo /*!*/ two(
+  factory Complete.two(
     int /*?*/ x,
-  ) =>
-      CompleteTwo(
-        x,
-      );
+  ) = CompleteTwo;
 
-  @factory
-  static CompleteThree /*!*/ three(
+  factory Complete.three(
     double /*?*/ y,
     double /*?*/ z,
-  ) =>
-      CompleteThree(
-        y,
-        z,
-      );
+  ) = CompleteThree;
 
   bool /*!*/ isOne() => this is CompleteOne;
 
@@ -256,26 +246,16 @@ class CompleteThree extends Complete with EquatableMixin {
 abstract class Partial {
   const Partial._internal();
 
-  @factory
-  static PartialOne /*!*/ one() => PartialOne();
+  factory Partial.one() = PartialOne;
 
-  @factory
-  static PartialTwo /*!*/ two({
+  factory Partial.two({
     @required int /*?*/ x,
-  }) =>
-      PartialTwo(
-        x: x,
-      );
+  }) = PartialTwo;
 
-  @factory
-  static PartialThree /*!*/ three(
+  factory Partial.three(
     double /*?*/ y,
     double /*?*/ z,
-  ) =>
-      PartialThree(
-        y,
-        z,
-      );
+  ) = PartialThree;
 
   bool /*!*/ isOne() => this is PartialOne;
 

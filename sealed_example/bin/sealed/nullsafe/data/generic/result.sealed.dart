@@ -18,21 +18,13 @@ part of 'result.dart';
 abstract class Result<D extends num> {
   const Result._internal();
 
-  @factory
-  static ResultSuccess<D> success<D extends num>({
+  factory Result.success({
     required D data,
-  }) =>
-      ResultSuccess<D>(
-        data: data,
-      );
+  }) = ResultSuccess<D>;
 
-  @factory
-  static ResultError<D> error<D extends num>({
+  factory Result.error({
     required Object exception,
-  }) =>
-      ResultError<D>(
-        exception: exception,
-      );
+  }) = ResultError<D>;
 
   bool isSuccess() => this is ResultSuccess<D>;
 
