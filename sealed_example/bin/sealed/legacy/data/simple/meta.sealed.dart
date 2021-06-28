@@ -176,9 +176,6 @@ abstract class Weather {
 class PrefixSunny extends Weather with EquatableMixin {
   const PrefixSunny() : super._internal();
 
-  @factory
-  PrefixSunny /*!*/ copy() => PrefixSunny();
-
   @override
   String /*!*/ toString() => 'Weather.sunny()';
 

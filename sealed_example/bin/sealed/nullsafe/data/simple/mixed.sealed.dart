@@ -221,14 +221,6 @@ class BananaHold extends Banana with EquatableMixin {
 
   final Apple apple;
 
-  @factory
-  BananaHold copy({
-    Apple? apple,
-  }) =>
-      BananaHold(
-        apple: apple ?? this.apple,
-      );
-
   @override
   String toString() => 'Banana.hold(apple: $apple)';
 
@@ -411,16 +403,6 @@ class CoconutTest1 extends Coconut with EquatableMixin {
 
   final int x;
   final double y;
-
-  @factory
-  CoconutTest1 copy({
-    int? x,
-    double? y,
-  }) =>
-      CoconutTest1(
-        x: x ?? this.x,
-        y: y ?? this.y,
-      );
 
   @override
   String toString() => 'Coconut.test1(x: $x, y: $y)';

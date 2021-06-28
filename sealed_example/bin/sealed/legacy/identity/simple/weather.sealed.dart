@@ -176,9 +176,6 @@ abstract class Weather {
 class WeatherSunny extends Weather {
   const WeatherSunny() : super._internal();
 
-  @factory
-  WeatherSunny /*!*/ copy() => WeatherSunny();
-
   @override
   String /*!*/ toString() => 'Weather.sunny()';
 }

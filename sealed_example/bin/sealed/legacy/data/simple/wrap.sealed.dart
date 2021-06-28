@@ -401,9 +401,6 @@ abstract class Partial {
 class PartialOne extends Partial with EquatableMixin {
   const PartialOne() : super._internal();
 
-  @factory
-  PartialOne /*!*/ copy() => PartialOne();
-
   @override
   String /*!*/ toString() => 'Partial.one()';
 

@@ -170,9 +170,6 @@ abstract class Weather {
 class PrefixSunny extends Weather with EquatableMixin {
   const PrefixSunny() : super._internal();
 
-  @factory
-  PrefixSunny copy() => PrefixSunny();
-
   @override
   String toString() => 'Weather.sunny()';
 
@@ -190,14 +187,6 @@ class BadWeather extends Weather with EquatableMixin {
   }) : super._internal();
 
   final int rain;
-
-  @factory
-  BadWeather copy({
-    int? rain,
-  }) =>
-      BadWeather(
-        rain: rain ?? this.rain,
-      );
 
   @override
   String toString() => 'Weather.rainy(rain: $rain)';

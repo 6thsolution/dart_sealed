@@ -390,9 +390,6 @@ abstract class Partial {
 class PartialOne extends Partial with EquatableMixin {
   const PartialOne() : super._internal();
 
-  @factory
-  PartialOne copy() => PartialOne();
-
   @override
   String toString() => 'Partial.one()';
 
@@ -410,14 +407,6 @@ class PartialTwo extends Partial with EquatableMixin {
   }) : super._internal();
 
   final int x;
-
-  @factory
-  PartialTwo copy({
-    int? x,
-  }) =>
-      PartialTwo(
-        x: x ?? this.x,
-      );
 
   @override
   String toString() => 'Partial.two(x: $x)';

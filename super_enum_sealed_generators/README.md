@@ -212,9 +212,6 @@ class WeatherRainy extends Weather with EquatableMixin {
 
   final int rain;
 
-  WeatherRainy copy({int? rain}) =>
-      WeatherRainy(rain: rain ?? this.rain);
-
   @override
   String toString() => 'Weather.rainy(rain: $rain)';
 

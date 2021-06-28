@@ -17,12 +17,10 @@ void main() {
     test('equality', () {
       final r1 = WeatherRainy(rain: 0);
       final r2 = WeatherRainy(rain: 0);
-      final r3 = r1.copy();
       final r4 = WeatherRainy(rain: 10);
 
       expect(r1, equals(r1));
       expect(r2, isNot(equals(r1)));
-      expect(r3, isNot(equals(r1)));
       expect(r4, isNot(equals(r1)));
     });
   });

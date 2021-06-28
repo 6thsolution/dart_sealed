@@ -11,6 +11,7 @@ void main() {
           shortName: 'sunny',
           equality: ManifestEquality.data,
           fields: [],
+          isWrapped: false,
         ),
         ManifestItem(
           name: 'WeatherRainy',
@@ -25,13 +26,24 @@ void main() {
               ),
             ),
           ],
+          isWrapped: false,
         ),
       ],
       params: [],
     ),
   );
 
-  final writer = BackwardWriter(source);
+  print('==============');
+  print('FORWARD WRITER');
+  print('==============');
 
-  print(writer.write());
+  final forward = SourceWriter(source);
+  print(forward.write());
+
+  print('===============');
+  print('BACKWARD WRITER');
+  print('===============');
+
+  final backward = BackwardWriter(source);
+  print(backward.write());
 }

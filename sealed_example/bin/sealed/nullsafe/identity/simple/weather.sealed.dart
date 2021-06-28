@@ -170,9 +170,6 @@ abstract class Weather {
 class WeatherSunny extends Weather {
   const WeatherSunny() : super._internal();
 
-  @factory
-  WeatherSunny copy() => WeatherSunny();
-
   @override
   String toString() => 'Weather.sunny()';
 }
@@ -187,14 +184,6 @@ class WeatherRainy extends Weather {
   }) : super._internal();
 
   final int rain;
-
-  @factory
-  WeatherRainy copy({
-    int? rain,
-  }) =>
-      WeatherRainy(
-        rain: rain ?? this.rain,
-      );
 
   @override
   String toString() => 'Weather.rainy(rain: $rain)';

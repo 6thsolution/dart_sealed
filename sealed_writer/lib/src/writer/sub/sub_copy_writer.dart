@@ -28,6 +28,11 @@ class SubCopyWriter extends BaseUtilsWriter {
   /// => WeatherRainy(rain: rain ?? this.rain);
   ///
   /// this is not suitable for generics, nullable fields or wrapped item
+  ///
+  /// ```
+  /// if (!hasNullable(item) && !isGeneric && !item.isWrapped)
+  ///   subCopyWriter.subCopyDeclaration(item)
+  /// ```
   String subCopyDeclaration(ManifestItem item) => [
         annotationFactory,
         [

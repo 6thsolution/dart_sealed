@@ -229,14 +229,6 @@ class Rainy extends Weather with EquatableMixin {
 
   final int /*!*/ rain;
 
-  @factory
-  Rainy /*!*/ copy({
-    int /*?*/ rain,
-  }) =>
-      Rainy(
-        rain: rain ?? this.rain,
-      );
-
   @override
   String /*!*/ toString() => 'Weather.rainy(rain: $rain)';
 
