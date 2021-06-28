@@ -54,26 +54,16 @@ part of 'weather.dart';
 abstract class Weather {
   const Weather._internal();
 
-  @factory
-  static Sunny /*!*/ sunny() => Sunny();
+  factory Weather.sunny() = Sunny;
 
-  @factory
-  static Rainy /*!*/ rainy({
+  factory Weather.rainy({
     @required int /*!*/ rain,
-  }) =>
-      Rainy(
-        rain: rain,
-      );
+  }) = Rainy;
 
-  @factory
-  static Windy /*!*/ windy({
+  factory Weather.windy({
     @required double /*!*/ velocity,
     @required double /*?*/ angle,
-  }) =>
-      Windy(
-        velocity: velocity,
-        angle: angle,
-      );
+  }) = Windy;
 
   bool /*!*/ isSunny() => this is Sunny;
 
@@ -238,14 +228,6 @@ class Rainy extends Weather with EquatableMixin {
   }) : super._internal();
 
   final int /*!*/ rain;
-
-  @factory
-  Rainy /*!*/ copy({
-    int /*?*/ rain,
-  }) =>
-      Rainy(
-        rain: rain ?? this.rain,
-      );
 
   @override
   String /*!*/ toString() => 'Weather.rainy(rain: $rain)';

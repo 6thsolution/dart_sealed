@@ -49,16 +49,11 @@ part of 'use_class.dart';
 abstract class Weather {
   const Weather._internal();
 
-  @factory
-  static Sunny /*!*/ sunny() => Sunny();
+  factory Weather.sunny() = Sunny;
 
-  @factory
-  static Rainy /*!*/ rainy(
+  factory Weather.rainy(
     Hello /*!*/ data,
-  ) =>
-      Rainy(
-        data,
-      );
+  ) = Rainy;
 
   bool /*!*/ isSunny() => this is Sunny;
 

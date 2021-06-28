@@ -18,21 +18,13 @@ part of 'result_no_upper_1.dart';
 abstract class Result<D extends Object?, E extends Object?> {
   const Result._internal();
 
-  @factory
-  static ResultSuccess<D, E> success<D extends Object?, E extends Object?>({
+  factory Result.success({
     required D data,
-  }) =>
-      ResultSuccess<D, E>(
-        data: data,
-      );
+  }) = ResultSuccess<D, E>;
 
-  @factory
-  static ResultError<D, E> error<D extends Object?, E extends Object?>({
+  factory Result.error({
     required E exception,
-  }) =>
-      ResultError<D, E>(
-        exception: exception,
-      );
+  }) = ResultError<D, E>;
 
   bool isSuccess() => this is ResultSuccess<D, E>;
 

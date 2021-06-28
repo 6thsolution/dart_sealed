@@ -20,31 +20,18 @@ part of 'result_multi_3.dart';
 abstract class Result<D extends num, E extends Object> {
   const Result._internal();
 
-  @factory
-  static ResultSuccess<D, E> success<D extends num, E extends Object>({
+  factory Result.success({
     required D? data,
-  }) =>
-      ResultSuccess<D, E>(
-        data: data,
-      );
+  }) = ResultSuccess<D, E>;
 
-  @factory
-  static ResultError<D, E> error<D extends num, E extends Object>({
+  factory Result.error({
     required E? exception,
-  }) =>
-      ResultError<D, E>(
-        exception: exception,
-      );
+  }) = ResultError<D, E>;
 
-  @factory
-  static ResultMixed<D, E> mixed<D extends num, E extends Object>({
+  factory Result.mixed({
     required D? data,
     required E? exception,
-  }) =>
-      ResultMixed<D, E>(
-        data: data,
-        exception: exception,
-      );
+  }) = ResultMixed<D, E>;
 
   bool isSuccess() => this is ResultSuccess<D, E>;
 

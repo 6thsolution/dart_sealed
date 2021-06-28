@@ -20,31 +20,18 @@ part of 'wrap.dart';
 abstract class Complete<T extends num?, U extends Object> {
   const Complete._internal();
 
-  @factory
-  static CompleteOne<T, U> one<T extends num?, U extends Object>() =>
-      CompleteOne<T, U>();
+  factory Complete.one() = CompleteOne<T, U>;
 
-  @factory
-  static CompleteTwo<T, U> two<T extends num?, U extends Object>(
+  factory Complete.two(
     T x,
     U y,
     U? z,
-  ) =>
-      CompleteTwo<T, U>(
-        x,
-        y,
-        z,
-      );
+  ) = CompleteTwo<T, U>;
 
-  @factory
-  static CompleteThree<T, U> three<T extends num?, U extends Object>(
+  factory Complete.three(
     int a,
     T b,
-  ) =>
-      CompleteThree<T, U>(
-        a,
-        b,
-      );
+  ) = CompleteThree<T, U>;
 
   bool isOne() => this is CompleteOne<T, U>;
 

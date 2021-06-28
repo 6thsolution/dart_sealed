@@ -16,13 +16,9 @@ part of 'mixed.dart';
 abstract class Apple {
   const Apple._internal();
 
-  @factory
-  static AppleHold hold({
+  factory Apple.hold({
     required Banana? banana,
-  }) =>
-      AppleHold(
-        banana: banana,
-      );
+  }) = AppleHold;
 
   bool isHold() => this is AppleHold;
 
@@ -132,13 +128,9 @@ class AppleHold extends Apple with EquatableMixin {
 abstract class Banana {
   const Banana._internal();
 
-  @factory
-  static BananaHold hold({
+  factory Banana.hold({
     required Apple apple,
-  }) =>
-      BananaHold(
-        apple: apple,
-      );
+  }) = BananaHold;
 
   bool isHold() => this is BananaHold;
 
@@ -229,14 +221,6 @@ class BananaHold extends Banana with EquatableMixin {
 
   final Apple apple;
 
-  @factory
-  BananaHold copy({
-    Apple? apple,
-  }) =>
-      BananaHold(
-        apple: apple ?? this.apple,
-      );
-
   @override
   String toString() => 'Banana.hold(apple: $apple)';
 
@@ -260,35 +244,20 @@ class BananaHold extends Banana with EquatableMixin {
 abstract class Coconut {
   const Coconut._internal();
 
-  @factory
-  static CoconutTest1 test1({
+  factory Coconut.test1({
     required int x,
     required double y,
-  }) =>
-      CoconutTest1(
-        x: x,
-        y: y,
-      );
+  }) = CoconutTest1;
 
-  @factory
-  static CoconutTest2 test2({
+  factory Coconut.test2({
     required int? x,
     required double? y,
-  }) =>
-      CoconutTest2(
-        x: x,
-        y: y,
-      );
+  }) = CoconutTest2;
 
-  @factory
-  static CoconutHold hold({
+  factory Coconut.hold({
     required Apple? apple,
     required Banana? banana,
-  }) =>
-      CoconutHold(
-        apple: apple,
-        banana: banana,
-      );
+  }) = CoconutHold;
 
   bool isTest1() => this is CoconutTest1;
 
@@ -434,16 +403,6 @@ class CoconutTest1 extends Coconut with EquatableMixin {
 
   final int x;
   final double y;
-
-  @factory
-  CoconutTest1 copy({
-    int? x,
-    double? y,
-  }) =>
-      CoconutTest1(
-        x: x ?? this.x,
-        y: y ?? this.y,
-      );
 
   @override
   String toString() => 'Coconut.test1(x: $x, y: $y)';

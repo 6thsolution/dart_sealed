@@ -151,10 +151,11 @@ void main() {
                 '{',
                 'const WeatherRainy({required this.rain,}): super._internal();',
                 'final int rain;',
-                'WeatherRainy copy(',
                 'String toString(',
                 'get props'
               ]),
+              // change this if you manage to add copy method
+              isNot(stringContainsInOrder(['copy'])),
             ),
           );
         });

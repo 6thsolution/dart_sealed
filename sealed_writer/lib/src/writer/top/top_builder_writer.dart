@@ -59,7 +59,7 @@ class TopBuilderWriter extends BaseUtilsWriter {
   ///
   /// ex. static ResultSuccess<T> <T extends num>success(...) =>
   /// ResultSuccess<T>(...)
-  String topBuilder(ManifestItem item) => [
+  String topStaticBuilder(ManifestItem item) => [
         annotationFactory,
         [
           'static ${subCall(item)}$nn ${subLower(item)}$genericDec',
@@ -70,6 +70,17 @@ class TopBuilderWriter extends BaseUtilsWriter {
         ].joinParts(),
       ].joinLines();
 
+  /// ex. factory Weather.sunny() = WeatherSunny;
+  ///
+  /// ex. factory Result.success(...) = ResultSuccess<T>;
+  String topFactoryBuilder(ManifestItem item) => [
+        'factory $top.${subLower(item)}',
+        topBuilderNonOrWrappedDecArgs(item),
+        ' = ',
+        subCall(item),
+        ';',
+      ].joinParts();
+
   /// top builder methods
-  Iterable<String> topBuilderMethods() => manifest.items.map(topBuilder);
+  Iterable<String> topBuilderMethods() => manifest.items.map(topFactoryBuilder);
 }

@@ -6,12 +6,12 @@
 .tools/init || exit 1
 .tools/fix || exit 1
 .tools/format || exit 1
-.tools/analyze || exit 1
 .tools/build || exit 1
 .tools/cpex || exit 1
 .tools/test || exit 1
 .tools/coverage || exit 1
 .tools/example || exit 1
+.tools/analyze || exit 1
 
 git add .
 git status

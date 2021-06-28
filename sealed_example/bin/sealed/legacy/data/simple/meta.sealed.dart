@@ -21,26 +21,16 @@ part of 'meta.dart';
 abstract class Weather {
   const Weather._internal();
 
-  @factory
-  static PrefixSunny /*!*/ sunny() => PrefixSunny();
+  factory Weather.sunny() = PrefixSunny;
 
-  @factory
-  static BadWeather /*!*/ rainy({
+  factory Weather.rainy({
     @required int /*?*/ rain,
-  }) =>
-      BadWeather(
-        rain: rain,
-      );
+  }) = BadWeather;
 
-  @factory
-  static VeryBadWeather /*!*/ windy({
+  factory Weather.windy({
     @required double /*?*/ velocity,
     @required double /*?*/ angle,
-  }) =>
-      VeryBadWeather(
-        velocity: velocity,
-        angle: angle,
-      );
+  }) = VeryBadWeather;
 
   bool /*!*/ isSunny() => this is PrefixSunny;
 
@@ -185,9 +175,6 @@ abstract class Weather {
 @immutable
 class PrefixSunny extends Weather with EquatableMixin {
   const PrefixSunny() : super._internal();
-
-  @factory
-  PrefixSunny /*!*/ copy() => PrefixSunny();
 
   @override
   String /*!*/ toString() => 'Weather.sunny()';

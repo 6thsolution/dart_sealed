@@ -279,7 +279,7 @@ void main() {
       });
     });
 
-    group('method topBuilder', () {
+    group('method topStaticBuilder', () {
       group('simple', () {
         test('null-safe', () {
           final source = source1DataSafe;
@@ -292,18 +292,18 @@ void main() {
           final writer = TopBuilderWriter(source);
 
           expect(
-            writer.topBuilder(item1),
+            writer.topStaticBuilder(item1),
             '@factory\n'
             'static HiSunny sunny() => HiSunny();',
           );
           expect(
-            writer.topBuilder(item2),
+            writer.topStaticBuilder(item2),
             '@factory\n'
             'static WeatherRainy rainy({required int rain,}) =>'
             ' WeatherRainy(rain: rain,);',
           );
           expect(
-            writer.topBuilder(item3),
+            writer.topStaticBuilder(item3),
             '@factory\n'
             'static HelloWindy windy'
             '({required double velocity, required double? angle,})'
@@ -323,18 +323,18 @@ void main() {
           final writer = TopBuilderWriter(source);
 
           expect(
-            writer.topBuilder(item1),
+            writer.topStaticBuilder(item1),
             '@factory\n'
             'static HiSunny/*!*/ sunny() => HiSunny();',
           );
           expect(
-            writer.topBuilder(item2),
+            writer.topStaticBuilder(item2),
             '@factory\n'
             'static WeatherRainy/*!*/ rainy({@required int/*!*/ rain,}) =>'
             ' WeatherRainy(rain: rain,);',
           );
           expect(
-            writer.topBuilder(item3),
+            writer.topStaticBuilder(item3),
             '@factory\n'
             'static HelloWindy/*!*/ windy'
             '({@required double/*!*/ velocity, @required double/*?*/ angle,})'
@@ -351,7 +351,7 @@ void main() {
           final writer = TopBuilderWriter(source);
 
           expect(
-            writer.topBuilder(item1),
+            writer.topStaticBuilder(item1),
             '@factory\n'
             'static MySuccess<T> success<T extends num>('
             '{required T data,}'
@@ -368,9 +368,92 @@ void main() {
         final writer = TopBuilderWriter(source);
 
         expect(
-          writer.topBuilder(item2),
+          writer.topStaticBuilder(item2),
           '@factory\n'
           'static BaseTwo two(int x,) => BaseTwo(x,);',
+        );
+      });
+    });
+
+    group('method topFactoryBuilder', () {
+      group('simple', () {
+        test('null-safe', () {
+          final source = source1DataSafe;
+          // void sunny();
+          final item1 = source.manifest.items[0];
+          // void rainy(int rain);
+          final item2 = source.manifest.items[1];
+          // void windy(double velocity, double? angle);
+          final item3 = source.manifest.items[2];
+          final writer = TopBuilderWriter(source);
+
+          expect(
+            writer.topFactoryBuilder(item1),
+            'factory Weather.sunny() = HiSunny;',
+          );
+          expect(
+            writer.topFactoryBuilder(item2),
+            'factory Weather.rainy({required int rain,}) ='
+            ' WeatherRainy;',
+          );
+          expect(
+            writer.topFactoryBuilder(item3),
+            'factory Weather.windy'
+            '({required double velocity, required double? angle,})'
+            ' = HelloWindy;',
+          );
+        });
+
+        test('legacy', () {
+          final source = source1DataLegacy;
+          // void sunny();
+          final item1 = source.manifest.items[0];
+          // void rainy(int rain);
+          final item2 = source.manifest.items[1];
+          // void windy(double velocity, double? angle);
+          final item3 = source.manifest.items[2];
+          final writer = TopBuilderWriter(source);
+
+          expect(
+            writer.topFactoryBuilder(item1),
+            'factory Weather.sunny() = HiSunny;',
+          );
+          expect(
+            writer.topFactoryBuilder(item2),
+            'factory Weather.rainy({@required int/*!*/ rain,}) ='
+            ' WeatherRainy;',
+          );
+          expect(
+            writer.topFactoryBuilder(item3),
+            'factory Weather.windy'
+            '({@required double/*!*/ velocity, @required double/*?*/ angle,})'
+            ' = HelloWindy;',
+          );
+        });
+      });
+
+      group('generic', () {
+        test('null-safe', () {
+          final source = source2DataSafe;
+          final item1 = source.manifest.items[0];
+          final writer = TopBuilderWriter(source);
+
+          expect(
+            writer.topFactoryBuilder(item1),
+            'factory Result.success({required T data,})'
+            ' = MySuccess<T>;',
+          );
+        });
+      });
+
+      test('simple wrapped null-safe', () {
+        final source = source3DataSafe;
+        final item2 = source.manifest.items[1];
+        final writer = TopBuilderWriter(source);
+
+        expect(
+          writer.topFactoryBuilder(item2),
+          'factory Base.two(int x,) = BaseTwo;',
         );
       });
     });
@@ -382,11 +465,8 @@ void main() {
       expect(
         writer.topBuilderMethods().joinMethods(),
         stringContainsInOrder([
-          'static',
           'sunny(',
-          'static',
           'rainy(',
-          'static',
           'windy(',
         ]),
       );
