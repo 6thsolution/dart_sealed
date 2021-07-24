@@ -20,13 +20,13 @@ part of 'meta.dart';
 abstract class Weather {
   const Weather._internal();
 
-  factory Weather.sunny() = PrefixSunny;
+  const factory Weather.sunny() = PrefixSunny;
 
-  factory Weather.rainy({
+  const factory Weather.rainy({
     required int rain,
   }) = BadWeather;
 
-  factory Weather.windy({
+  const factory Weather.windy({
     required double velocity,
     required double? angle,
   }) = VeryBadWeather;

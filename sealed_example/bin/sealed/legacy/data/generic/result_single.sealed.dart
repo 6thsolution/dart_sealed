@@ -19,11 +19,11 @@ part of 'result_single.dart';
 abstract class Result<D extends num /*?*/ > {
   const Result._internal();
 
-  factory Result.success({
+  const factory Result.success({
     @required D /*?*/ data,
   }) = ResultSuccess<D>;
 
-  factory Result.error({
+  const factory Result.error({
     @required Object /*?*/ exception,
   }) = ResultError<D>;
 

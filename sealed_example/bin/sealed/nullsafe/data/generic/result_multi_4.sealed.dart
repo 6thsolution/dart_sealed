@@ -20,15 +20,15 @@ part of 'result_multi_4.dart';
 abstract class Result<D extends num?, E extends Object?> {
   const Result._internal();
 
-  factory Result.success({
+  const factory Result.success({
     required D? data,
   }) = ResultSuccess<D, E>;
 
-  factory Result.error({
+  const factory Result.error({
     required E? exception,
   }) = ResultError<D, E>;
 
-  factory Result.mixed({
+  const factory Result.mixed({
     required D? data,
     required E? exception,
   }) = ResultMixed<D, E>;

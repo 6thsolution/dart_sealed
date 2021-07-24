@@ -74,7 +74,7 @@ class TopBuilderWriter extends BaseUtilsWriter {
   ///
   /// ex. factory Result.success(...) = ResultSuccess<T>;
   String topFactoryBuilder(ManifestItem item) => [
-        'factory $top.${subLower(item)}',
+        'const factory $top.${subLower(item)}',
         topBuilderNonOrWrappedDecArgs(item),
         ' = ',
         subCall(item),

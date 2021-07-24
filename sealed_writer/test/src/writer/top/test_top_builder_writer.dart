@@ -389,16 +389,16 @@ void main() {
 
           expect(
             writer.topFactoryBuilder(item1),
-            'factory Weather.sunny() = HiSunny;',
+            'const factory Weather.sunny() = HiSunny;',
           );
           expect(
             writer.topFactoryBuilder(item2),
-            'factory Weather.rainy({required int rain,}) ='
+            'const factory Weather.rainy({required int rain,}) ='
             ' WeatherRainy;',
           );
           expect(
             writer.topFactoryBuilder(item3),
-            'factory Weather.windy'
+            'const factory Weather.windy'
             '({required double velocity, required double? angle,})'
             ' = HelloWindy;',
           );
@@ -416,16 +416,16 @@ void main() {
 
           expect(
             writer.topFactoryBuilder(item1),
-            'factory Weather.sunny() = HiSunny;',
+            'const factory Weather.sunny() = HiSunny;',
           );
           expect(
             writer.topFactoryBuilder(item2),
-            'factory Weather.rainy({@required int/*!*/ rain,}) ='
+            'const factory Weather.rainy({@required int/*!*/ rain,}) ='
             ' WeatherRainy;',
           );
           expect(
             writer.topFactoryBuilder(item3),
-            'factory Weather.windy'
+            'const factory Weather.windy'
             '({@required double/*!*/ velocity, @required double/*?*/ angle,})'
             ' = HelloWindy;',
           );
@@ -440,7 +440,7 @@ void main() {
 
           expect(
             writer.topFactoryBuilder(item1),
-            'factory Result.success({required T data,})'
+            'const factory Result.success({required T data,})'
             ' = MySuccess<T>;',
           );
         });
@@ -453,7 +453,7 @@ void main() {
 
         expect(
           writer.topFactoryBuilder(item2),
-          'factory Base.two(int x,) = BaseTwo;',
+          'const factory Base.two(int x,) = BaseTwo;',
         );
       });
     });

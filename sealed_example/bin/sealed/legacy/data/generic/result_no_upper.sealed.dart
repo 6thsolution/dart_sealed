@@ -19,11 +19,11 @@ part of 'result_no_upper.dart';
 abstract class Result<D extends Object /*?*/, E extends Object /*?*/ > {
   const Result._internal();
 
-  factory Result.success({
+  const factory Result.success({
     @required D /*?*/ data,
   }) = ResultSuccess<D, E>;
 
-  factory Result.error({
+  const factory Result.error({
     @required E /*?*/ exception,
   }) = ResultError<D, E>;
 

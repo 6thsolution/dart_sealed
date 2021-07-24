@@ -47,11 +47,11 @@ part of 'result.dart';
 abstract class Result<Generic extends Object /*?*/ > {
   const Result._internal();
 
-  factory Result.success({
+  const factory Result.success({
     @required Generic /*!*/ data,
   }) = Success<Generic>;
 
-  factory Result.error({
+  const factory Result.error({
     @required Object /*!*/ exception,
   }) = Error<Generic>;
 

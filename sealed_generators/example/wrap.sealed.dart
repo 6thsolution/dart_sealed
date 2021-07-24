@@ -20,13 +20,13 @@ part of 'wrap.dart';
 abstract class Complete {
   const Complete._internal();
 
-  factory Complete.one() = CompleteOne;
+  const factory Complete.one() = CompleteOne;
 
-  factory Complete.two(
+  const factory Complete.two(
     int x,
   ) = CompleteTwo;
 
-  factory Complete.three(
+  const factory Complete.three(
     double y,
     double? z,
   ) = CompleteThree;
@@ -240,13 +240,13 @@ class CompleteThree extends Complete with EquatableMixin {
 abstract class Partial {
   const Partial._internal();
 
-  factory Partial.one() = PartialOne;
+  const factory Partial.one() = PartialOne;
 
-  factory Partial.two({
+  const factory Partial.two({
     required int x,
   }) = PartialTwo;
 
-  factory Partial.three(
+  const factory Partial.three(
     double y,
     double? z,
   ) = PartialThree;
