@@ -1,5 +1,5 @@
 name: super_enum_sealed_annotations
-description: Dart and Flutter sealed class generator and annotations based on super_enum API.
+description: Dart and Flutter sealed or union class generator and annotations based on super_enum API.
 repository: https://github.com/6thsolution/dart_sealed/tree/master/super_enum_sealed_annotations
 homepage: https://github.com/6thsolution/dart_sealed
 
