@@ -3,14 +3,14 @@ description: Dart and Flutter sealed or union class generator and annotations ba
 repository: https://github.com/6thsolution/dart_sealed/tree/master/super_enum_sealed_generators
 homepage: https://github.com/6thsolution/dart_sealed
 
-version: 1.3.0
+version: 1.4.0
 
 environment:
   sdk: '>=2.12.0 <3.0.0'
 
 dependencies:
-  super_enum_sealed_annotations: '>=1.3.0 <1.4.0'
-  sealed_writer: '>=1.3.0 <1.4.0'
+  super_enum_sealed_annotations: '>=1.4.0 <1.5.0'
+  sealed_writer: '>=1.4.0 <1.5.0'
   meta: ^1.7.0
   build: ^2.0.3
   source_gen: ^1.0.5

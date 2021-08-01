@@ -1,3 +1,7 @@
+## 1.4.0
+
+- Fix version problems
+
 ## 1.3.0
 
 - Using const factories
