@@ -50,19 +50,7 @@ Add `part` pointing to a file which you want classes be generated in. with `.sup
 part 'weather.sealed.dart';
 ```
 
-Add `@Sealed` annotation, and an abstract private class as a manifest for generated code.
-
-You can choose between three types of equality using `@WithEquality(...)` annotation. Default equality is `data` if not
-specified. This will become default equality for all sub-classes. You can change equality of each sub-class by using
-this annotation on individual methods.
-
-Equality types:
-
-* `data` Equality is implemented with Equatable package. It behaves like kotlin data classes.
-* `identity` Only identical instances are equal. It's like when you don't implement any specific equality.
-* `distinct` All the instances are not equal with each other. Even an instance is not equal with itself.
-
-A basic example:
+Add `@Sealed` annotation, and an abstract private class as a manifest for generated code. For example:
 
 ```dart
 @Sealed()
@@ -74,61 +62,6 @@ abstract class _Weather {
   void windy(double velocity, double? angle);
 }
 ```
-
-In the proceeding example all classes will have `data` equality. For example if you wanted `identity` equality for all
-classes but using `distinct` equality for `windy`:
-
-```dart
-@Sealed()
-@WithEquality(Equality.identity)
-abstract class _Weather {
-  void sunny();
-
-  void rainy(int rain);
-
-  @WithEquality(Equality.distinct)
-  void windy(double velocity, double? angle);
-}
-```
-
-An abstract super class is generated with name equal to name of manifest class without the underline (here `Weather`).
-Each method will become a sub-class. There should be at least one method. sub-class names are based on method name
-prefixed with super class name (for example `WeatherSunny`). Naming process can be tailored with use of `@WithPrefix`
-and `@WithName` annotations. Each method argument will become a field in corresponding sub-class. Field names are equal
-to argument names and field types are equal to argument types or dynamic if not specified. Argument types can be
-overridden using `@WithType` annotation for example when type information is not available at build time. Note that you
-can have nullable and non-nullable fields. In legacy projects all fields are considered nullable.
-
-To change prefix of sub-class names which by default is top class name, you can use `@WithPrefix` annotation. for
-example:
-
-```dart
-@Sealed()
-@WithPrefix('Hello')
-abstract class _Weather {
-  void sunny();
-}
-```
-
-Now `sunny` will be named `HelloSunny` instead of the default `WeatherSunny`. You can use `@WithPrefix('')` to remove
-all prefix from sub-class names.
-
-To change sub-class names directly you can use `@WithName` annotation. It will override `WithPrefix` if specified. for
-example:
-
-```dart
-@Sealed()
-abstract class _Weather {
-  @WithName('Hello')
-  void sunny();
-}
-```
-
-Now `sunny` will be named `Hello` instead of the default `WeatherSunny`. This is useful if you want not to use prefix
-for some items.
-
-Almost all methods on sealed classes use short names extracted from manifest method names. Full sub-class names are not
-used. It is recommended not to use sub-classes directly. There are factory methods for each item on super class.
 
 Then run the following command to generate code for you.
 
@@ -229,6 +162,86 @@ Notes:
 - Always use exact match method that you need, for example do not use `whenOrNull` instead of `whenPartial`.
 - Prefer using factories in super class instead of sub-class constructors.
 - Minimize usage of cast methods, most of the time they can be replaced with a match method.
+
+## Equality and generated class names
+
+You can choose between three types of equality using `@WithEquality(...)` annotation. Default equality is `data` if not
+specified. This will become default equality for all sub-classes. You can change equality of each sub-class by using
+this annotation on individual methods.
+
+Equality types:
+
+* `data` Equality is implemented with Equatable package. It behaves like kotlin data classes.
+* `identity` Only identical instances are equal. It's like when you don't implement any specific equality.
+* `distinct` All the instances are not equal with each other. Even an instance is not equal with itself.
+
+A basic example:
+
+```dart
+@Sealed()
+abstract class _Weather {
+  void sunny();
+
+  void rainy(int rain);
+
+  void windy(double velocity, double? angle);
+}
+```
+
+In the proceeding example all classes will have `data` equality. For example if you wanted `identity` equality for all
+classes but using `distinct` equality for `windy`:
+
+```dart
+@Sealed()
+@WithEquality(Equality.identity)
+abstract class _Weather {
+  void sunny();
+
+  void rainy(int rain);
+
+  @WithEquality(Equality.distinct)
+  void windy(double velocity, double? angle);
+}
+```
+
+An abstract super class is generated with name equal to name of manifest class without the underline (here `Weather`).
+Each method will become a sub-class. There should be at least one method. sub-class names are based on method name
+prefixed with super class name (for example `WeatherSunny`). Naming process can be tailored with use of `@WithPrefix`
+and `@WithName` annotations. Each method argument will become a field in corresponding sub-class. Field names are equal
+to argument names and field types are equal to argument types or dynamic if not specified. Argument types can be
+overridden using `@WithType` annotation for example when type information is not available at build time. Note that you
+can have nullable and non-nullable fields. In legacy projects all fields are considered nullable.
+
+To change prefix of sub-class names which by default is top class name, you can use `@WithPrefix` annotation. for
+example:
+
+```dart
+@Sealed()
+@WithPrefix('Hello')
+abstract class _Weather {
+  void sunny();
+}
+```
+
+Now `sunny` will be named `HelloSunny` instead of the default `WeatherSunny`. You can use `@WithPrefix('')` to remove
+all prefix from sub-class names.
+
+To change sub-class names directly you can use `@WithName` annotation. It will override `WithPrefix` if specified. for
+example:
+
+```dart
+@Sealed()
+abstract class _Weather {
+  @WithName('Hello')
+  void sunny();
+}
+```
+
+Now `sunny` will be named `Hello` instead of the default `WeatherSunny`. This is useful if you want not to use prefix
+for some items.
+
+Almost all methods on sealed classes use short names extracted from manifest method names. Full sub-class names are not
+used. It is recommended not to use sub-classes directly. There are factory methods for each item on super class.
 
 ## Generic Usage
 
