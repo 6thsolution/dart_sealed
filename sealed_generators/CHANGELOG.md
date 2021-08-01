@@ -1,3 +1,7 @@
+## dev
+
+- Using const factories
+
 ## 1.2.0
 
 - Using factory instead of static methods

@@ -48,9 +48,9 @@ part of 'use_class.dart';
 abstract class Weather {
   const Weather._internal();
 
-  factory Weather.sunny() = Sunny;
+  const factory Weather.sunny() = Sunny;
 
-  factory Weather.rainy(
+  const factory Weather.rainy(
     Hello data,
   ) = Rainy;
 

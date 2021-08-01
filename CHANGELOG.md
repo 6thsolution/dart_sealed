@@ -1,3 +1,8 @@
+## 1.3.0
+
+- Using const factories
+- Updated analyzer to 2.0.0
+
 ## 1.2.0
 
 - Using factory instead of static methods

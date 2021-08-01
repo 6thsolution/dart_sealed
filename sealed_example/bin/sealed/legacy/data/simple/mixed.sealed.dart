@@ -17,7 +17,7 @@ part of 'mixed.dart';
 abstract class Apple {
   const Apple._internal();
 
-  factory Apple.hold({
+  const factory Apple.hold({
     @required Banana /*?*/ banana,
   }) = AppleHold;
 
@@ -132,7 +132,7 @@ class AppleHold extends Apple with EquatableMixin {
 abstract class Banana {
   const Banana._internal();
 
-  factory Banana.hold({
+  const factory Banana.hold({
     @required Apple /*?*/ apple,
   }) = BananaHold;
 
@@ -251,17 +251,17 @@ class BananaHold extends Banana with EquatableMixin {
 abstract class Coconut {
   const Coconut._internal();
 
-  factory Coconut.test1({
+  const factory Coconut.test1({
     @required int /*?*/ x,
     @required double /*?*/ y,
   }) = CoconutTest1;
 
-  factory Coconut.test2({
+  const factory Coconut.test2({
     @required int /*?*/ x,
     @required double /*?*/ y,
   }) = CoconutTest2;
 
-  factory Coconut.hold({
+  const factory Coconut.hold({
     @required Apple /*?*/ apple,
     @required Banana /*?*/ banana,
   }) = CoconutHold;

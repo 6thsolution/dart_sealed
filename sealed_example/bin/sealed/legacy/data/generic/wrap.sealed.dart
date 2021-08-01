@@ -21,15 +21,15 @@ part of 'wrap.dart';
 abstract class Complete<T extends num /*?*/, U extends Object /*?*/ > {
   const Complete._internal();
 
-  factory Complete.one() = CompleteOne<T, U>;
+  const factory Complete.one() = CompleteOne<T, U>;
 
-  factory Complete.two(
+  const factory Complete.two(
     T /*?*/ x,
     U /*?*/ y,
     U /*?*/ z,
   ) = CompleteTwo<T, U>;
 
-  factory Complete.three(
+  const factory Complete.three(
     int /*?*/ a,
     T /*?*/ b,
   ) = CompleteThree<T, U>;

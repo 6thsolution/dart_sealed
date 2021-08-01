@@ -140,7 +140,7 @@ The generated code will look like: (the following code is summarised)
 
 ```dart
 abstract class Weather {
-  factory Weather.rainy({required int rain}) = WeatherRainy;
+  const factory Weather.rainy({required int rain}) = WeatherRainy;
 
   bool isRainy() => this is WeatherRainy;
 

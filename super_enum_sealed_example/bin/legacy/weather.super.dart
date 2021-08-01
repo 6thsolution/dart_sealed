@@ -54,13 +54,13 @@ part of 'weather.dart';
 abstract class Weather {
   const Weather._internal();
 
-  factory Weather.sunny() = Sunny;
+  const factory Weather.sunny() = Sunny;
 
-  factory Weather.rainy({
+  const factory Weather.rainy({
     @required int /*!*/ rain,
   }) = Rainy;
 
-  factory Weather.windy({
+  const factory Weather.windy({
     @required double /*!*/ velocity,
     @required double /*?*/ angle,
   }) = Windy;
