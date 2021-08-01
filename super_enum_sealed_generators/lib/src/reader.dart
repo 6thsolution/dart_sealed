@@ -106,14 +106,21 @@ class Reader {
       data.read('fields').listValue;
 
   /// read a field from a [DataField] object.
-  ManifestField _readField(DartObject obj) => ManifestField(
-        name: ConstantReader(obj).read('name').stringValue,
-        type: ManifestType(
-          name: obj.type!.typeArguments.first
-              .getDisplayString(withNullability: false),
-          isNullable: !ConstantReader(obj).read('required').boolValue,
-        ),
-      );
+  ManifestField _readField(DartObject obj) {
+    // todo find a better approach !
+    // type arguments are inaccessible from obj.type, so:
+    var name = obj.type!.getDisplayString(withNullability: false);
+    name = name.substring('DataField<'.length);
+    name = name.substring(0, name.length - '>'.length);
+
+    return ManifestField(
+      name: ConstantReader(obj).read('name').stringValue,
+      type: ManifestType(
+        name: name,
+        isNullable: !ConstantReader(obj).read('required').boolValue,
+      ),
+    );
+  }
 
   /// filter metadata by type.
   List<ConstantReader> _filterMetadata<T>(Element element) =>
