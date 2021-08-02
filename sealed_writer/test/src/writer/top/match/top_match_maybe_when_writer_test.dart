@@ -22,10 +22,7 @@ void main() {
         final i = writer.topMatchMaybeWhenIf(item1);
 
         expect(i.condition, 'weather is HiSunny');
-        expect(
-          i.code,
-          'return sunny != null ? sunny(weather) : orElse(weather);',
-        );
+        expect(i.code, 'return sunny != null ? sunny() : orElse(weather);');
       });
     });
 
@@ -37,7 +34,7 @@ void main() {
 
       expect(
         writer.topMatchMaybeWhenItemArgs(),
-        items.map(writer.topMatchGenericNArg),
+        items.map(writer.topMatchWrappedGenericNArg),
       );
     });
 
@@ -75,12 +72,9 @@ void main() {
       expect(
         writer.topMatchMaybeWhenBody(),
         'final weather = this;\n'
-        'if (weather is HiSunny)'
-        ' {return sunny != null ? sunny(weather) : orElse(weather);}\n'
-        'else if (weather is WeatherRainy)'
-        ' {return rainy != null ? rainy(weather) : orElse(weather);}\n'
-        'else if (weather is HelloWindy)'
-        ' {return windy != null ? windy(weather) : orElse(weather);}\n'
+        'if (weather is HiSunny) {return sunny != null ? sunny() : orElse(weather);}\n'
+        'else if (weather is WeatherRainy) {return rainy != null ? rainy(weather.rain) : orElse(weather);}\n'
+        'else if (weather is HelloWindy) {return windy != null ? windy(weather.velocity, weather.angle) : orElse(weather);}\n'
         'else {throw AssertionError();}',
       );
     });
@@ -93,10 +87,10 @@ void main() {
         expect(
           writer.topMatchMaybeWhenStart(),
           'R maybeWhen<R extends Object?>({'
-          'R Function(HiSunny sunny)? sunny,'
-          ' R Function(WeatherRainy rainy)? rainy,'
-          ' R Function(HelloWindy windy)? windy,'
-          ' required R Function(Weather weather) orElse,'
+          'R Function()? sunny, '
+          'R Function(int rain)? rainy, '
+          'R Function(double velocity, double? angle)? windy, '
+          'required R Function(Weather weather) orElse,'
           '})',
         );
       });

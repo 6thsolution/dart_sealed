@@ -20,7 +20,7 @@ Generate sealed class hierarchy for Dart and Flutter.
 * Support for using one sealed type in another.
 * Support for null-safety.
 * Generate toString for data classes.
-* Generate 3 types of different matching methods. like `when` or `maybeWhen`.
+* Generate 6 types of different matching methods. like `when`, `maybeWhen` and `map`.
 
 ## Usage
 
@@ -82,6 +82,32 @@ abstract class Weather {
   /* ... */
 
   R when<R extends Object?>({
+    required R Function() sunny,
+    required R Function(int rain) rainy,
+    required R Function(double velocity, double? angle) windy,
+  }) {
+    /* ... */
+  }
+
+  R maybeWhen<R extends Object?>({
+    R Function()? sunny,
+    R Function(int rain)? rainy,
+    R Function(double velocity, double? angle)? windy,
+    required R Function(Weather weather) orElse,
+  }) {
+    /* ... */
+  }
+
+  void partialWhen({
+    void Function()? sunny,
+    void Function(int rain)? rainy,
+    void Function(double velocity, double? angle)? windy,
+    void Function(Weather weather)? orElse,
+  }) {
+    /* ... */
+  }
+
+  R map<R extends Object?>({
     required R Function(WeatherSunny sunny) sunny,
     required R Function(WeatherRainy rainy) rainy,
     required R Function(WeatherWindy windy) windy,
@@ -89,7 +115,7 @@ abstract class Weather {
     /* ... */
   }
 
-  R maybeWhen<R extends Object?>({
+  R maybeMap<R extends Object?>({
     R Function(WeatherSunny sunny)? sunny,
     R Function(WeatherRainy rainy)? rainy,
     R Function(WeatherWindy windy)? windy,
@@ -98,7 +124,7 @@ abstract class Weather {
     /* ... */
   }
 
-  void partialWhen({
+  void partialMap({
     void Function(WeatherSunny sunny)? sunny,
     void Function(WeatherRainy rainy)? rainy,
     void Function(WeatherWindy windy)? windy,

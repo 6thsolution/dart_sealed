@@ -22,7 +22,7 @@ void main() {
         final i = writer.topMatchWhenIf(item1);
 
         expect(i.condition, 'weather is HiSunny');
-        expect(i.code, 'return sunny(weather);');
+        expect(i.code, 'return sunny();');
       });
     });
 
@@ -34,7 +34,7 @@ void main() {
 
       expect(
         writer.topMatchWhenArgs(),
-        items.map(writer.topMatchGenericNNArg),
+        items.map(writer.topMatchWrappedGenericNNArg),
       );
     });
 
@@ -59,9 +59,12 @@ void main() {
       expect(
         writer.topMatchWhenBody(),
         'final weather = this;\n'
-        'if (weather is HiSunny) {return sunny(weather);}\n'
-        'else if (weather is WeatherRainy) {return rainy(weather);}\n'
-        'else if (weather is HelloWindy) {return windy(weather);}\n'
+        'if (weather is HiSunny) '
+        '{return sunny();}\n'
+        'else if (weather is WeatherRainy) '
+        '{return rainy(weather.rain);}\n'
+        'else if (weather is HelloWindy) '
+        '{return windy(weather.velocity, weather.angle);}\n'
         'else {throw AssertionError();}',
       );
     });
@@ -74,9 +77,9 @@ void main() {
         expect(
           writer.topMatchWhenStart(),
           'R when<R extends Object?>({'
-          'required R Function(HiSunny sunny) sunny,'
-          ' required R Function(WeatherRainy rainy) rainy,'
-          ' required R Function(HelloWindy windy) windy,'
+          'required R Function() sunny, '
+          'required R Function(int rain) rainy, '
+          'required R Function(double velocity, double? angle) windy,'
           '})',
         );
       });

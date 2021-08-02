@@ -45,6 +45,58 @@ abstract class Result<D extends Object?, E extends Object?> {
   }
 
   R when<R extends Object?>({
+    required R Function(D data) success,
+    required R Function(E exception) error,
+  }) {
+    final result = this;
+    if (result is ResultSuccess<D, E>) {
+      return success(result.data);
+    } else if (result is ResultError<D, E>) {
+      return error(result.exception);
+    } else {
+      throw AssertionError();
+    }
+  }
+
+  R maybeWhen<R extends Object?>({
+    R Function(D data)? success,
+    R Function(E exception)? error,
+    required R Function(Result<D, E> result) orElse,
+  }) {
+    final result = this;
+    if (result is ResultSuccess<D, E>) {
+      return success != null ? success(result.data) : orElse(result);
+    } else if (result is ResultError<D, E>) {
+      return error != null ? error(result.exception) : orElse(result);
+    } else {
+      throw AssertionError();
+    }
+  }
+
+  void partialWhen({
+    void Function(D data)? success,
+    void Function(E exception)? error,
+    void Function(Result<D, E> result)? orElse,
+  }) {
+    final result = this;
+    if (result is ResultSuccess<D, E>) {
+      if (success != null) {
+        success(result.data);
+      } else if (orElse != null) {
+        orElse(result);
+      }
+    } else if (result is ResultError<D, E>) {
+      if (error != null) {
+        error(result.exception);
+      } else if (orElse != null) {
+        orElse(result);
+      }
+    } else {
+      throw AssertionError();
+    }
+  }
+
+  R map<R extends Object?>({
     required R Function(ResultSuccess<D, E> success) success,
     required R Function(ResultError<D, E> error) error,
   }) {
@@ -58,7 +110,7 @@ abstract class Result<D extends Object?, E extends Object?> {
     }
   }
 
-  R maybeWhen<R extends Object?>({
+  R maybeMap<R extends Object?>({
     R Function(ResultSuccess<D, E> success)? success,
     R Function(ResultError<D, E> error)? error,
     required R Function(Result<D, E> result) orElse,
@@ -73,7 +125,7 @@ abstract class Result<D extends Object?, E extends Object?> {
     }
   }
 
-  void partialWhen({
+  void partialMap({
     void Function(ResultSuccess<D, E> success)? success,
     void Function(ResultError<D, E> error)? error,
     void Function(Result<D, E> result)? orElse,

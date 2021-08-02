@@ -15,7 +15,7 @@ class TopMatchWhenWriter extends TopMatchBaseWriter {
         condition: '$topLower ${isSub(item)}',
         code: [
           'return ${subLower(item)}',
-          topMatchItemCallArgs(),
+          topMatchWrappedItemCallArgs(item),
           ';',
         ].joinParts(),
       );
@@ -32,7 +32,7 @@ class TopMatchWhenWriter extends TopMatchBaseWriter {
       ].joinLines();
 
   Iterable<String> topMatchWhenArgs() =>
-      manifest.items.map(topMatchGenericNNArg);
+      manifest.items.map(topMatchWrappedGenericNNArg);
 
   /// start of when method
   String topMatchWhenStart() => [

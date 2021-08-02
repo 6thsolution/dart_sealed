@@ -45,6 +45,58 @@ abstract class Result<D extends num> {
   }
 
   R when<R extends Object?>({
+    required R Function(D data) success,
+    required R Function(Object exception) error,
+  }) {
+    final result = this;
+    if (result is ResultSuccess<D>) {
+      return success(result.data);
+    } else if (result is ResultError<D>) {
+      return error(result.exception);
+    } else {
+      throw AssertionError();
+    }
+  }
+
+  R maybeWhen<R extends Object?>({
+    R Function(D data)? success,
+    R Function(Object exception)? error,
+    required R Function(Result<D> result) orElse,
+  }) {
+    final result = this;
+    if (result is ResultSuccess<D>) {
+      return success != null ? success(result.data) : orElse(result);
+    } else if (result is ResultError<D>) {
+      return error != null ? error(result.exception) : orElse(result);
+    } else {
+      throw AssertionError();
+    }
+  }
+
+  void partialWhen({
+    void Function(D data)? success,
+    void Function(Object exception)? error,
+    void Function(Result<D> result)? orElse,
+  }) {
+    final result = this;
+    if (result is ResultSuccess<D>) {
+      if (success != null) {
+        success(result.data);
+      } else if (orElse != null) {
+        orElse(result);
+      }
+    } else if (result is ResultError<D>) {
+      if (error != null) {
+        error(result.exception);
+      } else if (orElse != null) {
+        orElse(result);
+      }
+    } else {
+      throw AssertionError();
+    }
+  }
+
+  R map<R extends Object?>({
     required R Function(ResultSuccess<D> success) success,
     required R Function(ResultError<D> error) error,
   }) {
@@ -58,7 +110,7 @@ abstract class Result<D extends num> {
     }
   }
 
-  R maybeWhen<R extends Object?>({
+  R maybeMap<R extends Object?>({
     R Function(ResultSuccess<D> success)? success,
     R Function(ResultError<D> error)? error,
     required R Function(Result<D> result) orElse,
@@ -73,7 +125,7 @@ abstract class Result<D extends num> {
     }
   }
 
-  void partialWhen({
+  void partialMap({
     void Function(ResultSuccess<D> success)? success,
     void Function(ResultError<D> error)? error,
     void Function(Result<D> result)? orElse,

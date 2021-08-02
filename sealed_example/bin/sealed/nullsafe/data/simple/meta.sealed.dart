@@ -59,6 +59,73 @@ abstract class Weather {
   }
 
   R when<R extends Object?>({
+    required R Function() sunny,
+    required R Function(int rain) rainy,
+    required R Function(double velocity, double? angle) windy,
+  }) {
+    final weather = this;
+    if (weather is PrefixSunny) {
+      return sunny();
+    } else if (weather is BadWeather) {
+      return rainy(weather.rain);
+    } else if (weather is VeryBadWeather) {
+      return windy(weather.velocity, weather.angle);
+    } else {
+      throw AssertionError();
+    }
+  }
+
+  R maybeWhen<R extends Object?>({
+    R Function()? sunny,
+    R Function(int rain)? rainy,
+    R Function(double velocity, double? angle)? windy,
+    required R Function(Weather weather) orElse,
+  }) {
+    final weather = this;
+    if (weather is PrefixSunny) {
+      return sunny != null ? sunny() : orElse(weather);
+    } else if (weather is BadWeather) {
+      return rainy != null ? rainy(weather.rain) : orElse(weather);
+    } else if (weather is VeryBadWeather) {
+      return windy != null
+          ? windy(weather.velocity, weather.angle)
+          : orElse(weather);
+    } else {
+      throw AssertionError();
+    }
+  }
+
+  void partialWhen({
+    void Function()? sunny,
+    void Function(int rain)? rainy,
+    void Function(double velocity, double? angle)? windy,
+    void Function(Weather weather)? orElse,
+  }) {
+    final weather = this;
+    if (weather is PrefixSunny) {
+      if (sunny != null) {
+        sunny();
+      } else if (orElse != null) {
+        orElse(weather);
+      }
+    } else if (weather is BadWeather) {
+      if (rainy != null) {
+        rainy(weather.rain);
+      } else if (orElse != null) {
+        orElse(weather);
+      }
+    } else if (weather is VeryBadWeather) {
+      if (windy != null) {
+        windy(weather.velocity, weather.angle);
+      } else if (orElse != null) {
+        orElse(weather);
+      }
+    } else {
+      throw AssertionError();
+    }
+  }
+
+  R map<R extends Object?>({
     required R Function(PrefixSunny sunny) sunny,
     required R Function(BadWeather rainy) rainy,
     required R Function(VeryBadWeather windy) windy,
@@ -75,7 +142,7 @@ abstract class Weather {
     }
   }
 
-  R maybeWhen<R extends Object?>({
+  R maybeMap<R extends Object?>({
     R Function(PrefixSunny sunny)? sunny,
     R Function(BadWeather rainy)? rainy,
     R Function(VeryBadWeather windy)? windy,
@@ -93,7 +160,7 @@ abstract class Weather {
     }
   }
 
-  void partialWhen({
+  void partialMap({
     void Function(PrefixSunny sunny)? sunny,
     void Function(BadWeather rainy)? rainy,
     void Function(VeryBadWeather windy)? windy,

@@ -30,6 +30,45 @@ abstract class Apple {
   }
 
   R when<R extends Object?>({
+    required R Function(Banana? banana) hold,
+  }) {
+    final apple = this;
+    if (apple is AppleHold) {
+      return hold(apple.banana);
+    } else {
+      throw AssertionError();
+    }
+  }
+
+  R maybeWhen<R extends Object?>({
+    R Function(Banana? banana)? hold,
+    required R Function(Apple apple) orElse,
+  }) {
+    final apple = this;
+    if (apple is AppleHold) {
+      return hold != null ? hold(apple.banana) : orElse(apple);
+    } else {
+      throw AssertionError();
+    }
+  }
+
+  void partialWhen({
+    void Function(Banana? banana)? hold,
+    void Function(Apple apple)? orElse,
+  }) {
+    final apple = this;
+    if (apple is AppleHold) {
+      if (hold != null) {
+        hold(apple.banana);
+      } else if (orElse != null) {
+        orElse(apple);
+      }
+    } else {
+      throw AssertionError();
+    }
+  }
+
+  R map<R extends Object?>({
     required R Function(AppleHold hold) hold,
   }) {
     final apple = this;
@@ -40,7 +79,7 @@ abstract class Apple {
     }
   }
 
-  R maybeWhen<R extends Object?>({
+  R maybeMap<R extends Object?>({
     R Function(AppleHold hold)? hold,
     required R Function(Apple apple) orElse,
   }) {
@@ -52,7 +91,7 @@ abstract class Apple {
     }
   }
 
-  void partialWhen({
+  void partialMap({
     void Function(AppleHold hold)? hold,
     void Function(Apple apple)? orElse,
   }) {
@@ -113,6 +152,45 @@ abstract class Banana {
   }
 
   R when<R extends Object?>({
+    required R Function(Apple apple) hold,
+  }) {
+    final banana = this;
+    if (banana is BananaHold) {
+      return hold(banana.apple);
+    } else {
+      throw AssertionError();
+    }
+  }
+
+  R maybeWhen<R extends Object?>({
+    R Function(Apple apple)? hold,
+    required R Function(Banana banana) orElse,
+  }) {
+    final banana = this;
+    if (banana is BananaHold) {
+      return hold != null ? hold(banana.apple) : orElse(banana);
+    } else {
+      throw AssertionError();
+    }
+  }
+
+  void partialWhen({
+    void Function(Apple apple)? hold,
+    void Function(Banana banana)? orElse,
+  }) {
+    final banana = this;
+    if (banana is BananaHold) {
+      if (hold != null) {
+        hold(banana.apple);
+      } else if (orElse != null) {
+        orElse(banana);
+      }
+    } else {
+      throw AssertionError();
+    }
+  }
+
+  R map<R extends Object?>({
     required R Function(BananaHold hold) hold,
   }) {
     final banana = this;
@@ -123,7 +201,7 @@ abstract class Banana {
     }
   }
 
-  R maybeWhen<R extends Object?>({
+  R maybeMap<R extends Object?>({
     R Function(BananaHold hold)? hold,
     required R Function(Banana banana) orElse,
   }) {
@@ -135,7 +213,7 @@ abstract class Banana {
     }
   }
 
-  void partialWhen({
+  void partialMap({
     void Function(BananaHold hold)? hold,
     void Function(Banana banana)? orElse,
   }) {
@@ -229,6 +307,73 @@ abstract class Coconut {
   }
 
   R when<R extends Object?>({
+    required R Function(int x, double y) test1,
+    required R Function(int? x, double? y) test2,
+    required R Function(Apple? apple, Banana? banana) hold,
+  }) {
+    final coconut = this;
+    if (coconut is CoconutTest1) {
+      return test1(coconut.x, coconut.y);
+    } else if (coconut is CoconutTest2) {
+      return test2(coconut.x, coconut.y);
+    } else if (coconut is CoconutHold) {
+      return hold(coconut.apple, coconut.banana);
+    } else {
+      throw AssertionError();
+    }
+  }
+
+  R maybeWhen<R extends Object?>({
+    R Function(int x, double y)? test1,
+    R Function(int? x, double? y)? test2,
+    R Function(Apple? apple, Banana? banana)? hold,
+    required R Function(Coconut coconut) orElse,
+  }) {
+    final coconut = this;
+    if (coconut is CoconutTest1) {
+      return test1 != null ? test1(coconut.x, coconut.y) : orElse(coconut);
+    } else if (coconut is CoconutTest2) {
+      return test2 != null ? test2(coconut.x, coconut.y) : orElse(coconut);
+    } else if (coconut is CoconutHold) {
+      return hold != null
+          ? hold(coconut.apple, coconut.banana)
+          : orElse(coconut);
+    } else {
+      throw AssertionError();
+    }
+  }
+
+  void partialWhen({
+    void Function(int x, double y)? test1,
+    void Function(int? x, double? y)? test2,
+    void Function(Apple? apple, Banana? banana)? hold,
+    void Function(Coconut coconut)? orElse,
+  }) {
+    final coconut = this;
+    if (coconut is CoconutTest1) {
+      if (test1 != null) {
+        test1(coconut.x, coconut.y);
+      } else if (orElse != null) {
+        orElse(coconut);
+      }
+    } else if (coconut is CoconutTest2) {
+      if (test2 != null) {
+        test2(coconut.x, coconut.y);
+      } else if (orElse != null) {
+        orElse(coconut);
+      }
+    } else if (coconut is CoconutHold) {
+      if (hold != null) {
+        hold(coconut.apple, coconut.banana);
+      } else if (orElse != null) {
+        orElse(coconut);
+      }
+    } else {
+      throw AssertionError();
+    }
+  }
+
+  R map<R extends Object?>({
     required R Function(CoconutTest1 test1) test1,
     required R Function(CoconutTest2 test2) test2,
     required R Function(CoconutHold hold) hold,
@@ -245,7 +390,7 @@ abstract class Coconut {
     }
   }
 
-  R maybeWhen<R extends Object?>({
+  R maybeMap<R extends Object?>({
     R Function(CoconutTest1 test1)? test1,
     R Function(CoconutTest2 test2)? test2,
     R Function(CoconutHold hold)? hold,
@@ -263,7 +408,7 @@ abstract class Coconut {
     }
   }
 
-  void partialWhen({
+  void partialMap({
     void Function(CoconutTest1 test1)? test1,
     void Function(CoconutTest2 test2)? test2,
     void Function(CoconutHold hold)? hold,

@@ -24,7 +24,7 @@ void main() {
         expect(i.condition, 'weather is HiSunny');
         expect(
           i.code,
-          'if (sunny != null) {sunny(weather);}\n'
+          'if (sunny != null) {sunny();}\n'
           'else if (orElse != null) {orElse(weather);}',
         );
       });
@@ -39,7 +39,7 @@ void main() {
       expect(
         writer.topMatchPartialWhenArgs(),
         [
-          ...items.map(writer.topMatchVoidNArg),
+          ...items.map(writer.topMatchWrappedVoidNArg),
           writer.topMatchVoidNArgOrElse(),
         ],
       );
@@ -67,13 +67,13 @@ void main() {
         writer.topMatchPartialWhenBody(),
         'final weather = this;\n'
         'if (weather is HiSunny) {'
-        'if (sunny != null) {sunny(weather);}\n'
+        'if (sunny != null) {sunny();}\n'
         'else if (orElse != null) {orElse(weather);}}\n'
         'else if (weather is WeatherRainy) {'
-        'if (rainy != null) {rainy(weather);}\n'
+        'if (rainy != null) {rainy(weather.rain);}\n'
         'else if (orElse != null) {orElse(weather);}}\n'
         'else if (weather is HelloWindy) {'
-        'if (windy != null) {windy(weather);}\n'
+        'if (windy != null) {windy(weather.velocity, weather.angle);}\n'
         'else if (orElse != null) {orElse(weather);}}\n'
         'else {throw AssertionError();}',
       );
@@ -87,10 +87,9 @@ void main() {
         expect(
           writer.topMatchPartialWhenStart(),
           'void partialWhen({'
-          'void Function(HiSunny sunny)? sunny,'
-          ' void Function(WeatherRainy rainy)? rainy,'
-          ' void Function(HelloWindy windy)? windy,'
-          ' void Function(Weather weather)? orElse,'
+          'void Function()? sunny, void Function(int rain)? rainy, '
+          'void Function(double velocity, double? angle)? windy, '
+          'void Function(Weather weather)? orElse,'
           '})',
         );
       });
