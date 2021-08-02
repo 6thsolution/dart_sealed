@@ -1,4 +1,4 @@
-## dev
+## 1.5.0
 
 - Removed support for super_enum API
 - Removed support for non null-safe projects.
@@ -7,6 +7,7 @@
 - Rename whenOrElse to maybeWhen
 - Rename whenPartial to partialWhen
 - Refactor partialWhen implementation
+- Added map, maybeMap and partialMap methods
 
 ## 1.4.0
 
