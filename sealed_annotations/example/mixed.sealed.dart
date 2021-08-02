@@ -40,7 +40,7 @@ abstract class Apple {
     }
   }
 
-  R whenOrElse<R extends Object?>({
+  R maybeWhen<R extends Object?>({
     R Function(AppleHold hold)? hold,
     required R Function(Apple apple) orElse,
   }) {
@@ -52,7 +52,7 @@ abstract class Apple {
     }
   }
 
-  void whenPartial({
+  void partialWhen({
     void Function(AppleHold hold)? hold,
   }) {
     final apple = this;
@@ -118,7 +118,7 @@ abstract class Banana {
     }
   }
 
-  R whenOrElse<R extends Object?>({
+  R maybeWhen<R extends Object?>({
     R Function(BananaHold hold)? hold,
     required R Function(Banana banana) orElse,
   }) {
@@ -130,7 +130,7 @@ abstract class Banana {
     }
   }
 
-  void whenPartial({
+  void partialWhen({
     void Function(BananaHold hold)? hold,
   }) {
     final banana = this;
@@ -235,7 +235,7 @@ abstract class Coconut {
     }
   }
 
-  R whenOrElse<R extends Object?>({
+  R maybeWhen<R extends Object?>({
     R Function(CoconutTest1 test1)? test1,
     R Function(CoconutTest2 test2)? test2,
     R Function(CoconutHold hold)? hold,
@@ -253,7 +253,7 @@ abstract class Coconut {
     }
   }
 
-  void whenPartial({
+  void partialWhen({
     void Function(CoconutTest1 test1)? test1,
     void Function(CoconutTest2 test2)? test2,
     void Function(CoconutHold hold)? hold,

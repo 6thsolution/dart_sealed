@@ -4,6 +4,8 @@
 - Removed support for non null-safe projects.
 - Removed whenOrThrow, whenOrNull and whenOrDefault
 - Removed wrapping functionality
+- Rename whenOrElse to maybeWhen
+- Rename whenPartial to partialWhen
 
 ## 1.4.0
 

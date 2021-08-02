@@ -4,14 +4,14 @@ import 'package:sealed_writer/src/utils/branch_utils.dart';
 import 'package:sealed_writer/src/utils/string_utils.dart';
 import 'package:sealed_writer/src/writer/top/match/top_match_base_writer.dart';
 
-/// match method writer whenPartial()
+/// match method writer partialWhen()
 @sealed
 @immutable
-class TopMatchWhenPartialWriter extends TopMatchBaseWriter {
-  const TopMatchWhenPartialWriter(Manifest manifest) : super(manifest);
+class TopMatchPartialWhenWriter extends TopMatchBaseWriter {
+  const TopMatchPartialWhenWriter(Manifest manifest) : super(manifest);
 
   /// ex. if (weather is WeatherSunny) { sunny?.call(weather); }
-  If topMatchWhenPartialIf(ManifestItem item) => If(
+  If topMatchPartialWhenIf(ManifestItem item) => If(
         condition: '$topLower ${isSub(item)}',
         code: [
           '${subLower(item)}?.call',
@@ -20,33 +20,33 @@ class TopMatchWhenPartialWriter extends TopMatchBaseWriter {
         ].joinParts(),
       );
 
-  List<If> topMatchWhenPartialIfs() =>
-      manifest.items.map(topMatchWhenPartialIf).toList();
+  List<If> topMatchPartialWhenIfs() =>
+      manifest.items.map(topMatchPartialWhenIf).toList();
 
   /// body of when method
-  String topMatchWhenPartialBody() => [
+  String topMatchPartialWhenBody() => [
         initThisValue(),
         Branch(
-          ifs: topMatchWhenPartialIfs(),
+          ifs: topMatchPartialWhenIfs(),
           els: throwingElse(),
         ).join(),
       ].joinLines();
 
-  Iterable<String> topMatchWhenPartialArgs() =>
+  Iterable<String> topMatchPartialWhenArgs() =>
       manifest.items.map(topMatchVoidNArg);
 
   /// start of when method
-  String topMatchWhenPartialStart() => [
-        'void whenPartial',
-        topMatchWhenPartialArgs().joinArgsFull().withBraces().withParenthesis(),
+  String topMatchPartialWhenStart() => [
+        'void partialWhen',
+        topMatchPartialWhenArgs().joinArgsFull().withBraces().withParenthesis(),
       ].joinParts();
 
-  /// void WhenPartial(item...)
+  /// void PartialWhen(item...)
   /// {...}
-  String topMatchWhenPartial() => [
-        topMatchWhenPartialStart(),
+  String topMatchPartialWhen() => [
+        topMatchPartialWhenStart(),
         '{',
-        topMatchWhenPartialBody(),
+        topMatchPartialWhenBody(),
         '}',
       ].joinLines();
 }

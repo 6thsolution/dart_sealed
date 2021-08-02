@@ -20,8 +20,8 @@ void main() {
         writer.topMatchMethods(),
         containsAll(<String>[
           writer.topMatchWhenWriter.topMatchWhen(),
-          writer.topMatchWhenOrElseWriter.topMatchWhenOrElse(),
-          writer.topMatchWhenPartialWriter.topMatchWhenPartial(),
+          writer.topMatchMaybeWhenWriter.topMatchMaybeWhen(),
+          writer.topMatchPartialWhenWriter.topMatchPartialWhen(),
         ]),
       );
     });

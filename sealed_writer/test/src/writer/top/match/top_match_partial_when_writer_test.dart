@@ -1,63 +1,63 @@
-import 'package:sealed_writer/src/writer/top/match/top_match_when_partial_writer.dart';
+import 'package:sealed_writer/src/writer/top/match/top_match_partial_when_writer.dart';
 import 'package:test/test.dart';
 
 import '../../../../utils/examples.dart';
 
 void main() {
-  group('class TopMatchWhenPartialWriter', () {
+  group('class TopMatchPartialWhenWriter', () {
     test('initialization', () {
       final manifest = manifest1Data;
-      final writer = TopMatchWhenPartialWriter(manifest);
+      final writer = TopMatchPartialWhenWriter(manifest);
 
       expect(writer.manifest, manifest);
     });
 
-    group('method topMatchWhenPartialIf', () {
+    group('method topMatchPartialWhenIf', () {
       test('non-wrapped', () {
         final manifest = manifest1Data;
 
         // sunny
         final item1 = manifest.items[0];
-        final writer = TopMatchWhenPartialWriter(manifest);
-        final i = writer.topMatchWhenPartialIf(item1);
+        final writer = TopMatchPartialWhenWriter(manifest);
+        final i = writer.topMatchPartialWhenIf(item1);
 
         expect(i.condition, 'weather is HiSunny');
         expect(i.code, 'sunny?.call(weather);');
       });
     });
 
-    test('method topMatchWhenPartialArgs', () {
+    test('method topMatchPartialWhenArgs', () {
       final manifest = manifest1Data;
 
       final items = manifest.items;
-      final writer = TopMatchWhenPartialWriter(manifest);
+      final writer = TopMatchPartialWhenWriter(manifest);
 
       expect(
-        writer.topMatchWhenPartialArgs(),
+        writer.topMatchPartialWhenArgs(),
         items.map(writer.topMatchVoidNArg),
       );
     });
 
-    test('method topMatchWhenPartialIfs', () {
+    test('method topMatchPartialWhenIfs', () {
       final manifest = manifest1Data;
 
       final items = manifest.items;
-      final writer = TopMatchWhenPartialWriter(manifest);
-      final ifs = writer.topMatchWhenPartialIfs();
+      final writer = TopMatchPartialWhenWriter(manifest);
+      final ifs = writer.topMatchPartialWhenIfs();
       final a = ifs[0];
-      final b = writer.topMatchWhenPartialIf(items[0]);
+      final b = writer.topMatchPartialWhenIf(items[0]);
 
       expect(ifs, hasLength(equals(items.length)));
       expect(a.code, b.code);
       expect(a.condition, b.condition);
     });
 
-    test('method topMatchWhenPartialBody', () {
+    test('method topMatchPartialWhenBody', () {
       final manifest = manifest1Data;
-      final writer = TopMatchWhenPartialWriter(manifest);
+      final writer = TopMatchPartialWhenWriter(manifest);
 
       expect(
-        writer.topMatchWhenPartialBody(),
+        writer.topMatchPartialWhenBody(),
         'final weather = this;\n'
         'if (weather is HiSunny) {'
         'sunny?.call(weather);}\n'
@@ -69,14 +69,14 @@ void main() {
       );
     });
 
-    group('method topMatchWhenPartialStart', () {
+    group('method topMatchPartialWhenStart', () {
       test('non-wrapped', () {
         final manifest = manifest1Data;
-        final writer = TopMatchWhenPartialWriter(manifest);
+        final writer = TopMatchPartialWhenWriter(manifest);
 
         expect(
-          writer.topMatchWhenPartialStart(),
-          'void whenPartial({'
+          writer.topMatchPartialWhenStart(),
+          'void partialWhen({'
           'void Function(HiSunny sunny)? sunny,'
           ' void Function(WeatherRainy rainy)? rainy,'
           ' void Function(HelloWindy windy)? windy,'
@@ -85,22 +85,22 @@ void main() {
       });
     });
 
-    group('method topMatchWhenPartial', () {
+    group('method topMatchPartialWhen', () {
       test('null-safe', () {
         final manifest = manifest1Data;
-        final writer = TopMatchWhenPartialWriter(manifest);
+        final writer = TopMatchPartialWhenWriter(manifest);
 
         expect(
-          writer.topMatchWhenPartial(),
+          writer.topMatchPartialWhen(),
           stringContainsInOrder([
-            writer.topMatchWhenPartialStart(),
+            writer.topMatchPartialWhenStart(),
             '{',
-            writer.topMatchWhenPartialBody(),
+            writer.topMatchPartialWhenBody(),
             '}',
           ]),
         );
       });
     });
-    // end of group TopMatchWhenPartialWriter
+    // end of group TopMatchPartialWhenWriter
   });
 }

@@ -1,25 +1,25 @@
-import 'package:sealed_writer/src/writer/top/match/top_match_when_or_else_writer.dart';
+import 'package:sealed_writer/src/writer/top/match/top_match_maybe_when_writer.dart';
 import 'package:test/test.dart';
 
 import '../../../../utils/examples.dart';
 
 void main() {
-  group('class TopMatchWhenOrElseWriter', () {
+  group('class TopMatchMaybeWhenWriter', () {
     test('initialization', () {
       final manifest = manifest1Data;
-      final writer = TopMatchWhenOrElseWriter(manifest);
+      final writer = TopMatchMaybeWhenWriter(manifest);
 
       expect(writer.manifest, manifest);
     });
 
-    group('method topMatchWhenOrElseIf', () {
+    group('method topMatchMaybeWhenIf', () {
       test('non-wrapped', () {
         final manifest = manifest1Data;
 
         // sunny
         final item1 = manifest.items[0];
-        final writer = TopMatchWhenOrElseWriter(manifest);
-        final i = writer.topMatchWhenOrElseIf(item1);
+        final writer = TopMatchMaybeWhenWriter(manifest);
+        final i = writer.topMatchMaybeWhenIf(item1);
 
         expect(i.condition, 'weather is HiSunny');
         expect(
@@ -29,51 +29,51 @@ void main() {
       });
     });
 
-    test('method topMatchWhenOrElseItemArgs', () {
+    test('method topMatchMaybeWhenItemArgs', () {
       final manifest = manifest1Data;
 
       final items = manifest.items;
-      final writer = TopMatchWhenOrElseWriter(manifest);
+      final writer = TopMatchMaybeWhenWriter(manifest);
 
       expect(
-        writer.topMatchWhenOrElseItemArgs(),
+        writer.topMatchMaybeWhenItemArgs(),
         items.map(writer.topMatchGenericNArg),
       );
     });
 
-    test('method topMatchWhenOrElseArgs', () {
+    test('method topMatchMaybeWhenArgs', () {
       final manifest = manifest1Data;
-      final writer = TopMatchWhenOrElseWriter(manifest);
+      final writer = TopMatchMaybeWhenWriter(manifest);
 
       expect(
-        writer.topMatchWhenOrElseArgs(),
+        writer.topMatchMaybeWhenArgs(),
         allOf(
-          containsAll(writer.topMatchWhenOrElseItemArgs()),
+          containsAll(writer.topMatchMaybeWhenItemArgs()),
           contains(writer.topMatchGenericNNArgOrElse()),
         ),
       );
     });
 
-    test('method topMatchWhenOrElseIfs', () {
+    test('method topMatchMaybeWhenIfs', () {
       final manifest = manifest1Data;
 
       final items = manifest.items;
-      final writer = TopMatchWhenOrElseWriter(manifest);
-      final ifs = writer.topMatchWhenOrElseIfs();
+      final writer = TopMatchMaybeWhenWriter(manifest);
+      final ifs = writer.topMatchMaybeWhenIfs();
       final a = ifs[0];
-      final b = writer.topMatchWhenOrElseIf(items[0]);
+      final b = writer.topMatchMaybeWhenIf(items[0]);
 
       expect(ifs, hasLength(equals(items.length)));
       expect(a.code, b.code);
       expect(a.condition, b.condition);
     });
 
-    test('method topMatchWhenOrElseBody', () {
+    test('method topMatchMaybeWhenBody', () {
       final manifest = manifest1Data;
-      final writer = TopMatchWhenOrElseWriter(manifest);
+      final writer = TopMatchMaybeWhenWriter(manifest);
 
       expect(
-        writer.topMatchWhenOrElseBody(),
+        writer.topMatchMaybeWhenBody(),
         'final weather = this;\n'
         'if (weather is HiSunny)'
         ' {return sunny != null ? sunny(weather) : orElse(weather);}\n'
@@ -85,14 +85,14 @@ void main() {
       );
     });
 
-    group('method topMatchWhenOrElseStart', () {
+    group('method topMatchMaybeWhenStart', () {
       test('non-wrapped', () {
         final manifest = manifest1Data;
-        final writer = TopMatchWhenOrElseWriter(manifest);
+        final writer = TopMatchMaybeWhenWriter(manifest);
 
         expect(
-          writer.topMatchWhenOrElseStart(),
-          'R whenOrElse<R extends Object?>({'
+          writer.topMatchMaybeWhenStart(),
+          'R maybeWhen<R extends Object?>({'
           'R Function(HiSunny sunny)? sunny,'
           ' R Function(WeatherRainy rainy)? rainy,'
           ' R Function(HelloWindy windy)? windy,'
@@ -102,22 +102,22 @@ void main() {
       });
     });
 
-    group('method topMatchWhenOrElse', () {
+    group('method topMatchMaybeWhen', () {
       test('null-safe', () {
         final manifest = manifest1Data;
-        final writer = TopMatchWhenOrElseWriter(manifest);
+        final writer = TopMatchMaybeWhenWriter(manifest);
 
         expect(
-          writer.topMatchWhenOrElse(),
+          writer.topMatchMaybeWhen(),
           stringContainsInOrder([
-            writer.topMatchWhenOrElseStart(),
+            writer.topMatchMaybeWhenStart(),
             '{',
-            writer.topMatchWhenOrElseBody(),
+            writer.topMatchMaybeWhenBody(),
             '}',
           ]),
         );
       });
     });
-    // end of group TopMatchWhenOrElseWriter
+    // end of group TopMatchMaybeWhenWriter
   });
 }

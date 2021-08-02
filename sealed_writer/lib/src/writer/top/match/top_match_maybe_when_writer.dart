@@ -4,14 +4,14 @@ import 'package:sealed_writer/src/utils/branch_utils.dart';
 import 'package:sealed_writer/src/utils/string_utils.dart';
 import 'package:sealed_writer/src/writer/top/match/top_match_base_writer.dart';
 
-/// match method writer whenOrElse()
+/// match method writer maybeWhen()
 @sealed
 @immutable
-class TopMatchWhenOrElseWriter extends TopMatchBaseWriter {
-  const TopMatchWhenOrElseWriter(Manifest manifest) : super(manifest);
+class TopMatchMaybeWhenWriter extends TopMatchBaseWriter {
+  const TopMatchMaybeWhenWriter(Manifest manifest) : super(manifest);
 
   /// ex. if (weather is WeatherSunny) { return (sunny ?? orElse)(weather); }
-  If topMatchWhenOrElseIf(ManifestItem item) => If(
+  If topMatchMaybeWhenIf(ManifestItem item) => If(
         condition: '$topLower ${isSub(item)}',
         code: [
           'return ${subLower(item)} != null ?',
@@ -23,37 +23,37 @@ class TopMatchWhenOrElseWriter extends TopMatchBaseWriter {
         ].joinParts(),
       );
 
-  List<If> topMatchWhenOrElseIfs() =>
-      manifest.items.map(topMatchWhenOrElseIf).toList();
+  List<If> topMatchMaybeWhenIfs() =>
+      manifest.items.map(topMatchMaybeWhenIf).toList();
 
   /// body of when method
-  String topMatchWhenOrElseBody() => [
+  String topMatchMaybeWhenBody() => [
         initThisValue(),
         Branch(
-          ifs: topMatchWhenOrElseIfs(),
+          ifs: topMatchMaybeWhenIfs(),
           els: throwingElse(),
         ).join(),
       ].joinLines();
 
-  Iterable<String> topMatchWhenOrElseItemArgs() =>
+  Iterable<String> topMatchMaybeWhenItemArgs() =>
       manifest.items.map(topMatchGenericNArg);
 
-  Iterable<String> topMatchWhenOrElseArgs() => [
-        ...topMatchWhenOrElseItemArgs(),
+  Iterable<String> topMatchMaybeWhenArgs() => [
+        ...topMatchMaybeWhenItemArgs(),
         topMatchGenericNNArgOrElse(),
       ];
 
   /// start of when method
-  String topMatchWhenOrElseStart() => [
-        'R whenOrElse$topMatchParam',
-        topMatchWhenOrElseArgs().joinArgsFull().withBraces().withParenthesis(),
+  String topMatchMaybeWhenStart() => [
+        'R maybeWhen$topMatchParam',
+        topMatchMaybeWhenArgs().joinArgsFull().withBraces().withParenthesis(),
       ].joinParts();
 
-  /// R whenOrElse<R extends Object?>(item..., required orElse) {...}
-  String topMatchWhenOrElse() => [
-        topMatchWhenOrElseStart(),
+  /// R maybeWhen<R extends Object?>(item..., required orElse) {...}
+  String topMatchMaybeWhen() => [
+        topMatchMaybeWhenStart(),
         '{',
-        topMatchWhenOrElseBody(),
+        topMatchMaybeWhenBody(),
         '}',
       ].joinLines();
 }

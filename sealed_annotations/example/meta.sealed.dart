@@ -75,7 +75,7 @@ abstract class Weather {
     }
   }
 
-  R whenOrElse<R extends Object?>({
+  R maybeWhen<R extends Object?>({
     R Function(PrefixSunny sunny)? sunny,
     R Function(BadWeather rainy)? rainy,
     R Function(VeryBadWeather windy)? windy,
@@ -93,7 +93,7 @@ abstract class Weather {
     }
   }
 
-  void whenPartial({
+  void partialWhen({
     void Function(PrefixSunny sunny)? sunny,
     void Function(BadWeather rainy)? rainy,
     void Function(VeryBadWeather windy)? windy,

@@ -20,7 +20,7 @@ Generate sealed class hierarchy for Dart and Flutter.
 * Support for using one sealed type in another.
 * Support for null-safety.
 * Generate toString for data classes.
-* Generate 3 types of different matching methods. like `when` or `whenOrElse`.
+* Generate 3 types of different matching methods. like `when` or `maybeWhen`.
 
 ## Usage
 
@@ -89,7 +89,7 @@ abstract class Weather {
     /* ... */
   }
 
-  R whenOrElse<R extends Object?>({
+  R maybeWhen<R extends Object?>({
     R Function(WeatherSunny sunny)? sunny,
     R Function(WeatherRainy rainy)? rainy,
     R Function(WeatherWindy windy)? windy,
@@ -98,7 +98,7 @@ abstract class Weather {
     /* ... */
   }
 
-  void whenPartial({
+  void partialWhen({
     void Function(WeatherSunny sunny)? sunny,
     void Function(WeatherRainy rainy)? rainy,
     void Function(WeatherWindy windy)? windy,

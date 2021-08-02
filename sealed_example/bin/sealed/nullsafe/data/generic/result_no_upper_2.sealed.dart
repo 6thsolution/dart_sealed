@@ -58,7 +58,7 @@ abstract class Result<D extends Object?, E extends Object?> {
     }
   }
 
-  R whenOrElse<R extends Object?>({
+  R maybeWhen<R extends Object?>({
     R Function(ResultSuccess<D, E> success)? success,
     R Function(ResultError<D, E> error)? error,
     required R Function(Result<D, E> result) orElse,
@@ -73,7 +73,7 @@ abstract class Result<D extends Object?, E extends Object?> {
     }
   }
 
-  void whenPartial({
+  void partialWhen({
     void Function(ResultSuccess<D, E> success)? success,
     void Function(ResultError<D, E> error)? error,
   }) {
