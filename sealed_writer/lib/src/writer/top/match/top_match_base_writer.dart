@@ -104,27 +104,4 @@ class TopMatchBaseWriter extends BaseCastUtilsWriter {
 
   /// ex. (weather)
   String topMatchItemCallArgs() => '($topLower)';
-
-  /// adaptive
-  String topMatchNonOrWrappedItemCallArgs(ManifestItem item) => item.isWrapped
-      ? topMatchWrappedItemCallArgs(item)
-      : topMatchItemCallArgs();
-
-  /// adaptive
-  String topMatchNonOrWrappedGenericNNArg(ManifestItem item) => item.isWrapped
-      ? topMatchWrappedGenericNNArg(item)
-      : topMatchGenericNNArg(item);
-
-  /// adaptive
-  String topMatchNonOrWrappedGenericNArg(ManifestItem item) => item.isWrapped
-      ? topMatchWrappedGenericNArg(item)
-      : topMatchGenericNArg(item);
-
-  /// adaptive
-  String topMatchNonOrWrappedVoidNNArg(ManifestItem item) =>
-      item.isWrapped ? topMatchWrappedVoidNNArg(item) : topMatchVoidNNArg(item);
-
-  /// adaptive
-  String topMatchNonOrWrappedVoidNArg(ManifestItem item) =>
-      item.isWrapped ? topMatchWrappedVoidNArg(item) : topMatchVoidNArg(item);
 }

@@ -175,19 +175,16 @@ void main() {
         name: 'Candy',
         equality: ManifestEquality.distinct,
         fields: [field1],
-        isWrapped: true,
       );
 
       expect(item1.shortName, equals('windy'));
       expect(item1.name, equals('Lollipop'));
       expect(item1.equality, equals(ManifestEquality.identity));
       expect(item1.fields, isEmpty);
-      expect(item1.isWrapped, isFalse);
       expect(item2.shortName, equals('windy'));
       expect(item2.name, equals('Candy'));
       expect(item2.equality, equals(ManifestEquality.distinct));
       expect(item2.fields, contains(field1));
-      expect(item2.isWrapped, isTrue);
 
       expect(
         () => ManifestItem(
@@ -240,8 +237,7 @@ void main() {
         a.toString(),
         equals(
           'Item{name: Lollipop, shortName: windy,'
-          ' equality: ManifestEquality.identity, fields: [$field1],'
-          ' isWrapped: false}',
+          ' equality: ManifestEquality.identity, fields: [$field1]}',
         ),
       );
     });

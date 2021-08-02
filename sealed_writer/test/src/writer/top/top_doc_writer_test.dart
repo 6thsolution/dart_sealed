@@ -41,20 +41,6 @@ void main() {
 
         expect(writer.write(), doc2Data);
       });
-
-      test('data equality simple wrapped', () {
-        final manifest = manifest3Data;
-        final writer = TopDocWriter(manifest);
-
-        expect(writer.write(), doc3Data);
-      });
-
-      test('data equality generic wrapped', () {
-        final manifest = manifest4Data;
-        final writer = TopDocWriter(manifest);
-
-        expect(writer.write(), doc4Data);
-      });
     });
 
     test('constant equalityNames', () {

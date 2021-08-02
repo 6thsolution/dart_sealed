@@ -15,7 +15,7 @@ class TopMatchWhenPartialWriter extends TopMatchBaseWriter {
         condition: '$topLower ${isSub(item)}',
         code: [
           '${subLower(item)}?.call',
-          topMatchNonOrWrappedItemCallArgs(item),
+          topMatchItemCallArgs(),
           ';',
         ].joinParts(),
       );
@@ -33,7 +33,7 @@ class TopMatchWhenPartialWriter extends TopMatchBaseWriter {
       ].joinLines();
 
   Iterable<String> topMatchWhenPartialArgs() =>
-      manifest.items.map(topMatchNonOrWrappedVoidNArg);
+      manifest.items.map(topMatchVoidNArg);
 
   /// start of when method
   String topMatchWhenPartialStart() => [

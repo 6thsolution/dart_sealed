@@ -36,10 +36,6 @@ class TopBuilderWriter extends BaseUtilsWriter {
   String topBuilderWrappedDecArgs(ManifestItem item) =>
       item.fields.map(topBuilderWrappedDecArg).joinArgsFull().withParenthesis();
 
-  /// adaptive
-  String topBuilderNonOrWrappedDecArgs(ManifestItem item) =>
-      item.isWrapped ? topBuilderWrappedDecArgs(item) : topBuilderDecArgs(item);
-
   /// ex. angle
   String subConstructorWrappedCallArg(ManifestField field) => '${field.name}';
 
@@ -49,11 +45,6 @@ class TopBuilderWriter extends BaseUtilsWriter {
       .joinArgsFull()
       .withParenthesis();
 
-  /// adaptive
-  String topBuilderNonOrWrappedCallArgs(ManifestItem item) => item.isWrapped
-      ? topBuilderWrappedCallArgs(item)
-      : topBuilderCallArgs(item);
-
   /// ex. static WeatherSunny sunny() => WeatherSunny();
   ///
   /// ex. static ResultSuccess<T> <T extends num>success(...) =>
@@ -62,9 +53,9 @@ class TopBuilderWriter extends BaseUtilsWriter {
         annotationFactory,
         [
           'static ${subCall(item)} ${subLower(item)}$genericDec',
-          topBuilderNonOrWrappedDecArgs(item),
+          topBuilderDecArgs(item),
           ' => ${subCall(item)}',
-          topBuilderNonOrWrappedCallArgs(item),
+          topBuilderCallArgs(item),
           ';',
         ].joinParts(),
       ].joinLines();
@@ -74,7 +65,7 @@ class TopBuilderWriter extends BaseUtilsWriter {
   /// ex. factory Result.success(...) = ResultSuccess<T>;
   String topFactoryBuilder(ManifestItem item) => [
         'const factory $top.${subLower(item)}',
-        topBuilderNonOrWrappedDecArgs(item),
+        topBuilderDecArgs(item),
         ' = ',
         subCall(item),
         ';',

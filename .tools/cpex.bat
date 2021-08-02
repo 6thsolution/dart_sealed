@@ -8,8 +8,6 @@ copy sealed_example\bin\sealed\nullsafe\data\generic\result.dart sealed_annotati
 copy sealed_example\bin\sealed\nullsafe\data\generic\result.sealed.dart sealed_annotations\example\
 copy sealed_example\bin\sealed\nullsafe\data\simple\mixed.dart sealed_annotations\example\
 copy sealed_example\bin\sealed\nullsafe\data\simple\mixed.sealed.dart sealed_annotations\example\
-copy sealed_example\bin\sealed\nullsafe\data\simple\wrap.dart sealed_annotations\example\
-copy sealed_example\bin\sealed\nullsafe\data\simple\wrap.sealed.dart sealed_annotations\example\
 copy sealed_example\bin\sealed\nullsafe\data\simple\meta.dart sealed_annotations\example\
 copy sealed_example\bin\sealed\nullsafe\data\simple\meta.sealed.dart sealed_annotations\example\
 copy sealed_example\bin\sealed\nullsafe\data\generic\result_complex.dart sealed_annotations\example\
@@ -21,8 +19,6 @@ copy sealed_example\bin\sealed\nullsafe\data\generic\result.dart sealed_generato
 copy sealed_example\bin\sealed\nullsafe\data\generic\result.sealed.dart sealed_generators\example\
 copy sealed_example\bin\sealed\nullsafe\data\simple\mixed.dart sealed_generators\example\
 copy sealed_example\bin\sealed\nullsafe\data\simple\mixed.sealed.dart sealed_generators\example\
-copy sealed_example\bin\sealed\nullsafe\data\simple\wrap.dart sealed_generators\example\
-copy sealed_example\bin\sealed\nullsafe\data\simple\wrap.sealed.dart sealed_generators\example\
 copy sealed_example\bin\sealed\nullsafe\data\simple\meta.dart sealed_generators\example\
 copy sealed_example\bin\sealed\nullsafe\data\simple\meta.sealed.dart sealed_generators\example\
 copy sealed_example\bin\sealed\nullsafe\data\generic\result_complex.dart sealed_generators\example\

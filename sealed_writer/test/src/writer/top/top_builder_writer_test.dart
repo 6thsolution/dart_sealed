@@ -113,7 +113,7 @@ void main() {
     group('method topBuilderWrappedDecArg', () {
       group('simple', () {
         group('null-safe', () {
-          final manifest = manifest3Data;
+          final manifest = manifest1Data;
           // void windy(double velocity, double? angle);
           final item = manifest.items[2];
           final field1 = item.fields[0];
@@ -123,14 +123,14 @@ void main() {
           test('non-nullable field', () {
             expect(
               writer.topBuilderWrappedDecArg(field1),
-              'int y',
+              'double velocity',
             );
           });
 
           test('nullable field', () {
             expect(
               writer.topBuilderWrappedDecArg(field2),
-              'int? z',
+              'double? angle',
             );
           });
         });
@@ -138,7 +138,7 @@ void main() {
 
       group('generic', () {
         group('null-safe', () {
-          final manifest = manifest4Data;
+          final manifest = manifest2Data;
           final item = manifest.items[0];
           final field1 = item.fields[0];
           final writer = TopBuilderWriter(manifest);
@@ -146,7 +146,7 @@ void main() {
           test('non-nullable field', () {
             expect(
               writer.topBuilderWrappedDecArg(field1),
-              'T x',
+              'T data',
             );
           });
         });
@@ -154,84 +154,36 @@ void main() {
     });
 
     test('method topBuilderWrappedDecArgs', () {
-      final manifest = manifest3Data;
+      final manifest = manifest1Data;
       final item3 = manifest.items[2];
       final writer = TopBuilderWriter(manifest);
 
       expect(
         writer.topBuilderWrappedDecArgs(item3),
-        '(int y, int? z,)',
+        '(double velocity, double? angle,)',
       );
     });
 
-    group('method topBuilderNonOrWrappedDecArgs', () {
-      test('non-wrapped', () {
-        final manifest = manifest1Data;
-        final item3 = manifest.items[2];
-        final writer = TopBuilderWriter(manifest);
-
-        expect(
-          writer.topBuilderNonOrWrappedDecArgs(item3),
-          '({required double velocity, required double? angle,})',
-        );
-      });
-
-      test('wrapped', () {
-        final manifest = manifest3Data;
-        final item3 = manifest.items[2];
-        final writer = TopBuilderWriter(manifest);
-
-        expect(
-          writer.topBuilderNonOrWrappedDecArgs(item3),
-          '(int y, int? z,)',
-        );
-      });
-    });
-
     test('method subConstructorWrappedCallArg', () {
-      final manifest = manifest3Data;
+      final manifest = manifest1Data;
       final field = manifest.items[1].fields[0];
       final writer = TopBuilderWriter(manifest);
 
       expect(
         writer.subConstructorWrappedCallArg(field),
-        'x',
+        'rain',
       );
     });
 
     test('method topBuilderWrappedCallArgs', () {
-      final manifest = manifest3Data;
+      final manifest = manifest1Data;
       final item = manifest.items[1];
       final writer = TopBuilderWriter(manifest);
 
       expect(
         writer.topBuilderWrappedCallArgs(item),
-        '(x,)',
+        '(rain,)',
       );
-    });
-
-    group('method topBuilderNonOrWrappedCallArgs', () {
-      test('non-wrapped', () {
-        final manifest = manifest1Data;
-        final item = manifest.items[1];
-        final writer = TopBuilderWriter(manifest);
-
-        expect(
-          writer.topBuilderNonOrWrappedCallArgs(item),
-          '(rain: rain,)',
-        );
-      });
-
-      test('wrapped', () {
-        final manifest = manifest3Data;
-        final item = manifest.items[1];
-        final writer = TopBuilderWriter(manifest);
-
-        expect(
-          writer.topBuilderNonOrWrappedCallArgs(item),
-          '(x,)',
-        );
-      });
     });
 
     group('method topStaticBuilder', () {
@@ -285,18 +237,6 @@ void main() {
           );
         });
       });
-
-      test('simple wrapped null-safe', () {
-        final manifest = manifest3Data;
-        final item2 = manifest.items[1];
-        final writer = TopBuilderWriter(manifest);
-
-        expect(
-          writer.topStaticBuilder(item2),
-          '@factory\n'
-          'static BaseTwo two(int x,) => BaseTwo(x,);',
-        );
-      });
     });
 
     group('method topFactoryBuilder', () {
@@ -341,17 +281,6 @@ void main() {
             ' = MySuccess<T>;',
           );
         });
-      });
-
-      test('simple wrapped null-safe', () {
-        final manifest = manifest3Data;
-        final item2 = manifest.items[1];
-        final writer = TopBuilderWriter(manifest);
-
-        expect(
-          writer.topFactoryBuilder(item2),
-          'const factory Base.two(int x,) = BaseTwo;',
-        );
       });
     });
 

@@ -16,7 +16,7 @@ class TopMatchWhenOrElseWriter extends TopMatchBaseWriter {
         code: [
           'return ${subLower(item)} != null ?',
           ' ${subLower(item)}',
-          topMatchNonOrWrappedItemCallArgs(item),
+          topMatchItemCallArgs(),
           ' : orElse',
           topMatchItemCallArgs(),
           ';',
@@ -36,7 +36,7 @@ class TopMatchWhenOrElseWriter extends TopMatchBaseWriter {
       ].joinLines();
 
   Iterable<String> topMatchWhenOrElseItemArgs() =>
-      manifest.items.map(topMatchNonOrWrappedGenericNArg);
+      manifest.items.map(topMatchGenericNArg);
 
   Iterable<String> topMatchWhenOrElseArgs() => [
         ...topMatchWhenOrElseItemArgs(),

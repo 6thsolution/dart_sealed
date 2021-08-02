@@ -27,7 +27,6 @@ class SubDocWriter extends BaseWriter {
           _fieldsDoc(item),
         ].joinParts(),
         'with ${_equality(item.equality)} equality',
-        if (item.isWrapped) 'with wrap',
       ].insertEmptyLinesBetween().addDocComments().joinLines();
 
   String _equality(ManifestEquality equality) => equalityNames[equality.index];

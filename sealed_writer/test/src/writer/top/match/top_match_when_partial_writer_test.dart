@@ -24,15 +24,6 @@ void main() {
         expect(i.condition, 'weather is HiSunny');
         expect(i.code, 'sunny?.call(weather);');
       });
-
-      test('wrapped', () {
-        final manifest = manifest3Data;
-        final item2 = manifest.items[1];
-        final writer = TopMatchWhenPartialWriter(manifest);
-        final i = writer.topMatchWhenPartialIf(item2);
-
-        expect(i.code, 'two?.call(base.x);');
-      });
     });
 
     test('method topMatchWhenPartialArgs', () {
@@ -89,20 +80,6 @@ void main() {
           'void Function(HiSunny sunny)? sunny,'
           ' void Function(WeatherRainy rainy)? rainy,'
           ' void Function(HelloWindy windy)? windy,'
-          '})',
-        );
-      });
-
-      test('wrapped', () {
-        final manifest = manifest3Data;
-        final writer = TopMatchWhenPartialWriter(manifest);
-
-        expect(
-          writer.topMatchWhenPartialStart(),
-          'void whenPartial({'
-          'void Function()? one,'
-          ' void Function(int x)? two,'
-          ' void Function(int y, int? z)? three,'
           '})',
         );
       });

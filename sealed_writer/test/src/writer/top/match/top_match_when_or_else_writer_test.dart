@@ -27,15 +27,6 @@ void main() {
           'return sunny != null ? sunny(weather) : orElse(weather);',
         );
       });
-
-      test('wrapped', () {
-        final manifest = manifest3Data;
-        final item2 = manifest.items[1];
-        final writer = TopMatchWhenOrElseWriter(manifest);
-        final i = writer.topMatchWhenOrElseIf(item2);
-
-        expect(i.code, 'return two != null ? two(base.x) : orElse(base);');
-      });
     });
 
     test('method topMatchWhenOrElseItemArgs', () {
@@ -106,21 +97,6 @@ void main() {
           ' R Function(WeatherRainy rainy)? rainy,'
           ' R Function(HelloWindy windy)? windy,'
           ' required R Function(Weather weather) orElse,'
-          '})',
-        );
-      });
-
-      test('wrapped', () {
-        final manifest = manifest3Data;
-        final writer = TopMatchWhenOrElseWriter(manifest);
-
-        expect(
-          writer.topMatchWhenOrElseStart(),
-          'R whenOrElse<R extends Object?>({'
-          'R Function()? one,'
-          ' R Function(int x)? two,'
-          ' R Function(int y, int? z)? three,'
-          ' required R Function(Base base) orElse,'
           '})',
         );
       });

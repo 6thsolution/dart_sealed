@@ -8,8 +8,6 @@ cp sealed_example/bin/sealed/nullsafe/data/generic/result.dart sealed_annotation
 cp sealed_example/bin/sealed/nullsafe/data/generic/result.sealed.dart sealed_annotations/example/
 cp sealed_example/bin/sealed/nullsafe/data/generic/mixed.dart sealed_annotations/example/
 cp sealed_example/bin/sealed/nullsafe/data/generic/mixed.sealed.dart sealed_annotations/example/
-cp sealed_example/bin/sealed/nullsafe/data/generic/wrap.dart sealed_annotations/example/
-cp sealed_example/bin/sealed/nullsafe/data/generic/wrap.sealed.dart sealed_annotations/example/
 cp sealed_example/bin/sealed/nullsafe/data/generic/meta.dart sealed_annotations/example/
 cp sealed_example/bin/sealed/nullsafe/data/generic/meta.sealed.dart sealed_annotations/example/
 cp sealed_example/bin/sealed/nullsafe/data/generic/result_complex.dart sealed_annotations/example/
@@ -21,8 +19,6 @@ cp sealed_example/bin/sealed/nullsafe/data/generic/result.dart sealed_generators
 cp sealed_example/bin/sealed/nullsafe/data/generic/result.sealed.dart sealed_generators/example/
 cp sealed_example/bin/sealed/nullsafe/data/generic/mixed.dart sealed_generators/example/
 cp sealed_example/bin/sealed/nullsafe/data/generic/mixed.sealed.dart sealed_generators/example/
-cp sealed_example/bin/sealed/nullsafe/data/generic/wrap.dart sealed_generators/example/
-cp sealed_example/bin/sealed/nullsafe/data/generic/wrap.sealed.dart sealed_generators/example/
 cp sealed_example/bin/sealed/nullsafe/data/generic/meta.dart sealed_generators/example/
 cp sealed_example/bin/sealed/nullsafe/data/generic/meta.sealed.dart sealed_generators/example/
 cp sealed_example/bin/sealed/nullsafe/data/generic/result_complex.dart sealed_generators/example/

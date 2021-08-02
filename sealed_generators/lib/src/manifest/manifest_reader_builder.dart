@@ -16,18 +16,13 @@ class ManifestReaderBuilder {
     final topName = _extractTopName(topClass);
     final topEquality = _extractTopEquality(element);
     final topPrefix = _extractTopPrefix(element, topName);
-    final topIsWrapped = _extractTopIsWrapped(element);
     return ManifestReader(
       topName: topName,
       topEquality: topEquality,
       topPrefix: topPrefix,
-      topIsWrapped: topIsWrapped,
       topClass: topClass,
     );
   }
-
-  /// default is wrapped
-  bool _extractTopIsWrapped(Element element) => extractHasWrap(element);
 
   /// extract top prefix
   String _extractTopPrefix(Element element, String topName) =>

@@ -24,15 +24,6 @@ void main() {
         expect(i.condition, 'weather is HiSunny');
         expect(i.code, 'return sunny(weather);');
       });
-
-      test('wrapped', () {
-        final manifest = manifest3Data;
-        final item2 = manifest.items[1];
-        final writer = TopMatchWhenWriter(manifest);
-        final i = writer.topMatchWhenIf(item2);
-
-        expect(i.code, 'return two(base.x);');
-      });
     });
 
     test('method topMatchWhenArgs', () {
@@ -86,20 +77,6 @@ void main() {
           'required R Function(HiSunny sunny) sunny,'
           ' required R Function(WeatherRainy rainy) rainy,'
           ' required R Function(HelloWindy windy) windy,'
-          '})',
-        );
-      });
-
-      test('wrapped', () {
-        final manifest = manifest3Data;
-        final writer = TopMatchWhenWriter(manifest);
-
-        expect(
-          writer.topMatchWhenStart(),
-          'R when<R extends Object?>({'
-          'required R Function() one,'
-          ' required R Function(int x) two,'
-          ' required R Function(int y, int? z) three,'
           '})',
         );
       });

@@ -255,98 +255,98 @@ void main() {
     });
 
     test('method topMatchWrappedItemArg', () {
-      final manifest = manifest3Data;
+      final manifest = manifest1Data;
       final field = manifest.items[2].fields[1];
       final writer = TopMatchBaseWriter(manifest);
 
       expect(
         writer.topMatchWrappedItemArg(field),
-        'int? z',
+        'double? angle',
       );
     });
 
     test('method topMatchWrappedItemArgs', () {
-      final manifest = manifest3Data;
+      final manifest = manifest1Data;
       final item = manifest.items[2];
       final writer = TopMatchBaseWriter(manifest);
 
       expect(
         writer.topMatchWrappedItemArgs(item),
-        '(int y, int? z)',
+        '(double velocity, double? angle)',
       );
     });
 
     group('method topMatchWrappedGenericNNArg', () {
       test('null-safe', () {
-        final manifest = manifest3Data;
+        final manifest = manifest1Data;
         final item = manifest.items[2];
         final writer = TopMatchBaseWriter(manifest);
 
         expect(
           writer.topMatchWrappedGenericNNArg(item),
-          'required R Function(int y, int? z) three',
+          'required R Function(double velocity, double? angle) windy',
         );
       });
     });
 
     group('method topMatchWrappedGenericNArg', () {
       test('null-safe', () {
-        final manifest = manifest3Data;
+        final manifest = manifest1Data;
         final item = manifest.items[2];
         final writer = TopMatchBaseWriter(manifest);
 
         expect(
           writer.topMatchWrappedGenericNArg(item),
-          'R Function(int y, int? z)? three',
+          'R Function(double velocity, double? angle)? windy',
         );
       });
     });
 
     group('method topMatchWrappedVoidNNArg', () {
       test('null-safe', () {
-        final manifest = manifest3Data;
+        final manifest = manifest1Data;
         final item = manifest.items[2];
         final writer = TopMatchBaseWriter(manifest);
 
         expect(
           writer.topMatchWrappedVoidNNArg(item),
-          'required void Function(int y, int? z) three',
+          'required void Function(double velocity, double? angle) windy',
         );
       });
     });
 
     group('method topMatchWrappedVoidNArg', () {
       test('null-safe', () {
-        final manifest = manifest3Data;
+        final manifest = manifest1Data;
         final item = manifest.items[2];
         final writer = TopMatchBaseWriter(manifest);
 
         expect(
           writer.topMatchWrappedVoidNArg(item),
-          'void Function(int y, int? z)? three',
+          'void Function(double velocity, double? angle)? windy',
         );
       });
     });
 
     test('method topMatchWrappedItemCallArg', () {
-      final manifest = manifest3Data;
+      final manifest = manifest1Data;
       final field = manifest.items[2].fields[1];
       final writer = TopMatchBaseWriter(manifest);
 
       expect(
         writer.topMatchWrappedItemCallArg(field),
-        'base.z',
+        'weather.angle',
       );
     });
 
     test('method topMatchWrappedItemCallArgs', () {
-      final manifest = manifest3Data;
+      final manifest = manifest1Data;
       final item = manifest.items[2];
       final writer = TopMatchBaseWriter(manifest);
 
       expect(
         writer.topMatchWrappedItemCallArgs(item),
-        '(base.y, base.z)',
+        '(weather.velocity, weather.angle)',
       );
     });
 
@@ -358,126 +358,6 @@ void main() {
         writer.topMatchItemCallArgs(),
         '(weather)',
       );
-    });
-
-    group('method topMatchNonOrWrappedItemCallArgs', () {
-      test('wrapped', () {
-        final manifest = manifest3Data;
-        final item = manifest.items[2];
-        final writer = TopMatchBaseWriter(manifest);
-
-        expect(
-          writer.topMatchNonOrWrappedItemCallArgs(item),
-          '(base.y, base.z)',
-        );
-      });
-
-      test('non-wrapped', () {
-        final manifest = manifest1Data;
-        final item = manifest.items[2];
-        final writer = TopMatchBaseWriter(manifest);
-
-        expect(
-          writer.topMatchNonOrWrappedItemCallArgs(item),
-          '(weather)',
-        );
-      });
-    });
-
-    group('method topMatchNonOrWrappedGenericNNArg', () {
-      test('wrapped', () {
-        final manifest = manifest3Data;
-        final item = manifest.items[2];
-        final writer = TopMatchBaseWriter(manifest);
-
-        expect(
-          writer.topMatchNonOrWrappedGenericNNArg(item),
-          'required R Function(int y, int? z) three',
-        );
-      });
-
-      test('non-wrapped', () {
-        final manifest = manifest1Data;
-        final item = manifest.items[2];
-        final writer = TopMatchBaseWriter(manifest);
-
-        expect(
-          writer.topMatchNonOrWrappedGenericNNArg(item),
-          'required R Function(HelloWindy windy) windy',
-        );
-      });
-    });
-
-    group('method topMatchNonOrWrappedGenericNArg', () {
-      test('wrapped', () {
-        final manifest = manifest3Data;
-        final item = manifest.items[2];
-        final writer = TopMatchBaseWriter(manifest);
-
-        expect(
-          writer.topMatchNonOrWrappedGenericNArg(item),
-          'R Function(int y, int? z)? three',
-        );
-      });
-
-      test('non-wrapped', () {
-        final manifest = manifest1Data;
-        final item = manifest.items[2];
-        final writer = TopMatchBaseWriter(manifest);
-
-        expect(
-          writer.topMatchNonOrWrappedGenericNArg(item),
-          'R Function(HelloWindy windy)? windy',
-        );
-      });
-    });
-
-    group('method topMatchNonOrWrappedVoidNNArg', () {
-      test('wrapped', () {
-        final manifest = manifest3Data;
-        final item = manifest.items[2];
-        final writer = TopMatchBaseWriter(manifest);
-
-        expect(
-          writer.topMatchNonOrWrappedVoidNNArg(item),
-          'required void Function(int y, int? z) three',
-        );
-      });
-
-      test('non-wrapped', () {
-        final manifest = manifest1Data;
-        final item = manifest.items[2];
-        final writer = TopMatchBaseWriter(manifest);
-
-        expect(
-          writer.topMatchNonOrWrappedVoidNNArg(item),
-          'required void Function(HelloWindy windy) windy',
-        );
-      });
-    });
-
-    group('method topMatchNonOrWrappedVoidNArg', () {
-      test('wrapped', () {
-        final manifest = manifest3Data;
-        final item = manifest.items[2];
-        final writer = TopMatchBaseWriter(manifest);
-
-        expect(
-          writer.topMatchNonOrWrappedVoidNArg(item),
-          'void Function(int y, int? z)? three',
-        );
-      });
-
-      test('non-wrapped', () {
-        final manifest = manifest1Data;
-        final item = manifest.items[2];
-        final writer = TopMatchBaseWriter(manifest);
-
-        expect(
-          writer.topMatchNonOrWrappedVoidNArg(item),
-          'void Function(HelloWindy windy)? windy',
-        );
-      });
     });
     // end of group TopMatchBaseWriter
   });

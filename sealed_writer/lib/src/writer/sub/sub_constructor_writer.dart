@@ -29,16 +29,11 @@ class SubConstructorWriter extends BaseUtilsWriter {
       .joinArgsFull()
       .withParenthesis();
 
-  /// adaptive
-  String subConstructorNoneOrWrappedDecArgs(ManifestItem item) => item.isWrapped
-      ? subConstructorWrappedDecArgs(item)
-      : subConstructorDecArgs(item);
-
   /// ex. WeatherRainy({required this.rain, ...});
   String subConstructorDeclaration(ManifestItem item) => [
         'const ',
         subFull(item),
-        subConstructorNoneOrWrappedDecArgs(item),
+        subConstructorDecArgs(item),
         ': super._internal();',
       ].joinParts();
 }

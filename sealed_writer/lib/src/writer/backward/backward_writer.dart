@@ -46,11 +46,7 @@ class BackwardWriter extends BaseUtilsWriter {
   /// single-line
   String _nameAnnotation(ManifestItem item) => "@WithName('${item.name}')";
 
-  /// single-line
-  String _wrapAnnotation() => '@WithWrap()';
-
   String _group(ManifestItem item) => [
-        if (item.isWrapped) _wrapAnnotation(),
         _equalityAnnotation(item),
         _nameAnnotation(item),
         _method(item),

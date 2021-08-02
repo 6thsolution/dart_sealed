@@ -51,7 +51,6 @@ class ManifestItem {
     required this.shortName,
     required this.equality,
     required this.fields,
-    this.isWrapped = false,
   }) {
     check(shortName.isGenFieldName());
     check(name.isGenClassName());
@@ -69,12 +68,9 @@ class ManifestItem {
   /// fields.
   final List<ManifestField> fields;
 
-  /// is wrapped
-  final bool isWrapped;
-
   @override
   String toString() => 'Item{name: $name, shortName: $shortName,'
-      ' equality: $equality, fields: $fields, isWrapped: $isWrapped}';
+      ' equality: $equality, fields: $fields}';
 
   @override
   bool operator ==(Object other) =>
@@ -84,8 +80,7 @@ class ManifestItem {
           name == other.name &&
           shortName == other.shortName &&
           equality == other.equality &&
-          listEquals(fields, other.fields) &&
-          isWrapped == other.isWrapped;
+          listEquals(fields, other.fields);
 
   @override
   int get hashCode =>
@@ -93,8 +88,7 @@ class ManifestItem {
       name.hashCode ^
       shortName.hashCode ^
       equality.hashCode ^
-      listHash(fields) ^
-      isWrapped.hashCode;
+      listHash(fields);
 }
 
 /// Manifest equality

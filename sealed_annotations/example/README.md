@@ -21,7 +21,6 @@ Generate sealed class hierarchy for Dart and Flutter.
 * Support for null-safety.
 * Generate toString for data classes.
 * Generate 3 types of different matching methods. like `when` or `whenOrElse`.
-* Support for automatic unwrapping and Inheritance
 
 ## Usage
 
@@ -251,94 +250,6 @@ abstract class _Result<D extends num, E extends Object> {
 
   void mixed(D data, E exception);
 }
-```
-
-## Wrapping and Inheritance
-
-There are times when you are using a sealed type only to wrap some fields and then unwrap it by using match functions in
-for example your blocs. In these situations it is better for the sealed sub-class not to appear explicitly.
-
-for example suppose the following manifest:
-
-```dart
-@Sealed()
-abstract class State {
-  void initial();
-
-  void loading();
-
-  void data(Object obj);
-}
-```
-
-when you want to apply `when` on that it will look like:
-
-```dart
-Object doTest(State s) {
-  return s.when(
-    initial: (initial) => 'something',
-    loading: (loading) => 'other thing',
-    data: (data) => 'data ${data.obj}',
-  );
-}
-```
-
-as you see you even don't need `initial` or `loading` values, and even you only need `data` value to extract `obj` from
-it.
-
-You can use `@WithWrap()` annotation:
-
-```dart
-@Sealed()
-@WithWrap()
-abstract class State {
-  void initial();
-
-  void loading();
-
-  void data(Object obj);
-}
-```
-
-Then your match functions will look like this:
-
-```dart
-Object doTest(State s) {
-  return s.when(
-    initial: () => 'something',
-    loading: () => 'other thing',
-    data: (obj) => 'data $obj',
-  );
-}
-```
-
-As you see it automatically unwraps values for you. If you add `@WithWrap()` on class it will apply to all sub-classes.
-If you want wrapping only for some of your sub-classes apply them to methods. for example:
-
-```dart
-@Sealed()
-abstract class State {
-  @WithWrap()
-  void initial();
-
-  @WithWrap()
-  void loading();
-
-  void data(Object obj);
-}
-```
-
-In previous example `data` will not be automatically unwrapped.
-
-Also, when making a sealed sub-class wrapped, its constructor and the corresponding factory in sealed super class will
-be using positional arguments instead of named arguments. For example for `data`:
-
-```dart
-// when not wrapped:
-final d1 = State.data(obj: 'hello');
-
-// when wrapped:
-final d2 = State.data('hello');
 ```
 
 ## Dynamic types and Using one sealed type in another

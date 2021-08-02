@@ -9,7 +9,6 @@ void main() {
         shortName: 'sunny',
         equality: ManifestEquality.data,
         fields: [],
-        isWrapped: false,
       ),
       ManifestItem(
         name: 'WeatherRainy',
@@ -24,7 +23,6 @@ void main() {
             ),
           ),
         ],
-        isWrapped: false,
       ),
     ],
     params: [],

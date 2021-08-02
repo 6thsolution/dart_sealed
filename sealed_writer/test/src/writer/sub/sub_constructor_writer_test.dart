@@ -50,49 +50,25 @@ void main() {
     });
 
     test('method subConstructorWrappedDecArg', () {
-      final manifest = manifest3Data;
+      final manifest = manifest1Data;
       final field = manifest.items[1].fields[0];
       final writer = SubConstructorWriter(manifest);
 
       expect(
         writer.subConstructorWrappedDecArg(field),
-        'this.x',
+        'this.rain',
       );
     });
 
     test('method subConstructorWrappedDecArgs', () {
-      final manifest = manifest3Data;
+      final manifest = manifest1Data;
       final item3 = manifest.items[2];
       final writer = SubConstructorWriter(manifest);
 
       expect(
         writer.subConstructorWrappedDecArgs(item3),
-        '(this.y, this.z,)',
+        '(this.velocity, this.angle,)',
       );
-    });
-
-    group('method subConstructorNoneOrWrappedDecArgs', () {
-      test('non-wrapped', () {
-        final manifest = manifest1Data;
-        final item = manifest.items[1];
-        final writer = SubConstructorWriter(manifest);
-
-        expect(
-          writer.subConstructorNoneOrWrappedDecArgs(item),
-          '({required this.rain,})',
-        );
-      });
-
-      test('wrapped', () {
-        final manifest = manifest3Data;
-        final item = manifest.items[1];
-        final writer = SubConstructorWriter(manifest);
-
-        expect(
-          writer.subConstructorNoneOrWrappedDecArgs(item),
-          '(this.x,)',
-        );
-      });
     });
 
     group('method subConstructorDeclaration', () {
@@ -133,17 +109,6 @@ void main() {
           writer.subConstructorDeclaration(item1),
           'const MySuccess({required this.data,})'
           ': super._internal();',
-        );
-      });
-
-      test('simple wrapped null-safe', () {
-        final manifest = manifest3Data;
-        final item2 = manifest.items[1];
-        final writer = SubConstructorWriter(manifest);
-
-        expect(
-          writer.subConstructorDeclaration(item2),
-          'const BaseTwo(this.x,): super._internal();',
         );
       });
     });

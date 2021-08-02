@@ -74,38 +74,6 @@ void main() {
           '/// with data equality',
         );
       });
-
-      test('data equality wrapped', () {
-        final manifest = manifest3Data;
-        final writer = SubDocWriter(manifest);
-        final item3 = manifest.items[2];
-
-        expect(
-          writer.write(item3),
-          '/// (([BaseThree] : [Base]) three)'
-          '{[int] y, [int]? z}\n'
-          '/// \n'
-          '/// with data equality\n'
-          '/// \n'
-          '/// with wrap',
-        );
-      });
-
-      test('data equality generic wrapped', () {
-        final manifest = manifest4Data;
-        final writer = SubDocWriter(manifest);
-        final item1 = manifest.items[0];
-
-        expect(
-          writer.write(item1),
-          '/// (([BaseOne] : [Base])<[T] extends [num]> one)'
-          '{[T] x}\n'
-          '/// \n'
-          '/// with data equality\n'
-          '/// \n'
-          '/// with wrap',
-        );
-      });
     });
 
     test('constant equalityNames', () {

@@ -13,7 +13,6 @@ class ManifestReader {
     required this.topName,
     required this.topEquality,
     required this.topPrefix,
-    required this.topIsWrapped,
     required this.topClass,
   }) {
     check(topName.isGenClassName());
@@ -28,9 +27,6 @@ class ManifestReader {
 
   /// default prefix.
   final String topPrefix;
-
-  /// default isWrapped
-  final bool topIsWrapped;
 
   /// checked class element for manifest
   final ClassElement topClass;
@@ -115,13 +111,8 @@ class ManifestReader {
       name: _extractSubFullName(method, _extractSubShortName(method)),
       equality: _extractSubEquality(method),
       fields: _extractFields(method),
-      isWrapped: _extractIsWrapped(method),
     );
   }
-
-  /// whether the sub class should be wrapped
-  bool _extractIsWrapped(MethodElement method) =>
-      extractHasWrap(method) || topIsWrapped;
 
   /// extract sub class full equality accounting overridden equality
   ManifestEquality _extractSubEquality(MethodElement method) =>
