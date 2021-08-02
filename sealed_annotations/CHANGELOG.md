@@ -6,6 +6,7 @@
 - Removed wrapping functionality
 - Rename whenOrElse to maybeWhen
 - Rename whenPartial to partialWhen
+- Refactor partialWhen implementation
 
 ## 1.4.0
 

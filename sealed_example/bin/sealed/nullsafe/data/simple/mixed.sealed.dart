@@ -54,10 +54,15 @@ abstract class Apple {
 
   void partialWhen({
     void Function(AppleHold hold)? hold,
+    void Function(Apple apple)? orElse,
   }) {
     final apple = this;
     if (apple is AppleHold) {
-      hold?.call(apple);
+      if (hold != null) {
+        hold(apple);
+      } else if (orElse != null) {
+        orElse(apple);
+      }
     } else {
       throw AssertionError();
     }
@@ -132,10 +137,15 @@ abstract class Banana {
 
   void partialWhen({
     void Function(BananaHold hold)? hold,
+    void Function(Banana banana)? orElse,
   }) {
     final banana = this;
     if (banana is BananaHold) {
-      hold?.call(banana);
+      if (hold != null) {
+        hold(banana);
+      } else if (orElse != null) {
+        orElse(banana);
+      }
     } else {
       throw AssertionError();
     }
@@ -257,14 +267,27 @@ abstract class Coconut {
     void Function(CoconutTest1 test1)? test1,
     void Function(CoconutTest2 test2)? test2,
     void Function(CoconutHold hold)? hold,
+    void Function(Coconut coconut)? orElse,
   }) {
     final coconut = this;
     if (coconut is CoconutTest1) {
-      test1?.call(coconut);
+      if (test1 != null) {
+        test1(coconut);
+      } else if (orElse != null) {
+        orElse(coconut);
+      }
     } else if (coconut is CoconutTest2) {
-      test2?.call(coconut);
+      if (test2 != null) {
+        test2(coconut);
+      } else if (orElse != null) {
+        orElse(coconut);
+      }
     } else if (coconut is CoconutHold) {
-      hold?.call(coconut);
+      if (hold != null) {
+        hold(coconut);
+      } else if (orElse != null) {
+        orElse(coconut);
+      }
     } else {
       throw AssertionError();
     }

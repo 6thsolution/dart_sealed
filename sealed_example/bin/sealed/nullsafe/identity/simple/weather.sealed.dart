@@ -97,14 +97,27 @@ abstract class Weather {
     void Function(WeatherSunny sunny)? sunny,
     void Function(WeatherRainy rainy)? rainy,
     void Function(WeatherWindy windy)? windy,
+    void Function(Weather weather)? orElse,
   }) {
     final weather = this;
     if (weather is WeatherSunny) {
-      sunny?.call(weather);
+      if (sunny != null) {
+        sunny(weather);
+      } else if (orElse != null) {
+        orElse(weather);
+      }
     } else if (weather is WeatherRainy) {
-      rainy?.call(weather);
+      if (rainy != null) {
+        rainy(weather);
+      } else if (orElse != null) {
+        orElse(weather);
+      }
     } else if (weather is WeatherWindy) {
-      windy?.call(weather);
+      if (windy != null) {
+        windy(weather);
+      } else if (orElse != null) {
+        orElse(weather);
+      }
     } else {
       throw AssertionError();
     }

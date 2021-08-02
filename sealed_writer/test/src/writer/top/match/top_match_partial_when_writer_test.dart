@@ -22,7 +22,11 @@ void main() {
         final i = writer.topMatchPartialWhenIf(item1);
 
         expect(i.condition, 'weather is HiSunny');
-        expect(i.code, 'sunny?.call(weather);');
+        expect(
+          i.code,
+          'if (sunny != null) {sunny(weather);}\n'
+          'else if (orElse != null) {orElse(weather);}',
+        );
       });
     });
 
@@ -34,7 +38,10 @@ void main() {
 
       expect(
         writer.topMatchPartialWhenArgs(),
-        items.map(writer.topMatchVoidNArg),
+        [
+          ...items.map(writer.topMatchVoidNArg),
+          writer.topMatchVoidNArgOrElse(),
+        ],
       );
     });
 
@@ -60,11 +67,14 @@ void main() {
         writer.topMatchPartialWhenBody(),
         'final weather = this;\n'
         'if (weather is HiSunny) {'
-        'sunny?.call(weather);}\n'
+        'if (sunny != null) {sunny(weather);}\n'
+        'else if (orElse != null) {orElse(weather);}}\n'
         'else if (weather is WeatherRainy) {'
-        'rainy?.call(weather);}\n'
+        'if (rainy != null) {rainy(weather);}\n'
+        'else if (orElse != null) {orElse(weather);}}\n'
         'else if (weather is HelloWindy) {'
-        'windy?.call(weather);}\n'
+        'if (windy != null) {windy(weather);}\n'
+        'else if (orElse != null) {orElse(weather);}}\n'
         'else {throw AssertionError();}',
       );
     });
@@ -80,6 +90,7 @@ void main() {
           'void Function(HiSunny sunny)? sunny,'
           ' void Function(WeatherRainy rainy)? rainy,'
           ' void Function(HelloWindy windy)? windy,'
+          ' void Function(Weather weather)? orElse,'
           '})',
         );
       });

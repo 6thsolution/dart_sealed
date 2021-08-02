@@ -99,14 +99,27 @@ abstract class Result<D extends num?, E extends Object?> {
     void Function(ResultSuccess<D, E> success)? success,
     void Function(ResultError<D, E> error)? error,
     void Function(ResultMixed<D, E> mixed)? mixed,
+    void Function(Result<D, E> result)? orElse,
   }) {
     final result = this;
     if (result is ResultSuccess<D, E>) {
-      success?.call(result);
+      if (success != null) {
+        success(result);
+      } else if (orElse != null) {
+        orElse(result);
+      }
     } else if (result is ResultError<D, E>) {
-      error?.call(result);
+      if (error != null) {
+        error(result);
+      } else if (orElse != null) {
+        orElse(result);
+      }
     } else if (result is ResultMixed<D, E>) {
-      mixed?.call(result);
+      if (mixed != null) {
+        mixed(result);
+      } else if (orElse != null) {
+        orElse(result);
+      }
     } else {
       throw AssertionError();
     }

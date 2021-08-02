@@ -76,12 +76,21 @@ abstract class Result<D extends num> {
   void partialWhen({
     void Function(ResultSuccess<D> success)? success,
     void Function(ResultError<D> error)? error,
+    void Function(Result<D> result)? orElse,
   }) {
     final result = this;
     if (result is ResultSuccess<D>) {
-      success?.call(result);
+      if (success != null) {
+        success(result);
+      } else if (orElse != null) {
+        orElse(result);
+      }
     } else if (result is ResultError<D>) {
-      error?.call(result);
+      if (error != null) {
+        error(result);
+      } else if (orElse != null) {
+        orElse(result);
+      }
     } else {
       throw AssertionError();
     }

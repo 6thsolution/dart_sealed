@@ -102,6 +102,7 @@ abstract class Weather {
     void Function(WeatherSunny sunny)? sunny,
     void Function(WeatherRainy rainy)? rainy,
     void Function(WeatherWindy windy)? windy,
+    void Function(Weather weather)? orElse,
   }) {
     /* ... */
   }

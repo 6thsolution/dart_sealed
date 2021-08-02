@@ -36,15 +36,13 @@ class TopMatchBaseWriter extends BaseCastUtilsWriter {
   String topMatchVoidNNArgOrElse() => '$req void Function'
       '($topCall $topLower) orElse';
 
+  /// void Function(Weather weather)? orElse
+  String topMatchVoidNArgOrElse() => 'void Function'
+      '($topCall $topLower)$n orElse';
+
   /// void Function(WeatherSunny sunny)? sunny
   String topMatchVoidNArg(ManifestItem item) => 'void Function'
       '(${subCall(item)} ${subLower(item)})$n ${subLower(item)}';
-
-  /// assert(orElse != null)
-  String topMatchAssertOrElse() => 'assert(orElse != null);';
-
-  /// assert(orDefault != null)
-  String topMatchAssertOrDefault() => 'assert(orDefault != null);';
 
   /// ex. throw AssertionError();
   String throwAssertion() => 'throw AssertionError();';

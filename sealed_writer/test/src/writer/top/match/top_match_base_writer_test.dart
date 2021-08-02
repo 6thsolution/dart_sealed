@@ -206,6 +206,31 @@ void main() {
       });
     });
 
+    group('method topMatchVoidNArgOrElse', () {
+      group('simple', () {
+        test('null-safe', () {
+          final manifest = manifest1Data;
+          final writer = TopMatchBaseWriter(manifest);
+
+          expect(
+            writer.topMatchVoidNArgOrElse(),
+            'void Function(Weather weather)? orElse',
+          );
+        });
+      });
+      group('generic', () {
+        test('null-safe', () {
+          final manifest = manifest2Data;
+          final writer = TopMatchBaseWriter(manifest);
+
+          expect(
+            writer.topMatchVoidNArgOrElse(),
+            'void Function(Result<T> result)? orElse',
+          );
+        });
+      });
+    });
+
     group('method topMatchVoidNArg', () {
       group('simple', () {
         test('null-safe', () {
