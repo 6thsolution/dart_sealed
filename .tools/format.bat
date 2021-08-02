@@ -21,18 +21,3 @@ pushd sealed_example || exit 1
 echo NOTE sealed_example
 call dart format --output=none --set-exit-if-changed test || exit 1
 popd || exit 1
-
-pushd super_enum_sealed_annotations || exit 1
-echo NOTE super_enum_sealed_annotations
-call dart format --output=none --set-exit-if-changed lib test || exit 1
-popd || exit 1
-
-pushd super_enum_sealed_generators || exit 1
-echo NOTE super_enum_sealed_generators
-call dart format --output=none --set-exit-if-changed lib test || exit 1
-popd || exit 1
-
-pushd super_enum_sealed_example || exit 1
-echo NOTE super_enum_sealed_example
-call dart format --output=none --set-exit-if-changed test || exit 1
-popd || exit 1

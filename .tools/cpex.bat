@@ -28,18 +28,4 @@ copy sealed_example\bin\sealed\nullsafe\data\simple\meta.sealed.dart sealed_gene
 copy sealed_example\bin\sealed\nullsafe\data\generic\result_complex.dart sealed_generators\example\
 copy sealed_example\bin\sealed\nullsafe\data\generic\result_complex.sealed.dart sealed_generators\example\
 
-copy super_enum_sealed_example\bin\nullsafe\weather.dart super_enum_sealed_annotations\example\
-copy super_enum_sealed_example\bin\nullsafe\weather.super.dart super_enum_sealed_annotations\example\
-copy super_enum_sealed_example\bin\nullsafe\result.dart super_enum_sealed_annotations\example\
-copy super_enum_sealed_example\bin\nullsafe\result.super.dart super_enum_sealed_annotations\example\
-copy super_enum_sealed_example\bin\nullsafe\use_class.dart super_enum_sealed_annotations\example\
-copy super_enum_sealed_example\bin\nullsafe\use_class.super.dart super_enum_sealed_annotations\example\
-
-copy super_enum_sealed_example\bin\nullsafe\weather.dart super_enum_sealed_generators\example\
-copy super_enum_sealed_example\bin\nullsafe\weather.super.dart super_enum_sealed_generators\example\
-copy super_enum_sealed_example\bin\nullsafe\result.dart super_enum_sealed_generators\example\
-copy super_enum_sealed_example\bin\nullsafe\result.super.dart super_enum_sealed_generators\example\
-copy super_enum_sealed_example\bin\nullsafe\use_class.dart super_enum_sealed_generators\example\
-copy super_enum_sealed_example\bin\nullsafe\use_class.super.dart super_enum_sealed_generators\example\
-
 echo DONE

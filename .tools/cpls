@@ -6,8 +6,5 @@ cp LICENSE sealed_annotations/
 cp LICENSE sealed_example/
 cp LICENSE sealed_generators/
 cp LICENSE sealed_writer/
-cp LICENSE super_enum_sealed_annotations/
-cp LICENSE super_enum_sealed_example/
-cp LICENSE super_enum_sealed_generators/
 
 echo DONE

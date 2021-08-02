@@ -1,3 +1,7 @@
+## dev
+
+- Removed support for super_enum API
+
 ## 1.4.0
 
 - Fix version problems

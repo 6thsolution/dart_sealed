@@ -5,8 +5,6 @@
 [![pub](https://img.shields.io/pub/v/sealed_annotations.svg?color=blue&label=sealed_annotations)](https://pub.dev/packages/sealed_annotations)
 [![pub](https://img.shields.io/pub/v/sealed_generators.svg?color=blue&label=sealed_generators)](https://pub.dev/packages/sealed_generators)
 [![pub](https://img.shields.io/pub/v/sealed_writer.svg?color=blue&label=sealed_writer)](https://pub.dev/packages/sealed_writer)
-[![pub](https://img.shields.io/pub/v/super_enum_sealed_annotations.svg?color=blue&label=super_enum_sealed_annotations)](https://pub.dev/packages/super_enum_sealed_annotations)
-[![pub](https://img.shields.io/pub/v/super_enum_sealed_generators.svg?color=blue&label=super_enum_sealed_generators)](https://pub.dev/packages/super_enum_sealed_generators)
 
 Generate sealed class hierarchy for Dart and Flutter, For null-safe and legacy projects.
 
@@ -402,83 +400,6 @@ abstract class _WeatherInfo {
 
   // you can also have nullable types.
   void nullable(@WithType('Result<WeatherData>?') result);
-}
-```
-
-## super_enum compatible API
-
-You can use `super_enum_sealed_annotations` and `super_enum_sealed_generators` instead of `super_enum`
-and `super_enum_generator`. It has all features of `super_enum` and `dart_sealed` instead of `@WithType` for dynamic
-types. Also, it can be used in legacy and null-safe projects. Apart from changing dependencies, you should only change
-import of `super_enum` to `super_enum_sealed_annotations`. Some other changes may be needed for your code.
-
-For more information check `super_enum` documentation:
-[super_enum](https://pub.dev/packages/super_enum)
-
-### migrating from super_enum
-
-If you were using super_enum, and now you want to change your dependency to dart_sealed:
-
-* Change dependency of `super_enum` with `super_enum_sealed_annotations`.
-* Add dependency to `sealed_annotations`.
-* Change dependency of `super_enum_generator` with `super_enum_sealed_generators`.
-* Add dev dependency to `sealed_generators`.
-* Change imports of `super_enum` with `super_enum_sealed_annotations`.
-* Run `dart run build_runner build`.
-* Now instead of super_enum, our library will generate code for you in `.super` files. Apart from generated sealed
-  classes some comments are generated for guiding you through migration and a commented manifest class with `@Sealed`
-  annotation, and the same name of your enum.
-* Here you may have some conflicts in your code which should be fixed.
-* Uncomment and replace generated manifest class (which has `@Sealed` annotation) with your `@super_enum` annotated
-  enum. Then if your project is null-safe start changing nullability of each field according to your needs. In legacy
-  projects are fields are considered nullable, but if you like, you can change nullability docs to ease you when
-  migrating to null-safety. If your sealed class is generic change `Generic` type argument name and if it is needed to
-  use multiple type arguments. Most of the time `@WithEquality` and `@WithName` are not needed, but they will be
-  generated automatically. You can remove or change them according to your needs.
-* Change imports of `super_enum_sealed_annotations` with `sealed_annotations`.
-* Change `part` suffixes from `.super` to `.sealed`.
-* Run `dart run build_runner build`.
-* Remove `.super` files if it is not removed automatically.
-* Remove dependency of `super_enum_sealed_annotations`.
-* Remove dependency of `super_enum_sealed_generators`.
-* Optional: If you want to migrate your code to null-safety you should do it now using standard migration tool. Then
-  run `dart run build_runner build` again and this library will handle it for you.
-
-For example for:
-
-```
-@superEnum
-enum _Weather {
-  @object
-  Sunny,
-  @Data(fields: [
-    DataField<int>('rain'),
-  ])
-  Rainy,
-  @Data(fields: [
-    DataField<double>('velocity'),
-    DataField<double>('angle', required: false),
-  ])
-  Windy,
-}
-```
-
-It will generate sealed classes and the following manifest class.
-
-```dart
-@Sealed()
-abstract class _Weather$ {
-  @WithEquality(Equality.data)
-  @WithName('Sunny')
-  void sunny();
-
-  @WithEquality(Equality.data)
-  @WithName('Rainy')
-  void rainy(int rain);
-
-  @WithEquality(Equality.data)
-  @WithName('Windy')
-  void windy(double velocity, double? angle);
 }
 ```
 

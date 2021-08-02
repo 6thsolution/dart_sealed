@@ -36,18 +36,6 @@ jobs:
       - name: test sealed_example
         working-directory: sealed_example
         run: dart test
-      - name: test super_enum_sealed_annotations
-        working-directory: super_enum_sealed_annotations
-        run: dart test
-      - name: test super_enum_sealed_generators
-        working-directory: super_enum_sealed_generators
-        run: dart test
-      - name: build super_enum_sealed_example
-        working-directory: super_enum_sealed_example
-        run: dart run build_runner build --delete-conflicting-outputs
-      - name: test super_enum_sealed_example
-        working-directory: super_enum_sealed_example
-        run: dart test
       - name: example
         run: .tools/example
       - name: coverage
