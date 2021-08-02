@@ -1,6 +1,5 @@
 import 'package:meta/meta.dart';
 import 'package:sealed_writer/src/manifest/manifest.dart';
-import 'package:sealed_writer/src/source/source.dart';
 import 'package:sealed_writer/src/utils/string_utils.dart';
 import 'package:sealed_writer/src/writer/base/base_utils_writer.dart';
 import 'package:sealed_writer/src/writer/sub/sub_constructor_writer.dart';
@@ -14,14 +13,14 @@ import 'package:sealed_writer/src/writer/sub/sub_to_string_writer.dart';
 @sealed
 @immutable
 class SubWriter extends BaseUtilsWriter {
-  SubWriter(Source source)
-      : subCopyWriter = SubCopyWriter(source),
-        subToStringWriter = SubToStringWriter(source),
-        subFieldWriter = SubFieldWriter(source),
-        subConstructorWriter = SubConstructorWriter(source),
-        subEquatableWriter = SubEquatableWriter(source),
-        subDocWriter = SubDocWriter(source),
-        super(source);
+  SubWriter(Manifest manifest)
+      : subCopyWriter = SubCopyWriter(manifest),
+        subToStringWriter = SubToStringWriter(manifest),
+        subFieldWriter = SubFieldWriter(manifest),
+        subConstructorWriter = SubConstructorWriter(manifest),
+        subEquatableWriter = SubEquatableWriter(manifest),
+        subDocWriter = SubDocWriter(manifest),
+        super(manifest);
 
   final SubCopyWriter subCopyWriter;
 
@@ -52,7 +51,7 @@ class SubWriter extends BaseUtilsWriter {
   /// bool operator ==(Object other) => false;
   String subDistinctEquality() => [
         annotationOverride,
-        'bool$nn operator ==(Object other) => false;',
+        'bool operator ==(Object other) => false;',
       ].joinLines();
 
   /// subclass

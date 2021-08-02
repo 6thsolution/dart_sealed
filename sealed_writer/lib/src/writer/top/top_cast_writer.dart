@@ -1,6 +1,5 @@
 import 'package:meta/meta.dart';
 import 'package:sealed_writer/src/manifest/manifest.dart';
-import 'package:sealed_writer/src/source/source.dart';
 import 'package:sealed_writer/src/utils/string_utils.dart';
 import 'package:sealed_writer/src/writer/base/base_cast_utils_writer.dart';
 
@@ -8,17 +7,17 @@ import 'package:sealed_writer/src/writer/base/base_cast_utils_writer.dart';
 @immutable
 @sealed
 class TopCastWriter extends BaseCastUtilsWriter {
-  const TopCastWriter(Source source) : super(source);
+  const TopCastWriter(Manifest manifest) : super(manifest);
 
   /// ex. isRainy()
   String topCastIs(ManifestItem item) =>
-      'bool$nn is${subUpper(item)}() => this ${isSub(item)};';
+      'bool is${subUpper(item)}() => this ${isSub(item)};';
 
   Iterable<String> topCastsIs() => manifest.items.map(topCastIs);
 
   /// ex. asRainy()
   String topCastAs(ManifestItem item) =>
-      '${subCall(item)}$nn as${subUpper(item)}() =>'
+      '${subCall(item)} as${subUpper(item)}() =>'
       ' this ${asSub(item)};';
 
   Iterable<String> topCastsAs() => manifest.items.map(topCastAs);

@@ -6,19 +6,19 @@ import '../../../../utils/examples.dart';
 void main() {
   group('class TopMatchWhenWriter', () {
     test('initialization', () {
-      final source = source1DataSafe;
-      final writer = TopMatchWhenWriter(source);
+      final manifest = manifest1Data;
+      final writer = TopMatchWhenWriter(manifest);
 
-      expect(writer.source, source);
+      expect(writer.manifest, manifest);
     });
 
     group('method topMatchWhenIf', () {
       test('non-wrapped', () {
-        final source = source1DataSafe;
-        final manifest = source.manifest;
+        final manifest = manifest1Data;
+
         // sunny
         final item1 = manifest.items[0];
-        final writer = TopMatchWhenWriter(source);
+        final writer = TopMatchWhenWriter(manifest);
         final i = writer.topMatchWhenIf(item1);
 
         expect(i.condition, 'weather is HiSunny');
@@ -26,9 +26,9 @@ void main() {
       });
 
       test('wrapped', () {
-        final source = source3DataSafe;
-        final item2 = source.manifest.items[1];
-        final writer = TopMatchWhenWriter(source);
+        final manifest = manifest3Data;
+        final item2 = manifest.items[1];
+        final writer = TopMatchWhenWriter(manifest);
         final i = writer.topMatchWhenIf(item2);
 
         expect(i.code, 'return two(base.x);');
@@ -36,10 +36,10 @@ void main() {
     });
 
     test('method topMatchWhenArgs', () {
-      final source = source1DataSafe;
-      final manifest = source.manifest;
+      final manifest = manifest1Data;
+
       final items = manifest.items;
-      final writer = TopMatchWhenWriter(source);
+      final writer = TopMatchWhenWriter(manifest);
 
       expect(
         writer.topMatchWhenArgs(),
@@ -48,10 +48,10 @@ void main() {
     });
 
     test('method topMatchWhenIfs', () {
-      final source = source1DataSafe;
-      final manifest = source.manifest;
+      final manifest = manifest1Data;
+
       final items = manifest.items;
-      final writer = TopMatchWhenWriter(source);
+      final writer = TopMatchWhenWriter(manifest);
       final ifs = writer.topMatchWhenIfs();
       final a = ifs[0];
       final b = writer.topMatchWhenIf(items[0]);
@@ -62,8 +62,8 @@ void main() {
     });
 
     test('method topMatchWhenBody', () {
-      final source = source1DataSafe;
-      final writer = TopMatchWhenWriter(source);
+      final manifest = manifest1Data;
+      final writer = TopMatchWhenWriter(manifest);
 
       expect(
         writer.topMatchWhenBody(),
@@ -77,8 +77,8 @@ void main() {
 
     group('method topMatchWhenStart', () {
       test('non-wrapped', () {
-        final source = source1DataSafe;
-        final writer = TopMatchWhenWriter(source);
+        final manifest = manifest1Data;
+        final writer = TopMatchWhenWriter(manifest);
 
         expect(
           writer.topMatchWhenStart(),
@@ -91,8 +91,8 @@ void main() {
       });
 
       test('wrapped', () {
-        final source = source3DataSafe;
-        final writer = TopMatchWhenWriter(source);
+        final manifest = manifest3Data;
+        final writer = TopMatchWhenWriter(manifest);
 
         expect(
           writer.topMatchWhenStart(),
@@ -107,30 +107,14 @@ void main() {
 
     group('method topMatchWhen', () {
       test('null-safe', () {
-        final source = source1DataSafe;
-        final writer = TopMatchWhenWriter(source);
+        final manifest = manifest1Data;
+        final writer = TopMatchWhenWriter(manifest);
 
         expect(
           writer.topMatchWhen(),
           stringContainsInOrder([
             writer.topMatchWhenStart(),
             '{',
-            writer.topMatchWhenBody(),
-            '}',
-          ]),
-        );
-      });
-
-      test('legacy', () {
-        final source = source1DataLegacy;
-        final writer = TopMatchWhenWriter(source);
-
-        expect(
-          writer.topMatchWhen(),
-          stringContainsInOrder([
-            writer.topMatchWhenStart(),
-            '{',
-            writer.topMatchAsserts(),
             writer.topMatchWhenBody(),
             '}',
           ]),

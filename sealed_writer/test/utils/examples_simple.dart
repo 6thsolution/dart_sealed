@@ -40,30 +40,9 @@ Manifest manifest1([ManifestEquality equality = ManifestEquality.data]) =>
       params: [],
     );
 
-final source1DataSafe = Source(
-  options: optionsSafe,
-  manifest: manifest1(ManifestEquality.data),
-);
-final source1IdentitySafe = Source(
-  options: optionsSafe,
-  manifest: manifest1(ManifestEquality.identity),
-);
-final source1DistinctSafe = Source(
-  options: optionsSafe,
-  manifest: manifest1(ManifestEquality.distinct),
-);
-final source1DataLegacy = Source(
-  options: optionsLegacy,
-  manifest: manifest1(ManifestEquality.data),
-);
-final source1IdentityLegacy = Source(
-  options: optionsLegacy,
-  manifest: manifest1(ManifestEquality.identity),
-);
-final source1DistinctLegacy = Source(
-  options: optionsLegacy,
-  manifest: manifest1(ManifestEquality.distinct),
-);
+final manifest1Data = manifest1(ManifestEquality.data);
+final manifest1Identity = manifest1(ManifestEquality.identity);
+final manifest1Distinct = manifest1(ManifestEquality.distinct);
 
 final code1Data = code1(ManifestEquality.data);
 final code1Identity = code1(ManifestEquality.identity);

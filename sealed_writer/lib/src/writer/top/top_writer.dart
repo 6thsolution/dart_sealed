@@ -1,5 +1,5 @@
 import 'package:meta/meta.dart';
-import 'package:sealed_writer/src/source/source.dart';
+import 'package:sealed_writer/src/manifest/manifest.dart';
 import 'package:sealed_writer/src/utils/string_utils.dart';
 import 'package:sealed_writer/src/writer/base/base_utils_writer.dart';
 import 'package:sealed_writer/src/writer/top/match/top_match_writer.dart';
@@ -13,17 +13,12 @@ import 'package:sealed_writer/src/writer/top/top_doc_writer.dart';
 class TopWriter extends BaseUtilsWriter {
   /// [referenceManifest] dictates weather to reference
   /// manifest with @SealedManifest or not, it is true by default
-  TopWriter(
-    Source source, {
-    this.referenceManifest = true,
-  })  : topBuilderWriter = TopBuilderWriter(source),
-        topCastWriter = TopCastWriter(source),
-        topMatchWriter = TopMatchWriter(source),
-        topDocWriter = TopDocWriter(source),
-        super(source);
-
-  /// weather to reference manifest with @SealedManifest or not
-  final bool referenceManifest;
+  TopWriter(Manifest manifest)
+      : topBuilderWriter = TopBuilderWriter(manifest),
+        topCastWriter = TopCastWriter(manifest),
+        topMatchWriter = TopMatchWriter(manifest),
+        topDocWriter = TopDocWriter(manifest),
+        super(manifest);
 
   final TopBuilderWriter topBuilderWriter;
 
@@ -47,7 +42,7 @@ class TopWriter extends BaseUtilsWriter {
   String topClassStart() => [
         topDocWriter.write(),
         annotationImmutable,
-        if (referenceManifest) topManifest(),
+        topManifest(),
         'abstract class $topDec',
       ].joinLines();
 

@@ -7,41 +7,31 @@ import '../../../utils/examples.dart';
 void main() {
   group('class TopCastWriter', () {
     test('initialization', () {
-      final source = source1DataSafe;
-      final writer = TopCastWriter(source);
+      final manifest = manifest1Data;
+      final writer = TopCastWriter(manifest);
 
-      expect(writer.source, source);
+      expect(writer.manifest, manifest);
     });
 
     group('method topCastIs', () {
       group('simple', () {
         test('null-safe', () {
-          final source = source1DataSafe;
-          final item = source.manifest.items[0];
-          final writer = TopCastWriter(source);
+          final manifest = manifest1Data;
+          final item = manifest.items[0];
+          final writer = TopCastWriter(manifest);
 
           expect(
             writer.topCastIs(item),
             'bool isSunny() => this is HiSunny;',
           );
         });
-        test('legacy', () {
-          final source = source1DataLegacy;
-          final item = source.manifest.items[0];
-          final writer = TopCastWriter(source);
-
-          expect(
-            writer.topCastIs(item),
-            'bool/*!*/ isSunny() => this is HiSunny;',
-          );
-        });
       });
 
       group('generic', () {
         test('null-safe', () {
-          final source = source2DataSafe;
-          final item = source.manifest.items[0];
-          final writer = TopCastWriter(source);
+          final manifest = manifest2Data;
+          final item = manifest.items[0];
+          final writer = TopCastWriter(manifest);
 
           expect(
             writer.topCastIs(item),
@@ -52,8 +42,8 @@ void main() {
     });
 
     test('method topCastsIs', () {
-      final source = source1DataSafe;
-      final writer = TopCastWriter(source);
+      final manifest = manifest1Data;
+      final writer = TopCastWriter(manifest);
 
       expect(
         writer.topCastsIs().joinMethods(),
@@ -68,56 +58,34 @@ void main() {
     group('method topCastAs', () {
       group('simple', () {
         test('null-safe', () {
-          final source = source1DataSafe;
-          final item = source.manifest.items[0];
-          final writer = TopCastWriter(source);
+          final manifest = manifest1Data;
+          final item = manifest.items[0];
+          final writer = TopCastWriter(manifest);
 
           expect(
             writer.topCastAs(item),
             'HiSunny asSunny() => this as HiSunny;',
           );
         });
-
-        test('legacy', () {
-          final source = source1DataLegacy;
-          final item = source.manifest.items[0];
-          final writer = TopCastWriter(source);
-
-          expect(
-            writer.topCastAs(item),
-            'HiSunny/*!*/ asSunny() => this as HiSunny;',
-          );
-        });
       });
 
       group('generic', () {
         test('null-safe', () {
-          final source = source2DataSafe;
-          final item = source.manifest.items[0];
-          final writer = TopCastWriter(source);
+          final manifest = manifest2Data;
+          final item = manifest.items[0];
+          final writer = TopCastWriter(manifest);
 
           expect(
             writer.topCastAs(item),
             'MySuccess<T> asSuccess() => this as MySuccess<T>;',
           );
         });
-
-        test('legacy', () {
-          final source = source2DataLegacy;
-          final item = source.manifest.items[0];
-          final writer = TopCastWriter(source);
-
-          expect(
-            writer.topCastAs(item),
-            'MySuccess<T>/*!*/ asSuccess() => this as MySuccess<T>;',
-          );
-        });
       });
     });
 
     test('method topCastsAs', () {
-      final source = source1DataSafe;
-      final writer = TopCastWriter(source);
+      final manifest = manifest1Data;
+      final writer = TopCastWriter(manifest);
 
       expect(
         writer.topCastsAs().joinMethods(),
@@ -132,9 +100,9 @@ void main() {
     group('method topCastAsOrNull', () {
       group('simple', () {
         test('null-safe', () {
-          final source = source1DataSafe;
-          final item = source.manifest.items[0];
-          final writer = TopCastWriter(source);
+          final manifest = manifest1Data;
+          final item = manifest.items[0];
+          final writer = TopCastWriter(manifest);
 
           expect(
             writer.topCastAsOrNull(item),
@@ -144,27 +112,13 @@ void main() {
             '}',
           );
         });
-
-        test('legacy', () {
-          final source = source1DataLegacy;
-          final item = source.manifest.items[0];
-          final writer = TopCastWriter(source);
-
-          expect(
-            writer.topCastAsOrNull(item),
-            'HiSunny/*?*/ asSunnyOrNull() {\n'
-            'final weather = this;\n'
-            'return weather is HiSunny ? weather : null;\n'
-            '}',
-          );
-        });
       });
 
       group('generic', () {
         test('null-safe', () {
-          final source = source2DataSafe;
-          final item = source.manifest.items[0];
-          final writer = TopCastWriter(source);
+          final manifest = manifest2Data;
+          final item = manifest.items[0];
+          final writer = TopCastWriter(manifest);
 
           expect(
             writer.topCastAsOrNull(item),
@@ -178,8 +132,8 @@ void main() {
     });
 
     test('method topCastsAsOrNull', () {
-      final source = source1DataSafe;
-      final writer = TopCastWriter(source);
+      final manifest = manifest1Data;
+      final writer = TopCastWriter(manifest);
 
       expect(
         writer.topCastsAsOrNull().joinMethods(),
@@ -192,8 +146,8 @@ void main() {
     });
 
     test('method topCastMethods', () {
-      final source = source1DataSafe;
-      final writer = TopCastWriter(source);
+      final manifest = manifest1Data;
+      final writer = TopCastWriter(manifest);
 
       expect(
         writer.topCastMethods().joinMethods(),

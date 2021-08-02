@@ -1,6 +1,5 @@
 import 'package:meta/meta.dart';
 import 'package:sealed_writer/src/manifest/manifest.dart';
-import 'package:sealed_writer/src/source/source.dart';
 import 'package:sealed_writer/src/utils/string_utils.dart';
 import 'package:sealed_writer/src/writer/base/base_writer.dart';
 
@@ -10,7 +9,7 @@ import 'package:sealed_writer/src/writer/base/base_writer.dart';
 class SubDocWriter extends BaseWriter {
   static const equalityNames = ['data', 'identity', 'distinct'];
 
-  const SubDocWriter(Source source) : super(source);
+  const SubDocWriter(Manifest manifest) : super(manifest);
 
   /// ex. ((WeatherRainy : Weather) rainy){int rain} with data equality
   String write(ManifestItem item) => [
@@ -19,7 +18,7 @@ class SubDocWriter extends BaseWriter {
             [
               item.name.withBraKet(),
               ' : ',
-              source.manifest.name.withBraKet(),
+              manifest.name.withBraKet(),
             ].joinParts().withParenthesis(),
             _paramsDoc(),
             ' ',
@@ -44,7 +43,7 @@ class SubDocWriter extends BaseWriter {
       ].joinParts();
 
   String _paramsDoc() =>
-      source.manifest.params.map(_paramDoc).joinArgsSimple().withLtGtOrNot();
+      manifest.params.map(_paramDoc).joinArgsSimple().withLtGtOrNot();
 
   String _paramDoc(ManifestParam param) => [
         param.name.withBraKet(),

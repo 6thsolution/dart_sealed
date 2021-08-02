@@ -6,15 +6,15 @@ import '../../../../utils/examples.dart';
 void main() {
   group('class TopMatchWriter', () {
     test('initialization', () {
-      final source = source1DataSafe;
-      final writer = TopMatchWriter(source);
+      final manifest = manifest1Data;
+      final writer = TopMatchWriter(manifest);
 
-      expect(writer.source, source);
+      expect(writer.manifest, manifest);
     });
 
     test('method topMatchMethods', () {
-      final source = source1DataLegacy;
-      final writer = TopMatchWriter(source);
+      final manifest = manifest1Data;
+      final writer = TopMatchWriter(manifest);
 
       expect(
         writer.topMatchMethods(),

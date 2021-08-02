@@ -7,15 +7,15 @@ import '../../utils/examples.dart';
 void main() {
   group('class SourceWriter', () {
     test('initialization', () {
-      final source = source1DataSafe;
-      final writer = SourceWriter(source);
+      final manifest = manifest1Data;
+      final writer = SourceWriter(manifest);
 
-      expect(writer.source, source);
+      expect(writer.manifest, manifest);
     });
 
     test('method classes', () {
-      final source = source1DataSafe;
-      final writer = SourceWriter(source);
+      final manifest = manifest1Data;
+      final writer = SourceWriter(manifest);
 
       expect(
         writer.classes(),
@@ -27,8 +27,8 @@ void main() {
     });
 
     test('method write', () {
-      final source = source1DataSafe;
-      final writer = SourceWriter(source);
+      final manifest = manifest1Data;
+      final writer = SourceWriter(manifest);
 
       expect(
         writer.write(),

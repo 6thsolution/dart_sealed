@@ -150,17 +150,12 @@ class ManifestType {
   }
 
   /// name without any ?, ! or *
-  /// and their helpers like /*!*/ or /*?*/.
   ///
   /// for example "double". but
   /// can NOT be "double?".
   final String name;
 
-  /// without considering null-safety.
-  ///
-  /// by default all legacy fields are nullable and
-  /// this field is true.
-  /// but can be overridden in future.
+  /// is nullable ?
   final bool isNullable;
 
   @override
@@ -192,8 +187,7 @@ class ManifestParam {
     check(name.isGenTypeName());
   }
 
-  /// generic type name without any ?, ! or *
-  /// and their helpers like /*!*/ or /*?*/.
+  /// generic type name without any ?, !
   ///
   /// for example "T". but
   /// can NOT be "T?".

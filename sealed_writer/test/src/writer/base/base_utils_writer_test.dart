@@ -1,176 +1,123 @@
-import 'package:sealed_writer/src/source/source.dart';
+import 'package:sealed_writer/src/manifest/manifest.dart';
 import 'package:sealed_writer/src/writer/base/base_utils_writer.dart';
 import 'package:test/test.dart';
 
 import '../../../utils/examples.dart';
 
 class _Writer extends BaseUtilsWriter {
-  const _Writer(Source source) : super(source);
+  const _Writer(Manifest manifest) : super(manifest);
 }
 
 void main() {
   group('class BaseWriter', () {
     test('initialization', () {
-      final source = source1DataSafe;
-      final writer = _Writer(source);
+      final manifest = manifest1Data;
+      final writer = _Writer(manifest);
 
-      expect(writer.source, source);
+      expect(writer.manifest, manifest);
     });
 
     test('getter manifest', () {
-      final source = source1DataSafe;
-      final writer = _Writer(source);
+      final manifest = manifest1Data;
+      final writer = _Writer(manifest);
 
-      expect(writer.manifest, source.manifest);
-    });
-
-    test('getter options', () {
-      final source = source1DataSafe;
-      final writer = _Writer(source);
-
-      expect(writer.options, source.options);
+      expect(writer.manifest, manifest);
     });
 
     test('annotation closed', () {
-      final source = source1DataSafe;
-      final writer = _Writer(source);
+      final manifest = manifest1Data;
+      final writer = _Writer(manifest);
 
       expect(writer.annotationClosed, '@sealed');
     });
 
     test('annotation immutable', () {
-      final source = source1DataSafe;
-      final writer = _Writer(source);
+      final manifest = manifest1Data;
+      final writer = _Writer(manifest);
 
       expect(writer.annotationImmutable, '@immutable');
     });
 
     test('annotation factory', () {
-      final source = source1DataSafe;
-      final writer = _Writer(source);
+      final manifest = manifest1Data;
+      final writer = _Writer(manifest);
 
       expect(writer.annotationFactory, '@factory');
     });
 
     test('annotation override', () {
-      final source = source1DataSafe;
-      final writer = _Writer(source);
+      final manifest = manifest1Data;
+      final writer = _Writer(manifest);
 
       expect(writer.annotationOverride, '@override');
     });
 
     group('getter n', () {
       test('null-safe', () {
-        final source = source1DataSafe;
-        final writer = _Writer(source);
+        final manifest = manifest1Data;
+        final writer = _Writer(manifest);
 
         expect(writer.n, '?');
-      });
-
-      test('legacy', () {
-        final source = source1DataLegacy;
-        final writer = _Writer(source);
-
-        expect(writer.n, '/*?*/');
-      });
-    });
-
-    group('getter nl', () {
-      test('null-safe', () {
-        final source = source1DataSafe;
-        final writer = _Writer(source);
-
-        expect(writer.nl, '');
-      });
-
-      test('legacy', () {
-        final source = source1DataLegacy;
-        final writer = _Writer(source);
-
-        expect(writer.nl, '/*?*/');
-      });
-    });
-
-    group('getter nn', () {
-      test('null-safe', () {
-        final source = source1DataSafe;
-        final writer = _Writer(source);
-
-        expect(writer.nn, '');
-      });
-
-      test('legacy', () {
-        final source = source1DataLegacy;
-        final writer = _Writer(source);
-
-        expect(writer.nn, '/*!*/');
       });
     });
 
     group('getter req', () {
       test('null-safe', () {
-        final source = source1DataSafe;
-        final writer = _Writer(source);
+        final manifest = manifest1Data;
+        final writer = _Writer(manifest);
 
         expect(writer.req, 'required');
-      });
-
-      test('legacy', () {
-        final source = source1DataLegacy;
-        final writer = _Writer(source);
-
-        expect(writer.req, '@required');
       });
     });
 
     test('method top', () {
-      final source = source1DataLegacy;
-      final writer = _Writer(source);
+      final manifest = manifest1Data;
+      final writer = _Writer(manifest);
 
       expect(writer.top, 'Weather');
     });
 
     test('method topLower', () {
-      final source = source1DataLegacy;
-      final writer = _Writer(source);
+      final manifest = manifest1Data;
+      final writer = _Writer(manifest);
 
       expect(writer.topLower, 'weather');
     });
 
     test('method short', () {
-      final source = source1DataSafe;
-      final item = source.manifest.items[0];
-      final writer = _Writer(source);
+      final manifest = manifest1Data;
+      final item = manifest.items[0];
+      final writer = _Writer(manifest);
 
       expect(writer.subUpper(item), 'Sunny');
     });
 
     test('method full', () {
-      final source = source1DataSafe;
-      final item = source.manifest.items[0];
-      final writer = _Writer(source);
+      final manifest = manifest1Data;
+      final item = manifest.items[0];
+      final writer = _Writer(manifest);
 
       expect(writer.subFull(item), 'HiSunny');
     });
 
     test('method lower', () {
-      final source = source1DataSafe;
-      final item = source.manifest.items[0];
-      final writer = _Writer(source);
+      final manifest = manifest1Data;
+      final item = manifest.items[0];
+      final writer = _Writer(manifest);
 
       expect(writer.subLower(item), 'sunny');
     });
 
     group('method typeSL', () {
       group('null-safe', () {
-        final source = source1DataSafe;
+        final manifest = manifest1Data;
         // void windy(double velocity, double? angle);
-        final item = source.manifest.items[2];
+        final item = manifest.items[2];
         final field1 = item.fields[0];
         final type1 = field1.type;
         final field2 = item.fields[1];
         final type2 = field2.type;
-        final writer = _Writer(source);
+        final writer = _Writer(manifest);
 
         test('non-nullable type', () {
           expect(writer.typeSL(type1), 'double');
@@ -180,30 +127,11 @@ void main() {
           expect(writer.typeSL(type2), 'double?');
         });
       });
-
-      group('legacy', () {
-        final source = source1DataLegacy;
-        // void windy(double velocity, double? angle);
-        final item = source.manifest.items[2];
-        final field1 = item.fields[0];
-        final type1 = field1.type;
-        final field2 = item.fields[1];
-        final type2 = field2.type;
-        final writer = _Writer(source);
-
-        test('non-nullable type', () {
-          expect(writer.typeSL(type1), 'double/*!*/');
-        });
-
-        test('nullable type', () {
-          expect(writer.typeSL(type2), 'double/*?*/');
-        });
-      });
     });
 
     test('method initThisValue', () {
-      final source = source1DataLegacy;
-      final writer = _Writer(source);
+      final manifest = manifest1Data;
+      final writer = _Writer(manifest);
 
       expect(
         writer.initThisValue(),
@@ -213,15 +141,15 @@ void main() {
 
     group('getter isGeneric', () {
       test('simple', () {
-        final source = source1DataSafe;
-        final writer = _Writer(source);
+        final manifest = manifest1Data;
+        final writer = _Writer(manifest);
 
         expect(writer.isGeneric, isFalse);
       });
 
       test('generic', () {
-        final source = source2DataSafe;
-        final writer = _Writer(source);
+        final manifest = manifest2Data;
+        final writer = _Writer(manifest);
 
         expect(writer.isGeneric, isTrue);
       });
@@ -229,35 +157,26 @@ void main() {
 
     group('method genericDecPart', () {
       test('null-safe', () {
-        final source = source2DataSafe;
-        final manifest = source.manifest;
+        final manifest = manifest2Data;
+
         final param1 = manifest.params[0];
-        final writer = _Writer(source);
+        final writer = _Writer(manifest);
 
         expect(writer.genericDecPart(param1), 'T extends num');
-      });
-
-      test('legacy', () {
-        final source = source2DataLegacy;
-        final manifest = source.manifest;
-        final param1 = manifest.params[0];
-        final writer = _Writer(source);
-
-        expect(writer.genericDecPart(param1), 'T extends num/*!*/');
       });
     });
 
     group('getter genericDec', () {
       test('simple', () {
-        final source = source1DataSafe;
-        final writer = _Writer(source);
+        final manifest = manifest1Data;
+        final writer = _Writer(manifest);
 
         expect(writer.genericDec, equals(''));
       });
 
       test('generic', () {
-        final source = source2DataSafe;
-        final writer = _Writer(source);
+        final manifest = manifest2Data;
+        final writer = _Writer(manifest);
 
         expect(writer.genericDec, equals('<T extends num>'));
       });
@@ -265,19 +184,10 @@ void main() {
 
     group('method genericCallPart', () {
       test('null-safe', () {
-        final source = source2DataSafe;
-        final manifest = source.manifest;
-        final param1 = manifest.params[0];
-        final writer = _Writer(source);
+        final manifest = manifest2Data;
 
-        expect(writer.genericCallPart(param1), equals('T'));
-      });
-
-      test('legacy', () {
-        final source = source2DataLegacy;
-        final manifest = source.manifest;
         final param1 = manifest.params[0];
-        final writer = _Writer(source);
+        final writer = _Writer(manifest);
 
         expect(writer.genericCallPart(param1), equals('T'));
       });
@@ -285,15 +195,15 @@ void main() {
 
     group('getter genericCall', () {
       test('simple', () {
-        final source = source1DataSafe;
-        final writer = _Writer(source);
+        final manifest = manifest1Data;
+        final writer = _Writer(manifest);
 
         expect(writer.genericCall, equals(''));
       });
 
       test('generic', () {
-        final source = source2DataSafe;
-        final writer = _Writer(source);
+        final manifest = manifest2Data;
+        final writer = _Writer(manifest);
 
         expect(writer.genericCall, equals('<T>'));
       });
@@ -301,15 +211,15 @@ void main() {
 
     group('getter topDec', () {
       test('simple', () {
-        final source = source1DataSafe;
-        final writer = _Writer(source);
+        final manifest = manifest1Data;
+        final writer = _Writer(manifest);
 
         expect(writer.topDec, equals('Weather'));
       });
 
       test('generic', () {
-        final source = source2DataSafe;
-        final writer = _Writer(source);
+        final manifest = manifest2Data;
+        final writer = _Writer(manifest);
 
         expect(writer.topDec, equals('Result<T extends num>'));
       });
@@ -317,15 +227,15 @@ void main() {
 
     group('getter topCall', () {
       test('simple', () {
-        final source = source1DataSafe;
-        final writer = _Writer(source);
+        final manifest = manifest1Data;
+        final writer = _Writer(manifest);
 
         expect(writer.topCall, equals('Weather'));
       });
 
       test('generic', () {
-        final source = source2DataSafe;
-        final writer = _Writer(source);
+        final manifest = manifest2Data;
+        final writer = _Writer(manifest);
 
         expect(writer.topCall, equals('Result<T>'));
       });
@@ -333,10 +243,10 @@ void main() {
 
     group('method subDec', () {
       test('simple', () {
-        final source = source1DataSafe;
-        final manifest = source.manifest;
+        final manifest = manifest1Data;
+
         final item1 = manifest.items[0];
-        final writer = _Writer(source);
+        final writer = _Writer(manifest);
 
         expect(
           writer.subDec(item1),
@@ -345,10 +255,10 @@ void main() {
       });
 
       test('generic', () {
-        final source = source2DataSafe;
-        final manifest = source.manifest;
+        final manifest = manifest2Data;
+
         final item1 = manifest.items[0];
-        final writer = _Writer(source);
+        final writer = _Writer(manifest);
 
         expect(
           writer.subDec(item1),
@@ -359,10 +269,10 @@ void main() {
 
     group('method subCall', () {
       test('simple', () {
-        final source = source1DataSafe;
-        final manifest = source.manifest;
+        final manifest = manifest1Data;
+
         final item1 = manifest.items[0];
-        final writer = _Writer(source);
+        final writer = _Writer(manifest);
 
         expect(
           writer.subCall(item1),
@@ -371,10 +281,10 @@ void main() {
       });
 
       test('generic', () {
-        final source = source2DataSafe;
-        final manifest = source.manifest;
+        final manifest = manifest2Data;
+
         final item1 = manifest.items[0];
-        final writer = _Writer(source);
+        final writer = _Writer(manifest);
 
         expect(
           writer.subCall(item1),

@@ -1,6 +1,5 @@
 import 'package:meta/meta.dart';
 import 'package:sealed_writer/src/manifest/manifest.dart';
-import 'package:sealed_writer/src/source/source.dart';
 import 'package:sealed_writer/src/utils/branch_utils.dart';
 import 'package:sealed_writer/src/utils/string_utils.dart';
 import 'package:sealed_writer/src/writer/top/match/top_match_base_writer.dart';
@@ -9,7 +8,7 @@ import 'package:sealed_writer/src/writer/top/match/top_match_base_writer.dart';
 @sealed
 @immutable
 class TopMatchWhenWriter extends TopMatchBaseWriter {
-  const TopMatchWhenWriter(Source source) : super(source);
+  const TopMatchWhenWriter(Manifest manifest) : super(manifest);
 
   /// ex. if (weather is WeatherSunny) { return sunny(weather); }
   If topMatchWhenIf(ManifestItem item) => If(
@@ -46,7 +45,6 @@ class TopMatchWhenWriter extends TopMatchBaseWriter {
   String topMatchWhen() => [
         topMatchWhenStart(),
         '{',
-        if (!options.isNullSafe) topMatchAsserts(),
         topMatchWhenBody(),
         '}',
       ].joinLines();

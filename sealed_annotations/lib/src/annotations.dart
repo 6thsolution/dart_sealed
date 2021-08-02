@@ -98,8 +98,6 @@ class SealedManifest {
 class WithType {
   /// type name.
   /// for example "int?", "double" or "Result<WeatherData>".
-  ///
-  /// all types will be nullable in legacy projects.
   final String type;
 
   @literal

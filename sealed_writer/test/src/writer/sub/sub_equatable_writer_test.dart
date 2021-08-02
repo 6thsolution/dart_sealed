@@ -6,27 +6,27 @@ import '../../../utils/examples.dart';
 void main() {
   group('class SubEquatableWriter', () {
     test('initialization', () {
-      final source = source1DataSafe;
-      final writer = SubEquatableWriter(source);
+      final manifest = manifest1Data;
+      final writer = SubEquatableWriter(manifest);
 
-      expect(writer.source, source);
+      expect(writer.manifest, manifest);
     });
 
     test('method subEquatableFieldNames', () {
-      final source = source1DataSafe;
+      final manifest = manifest1Data;
       // void windy(double velocity, double? angle);
-      final item3 = source.manifest.items[2];
+      final item3 = manifest.items[2];
       final field1 = item3.fields[0];
-      final writer = SubEquatableWriter(source);
+      final writer = SubEquatableWriter(manifest);
 
       expect(writer.fieldName(field1), 'velocity');
     });
 
     test('method subEquatableFieldNames', () {
-      final source = source1DataSafe;
+      final manifest = manifest1Data;
       // void windy(double velocity, double? angle);
-      final item3 = source.manifest.items[2];
-      final writer = SubEquatableWriter(source);
+      final item3 = manifest.items[2];
+      final writer = SubEquatableWriter(manifest);
 
       expect(
         writer.subEquatableFieldNames(item3),
@@ -37,10 +37,10 @@ void main() {
     group('method subEquatableEquality', () {
       group('simple', () {
         test('null-safe', () {
-          final source = source1DataSafe;
+          final manifest = manifest1Data;
           // void windy(double velocity, double? angle);
-          final item3 = source.manifest.items[2];
-          final writer = SubEquatableWriter(source);
+          final item3 = manifest.items[2];
+          final writer = SubEquatableWriter(manifest);
 
           expect(
             writer.subEquatableEquality(item3),
@@ -48,26 +48,13 @@ void main() {
             'List<Object?> get props => [velocity, angle,];',
           );
         });
-
-        test('legacy', () {
-          final source = source1DataLegacy;
-          // void windy(double velocity, double? angle);
-          final item3 = source.manifest.items[2];
-          final writer = SubEquatableWriter(source);
-
-          expect(
-            writer.subEquatableEquality(item3),
-            '@override\n'
-            'List<Object/*?*/>/*!*/ get props => [velocity, angle,];',
-          );
-        });
       });
 
       group('generic', () {
         test('null-safe', () {
-          final source = source2DataSafe;
-          final item1 = source.manifest.items[0];
-          final writer = SubEquatableWriter(source);
+          final manifest = manifest2Data;
+          final item1 = manifest.items[0];
+          final writer = SubEquatableWriter(manifest);
 
           expect(
             writer.subEquatableEquality(item1),

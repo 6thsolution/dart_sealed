@@ -1,10 +1,10 @@
 import 'package:meta/meta.dart';
-import 'package:sealed_writer/src/source/source.dart';
+import 'package:sealed_writer/src/manifest/manifest.dart';
 
 /// base writer
 @immutable
 abstract class BaseWriter {
-  const BaseWriter(this.source);
+  const BaseWriter(this.manifest);
 
-  final Source source;
+  final Manifest manifest;
 }

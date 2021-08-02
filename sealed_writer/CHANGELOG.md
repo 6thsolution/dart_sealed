@@ -1,6 +1,7 @@
 ## dev
 
 - Removed support for super_enum API
+- Removed support for non null-safe projects.
 
 ## 1.4.0
 

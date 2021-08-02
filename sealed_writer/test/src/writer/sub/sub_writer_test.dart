@@ -6,22 +6,22 @@ import '../../../utils/examples.dart';
 void main() {
   group('class SubWriter', () {
     test('initialization', () {
-      final source = source1DataSafe;
-      final writer = SubWriter(source);
+      final manifest = manifest1Data;
+      final writer = SubWriter(manifest);
 
-      expect(writer.source, source);
+      expect(writer.manifest, manifest);
     });
 
     test('method hasNullable', () {
-      final source = source1DataSafe;
+      final manifest = manifest1Data;
       // void sunny();
-      final manifest = source.manifest;
+
       final item1 = manifest.items[0];
       // void rainy(int rain);
       final item2 = manifest.items[1];
       // void windy(double velocity, double? angle);
       final item3 = manifest.items[2];
-      final writer = SubWriter(source);
+      final writer = SubWriter(manifest);
 
       expect(writer.hasNullable(item1), false);
       expect(writer.hasNullable(item2), false);
@@ -31,10 +31,10 @@ void main() {
     group('method subClassStart', () {
       group('simple', () {
         test('equality data', () {
-          final source = source1DataSafe;
+          final manifest = manifest1Data;
           // void rainy(int rain);
-          final item2 = source.manifest.items[1];
-          final writer = SubWriter(source);
+          final item2 = manifest.items[1];
+          final writer = SubWriter(manifest);
 
           expect(
             writer.subClassStart(item2),
@@ -46,10 +46,10 @@ void main() {
         });
 
         test('equality identity', () {
-          final source = source1IdentitySafe;
+          final manifest = manifest1Identity;
           // void rainy(int rain);
-          final item2 = source.manifest.items[1];
-          final writer = SubWriter(source);
+          final item2 = manifest.items[1];
+          final writer = SubWriter(manifest);
 
           expect(
             writer.subClassStart(item2),
@@ -61,10 +61,10 @@ void main() {
         });
 
         test('equality distinct', () {
-          final source = source1DistinctSafe;
+          final manifest = manifest1Distinct;
           // void rainy(int rain);
-          final item2 = source.manifest.items[1];
-          final writer = SubWriter(source);
+          final item2 = manifest.items[1];
+          final writer = SubWriter(manifest);
 
           expect(
             writer.subClassStart(item2),
@@ -78,9 +78,9 @@ void main() {
 
       group('generic', () {
         test('equality data', () {
-          final source = source2DataSafe;
-          final item1 = source.manifest.items[0];
-          final writer = SubWriter(source);
+          final manifest = manifest2Data;
+          final item1 = manifest.items[0];
+          final writer = SubWriter(manifest);
 
           expect(
             writer.subClassStart(item1),
@@ -97,8 +97,8 @@ void main() {
     group('method topDistinctEquality', () {
       group('simple', () {
         test('null-safe', () {
-          final source = source1DataSafe;
-          final writer = SubWriter(source);
+          final manifest = manifest1Data;
+          final writer = SubWriter(manifest);
 
           expect(
             writer.subDistinctEquality(),
@@ -106,23 +106,12 @@ void main() {
             'bool operator ==(Object other) => false;',
           );
         });
-
-        test('legacy', () {
-          final source = source1DataLegacy;
-          final writer = SubWriter(source);
-
-          expect(
-            writer.subDistinctEquality(),
-            '@override\n'
-            'bool/*!*/ operator ==(Object other) => false;',
-          );
-        });
       });
 
       group('generic', () {
         test('null-safe', () {
-          final source = source2DataSafe;
-          final writer = SubWriter(source);
+          final manifest = manifest2Data;
+          final writer = SubWriter(manifest);
 
           expect(
             writer.subDistinctEquality(),
@@ -136,10 +125,10 @@ void main() {
     group('method subClass', () {
       group('simple', () {
         test('equality data', () {
-          final source = source1DataSafe;
+          final manifest = manifest1Data;
           // void rainy(int rain);
-          final item2 = source.manifest.items[1];
-          final writer = SubWriter(source);
+          final item2 = manifest.items[1];
+          final writer = SubWriter(manifest);
 
           expect(
             writer.subClass(item2),
@@ -161,10 +150,10 @@ void main() {
         });
 
         test('equality data generic', () {
-          final source = source2DataSafe;
+          final manifest = manifest2Data;
           // void rainy(int rain);
-          final item2 = source.manifest.items[1];
-          final writer = SubWriter(source);
+          final item2 = manifest.items[1];
+          final writer = SubWriter(manifest);
 
           expect(
             writer.subClass(item2),
@@ -173,10 +162,10 @@ void main() {
         });
 
         test('equality data with nullable', () {
-          final source = source1DataSafe;
+          final manifest = manifest1Data;
           // void windy(double velocity, double? angle);
-          final item3 = source.manifest.items[2];
-          final writer = SubWriter(source);
+          final item3 = manifest.items[2];
+          final writer = SubWriter(manifest);
 
           expect(
             writer.subClass(item3),
@@ -185,10 +174,10 @@ void main() {
         });
 
         test('equality identity', () {
-          final source = source1IdentitySafe;
+          final manifest = manifest1Identity;
           // void rainy(int rain);
-          final item2 = source.manifest.items[1];
-          final writer = SubWriter(source);
+          final item2 = manifest.items[1];
+          final writer = SubWriter(manifest);
 
           expect(
             writer.subClass(item2),
@@ -200,10 +189,10 @@ void main() {
         });
 
         test('equality distinct', () {
-          final source = source1DistinctSafe;
+          final manifest = manifest1Distinct;
           // void rainy(int rain);
-          final item2 = source.manifest.items[1];
-          final writer = SubWriter(source);
+          final item2 = manifest.items[1];
+          final writer = SubWriter(manifest);
 
           expect(
             writer.subClass(item2),
@@ -218,9 +207,9 @@ void main() {
 
       group('generic', () {
         test('equality data', () {
-          final source = source2DataSafe;
-          final item1 = source.manifest.items[0];
-          final writer = SubWriter(source);
+          final manifest = manifest2Data;
+          final item1 = manifest.items[0];
+          final writer = SubWriter(manifest);
 
           expect(
             writer.subClass(item1),
@@ -245,9 +234,9 @@ void main() {
     });
 
     test('method subClasses', () {
-      final source = source1DataSafe;
-      final manifest = source.manifest;
-      final writer = SubWriter(source);
+      final manifest = manifest1Data;
+
+      final writer = SubWriter(manifest);
 
       expect(
         writer.subClasses(),

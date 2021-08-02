@@ -10,10 +10,15 @@ class SealedGenerator extends GeneratorForAnnotation<Sealed> {
 
   @override
   String generateForAnnotatedElement(
-      Element element, ConstantReader _, BuildStep __) {
-    final source = const SourceReader().read(element);
-    return SourceWriter(source).write();
-  }
+    Element element,
+    ConstantReader _,
+    BuildStep __,
+  ) =>
+      SourceWriter(
+        const SourceReader().read(
+          element,
+        ),
+      ).write();
 
   @override
   String toString() => 'sealed_generators';

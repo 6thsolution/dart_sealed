@@ -6,7 +6,7 @@
 [![pub](https://img.shields.io/pub/v/sealed_generators.svg?color=blue&label=sealed_generators)](https://pub.dev/packages/sealed_generators)
 [![pub](https://img.shields.io/pub/v/sealed_writer.svg?color=blue&label=sealed_writer)](https://pub.dev/packages/sealed_writer)
 
-Generate sealed class hierarchy for Dart and Flutter, For null-safe and legacy projects.
+Generate sealed class hierarchy for Dart and Flutter.
 
 ## Features
 
@@ -18,8 +18,7 @@ Generate sealed class hierarchy for Dart and Flutter, For null-safe and legacy p
 * Support for generics. even types can be mixed.
 * Support for nullable and non-nullable types in null-safe projects.
 * Support for using one sealed type in another.
-* Support both legacy and null-safe projects.
-* Generate nullability comments for legacy projects to ease your migration.
+* Support for null-safety.
 * Generate toString for data classes.
 * Generate 6 types of different matching methods. like `when` or `whenOrElse`.
 * Support for automatic unwrapping and Inheritance
@@ -208,7 +207,7 @@ prefixed with super class name (for example `WeatherSunny`). Naming process can 
 and `@WithName` annotations. Each method argument will become a field in corresponding sub-class. Field names are equal
 to argument names and field types are equal to argument types or dynamic if not specified. Argument types can be
 overridden using `@WithType` annotation for example when type information is not available at build time. Note that you
-can have nullable and non-nullable fields. In legacy projects all fields are considered nullable.
+can have nullable and non-nullable fields.
 
 To change prefix of sub-class names which by default is top class name, you can use `@WithPrefix` annotation. for
 example:
@@ -402,12 +401,3 @@ abstract class _WeatherInfo {
   void nullable(@WithType('Result<WeatherData>?') result);
 }
 ```
-
-## Migrating to null-safety
-
-Using library for legacy projects it will generate legacy code assuming all fields being nullable. It also adds
-nullability comments for easing migration.
-
-For migration use standard migration tool. Change nullability of sealed class fields (which is mapped from method
-arguments of manifest class) according to your needs. run `dart run build_runner build` again and library will generate
-null-safe code for you.

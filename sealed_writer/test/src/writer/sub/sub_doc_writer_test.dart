@@ -7,18 +7,18 @@ import '../../../utils/examples.dart';
 void main() {
   group('class SubDocWriter', () {
     test('initialization', () {
-      final source = source1DataSafe;
-      final writer = SubDocWriter(source);
+      final manifest = manifest1Data;
+      final writer = SubDocWriter(manifest);
 
-      expect(writer.source, source);
+      expect(writer.manifest, manifest);
     });
 
     group('method write', () {
       test('data equality', () {
-        final source = source1DataSafe;
-        final writer = SubDocWriter(source);
-        final item2 = source.manifest.items[1];
-        final item3 = source.manifest.items[2];
+        final manifest = manifest1Data;
+        final writer = SubDocWriter(manifest);
+        final item2 = manifest.items[1];
+        final item3 = manifest.items[2];
 
         expect(
           writer.write(item2),
@@ -36,9 +36,9 @@ void main() {
       });
 
       test('identity equality', () {
-        final source = source1IdentitySafe;
-        final writer = SubDocWriter(source);
-        final item2 = source.manifest.items[1];
+        final manifest = manifest1Identity;
+        final writer = SubDocWriter(manifest);
+        final item2 = manifest.items[1];
 
         expect(
           writer.write(item2),
@@ -49,9 +49,9 @@ void main() {
       });
 
       test('distinct equality', () {
-        final source = source1DistinctSafe;
-        final writer = SubDocWriter(source);
-        final item2 = source.manifest.items[1];
+        final manifest = manifest1Distinct;
+        final writer = SubDocWriter(manifest);
+        final item2 = manifest.items[1];
 
         expect(
           writer.write(item2),
@@ -62,9 +62,9 @@ void main() {
       });
 
       test('data equality generic', () {
-        final source = source2DataSafe;
-        final writer = SubDocWriter(source);
-        final item1 = source.manifest.items[0];
+        final manifest = manifest2Data;
+        final writer = SubDocWriter(manifest);
+        final item1 = manifest.items[0];
 
         expect(
           writer.write(item1),
@@ -76,9 +76,9 @@ void main() {
       });
 
       test('data equality wrapped', () {
-        final source = source3DataSafe;
-        final writer = SubDocWriter(source);
-        final item3 = source.manifest.items[2];
+        final manifest = manifest3Data;
+        final writer = SubDocWriter(manifest);
+        final item3 = manifest.items[2];
 
         expect(
           writer.write(item3),
@@ -92,9 +92,9 @@ void main() {
       });
 
       test('data equality generic wrapped', () {
-        final source = source4DataSafe;
-        final writer = SubDocWriter(source);
-        final item1 = source.manifest.items[0];
+        final manifest = manifest4Data;
+        final writer = SubDocWriter(manifest);
+        final item1 = manifest.items[0];
 
         expect(
           writer.write(item1),

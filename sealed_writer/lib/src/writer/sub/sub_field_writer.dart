@@ -1,6 +1,5 @@
 import 'package:meta/meta.dart';
 import 'package:sealed_writer/src/manifest/manifest.dart';
-import 'package:sealed_writer/src/source/source.dart';
 import 'package:sealed_writer/src/utils/string_utils.dart';
 import 'package:sealed_writer/src/writer/base/base_utils_writer.dart';
 
@@ -8,7 +7,7 @@ import 'package:sealed_writer/src/writer/base/base_utils_writer.dart';
 @sealed
 @immutable
 class SubFieldWriter extends BaseUtilsWriter {
-  const SubFieldWriter(Source source) : super(source);
+  const SubFieldWriter(Manifest manifest) : super(manifest);
 
   /// ex. final double direction;
   String subFieldDeclaration(ManifestField field) =>

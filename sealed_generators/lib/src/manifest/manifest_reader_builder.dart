@@ -8,12 +8,7 @@ import 'package:sealed_writer/sealed_writer.dart';
 /// provides options and details not general to the manifest to reader
 @sealed
 class ManifestReaderBuilder {
-  /// options.
-  final Options options;
-
-  const ManifestReaderBuilder({
-    required this.options,
-  });
+  const ManifestReaderBuilder();
 
   /// build manifest reader
   ManifestReader build(Element element) {
@@ -23,7 +18,6 @@ class ManifestReaderBuilder {
     final topPrefix = _extractTopPrefix(element, topName);
     final topIsWrapped = _extractTopIsWrapped(element);
     return ManifestReader(
-      options: options,
       topName: topName,
       topEquality: topEquality,
       topPrefix: topPrefix,

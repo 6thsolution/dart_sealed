@@ -1,6 +1,5 @@
 import 'package:meta/meta.dart';
 import 'package:sealed_writer/src/manifest/manifest.dart';
-import 'package:sealed_writer/src/source/source.dart';
 import 'package:sealed_writer/src/utils/string_utils.dart';
 import 'package:sealed_writer/src/writer/base/base_utils_writer.dart';
 
@@ -19,7 +18,7 @@ class BackwardWriter extends BaseUtilsWriter {
   static String _equality(ManifestEquality equality) =>
       _equalityMapping[equality]!;
 
-  const BackwardWriter(Source source) : super(source);
+  const BackwardWriter(Manifest manifest) : super(manifest);
 
   /// single-line
   String _topAnnotation() => '@Sealed()';

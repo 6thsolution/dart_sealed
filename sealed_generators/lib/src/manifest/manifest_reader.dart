@@ -10,7 +10,6 @@ import 'package:sealed_writer/sealed_writer.dart';
 @sealed
 class ManifestReader {
   ManifestReader({
-    required this.options,
     required this.topName,
     required this.topEquality,
     required this.topPrefix,
@@ -20,9 +19,6 @@ class ManifestReader {
     check(topName.isGenClassName());
     check(topPrefix.isGenClassName());
   }
-
-  /// options.
-  final Options options;
 
   /// top class name, like: Weather.
   final String topName;
@@ -96,8 +92,6 @@ class ManifestReader {
   }
 
   /// extract field from method argument without overrides
-  ///
-  /// assume legacy types as nullable
   ManifestField _extractField(ParameterElement arg) {
     final name = _extractFieldName(arg);
     return ManifestField(
@@ -157,10 +151,8 @@ class ManifestReader {
       type.getDisplayString(withNullability: false);
 
   /// type is nullable?
-  ///
-  /// will be nullable in legacy projects
   bool _extractTypeIsNullable(DartType type) =>
-      !options.isNullSafe || type.nullabilitySuffix != NullabilitySuffix.none;
+      type.nullabilitySuffix != NullabilitySuffix.none;
 
   /// extract manifest type
   ManifestType _extractManifestType(DartType type) => ManifestType(
@@ -177,20 +169,6 @@ class ManifestReader {
       );
 
   /// read overridden type for an argument or null
-  ///
-  /// and fix nullability for legacy projects
-  ManifestType? _readOverriddenTypeOrNull(ParameterElement arg) {
-    final typeName = extractWithTypeOrNull(arg);
-    if (typeName != null) {
-      final type = typeName.readType();
-      return options.isNullSafe
-          ? type
-          : ManifestType(
-              name: type.name,
-              isNullable: true,
-            );
-    } else {
-      return null;
-    }
-  }
+  ManifestType? _readOverriddenTypeOrNull(ParameterElement arg) =>
+      extractWithTypeOrNull(arg)?.readType();
 }

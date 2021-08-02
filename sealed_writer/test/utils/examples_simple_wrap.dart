@@ -42,14 +42,7 @@ Manifest manifest3() => Manifest(
       params: [],
     );
 
-final source3DataSafe = Source(
-  options: optionsSafe,
-  manifest: manifest3(),
-);
-final source3DataLegacy = Source(
-  options: optionsLegacy,
-  manifest: manifest3(),
-);
+final manifest3Data = manifest3();
 
 final code3Data = code3();
 

@@ -6,53 +6,33 @@ import '../../../../utils/examples.dart';
 void main() {
   group('class TopMatchBaseWriter', () {
     test('initialization', () {
-      final source = source1DataSafe;
-      final writer = TopMatchBaseWriter(source);
+      final manifest = manifest1Data;
+      final writer = TopMatchBaseWriter(manifest);
 
-      expect(writer.source, source);
+      expect(writer.manifest, manifest);
     });
 
     group('method topMatchParam', () {
       group('simple', () {
         test('null-safe', () {
-          final source = source1DataSafe;
-          final writer = TopMatchBaseWriter(source);
+          final manifest = manifest1Data;
+          final writer = TopMatchBaseWriter(manifest);
 
           expect(
             writer.topMatchParam,
             '<R extends Object?>',
-          );
-        });
-
-        test('legacy', () {
-          final source = source1DataLegacy;
-          final writer = TopMatchBaseWriter(source);
-
-          expect(
-            writer.topMatchParam,
-            '<R extends Object/*?*/>',
           );
         });
       });
 
       group('generic', () {
         test('null-safe', () {
-          final source = source2DataSafe;
-          final writer = TopMatchBaseWriter(source);
+          final manifest = manifest2Data;
+          final writer = TopMatchBaseWriter(manifest);
 
           expect(
             writer.topMatchParam,
             '<R extends Object?>',
-          );
-        });
-
-        test('legacy', () {
-          final source = source2DataLegacy;
-          final writer = TopMatchBaseWriter(source);
-
-          expect(
-            writer.topMatchParam,
-            '<R extends Object/*?*/>',
           );
         });
       });
@@ -61,54 +41,29 @@ void main() {
     group('method topMatchGenericNNArg', () {
       group('simple', () {
         test('null-safe', () {
-          final source = source1DataSafe;
-          final manifest = source.manifest;
+          final manifest = manifest1Data;
+
           // sunny
           final item1 = manifest.items[0];
-          final writer = TopMatchBaseWriter(source);
+          final writer = TopMatchBaseWriter(manifest);
 
           expect(
             writer.topMatchGenericNNArg(item1),
             'required R Function(HiSunny sunny) sunny',
           );
         });
-
-        test('legacy', () {
-          final source = source1DataLegacy;
-          final manifest = source.manifest;
-          // sunny
-          final item1 = manifest.items[0];
-          final writer = TopMatchBaseWriter(source);
-
-          expect(
-            writer.topMatchGenericNNArg(item1),
-            '@required R Function(HiSunny/*!*/ sunny)/*!*/ sunny',
-          );
-        });
       });
 
       group('generic', () {
         test('null-safe', () {
-          final source = source2DataSafe;
-          final manifest = source.manifest;
+          final manifest = manifest2Data;
+
           final item1 = manifest.items[0];
-          final writer = TopMatchBaseWriter(source);
+          final writer = TopMatchBaseWriter(manifest);
 
           expect(
             writer.topMatchGenericNNArg(item1),
             'required R Function(MySuccess<T> success) success',
-          );
-        });
-
-        test('legacy', () {
-          final source = source2DataLegacy;
-          final manifest = source.manifest;
-          final item1 = manifest.items[0];
-          final writer = TopMatchBaseWriter(source);
-
-          expect(
-            writer.topMatchGenericNNArg(item1),
-            '@required R Function(MySuccess<T>/*!*/ success)/*!*/ success',
           );
         });
       });
@@ -117,43 +72,23 @@ void main() {
     group('method topMatchGenericNNArgOrElse', () {
       group('simple', () {
         test('null-safe', () {
-          final source = source1DataSafe;
-          final writer = TopMatchBaseWriter(source);
+          final manifest = manifest1Data;
+          final writer = TopMatchBaseWriter(manifest);
 
           expect(
             writer.topMatchGenericNNArgOrElse(),
             'required R Function(Weather weather) orElse',
           );
         });
-
-        test('legacy', () {
-          final source = source1DataLegacy;
-          final writer = TopMatchBaseWriter(source);
-
-          expect(
-            writer.topMatchGenericNNArgOrElse(),
-            '@required R Function(Weather/*!*/ weather)/*!*/ orElse',
-          );
-        });
       });
       group('generic', () {
         test('null-safe', () {
-          final source = source2DataSafe;
-          final writer = TopMatchBaseWriter(source);
+          final manifest = manifest2Data;
+          final writer = TopMatchBaseWriter(manifest);
 
           expect(
             writer.topMatchGenericNNArgOrElse(),
             'required R Function(Result<T> result) orElse',
-          );
-        });
-
-        test('legacy', () {
-          final source = source2DataLegacy;
-          final writer = TopMatchBaseWriter(source);
-
-          expect(
-            writer.topMatchGenericNNArgOrElse(),
-            '@required R Function(Result<T>/*!*/ result)/*!*/ orElse',
           );
         });
       });
@@ -162,44 +97,24 @@ void main() {
     group('method topMatchGenericNNArgOrDefault', () {
       group('simple', () {
         test('null-safe', () {
-          final source = source1DataSafe;
-          final writer = TopMatchBaseWriter(source);
+          final manifest = manifest1Data;
+          final writer = TopMatchBaseWriter(manifest);
 
           expect(
             writer.topMatchGenericNNArgOrDefault(),
             'required R orDefault',
-          );
-        });
-
-        test('legacy', () {
-          final source = source1DataLegacy;
-          final writer = TopMatchBaseWriter(source);
-
-          expect(
-            writer.topMatchGenericNNArgOrDefault(),
-            '@required R orDefault',
           );
         });
       });
 
       group('generic', () {
         test('null-safe', () {
-          final source = source2DataSafe;
-          final writer = TopMatchBaseWriter(source);
+          final manifest = manifest2Data;
+          final writer = TopMatchBaseWriter(manifest);
 
           expect(
             writer.topMatchGenericNNArgOrDefault(),
             'required R orDefault',
-          );
-        });
-
-        test('legacy', () {
-          final source = source2DataLegacy;
-          final writer = TopMatchBaseWriter(source);
-
-          expect(
-            writer.topMatchGenericNNArgOrDefault(),
-            '@required R orDefault',
           );
         });
       });
@@ -208,54 +123,29 @@ void main() {
     group('method topMatchGenericNArg', () {
       group('simple', () {
         test('null-safe', () {
-          final source = source1DataSafe;
-          final manifest = source.manifest;
+          final manifest = manifest1Data;
+
           // sunny
           final item1 = manifest.items[0];
-          final writer = TopMatchBaseWriter(source);
+          final writer = TopMatchBaseWriter(manifest);
 
           expect(
             writer.topMatchGenericNArg(item1),
             'R Function(HiSunny sunny)? sunny',
           );
         });
-
-        test('legacy', () {
-          final source = source1DataLegacy;
-          final manifest = source.manifest;
-          // sunny
-          final item1 = manifest.items[0];
-          final writer = TopMatchBaseWriter(source);
-
-          expect(
-            writer.topMatchGenericNArg(item1),
-            'R Function(HiSunny/*!*/ sunny)/*?*/ sunny',
-          );
-        });
       });
 
       group('generic', () {
         test('null-safe', () {
-          final source = source2DataSafe;
-          final manifest = source.manifest;
+          final manifest = manifest2Data;
+
           final item1 = manifest.items[0];
-          final writer = TopMatchBaseWriter(source);
+          final writer = TopMatchBaseWriter(manifest);
 
           expect(
             writer.topMatchGenericNArg(item1),
             'R Function(MySuccess<T> success)? success',
-          );
-        });
-
-        test('legacy', () {
-          final source = source2DataLegacy;
-          final manifest = source.manifest;
-          final item1 = manifest.items[0];
-          final writer = TopMatchBaseWriter(source);
-
-          expect(
-            writer.topMatchGenericNArg(item1),
-            'R Function(MySuccess<T>/*!*/ success)/*?*/ success',
           );
         });
       });
@@ -264,53 +154,28 @@ void main() {
     group('method topMatchVoidNNArg', () {
       group('simple', () {
         test('null-safe', () {
-          final source = source1DataSafe;
-          final manifest = source.manifest;
+          final manifest = manifest1Data;
+
           // sunny
           final item1 = manifest.items[0];
-          final writer = TopMatchBaseWriter(source);
+          final writer = TopMatchBaseWriter(manifest);
 
           expect(
             writer.topMatchVoidNNArg(item1),
             'required void Function(HiSunny sunny) sunny',
           );
         });
-
-        test('legacy', () {
-          final source = source1DataLegacy;
-          final manifest = source.manifest;
-          // sunny
-          final item1 = manifest.items[0];
-          final writer = TopMatchBaseWriter(source);
-
-          expect(
-            writer.topMatchVoidNNArg(item1),
-            '@required void Function(HiSunny/*!*/ sunny)/*!*/ sunny',
-          );
-        });
       });
       group('generic', () {
         test('null-safe', () {
-          final source = source2DataSafe;
-          final manifest = source.manifest;
+          final manifest = manifest2Data;
+
           final item1 = manifest.items[0];
-          final writer = TopMatchBaseWriter(source);
+          final writer = TopMatchBaseWriter(manifest);
 
           expect(
             writer.topMatchVoidNNArg(item1),
             'required void Function(MySuccess<T> success) success',
-          );
-        });
-
-        test('legacy', () {
-          final source = source2DataLegacy;
-          final manifest = source.manifest;
-          final item1 = manifest.items[0];
-          final writer = TopMatchBaseWriter(source);
-
-          expect(
-            writer.topMatchVoidNNArg(item1),
-            '@required void Function(MySuccess<T>/*!*/ success)/*!*/ success',
           );
         });
       });
@@ -319,43 +184,23 @@ void main() {
     group('method topMatchVoidNNArgOrElse', () {
       group('simple', () {
         test('null-safe', () {
-          final source = source1DataSafe;
-          final writer = TopMatchBaseWriter(source);
+          final manifest = manifest1Data;
+          final writer = TopMatchBaseWriter(manifest);
 
           expect(
             writer.topMatchVoidNNArgOrElse(),
             'required void Function(Weather weather) orElse',
           );
         });
-
-        test('legacy', () {
-          final source = source1DataLegacy;
-          final writer = TopMatchBaseWriter(source);
-
-          expect(
-            writer.topMatchVoidNNArgOrElse(),
-            '@required void Function(Weather/*!*/ weather)/*!*/ orElse',
-          );
-        });
       });
       group('generic', () {
         test('null-safe', () {
-          final source = source2DataSafe;
-          final writer = TopMatchBaseWriter(source);
+          final manifest = manifest2Data;
+          final writer = TopMatchBaseWriter(manifest);
 
           expect(
             writer.topMatchVoidNNArgOrElse(),
             'required void Function(Result<T> result) orElse',
-          );
-        });
-
-        test('legacy', () {
-          final source = source2DataLegacy;
-          final writer = TopMatchBaseWriter(source);
-
-          expect(
-            writer.topMatchVoidNNArgOrElse(),
-            '@required void Function(Result<T>/*!*/ result)/*!*/ orElse',
           );
         });
       });
@@ -364,108 +209,36 @@ void main() {
     group('method topMatchVoidNArg', () {
       group('simple', () {
         test('null-safe', () {
-          final source = source1DataSafe;
-          final manifest = source.manifest;
+          final manifest = manifest1Data;
+
           // sunny
           final item1 = manifest.items[0];
-          final writer = TopMatchBaseWriter(source);
+          final writer = TopMatchBaseWriter(manifest);
 
           expect(
             writer.topMatchVoidNArg(item1),
             'void Function(HiSunny sunny)? sunny',
           );
         });
-
-        test('legacy', () {
-          final source = source1DataLegacy;
-          final manifest = source.manifest;
-          // sunny
-          final item1 = manifest.items[0];
-          final writer = TopMatchBaseWriter(source);
-
-          expect(
-            writer.topMatchVoidNArg(item1),
-            'void Function(HiSunny/*!*/ sunny)/*?*/ sunny',
-          );
-        });
       });
       group('generic', () {
         test('null-safe', () {
-          final source = source2DataSafe;
-          final manifest = source.manifest;
+          final manifest = manifest2Data;
+
           final item1 = manifest.items[0];
-          final writer = TopMatchBaseWriter(source);
+          final writer = TopMatchBaseWriter(manifest);
 
           expect(
             writer.topMatchVoidNArg(item1),
             'void Function(MySuccess<T> success)? success',
           );
         });
-
-        test('legacy', () {
-          final source = source2DataLegacy;
-          final manifest = source.manifest;
-          final item1 = manifest.items[0];
-          final writer = TopMatchBaseWriter(source);
-
-          expect(
-            writer.topMatchVoidNArg(item1),
-            'void Function(MySuccess<T>/*!*/ success)/*?*/ success',
-          );
-        });
       });
     });
 
-    test('method topMatchAssert', () {
-      final source = source1DataLegacy;
-      final manifest = source.manifest;
-      // sunny
-      final item1 = manifest.items[0];
-      final writer = TopMatchBaseWriter(source);
-
-      expect(
-        writer.topMatchAssert(item1),
-        'assert(sunny != null);',
-      );
-    });
-
-    test('method topMatchAssertOrElse', () {
-      final source = source1DataLegacy;
-      final writer = TopMatchBaseWriter(source);
-
-      expect(
-        writer.topMatchAssertOrElse(),
-        'assert(orElse != null);',
-      );
-    });
-
-    test('method topMatchAssertOrDefault', () {
-      final source = source1DataLegacy;
-      final writer = TopMatchBaseWriter(source);
-
-      expect(
-        writer.topMatchAssertOrDefault(),
-        'assert(orDefault != null);',
-      );
-    });
-
-    test('method topMatchAsserts', () {
-      final source = source1DataLegacy;
-      final writer = TopMatchBaseWriter(source);
-
-      expect(
-        writer.topMatchAsserts(),
-        stringContainsInOrder([
-          'assert(sunny != null);',
-          'rainy',
-          'windy',
-        ]),
-      );
-    });
-
     test('method throwAssertion', () {
-      final source = source1DataSafe;
-      final writer = TopMatchBaseWriter(source);
+      final manifest = manifest1Data;
+      final writer = TopMatchBaseWriter(manifest);
 
       expect(
         writer.throwAssertion(),
@@ -474,17 +247,17 @@ void main() {
     });
 
     test('method throwingElse', () {
-      final source = source1DataSafe;
-      final writer = TopMatchBaseWriter(source);
+      final manifest = manifest1Data;
+      final writer = TopMatchBaseWriter(manifest);
       final e = writer.throwingElse();
 
       expect(e.code, 'throw AssertionError();');
     });
 
     test('method topMatchWrappedItemArg', () {
-      final source = source3DataSafe;
-      final field = source.manifest.items[2].fields[1];
-      final writer = TopMatchBaseWriter(source);
+      final manifest = manifest3Data;
+      final field = manifest.items[2].fields[1];
+      final writer = TopMatchBaseWriter(manifest);
 
       expect(
         writer.topMatchWrappedItemArg(field),
@@ -493,9 +266,9 @@ void main() {
     });
 
     test('method topMatchWrappedItemArgs', () {
-      final source = source3DataSafe;
-      final item = source.manifest.items[2];
-      final writer = TopMatchBaseWriter(source);
+      final manifest = manifest3Data;
+      final item = manifest.items[2];
+      final writer = TopMatchBaseWriter(manifest);
 
       expect(
         writer.topMatchWrappedItemArgs(item),
@@ -505,104 +278,60 @@ void main() {
 
     group('method topMatchWrappedGenericNNArg', () {
       test('null-safe', () {
-        final source = source3DataSafe;
-        final item = source.manifest.items[2];
-        final writer = TopMatchBaseWriter(source);
+        final manifest = manifest3Data;
+        final item = manifest.items[2];
+        final writer = TopMatchBaseWriter(manifest);
 
         expect(
           writer.topMatchWrappedGenericNNArg(item),
           'required R Function(int y, int? z) three',
         );
       });
-
-      test('legacy', () {
-        final source = source3DataLegacy;
-        final item = source.manifest.items[2];
-        final writer = TopMatchBaseWriter(source);
-
-        expect(
-          writer.topMatchWrappedGenericNNArg(item),
-          '@required R Function(int/*!*/ y, int/*?*/ z)/*!*/ three',
-        );
-      });
     });
 
     group('method topMatchWrappedGenericNArg', () {
       test('null-safe', () {
-        final source = source3DataSafe;
-        final item = source.manifest.items[2];
-        final writer = TopMatchBaseWriter(source);
+        final manifest = manifest3Data;
+        final item = manifest.items[2];
+        final writer = TopMatchBaseWriter(manifest);
 
         expect(
           writer.topMatchWrappedGenericNArg(item),
           'R Function(int y, int? z)? three',
         );
       });
-
-      test('legacy', () {
-        final source = source3DataLegacy;
-        final item = source.manifest.items[2];
-        final writer = TopMatchBaseWriter(source);
-
-        expect(
-          writer.topMatchWrappedGenericNArg(item),
-          'R Function(int/*!*/ y, int/*?*/ z)/*?*/ three',
-        );
-      });
     });
 
     group('method topMatchWrappedVoidNNArg', () {
       test('null-safe', () {
-        final source = source3DataSafe;
-        final item = source.manifest.items[2];
-        final writer = TopMatchBaseWriter(source);
+        final manifest = manifest3Data;
+        final item = manifest.items[2];
+        final writer = TopMatchBaseWriter(manifest);
 
         expect(
           writer.topMatchWrappedVoidNNArg(item),
           'required void Function(int y, int? z) three',
         );
       });
-
-      test('legacy', () {
-        final source = source3DataLegacy;
-        final item = source.manifest.items[2];
-        final writer = TopMatchBaseWriter(source);
-
-        expect(
-          writer.topMatchWrappedVoidNNArg(item),
-          '@required void Function(int/*!*/ y, int/*?*/ z)/*!*/ three',
-        );
-      });
     });
 
     group('method topMatchWrappedVoidNArg', () {
       test('null-safe', () {
-        final source = source3DataSafe;
-        final item = source.manifest.items[2];
-        final writer = TopMatchBaseWriter(source);
+        final manifest = manifest3Data;
+        final item = manifest.items[2];
+        final writer = TopMatchBaseWriter(manifest);
 
         expect(
           writer.topMatchWrappedVoidNArg(item),
           'void Function(int y, int? z)? three',
         );
       });
-
-      test('legacy', () {
-        final source = source3DataLegacy;
-        final item = source.manifest.items[2];
-        final writer = TopMatchBaseWriter(source);
-
-        expect(
-          writer.topMatchWrappedVoidNArg(item),
-          'void Function(int/*!*/ y, int/*?*/ z)/*?*/ three',
-        );
-      });
     });
 
     test('method topMatchWrappedItemCallArg', () {
-      final source = source3DataSafe;
-      final field = source.manifest.items[2].fields[1];
-      final writer = TopMatchBaseWriter(source);
+      final manifest = manifest3Data;
+      final field = manifest.items[2].fields[1];
+      final writer = TopMatchBaseWriter(manifest);
 
       expect(
         writer.topMatchWrappedItemCallArg(field),
@@ -611,9 +340,9 @@ void main() {
     });
 
     test('method topMatchWrappedItemCallArgs', () {
-      final source = source3DataSafe;
-      final item = source.manifest.items[2];
-      final writer = TopMatchBaseWriter(source);
+      final manifest = manifest3Data;
+      final item = manifest.items[2];
+      final writer = TopMatchBaseWriter(manifest);
 
       expect(
         writer.topMatchWrappedItemCallArgs(item),
@@ -622,8 +351,8 @@ void main() {
     });
 
     test('method topMatchItemCallArgs', () {
-      final source = source1DataSafe;
-      final writer = TopMatchBaseWriter(source);
+      final manifest = manifest1Data;
+      final writer = TopMatchBaseWriter(manifest);
 
       expect(
         writer.topMatchItemCallArgs(),
@@ -633,9 +362,9 @@ void main() {
 
     group('method topMatchNonOrWrappedItemCallArgs', () {
       test('wrapped', () {
-        final source = source3DataSafe;
-        final item = source.manifest.items[2];
-        final writer = TopMatchBaseWriter(source);
+        final manifest = manifest3Data;
+        final item = manifest.items[2];
+        final writer = TopMatchBaseWriter(manifest);
 
         expect(
           writer.topMatchNonOrWrappedItemCallArgs(item),
@@ -644,9 +373,9 @@ void main() {
       });
 
       test('non-wrapped', () {
-        final source = source1DataSafe;
-        final item = source.manifest.items[2];
-        final writer = TopMatchBaseWriter(source);
+        final manifest = manifest1Data;
+        final item = manifest.items[2];
+        final writer = TopMatchBaseWriter(manifest);
 
         expect(
           writer.topMatchNonOrWrappedItemCallArgs(item),
@@ -657,9 +386,9 @@ void main() {
 
     group('method topMatchNonOrWrappedGenericNNArg', () {
       test('wrapped', () {
-        final source = source3DataSafe;
-        final item = source.manifest.items[2];
-        final writer = TopMatchBaseWriter(source);
+        final manifest = manifest3Data;
+        final item = manifest.items[2];
+        final writer = TopMatchBaseWriter(manifest);
 
         expect(
           writer.topMatchNonOrWrappedGenericNNArg(item),
@@ -668,9 +397,9 @@ void main() {
       });
 
       test('non-wrapped', () {
-        final source = source1DataSafe;
-        final item = source.manifest.items[2];
-        final writer = TopMatchBaseWriter(source);
+        final manifest = manifest1Data;
+        final item = manifest.items[2];
+        final writer = TopMatchBaseWriter(manifest);
 
         expect(
           writer.topMatchNonOrWrappedGenericNNArg(item),
@@ -681,9 +410,9 @@ void main() {
 
     group('method topMatchNonOrWrappedGenericNArg', () {
       test('wrapped', () {
-        final source = source3DataSafe;
-        final item = source.manifest.items[2];
-        final writer = TopMatchBaseWriter(source);
+        final manifest = manifest3Data;
+        final item = manifest.items[2];
+        final writer = TopMatchBaseWriter(manifest);
 
         expect(
           writer.topMatchNonOrWrappedGenericNArg(item),
@@ -692,9 +421,9 @@ void main() {
       });
 
       test('non-wrapped', () {
-        final source = source1DataSafe;
-        final item = source.manifest.items[2];
-        final writer = TopMatchBaseWriter(source);
+        final manifest = manifest1Data;
+        final item = manifest.items[2];
+        final writer = TopMatchBaseWriter(manifest);
 
         expect(
           writer.topMatchNonOrWrappedGenericNArg(item),
@@ -705,9 +434,9 @@ void main() {
 
     group('method topMatchNonOrWrappedVoidNNArg', () {
       test('wrapped', () {
-        final source = source3DataSafe;
-        final item = source.manifest.items[2];
-        final writer = TopMatchBaseWriter(source);
+        final manifest = manifest3Data;
+        final item = manifest.items[2];
+        final writer = TopMatchBaseWriter(manifest);
 
         expect(
           writer.topMatchNonOrWrappedVoidNNArg(item),
@@ -716,9 +445,9 @@ void main() {
       });
 
       test('non-wrapped', () {
-        final source = source1DataSafe;
-        final item = source.manifest.items[2];
-        final writer = TopMatchBaseWriter(source);
+        final manifest = manifest1Data;
+        final item = manifest.items[2];
+        final writer = TopMatchBaseWriter(manifest);
 
         expect(
           writer.topMatchNonOrWrappedVoidNNArg(item),
@@ -729,9 +458,9 @@ void main() {
 
     group('method topMatchNonOrWrappedVoidNArg', () {
       test('wrapped', () {
-        final source = source3DataSafe;
-        final item = source.manifest.items[2];
-        final writer = TopMatchBaseWriter(source);
+        final manifest = manifest3Data;
+        final item = manifest.items[2];
+        final writer = TopMatchBaseWriter(manifest);
 
         expect(
           writer.topMatchNonOrWrappedVoidNArg(item),
@@ -740,9 +469,9 @@ void main() {
       });
 
       test('non-wrapped', () {
-        final source = source1DataSafe;
-        final item = source.manifest.items[2];
-        final writer = TopMatchBaseWriter(source);
+        final manifest = manifest1Data;
+        final item = manifest.items[2];
+        final writer = TopMatchBaseWriter(manifest);
 
         expect(
           writer.topMatchNonOrWrappedVoidNArg(item),

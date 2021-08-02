@@ -33,10 +33,7 @@ void main() {
       expect('hello'.isGenTypeName(), isTrue);
       expect('Hello'.isGenTypeName(), isTrue);
 
-      expect('Hello*'.isGenTypeName(), isFalse);
       expect('Hello?'.isGenTypeName(), isFalse);
-      expect('Hello/*!*/'.isGenTypeName(), isFalse);
-      expect('Hello/*?*/'.isGenTypeName(), isFalse);
 
       expect(''.isGenTypeName(), isFalse);
       expect('A '.isGenTypeName(), isFalse);
@@ -49,10 +46,7 @@ void main() {
       expect('hello'.isGenFieldName(), isTrue);
       expect('Hello'.isGenFieldName(), isFalse);
 
-      expect('Hello*'.isGenFieldName(), isFalse);
       expect('Hello?'.isGenFieldName(), isFalse);
-      expect('Hello/*!*/'.isGenFieldName(), isFalse);
-      expect('Hello/*?*/'.isGenFieldName(), isFalse);
 
       expect(''.isGenFieldName(), isFalse);
       expect('a '.isGenFieldName(), isFalse);
@@ -65,10 +59,7 @@ void main() {
       expect('hello'.isGenClassName(), isFalse);
       expect('Hello'.isGenClassName(), isTrue);
 
-      expect('Hello*'.isGenClassName(), isFalse);
       expect('Hello?'.isGenClassName(), isFalse);
-      expect('Hello/*!*/'.isGenClassName(), isFalse);
-      expect('Hello/*?*/'.isGenClassName(), isFalse);
 
       expect(''.isGenTypeName(), isFalse);
       expect('A '.isGenTypeName(), isFalse);
@@ -82,10 +73,6 @@ void main() {
       expect('Hello'.isSimpleOrNullableTypeName(), isTrue);
 
       expect('Hello?'.isSimpleOrNullableTypeName(), isTrue);
-
-      expect('Hello*'.isSimpleOrNullableTypeName(), isFalse);
-      expect('Hello/*!*/'.isSimpleOrNullableTypeName(), isFalse);
-      expect('Hello/*?*/'.isSimpleOrNullableTypeName(), isFalse);
 
       expect(''.isSimpleOrNullableTypeName(), isFalse);
       expect('A '.isSimpleOrNullableTypeName(), isFalse);
@@ -101,9 +88,6 @@ void main() {
       expect(t2.name, equals('double'));
       expect(t2.isNullable, isTrue);
 
-      expect(() => 'Hello*'.readType(), throwsInternal());
-      expect(() => 'Hello/*!*/'.readType(), throwsInternal());
-      expect(() => 'Hello/*?*/'.readType(), throwsInternal());
       expect(() => ''.readType(), throwsInternal());
       expect(() => 'A '.readType(), throwsInternal());
       expect(() => 'A b'.readType(), throwsInternal());

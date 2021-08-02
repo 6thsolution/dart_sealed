@@ -1,6 +1,5 @@
 import 'package:meta/meta.dart';
 import 'package:sealed_writer/src/manifest/manifest.dart';
-import 'package:sealed_writer/src/source/source.dart';
 import 'package:sealed_writer/src/utils/string_utils.dart';
 import 'package:sealed_writer/src/writer/base/base_utils_writer.dart';
 
@@ -8,7 +7,7 @@ import 'package:sealed_writer/src/writer/base/base_utils_writer.dart';
 @immutable
 @sealed
 class TopBuilderWriter extends BaseUtilsWriter {
-  const TopBuilderWriter(Source source) : super(source);
+  const TopBuilderWriter(Manifest manifest) : super(manifest);
 
   /// ex. required double? angle
   String topBuilderDecArg(ManifestField field) =>
@@ -62,7 +61,7 @@ class TopBuilderWriter extends BaseUtilsWriter {
   String topStaticBuilder(ManifestItem item) => [
         annotationFactory,
         [
-          'static ${subCall(item)}$nn ${subLower(item)}$genericDec',
+          'static ${subCall(item)} ${subLower(item)}$genericDec',
           topBuilderNonOrWrappedDecArgs(item),
           ' => ${subCall(item)}',
           topBuilderNonOrWrappedCallArgs(item),

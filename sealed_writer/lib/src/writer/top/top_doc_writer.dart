@@ -1,6 +1,5 @@
 import 'package:meta/meta.dart';
 import 'package:sealed_writer/src/manifest/manifest.dart';
-import 'package:sealed_writer/src/source/source.dart';
 import 'package:sealed_writer/src/utils/string_utils.dart';
 import 'package:sealed_writer/src/writer/base/base_writer.dart';
 
@@ -10,7 +9,7 @@ import 'package:sealed_writer/src/writer/base/base_writer.dart';
 class TopDocWriter extends BaseWriter {
   static const equalityNames = ['data', 'identity', 'distinct'];
 
-  const TopDocWriter(Source source) : super(source);
+  const TopDocWriter(Manifest manifest) : super(manifest);
 
   String write() => [
         '${_topDoc()} {',
@@ -20,7 +19,7 @@ class TopDocWriter extends BaseWriter {
 
   String _equality(ManifestEquality equality) => equalityNames[equality.index];
 
-  Iterable<String> _itemsDoc() => source.manifest.items.map(_itemDoc);
+  Iterable<String> _itemsDoc() => manifest.items.map(_itemDoc);
 
   String _itemDoc(ManifestItem item) => [
         [
@@ -34,7 +33,7 @@ class TopDocWriter extends BaseWriter {
       ].joinParts();
 
   String _topDoc() => [
-        source.manifest.name.withBraKet(),
+        manifest.name.withBraKet(),
         _paramsDoc(),
       ].joinParts();
 
@@ -49,7 +48,7 @@ class TopDocWriter extends BaseWriter {
       ].joinParts();
 
   String _paramsDoc() =>
-      source.manifest.params.map(_paramDoc).joinArgsSimple().withLtGtOrNot();
+      manifest.params.map(_paramDoc).joinArgsSimple().withLtGtOrNot();
 
   String _paramDoc(ManifestParam param) => [
         param.name.withBraKet(),

@@ -30,14 +30,7 @@ Manifest manifest4() => Manifest(
       ],
     );
 
-final source4DataSafe = Source(
-  options: optionsSafe,
-  manifest: manifest4(),
-);
-final source4DataLegacy = Source(
-  options: optionsLegacy,
-  manifest: manifest4(),
-);
+final manifest4Data = manifest4();
 
 final code4Data = code4();
 

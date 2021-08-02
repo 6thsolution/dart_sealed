@@ -23,9 +23,6 @@ extension TypeUtils on String {
   bool isGenTypeName() {
     if (isEmpty || trim() != this || contains(' ')) return false;
     if (endsWith('?')) return false;
-    if (endsWith('*')) return false;
-    if (endsWith('/*!*/')) return false;
-    if (endsWith('/*?*/')) return false;
     return true;
   }
 
@@ -53,9 +50,6 @@ extension TypeUtils on String {
   /// nullability sign like double?.
   bool isSimpleOrNullableTypeName() {
     if (isEmpty || trim() != this || contains(' ')) return false;
-    if (endsWith('*')) return false;
-    if (endsWith('/*!*/')) return false;
-    if (endsWith('/*?*/')) return false;
     return true;
   }
 

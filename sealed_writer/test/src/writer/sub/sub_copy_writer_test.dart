@@ -6,20 +6,20 @@ import '../../../utils/examples.dart';
 void main() {
   group('class SubCopyWriter', () {
     test('initialization', () {
-      final source = source1DataSafe;
-      final writer = SubCopyWriter(source);
+      final manifest = manifest1Data;
+      final writer = SubCopyWriter(manifest);
 
-      expect(writer.source, source);
+      expect(writer.manifest, manifest);
     });
 
     group('method subCopyDeclarationPart', () {
       test('null-safe', () {
-        final source = source1DataSafe;
+        final manifest = manifest1Data;
         // void windy(double velocity, double? angle);
-        final item3 = source.manifest.items[2];
+        final item3 = manifest.items[2];
         final field1 = item3.fields[0];
         final field2 = item3.fields[1];
-        final writer = SubCopyWriter(source);
+        final writer = SubCopyWriter(manifest);
 
         expect(
           writer.subCopyDeclarationPart(field1),
@@ -30,31 +30,13 @@ void main() {
           'double? angle',
         );
       });
-
-      test('legacy', () {
-        final source = source1DataLegacy;
-        // void windy(double velocity, double? angle);
-        final item3 = source.manifest.items[2];
-        final field1 = item3.fields[0];
-        final field2 = item3.fields[1];
-        final writer = SubCopyWriter(source);
-
-        expect(
-          writer.subCopyDeclarationPart(field1),
-          'double/*?*/ velocity',
-        );
-        expect(
-          writer.subCopyDeclarationPart(field2),
-          'double/*?*/ angle',
-        );
-      });
     });
 
     test('method subCopyDeclarationParts', () {
-      final source = source1DataSafe;
+      final manifest = manifest1Data;
       // void windy(double velocity, double? angle);
-      final item3 = source.manifest.items[2];
-      final writer = SubCopyWriter(source);
+      final item3 = manifest.items[2];
+      final writer = SubCopyWriter(manifest);
 
       expect(
         writer.subCopyDeclarationParts(item3),
@@ -63,12 +45,12 @@ void main() {
     });
 
     test('method subCopyCalcPart', () {
-      final source = source1DataSafe;
+      final manifest = manifest1Data;
       // void windy(double velocity, double? angle);
-      final item3 = source.manifest.items[2];
+      final item3 = manifest.items[2];
       final field1 = item3.fields[0];
       final field2 = item3.fields[1];
-      final writer = SubCopyWriter(source);
+      final writer = SubCopyWriter(manifest);
 
       expect(
         writer.subCopyCalcPart(field1),
@@ -81,10 +63,10 @@ void main() {
     });
 
     test('method subCopyCalcParts', () {
-      final source = source1DataSafe;
+      final manifest = manifest1Data;
       // void windy(double velocity, double? angle);
-      final item3 = source.manifest.items[2];
-      final writer = SubCopyWriter(source);
+      final item3 = manifest.items[2];
+      final writer = SubCopyWriter(manifest);
 
       expect(
         writer.subCopyCalcParts(item3),
@@ -94,12 +76,12 @@ void main() {
 
     group('method subCopyDeclaration', () {
       test('null-safe', () {
-        final source = source1DataSafe;
+        final manifest = manifest1Data;
         // void sunny();
-        final item1 = source.manifest.items[0];
+        final item1 = manifest.items[0];
         // void rainy(int rain);
-        final item2 = source.manifest.items[1];
-        final writer = SubCopyWriter(source);
+        final item2 = manifest.items[1];
+        final writer = SubCopyWriter(manifest);
 
         expect(
           writer.subCopyDeclaration(item1),
@@ -111,20 +93,6 @@ void main() {
           writer.subCopyDeclaration(item2),
           '@factory\n'
           'WeatherRainy copy({int? rain,}) =>'
-          ' WeatherRainy(rain: rain ?? this.rain,);',
-        );
-      });
-
-      test('legacy', () {
-        final source = source1DataLegacy;
-        // void rainy(int rain);
-        final item2 = source.manifest.items[1];
-        final writer = SubCopyWriter(source);
-
-        expect(
-          writer.subCopyDeclaration(item2),
-          '@factory\n'
-          'WeatherRainy/*!*/ copy({int/*?*/ rain,}) =>'
           ' WeatherRainy(rain: rain ?? this.rain,);',
         );
       });

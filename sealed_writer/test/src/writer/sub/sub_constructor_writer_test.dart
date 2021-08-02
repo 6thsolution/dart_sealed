@@ -6,20 +6,20 @@ import '../../../utils/examples.dart';
 void main() {
   group('class SubConstructorWriter', () {
     test('initialization', () {
-      final source = source1DataSafe;
-      final writer = SubConstructorWriter(source);
+      final manifest = manifest1Data;
+      final writer = SubConstructorWriter(manifest);
 
-      expect(writer.source, source);
+      expect(writer.manifest, manifest);
     });
 
     group('method subConstructorDecArg', () {
       group('null-safe', () {
-        final source = source1DataSafe;
+        final manifest = manifest1Data;
         // void windy(double velocity, double? angle);
-        final item = source.manifest.items[2];
+        final item = manifest.items[2];
         final field1 = item.fields[0];
         final field2 = item.fields[1];
-        final writer = SubConstructorWriter(source);
+        final writer = SubConstructorWriter(manifest);
 
         test('non-nullable field', () {
           expect(
@@ -35,36 +35,13 @@ void main() {
           );
         });
       });
-
-      group('legacy', () {
-        final source = source1DataLegacy;
-        // void windy(double velocity, double? angle);
-        final item = source.manifest.items[2];
-        final field1 = item.fields[0];
-        final field2 = item.fields[1];
-        final writer = SubConstructorWriter(source);
-
-        test('non-nullable field', () {
-          expect(
-            writer.subConstructorDecArg(field1),
-            '@required this.velocity',
-          );
-        });
-
-        test('nullable field', () {
-          expect(
-            writer.subConstructorDecArg(field2),
-            '@required this.angle',
-          );
-        });
-      });
     });
 
     test('method subConstructorDecArgs', () {
-      final source = source1DataSafe;
+      final manifest = manifest1Data;
       // void windy(double velocity, double? angle);
-      final item3 = source.manifest.items[2];
-      final writer = SubConstructorWriter(source);
+      final item3 = manifest.items[2];
+      final writer = SubConstructorWriter(manifest);
 
       expect(
         writer.subConstructorDecArgs(item3),
@@ -73,9 +50,9 @@ void main() {
     });
 
     test('method subConstructorWrappedDecArg', () {
-      final source = source3DataSafe;
-      final field = source.manifest.items[1].fields[0];
-      final writer = SubConstructorWriter(source);
+      final manifest = manifest3Data;
+      final field = manifest.items[1].fields[0];
+      final writer = SubConstructorWriter(manifest);
 
       expect(
         writer.subConstructorWrappedDecArg(field),
@@ -84,9 +61,9 @@ void main() {
     });
 
     test('method subConstructorWrappedDecArgs', () {
-      final source = source3DataSafe;
-      final item3 = source.manifest.items[2];
-      final writer = SubConstructorWriter(source);
+      final manifest = manifest3Data;
+      final item3 = manifest.items[2];
+      final writer = SubConstructorWriter(manifest);
 
       expect(
         writer.subConstructorWrappedDecArgs(item3),
@@ -96,9 +73,9 @@ void main() {
 
     group('method subConstructorNoneOrWrappedDecArgs', () {
       test('non-wrapped', () {
-        final source = source1DataSafe;
-        final item = source.manifest.items[1];
-        final writer = SubConstructorWriter(source);
+        final manifest = manifest1Data;
+        final item = manifest.items[1];
+        final writer = SubConstructorWriter(manifest);
 
         expect(
           writer.subConstructorNoneOrWrappedDecArgs(item),
@@ -107,9 +84,9 @@ void main() {
       });
 
       test('wrapped', () {
-        final source = source3DataSafe;
-        final item = source.manifest.items[1];
-        final writer = SubConstructorWriter(source);
+        final manifest = manifest3Data;
+        final item = manifest.items[1];
+        final writer = SubConstructorWriter(manifest);
 
         expect(
           writer.subConstructorNoneOrWrappedDecArgs(item),
@@ -120,14 +97,14 @@ void main() {
 
     group('method subConstructorDeclaration', () {
       test('simple', () {
-        final source = source1DataSafe;
+        final manifest = manifest1Data;
         // void sunny();
-        final item1 = source.manifest.items[0];
+        final item1 = manifest.items[0];
         // void rainy(int rain);
-        final item2 = source.manifest.items[1];
+        final item2 = manifest.items[1];
         // void windy(double velocity, double? angle);
-        final item3 = source.manifest.items[2];
-        final writer = SubConstructorWriter(source);
+        final item3 = manifest.items[2];
+        final writer = SubConstructorWriter(manifest);
 
         expect(
           writer.subConstructorDeclaration(item1),
@@ -147,10 +124,10 @@ void main() {
       });
 
       test('generic', () {
-        final source = source2DataSafe;
+        final manifest = manifest2Data;
         // void sunny();
-        final item1 = source.manifest.items[0];
-        final writer = SubConstructorWriter(source);
+        final item1 = manifest.items[0];
+        final writer = SubConstructorWriter(manifest);
 
         expect(
           writer.subConstructorDeclaration(item1),
@@ -160,9 +137,9 @@ void main() {
       });
 
       test('simple wrapped null-safe', () {
-        final source = source3DataSafe;
-        final item2 = source.manifest.items[1];
-        final writer = SubConstructorWriter(source);
+        final manifest = manifest3Data;
+        final item2 = manifest.items[1];
+        final writer = SubConstructorWriter(manifest);
 
         expect(
           writer.subConstructorDeclaration(item2),

@@ -6,19 +6,19 @@ import '../../../../utils/examples.dart';
 void main() {
   group('class TopMatchWhenOrElseWriter', () {
     test('initialization', () {
-      final source = source1DataSafe;
-      final writer = TopMatchWhenOrElseWriter(source);
+      final manifest = manifest1Data;
+      final writer = TopMatchWhenOrElseWriter(manifest);
 
-      expect(writer.source, source);
+      expect(writer.manifest, manifest);
     });
 
     group('method topMatchWhenOrElseIf', () {
       test('non-wrapped', () {
-        final source = source1DataSafe;
-        final manifest = source.manifest;
+        final manifest = manifest1Data;
+
         // sunny
         final item1 = manifest.items[0];
-        final writer = TopMatchWhenOrElseWriter(source);
+        final writer = TopMatchWhenOrElseWriter(manifest);
         final i = writer.topMatchWhenOrElseIf(item1);
 
         expect(i.condition, 'weather is HiSunny');
@@ -29,9 +29,9 @@ void main() {
       });
 
       test('wrapped', () {
-        final source = source3DataSafe;
-        final item2 = source.manifest.items[1];
-        final writer = TopMatchWhenOrElseWriter(source);
+        final manifest = manifest3Data;
+        final item2 = manifest.items[1];
+        final writer = TopMatchWhenOrElseWriter(manifest);
         final i = writer.topMatchWhenOrElseIf(item2);
 
         expect(i.code, 'return two != null ? two(base.x) : orElse(base);');
@@ -39,10 +39,10 @@ void main() {
     });
 
     test('method topMatchWhenOrElseItemArgs', () {
-      final source = source1DataSafe;
-      final manifest = source.manifest;
+      final manifest = manifest1Data;
+
       final items = manifest.items;
-      final writer = TopMatchWhenOrElseWriter(source);
+      final writer = TopMatchWhenOrElseWriter(manifest);
 
       expect(
         writer.topMatchWhenOrElseItemArgs(),
@@ -51,8 +51,8 @@ void main() {
     });
 
     test('method topMatchWhenOrElseArgs', () {
-      final source = source1DataSafe;
-      final writer = TopMatchWhenOrElseWriter(source);
+      final manifest = manifest1Data;
+      final writer = TopMatchWhenOrElseWriter(manifest);
 
       expect(
         writer.topMatchWhenOrElseArgs(),
@@ -64,10 +64,10 @@ void main() {
     });
 
     test('method topMatchWhenOrElseIfs', () {
-      final source = source1DataSafe;
-      final manifest = source.manifest;
+      final manifest = manifest1Data;
+
       final items = manifest.items;
-      final writer = TopMatchWhenOrElseWriter(source);
+      final writer = TopMatchWhenOrElseWriter(manifest);
       final ifs = writer.topMatchWhenOrElseIfs();
       final a = ifs[0];
       final b = writer.topMatchWhenOrElseIf(items[0]);
@@ -78,8 +78,8 @@ void main() {
     });
 
     test('method topMatchWhenOrElseBody', () {
-      final source = source1DataSafe;
-      final writer = TopMatchWhenOrElseWriter(source);
+      final manifest = manifest1Data;
+      final writer = TopMatchWhenOrElseWriter(manifest);
 
       expect(
         writer.topMatchWhenOrElseBody(),
@@ -96,8 +96,8 @@ void main() {
 
     group('method topMatchWhenOrElseStart', () {
       test('non-wrapped', () {
-        final source = source1DataSafe;
-        final writer = TopMatchWhenOrElseWriter(source);
+        final manifest = manifest1Data;
+        final writer = TopMatchWhenOrElseWriter(manifest);
 
         expect(
           writer.topMatchWhenOrElseStart(),
@@ -111,8 +111,8 @@ void main() {
       });
 
       test('wrapped', () {
-        final source = source3DataSafe;
-        final writer = TopMatchWhenOrElseWriter(source);
+        final manifest = manifest3Data;
+        final writer = TopMatchWhenOrElseWriter(manifest);
 
         expect(
           writer.topMatchWhenOrElseStart(),
@@ -128,30 +128,14 @@ void main() {
 
     group('method topMatchWhenOrElse', () {
       test('null-safe', () {
-        final source = source1DataSafe;
-        final writer = TopMatchWhenOrElseWriter(source);
+        final manifest = manifest1Data;
+        final writer = TopMatchWhenOrElseWriter(manifest);
 
         expect(
           writer.topMatchWhenOrElse(),
           stringContainsInOrder([
             writer.topMatchWhenOrElseStart(),
             '{',
-            writer.topMatchWhenOrElseBody(),
-            '}',
-          ]),
-        );
-      });
-
-      test('legacy', () {
-        final source = source1DataLegacy;
-        final writer = TopMatchWhenOrElseWriter(source);
-
-        expect(
-          writer.topMatchWhenOrElse(),
-          stringContainsInOrder([
-            writer.topMatchWhenOrElseStart(),
-            '{',
-            writer.topMatchAssertOrElse(),
             writer.topMatchWhenOrElseBody(),
             '}',
           ]),

@@ -52,8 +52,8 @@ Future<AnnotatedElement> resolveSealedSafe(String code) =>
 
 /// resolve like [GeneratorForAnnotation]<[Sealed]>
 ///
-/// for legacy
+/// for non null-safe
 ///
 /// or throw if not found!
-Future<AnnotatedElement> resolveSealedLegacy(String code) =>
+Future<AnnotatedElement> resolveSealedNonNullSafe(String code) =>
     resolveSealed(code, isNullSafe: false);

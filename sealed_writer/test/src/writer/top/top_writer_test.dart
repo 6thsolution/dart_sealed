@@ -6,15 +6,15 @@ import '../../../utils/examples.dart';
 void main() {
   group('class TopWriter', () {
     test('initialization', () {
-      final source = source1DataSafe;
-      final writer = TopWriter(source);
+      final manifest = manifest1Data;
+      final writer = TopWriter(manifest);
 
-      expect(writer.source, source);
+      expect(writer.manifest, manifest);
     });
 
     test('method topManifest', () {
-      final source = source1DataSafe;
-      final writer = TopWriter(source);
+      final manifest = manifest1Data;
+      final writer = TopWriter(manifest);
 
       expect(
         writer.topManifest(),
@@ -23,8 +23,8 @@ void main() {
     });
 
     test('method topConstructor', () {
-      final source = source1DataSafe;
-      final writer = TopWriter(source);
+      final manifest = manifest1Data;
+      final writer = TopWriter(manifest);
 
       expect(
         writer.topConstructor(),
@@ -34,8 +34,8 @@ void main() {
 
     group('method topMethods', () {
       test('equality data', () {
-        final source = source1DataSafe;
-        final writer = TopWriter(source);
+        final manifest = manifest1Data;
+        final writer = TopWriter(manifest);
 
         expect(
           writer.topMethods(),
@@ -48,8 +48,8 @@ void main() {
       });
 
       test('equality identity', () {
-        final source = source1IdentityLegacy;
-        final writer = TopWriter(source);
+        final manifest = manifest1Identity;
+        final writer = TopWriter(manifest);
 
         expect(
           writer.topMethods(),
@@ -62,8 +62,8 @@ void main() {
       });
 
       test('equality distinct', () {
-        final source = source1DistinctLegacy;
-        final writer = TopWriter(source);
+        final manifest = manifest1Distinct;
+        final writer = TopWriter(manifest);
 
         expect(
           writer.topMethods(),
@@ -79,8 +79,8 @@ void main() {
     group('method topClassStart', () {
       group('simple', () {
         test('equality data', () {
-          final source = source1DataSafe;
-          final writer = TopWriter(source);
+          final manifest = manifest1Data;
+          final writer = TopWriter(manifest);
 
           expect(
             writer.topClassStart(),
@@ -92,8 +92,8 @@ void main() {
         });
 
         test('equality identity', () {
-          final source = source1IdentityLegacy;
-          final writer = TopWriter(source);
+          final manifest = manifest1Identity;
+          final writer = TopWriter(manifest);
 
           expect(
             writer.topClassStart(),
@@ -105,8 +105,8 @@ void main() {
         });
 
         test('equality distinct', () {
-          final source = source1DistinctLegacy;
-          final writer = TopWriter(source);
+          final manifest = manifest1Distinct;
+          final writer = TopWriter(manifest);
 
           expect(
             writer.topClassStart(),
@@ -120,8 +120,8 @@ void main() {
 
       group('generic', () {
         test('equality data', () {
-          final source = source2DataSafe;
-          final writer = TopWriter(source);
+          final manifest = manifest2Data;
+          final writer = TopWriter(manifest);
 
           expect(
             writer.topClassStart(),
@@ -135,8 +135,8 @@ void main() {
     });
 
     test('method topClass', () {
-      final source = source1DataSafe;
-      final writer = TopWriter(source);
+      final manifest = manifest1Data;
+      final writer = TopWriter(manifest);
 
       expect(
         writer.topClass(),

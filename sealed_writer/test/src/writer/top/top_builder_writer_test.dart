@@ -7,20 +7,20 @@ import '../../../utils/examples.dart';
 void main() {
   group('class TopBuilderWriter', () {
     test('initialization', () {
-      final source = source1DataSafe;
-      final writer = TopBuilderWriter(source);
+      final manifest = manifest1Data;
+      final writer = TopBuilderWriter(manifest);
 
-      expect(writer.source, source);
+      expect(writer.manifest, manifest);
     });
 
     group('method subConstructorCallArg', () {
       test('simple', () {
-        final source = source1DataSafe;
+        final manifest = manifest1Data;
         // void windy(double velocity, double? angle);
-        final item = source.manifest.items[2];
+        final item = manifest.items[2];
         final field1 = item.fields[0];
         final field2 = item.fields[1];
-        final writer = TopBuilderWriter(source);
+        final writer = TopBuilderWriter(manifest);
 
         expect(
           writer.subConstructorCallArg(field1),
@@ -33,10 +33,10 @@ void main() {
       });
 
       test('generic', () {
-        final source = source2DataSafe;
-        final item = source.manifest.items[0];
+        final manifest = manifest2Data;
+        final item = manifest.items[0];
         final field1 = item.fields[0];
-        final writer = TopBuilderWriter(source);
+        final writer = TopBuilderWriter(manifest);
 
         expect(
           writer.subConstructorCallArg(field1),
@@ -48,12 +48,12 @@ void main() {
     group('method topBuilderArg', () {
       group('simple', () {
         group('null-safe', () {
-          final source = source1DataSafe;
+          final manifest = manifest1Data;
           // void windy(double velocity, double? angle);
-          final item = source.manifest.items[2];
+          final item = manifest.items[2];
           final field1 = item.fields[0];
           final field2 = item.fields[1];
-          final writer = TopBuilderWriter(source);
+          final writer = TopBuilderWriter(manifest);
 
           test('non-nullable field', () {
             expect(
@@ -69,37 +69,14 @@ void main() {
             );
           });
         });
-
-        group('legacy', () {
-          final source = source1DataLegacy;
-          // void windy(double velocity, double? angle);
-          final item = source.manifest.items[2];
-          final field1 = item.fields[0];
-          final field2 = item.fields[1];
-          final writer = TopBuilderWriter(source);
-
-          test('non-nullable field', () {
-            expect(
-              writer.topBuilderDecArg(field1),
-              '@required double/*!*/ velocity',
-            );
-          });
-
-          test('nullable field', () {
-            expect(
-              writer.topBuilderDecArg(field2),
-              '@required double/*?*/ angle',
-            );
-          });
-        });
       });
 
       group('generic', () {
         group('null-safe', () {
-          final source = source2DataSafe;
-          final item = source.manifest.items[0];
+          final manifest = manifest2Data;
+          final item = manifest.items[0];
           final field1 = item.fields[0];
-          final writer = TopBuilderWriter(source);
+          final writer = TopBuilderWriter(manifest);
 
           test('non-nullable field', () {
             expect(
@@ -112,9 +89,9 @@ void main() {
     });
 
     test('method topBuilderDecArgs', () {
-      final source = source1DataSafe;
-      final item3 = source.manifest.items[2];
-      final writer = TopBuilderWriter(source);
+      final manifest = manifest1Data;
+      final item3 = manifest.items[2];
+      final writer = TopBuilderWriter(manifest);
 
       expect(
         writer.topBuilderDecArgs(item3),
@@ -123,9 +100,9 @@ void main() {
     });
 
     test('method topBuilderCallArgs', () {
-      final source = source1DataSafe;
-      final item3 = source.manifest.items[2];
-      final writer = TopBuilderWriter(source);
+      final manifest = manifest1Data;
+      final item3 = manifest.items[2];
+      final writer = TopBuilderWriter(manifest);
 
       expect(
         writer.topBuilderCallArgs(item3),
@@ -136,12 +113,12 @@ void main() {
     group('method topBuilderWrappedDecArg', () {
       group('simple', () {
         group('null-safe', () {
-          final source = source3DataSafe;
+          final manifest = manifest3Data;
           // void windy(double velocity, double? angle);
-          final item = source.manifest.items[2];
+          final item = manifest.items[2];
           final field1 = item.fields[0];
           final field2 = item.fields[1];
-          final writer = TopBuilderWriter(source);
+          final writer = TopBuilderWriter(manifest);
 
           test('non-nullable field', () {
             expect(
@@ -157,36 +134,14 @@ void main() {
             );
           });
         });
-
-        group('legacy', () {
-          final source = source3DataLegacy;
-          final item = source.manifest.items[2];
-          final field1 = item.fields[0];
-          final field2 = item.fields[1];
-          final writer = TopBuilderWriter(source);
-
-          test('non-nullable field', () {
-            expect(
-              writer.topBuilderWrappedDecArg(field1),
-              'int/*!*/ y',
-            );
-          });
-
-          test('nullable field', () {
-            expect(
-              writer.topBuilderWrappedDecArg(field2),
-              'int/*?*/ z',
-            );
-          });
-        });
       });
 
       group('generic', () {
         group('null-safe', () {
-          final source = source4DataSafe;
-          final item = source.manifest.items[0];
+          final manifest = manifest4Data;
+          final item = manifest.items[0];
           final field1 = item.fields[0];
-          final writer = TopBuilderWriter(source);
+          final writer = TopBuilderWriter(manifest);
 
           test('non-nullable field', () {
             expect(
@@ -199,9 +154,9 @@ void main() {
     });
 
     test('method topBuilderWrappedDecArgs', () {
-      final source = source3DataSafe;
-      final item3 = source.manifest.items[2];
-      final writer = TopBuilderWriter(source);
+      final manifest = manifest3Data;
+      final item3 = manifest.items[2];
+      final writer = TopBuilderWriter(manifest);
 
       expect(
         writer.topBuilderWrappedDecArgs(item3),
@@ -211,9 +166,9 @@ void main() {
 
     group('method topBuilderNonOrWrappedDecArgs', () {
       test('non-wrapped', () {
-        final source = source1DataSafe;
-        final item3 = source.manifest.items[2];
-        final writer = TopBuilderWriter(source);
+        final manifest = manifest1Data;
+        final item3 = manifest.items[2];
+        final writer = TopBuilderWriter(manifest);
 
         expect(
           writer.topBuilderNonOrWrappedDecArgs(item3),
@@ -222,9 +177,9 @@ void main() {
       });
 
       test('wrapped', () {
-        final source = source3DataSafe;
-        final item3 = source.manifest.items[2];
-        final writer = TopBuilderWriter(source);
+        final manifest = manifest3Data;
+        final item3 = manifest.items[2];
+        final writer = TopBuilderWriter(manifest);
 
         expect(
           writer.topBuilderNonOrWrappedDecArgs(item3),
@@ -234,9 +189,9 @@ void main() {
     });
 
     test('method subConstructorWrappedCallArg', () {
-      final source = source3DataSafe;
-      final field = source.manifest.items[1].fields[0];
-      final writer = TopBuilderWriter(source);
+      final manifest = manifest3Data;
+      final field = manifest.items[1].fields[0];
+      final writer = TopBuilderWriter(manifest);
 
       expect(
         writer.subConstructorWrappedCallArg(field),
@@ -245,9 +200,9 @@ void main() {
     });
 
     test('method topBuilderWrappedCallArgs', () {
-      final source = source3DataSafe;
-      final item = source.manifest.items[1];
-      final writer = TopBuilderWriter(source);
+      final manifest = manifest3Data;
+      final item = manifest.items[1];
+      final writer = TopBuilderWriter(manifest);
 
       expect(
         writer.topBuilderWrappedCallArgs(item),
@@ -257,9 +212,9 @@ void main() {
 
     group('method topBuilderNonOrWrappedCallArgs', () {
       test('non-wrapped', () {
-        final source = source1DataSafe;
-        final item = source.manifest.items[1];
-        final writer = TopBuilderWriter(source);
+        final manifest = manifest1Data;
+        final item = manifest.items[1];
+        final writer = TopBuilderWriter(manifest);
 
         expect(
           writer.topBuilderNonOrWrappedCallArgs(item),
@@ -268,9 +223,9 @@ void main() {
       });
 
       test('wrapped', () {
-        final source = source3DataSafe;
-        final item = source.manifest.items[1];
-        final writer = TopBuilderWriter(source);
+        final manifest = manifest3Data;
+        final item = manifest.items[1];
+        final writer = TopBuilderWriter(manifest);
 
         expect(
           writer.topBuilderNonOrWrappedCallArgs(item),
@@ -282,14 +237,14 @@ void main() {
     group('method topStaticBuilder', () {
       group('simple', () {
         test('null-safe', () {
-          final source = source1DataSafe;
+          final manifest = manifest1Data;
           // void sunny();
-          final item1 = source.manifest.items[0];
+          final item1 = manifest.items[0];
           // void rainy(int rain);
-          final item2 = source.manifest.items[1];
+          final item2 = manifest.items[1];
           // void windy(double velocity, double? angle);
-          final item3 = source.manifest.items[2];
-          final writer = TopBuilderWriter(source);
+          final item3 = manifest.items[2];
+          final writer = TopBuilderWriter(manifest);
 
           expect(
             writer.topStaticBuilder(item1),
@@ -311,44 +266,13 @@ void main() {
             '(velocity: velocity, angle: angle,);',
           );
         });
-
-        test('legacy', () {
-          final source = source1DataLegacy;
-          // void sunny();
-          final item1 = source.manifest.items[0];
-          // void rainy(int rain);
-          final item2 = source.manifest.items[1];
-          // void windy(double velocity, double? angle);
-          final item3 = source.manifest.items[2];
-          final writer = TopBuilderWriter(source);
-
-          expect(
-            writer.topStaticBuilder(item1),
-            '@factory\n'
-            'static HiSunny/*!*/ sunny() => HiSunny();',
-          );
-          expect(
-            writer.topStaticBuilder(item2),
-            '@factory\n'
-            'static WeatherRainy/*!*/ rainy({@required int/*!*/ rain,}) =>'
-            ' WeatherRainy(rain: rain,);',
-          );
-          expect(
-            writer.topStaticBuilder(item3),
-            '@factory\n'
-            'static HelloWindy/*!*/ windy'
-            '({@required double/*!*/ velocity, @required double/*?*/ angle,})'
-            ' => HelloWindy'
-            '(velocity: velocity, angle: angle,);',
-          );
-        });
       });
 
       group('generic', () {
         test('null-safe', () {
-          final source = source2DataSafe;
-          final item1 = source.manifest.items[0];
-          final writer = TopBuilderWriter(source);
+          final manifest = manifest2Data;
+          final item1 = manifest.items[0];
+          final writer = TopBuilderWriter(manifest);
 
           expect(
             writer.topStaticBuilder(item1),
@@ -363,9 +287,9 @@ void main() {
       });
 
       test('simple wrapped null-safe', () {
-        final source = source3DataSafe;
-        final item2 = source.manifest.items[1];
-        final writer = TopBuilderWriter(source);
+        final manifest = manifest3Data;
+        final item2 = manifest.items[1];
+        final writer = TopBuilderWriter(manifest);
 
         expect(
           writer.topStaticBuilder(item2),
@@ -378,14 +302,14 @@ void main() {
     group('method topFactoryBuilder', () {
       group('simple', () {
         test('null-safe', () {
-          final source = source1DataSafe;
+          final manifest = manifest1Data;
           // void sunny();
-          final item1 = source.manifest.items[0];
+          final item1 = manifest.items[0];
           // void rainy(int rain);
-          final item2 = source.manifest.items[1];
+          final item2 = manifest.items[1];
           // void windy(double velocity, double? angle);
-          final item3 = source.manifest.items[2];
-          final writer = TopBuilderWriter(source);
+          final item3 = manifest.items[2];
+          final writer = TopBuilderWriter(manifest);
 
           expect(
             writer.topFactoryBuilder(item1),
@@ -403,40 +327,13 @@ void main() {
             ' = HelloWindy;',
           );
         });
-
-        test('legacy', () {
-          final source = source1DataLegacy;
-          // void sunny();
-          final item1 = source.manifest.items[0];
-          // void rainy(int rain);
-          final item2 = source.manifest.items[1];
-          // void windy(double velocity, double? angle);
-          final item3 = source.manifest.items[2];
-          final writer = TopBuilderWriter(source);
-
-          expect(
-            writer.topFactoryBuilder(item1),
-            'const factory Weather.sunny() = HiSunny;',
-          );
-          expect(
-            writer.topFactoryBuilder(item2),
-            'const factory Weather.rainy({@required int/*!*/ rain,}) ='
-            ' WeatherRainy;',
-          );
-          expect(
-            writer.topFactoryBuilder(item3),
-            'const factory Weather.windy'
-            '({@required double/*!*/ velocity, @required double/*?*/ angle,})'
-            ' = HelloWindy;',
-          );
-        });
       });
 
       group('generic', () {
         test('null-safe', () {
-          final source = source2DataSafe;
-          final item1 = source.manifest.items[0];
-          final writer = TopBuilderWriter(source);
+          final manifest = manifest2Data;
+          final item1 = manifest.items[0];
+          final writer = TopBuilderWriter(manifest);
 
           expect(
             writer.topFactoryBuilder(item1),
@@ -447,9 +344,9 @@ void main() {
       });
 
       test('simple wrapped null-safe', () {
-        final source = source3DataSafe;
-        final item2 = source.manifest.items[1];
-        final writer = TopBuilderWriter(source);
+        final manifest = manifest3Data;
+        final item2 = manifest.items[1];
+        final writer = TopBuilderWriter(manifest);
 
         expect(
           writer.topFactoryBuilder(item2),
@@ -459,8 +356,8 @@ void main() {
     });
 
     test('method topBuilderMethods', () {
-      final source = source1DataLegacy;
-      final writer = TopBuilderWriter(source);
+      final manifest = manifest1Data;
+      final writer = TopBuilderWriter(manifest);
 
       expect(
         writer.topBuilderMethods().joinMethods(),

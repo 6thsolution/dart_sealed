@@ -1,6 +1,5 @@
 import 'package:meta/meta.dart';
 import 'package:sealed_writer/src/manifest/manifest.dart';
-import 'package:sealed_writer/src/source/source.dart';
 import 'package:sealed_writer/src/utils/string_utils.dart';
 import 'package:sealed_writer/src/writer/base/base_utils_writer.dart';
 
@@ -8,7 +7,7 @@ import 'package:sealed_writer/src/writer/base/base_utils_writer.dart';
 @sealed
 @immutable
 class SubEquatableWriter extends BaseUtilsWriter {
-  const SubEquatableWriter(Source source) : super(source);
+  const SubEquatableWriter(Manifest manifest) : super(manifest);
 
   String fieldName(ManifestField field) => field.name;
 
@@ -19,7 +18,7 @@ class SubEquatableWriter extends BaseUtilsWriter {
   String subEquatableEquality(ManifestItem item) => [
         annotationOverride,
         [
-          'List<Object$n>$nn get props => [',
+          'List<Object$n> get props => [',
           subEquatableFieldNames(item).joinArgsFull(),
           '];',
         ].joinParts(),

@@ -35,30 +35,9 @@ Manifest manifest2([ManifestEquality equality = ManifestEquality.data]) =>
       ],
     );
 
-final source2DataSafe = Source(
-  options: optionsSafe,
-  manifest: manifest2(ManifestEquality.data),
-);
-final source2IdentitySafe = Source(
-  options: optionsSafe,
-  manifest: manifest2(ManifestEquality.identity),
-);
-final source2DistinctSafe = Source(
-  options: optionsSafe,
-  manifest: manifest2(ManifestEquality.distinct),
-);
-final source2DataLegacy = Source(
-  options: optionsLegacy,
-  manifest: manifest2(ManifestEquality.data),
-);
-final source2IdentityLegacy = Source(
-  options: optionsLegacy,
-  manifest: manifest2(ManifestEquality.identity),
-);
-final source2DistinctLegacy = Source(
-  options: optionsLegacy,
-  manifest: manifest2(ManifestEquality.distinct),
-);
+final manifest2Data = manifest2(ManifestEquality.data);
+final manifest2Identity = manifest2(ManifestEquality.identity);
+final manifest2Distinct = manifest2(ManifestEquality.distinct);
 
 final code2Data = code2(ManifestEquality.data);
 final code2Identity = code2(ManifestEquality.identity);

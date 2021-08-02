@@ -1,6 +1,5 @@
 import 'package:meta/meta.dart';
 import 'package:sealed_writer/src/manifest/manifest.dart';
-import 'package:sealed_writer/src/source/source.dart';
 import 'package:sealed_writer/src/utils/string_utils.dart';
 import 'package:sealed_writer/src/writer/base/base_utils_writer.dart';
 
@@ -8,7 +7,7 @@ import 'package:sealed_writer/src/writer/base/base_utils_writer.dart';
 @sealed
 @immutable
 class SubConstructorWriter extends BaseUtilsWriter {
-  SubConstructorWriter(Source source) : super(source);
+  SubConstructorWriter(Manifest manifest) : super(manifest);
 
   /// ex. required this.angle or @required this.angle
   String subConstructorDecArg(ManifestField field) => '$req this.${field.name}';

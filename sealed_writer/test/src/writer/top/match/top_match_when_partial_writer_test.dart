@@ -6,19 +6,19 @@ import '../../../../utils/examples.dart';
 void main() {
   group('class TopMatchWhenPartialWriter', () {
     test('initialization', () {
-      final source = source1DataSafe;
-      final writer = TopMatchWhenPartialWriter(source);
+      final manifest = manifest1Data;
+      final writer = TopMatchWhenPartialWriter(manifest);
 
-      expect(writer.source, source);
+      expect(writer.manifest, manifest);
     });
 
     group('method topMatchWhenPartialIf', () {
       test('non-wrapped', () {
-        final source = source1DataSafe;
-        final manifest = source.manifest;
+        final manifest = manifest1Data;
+
         // sunny
         final item1 = manifest.items[0];
-        final writer = TopMatchWhenPartialWriter(source);
+        final writer = TopMatchWhenPartialWriter(manifest);
         final i = writer.topMatchWhenPartialIf(item1);
 
         expect(i.condition, 'weather is HiSunny');
@@ -26,9 +26,9 @@ void main() {
       });
 
       test('wrapped', () {
-        final source = source3DataSafe;
-        final item2 = source.manifest.items[1];
-        final writer = TopMatchWhenPartialWriter(source);
+        final manifest = manifest3Data;
+        final item2 = manifest.items[1];
+        final writer = TopMatchWhenPartialWriter(manifest);
         final i = writer.topMatchWhenPartialIf(item2);
 
         expect(i.code, 'two?.call(base.x);');
@@ -36,10 +36,10 @@ void main() {
     });
 
     test('method topMatchWhenPartialArgs', () {
-      final source = source1DataSafe;
-      final manifest = source.manifest;
+      final manifest = manifest1Data;
+
       final items = manifest.items;
-      final writer = TopMatchWhenPartialWriter(source);
+      final writer = TopMatchWhenPartialWriter(manifest);
 
       expect(
         writer.topMatchWhenPartialArgs(),
@@ -48,10 +48,10 @@ void main() {
     });
 
     test('method topMatchWhenPartialIfs', () {
-      final source = source1DataSafe;
-      final manifest = source.manifest;
+      final manifest = manifest1Data;
+
       final items = manifest.items;
-      final writer = TopMatchWhenPartialWriter(source);
+      final writer = TopMatchWhenPartialWriter(manifest);
       final ifs = writer.topMatchWhenPartialIfs();
       final a = ifs[0];
       final b = writer.topMatchWhenPartialIf(items[0]);
@@ -62,8 +62,8 @@ void main() {
     });
 
     test('method topMatchWhenPartialBody', () {
-      final source = source1DataSafe;
-      final writer = TopMatchWhenPartialWriter(source);
+      final manifest = manifest1Data;
+      final writer = TopMatchWhenPartialWriter(manifest);
 
       expect(
         writer.topMatchWhenPartialBody(),
@@ -80,8 +80,8 @@ void main() {
 
     group('method topMatchWhenPartialStart', () {
       test('non-wrapped', () {
-        final source = source1DataSafe;
-        final writer = TopMatchWhenPartialWriter(source);
+        final manifest = manifest1Data;
+        final writer = TopMatchWhenPartialWriter(manifest);
 
         expect(
           writer.topMatchWhenPartialStart(),
@@ -94,8 +94,8 @@ void main() {
       });
 
       test('wrapped', () {
-        final source = source3DataSafe;
-        final writer = TopMatchWhenPartialWriter(source);
+        final manifest = manifest3Data;
+        final writer = TopMatchWhenPartialWriter(manifest);
 
         expect(
           writer.topMatchWhenPartialStart(),
@@ -110,23 +110,8 @@ void main() {
 
     group('method topMatchWhenPartial', () {
       test('null-safe', () {
-        final source = source1DataSafe;
-        final writer = TopMatchWhenPartialWriter(source);
-
-        expect(
-          writer.topMatchWhenPartial(),
-          stringContainsInOrder([
-            writer.topMatchWhenPartialStart(),
-            '{',
-            writer.topMatchWhenPartialBody(),
-            '}',
-          ]),
-        );
-      });
-
-      test('legacy', () {
-        final source = source1DataLegacy;
-        final writer = TopMatchWhenPartialWriter(source);
+        final manifest = manifest1Data;
+        final writer = TopMatchWhenPartialWriter(manifest);
 
         expect(
           writer.topMatchWhenPartial(),

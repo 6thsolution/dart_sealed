@@ -5,11 +5,8 @@ import 'package:test/test.dart';
 import '../utils/exception_utils.dart';
 import 'utils/read_utils.dart';
 
-const optionsSafe = Options(isNullSafe: true);
-const optionsLegacy = Options(isNullSafe: false);
-
 void main() {
-  group('source reader', () {
+  group('manifest reader', () {
     group('should success if', () {
       group('null-safe', () {
         group('simple', () {
@@ -20,45 +17,41 @@ abstract class _Basic {
 void one();
 void two(int x, double? y);
 }''');
-            final reader = const SourceReader();
-            final source = reader.read(x.element);
+            final manifest = SourceReader().read(x.element);
             expect(
-              source,
-              Source(
-                options: optionsSafe,
-                manifest: Manifest(
-                  name: 'Basic',
-                  params: [],
-                  items: [
-                    ManifestItem(
-                      name: 'BasicOne',
-                      shortName: 'one',
-                      equality: ManifestEquality.data,
-                      fields: [],
-                    ),
-                    ManifestItem(
-                      name: 'BasicTwo',
-                      shortName: 'two',
-                      equality: ManifestEquality.data,
-                      fields: [
-                        ManifestField(
-                          name: 'x',
-                          type: ManifestType(
-                            name: 'int',
-                            isNullable: false,
-                          ),
+              manifest,
+              Manifest(
+                name: 'Basic',
+                params: [],
+                items: [
+                  ManifestItem(
+                    name: 'BasicOne',
+                    shortName: 'one',
+                    equality: ManifestEquality.data,
+                    fields: [],
+                  ),
+                  ManifestItem(
+                    name: 'BasicTwo',
+                    shortName: 'two',
+                    equality: ManifestEquality.data,
+                    fields: [
+                      ManifestField(
+                        name: 'x',
+                        type: ManifestType(
+                          name: 'int',
+                          isNullable: false,
                         ),
-                        ManifestField(
-                          name: 'y',
-                          type: ManifestType(
-                            name: 'double',
-                            isNullable: true,
-                          ),
+                      ),
+                      ManifestField(
+                        name: 'y',
+                        type: ManifestType(
+                          name: 'double',
+                          isNullable: true,
                         ),
-                      ],
-                    ),
-                  ],
-                ),
+                      ),
+                    ],
+                  ),
+                ],
               ),
             );
           });
@@ -70,24 +63,20 @@ void two(int x, double? y);
 abstract class _Basic {
 void one();
 }''');
-            final reader = const SourceReader();
-            final source = reader.read(x.element);
+            final manifest = SourceReader().read(x.element);
             expect(
-              source,
-              Source(
-                options: optionsSafe,
-                manifest: Manifest(
-                  name: 'Basic',
-                  params: [],
-                  items: [
-                    ManifestItem(
-                      name: 'BasicOne',
-                      shortName: 'one',
-                      equality: ManifestEquality.identity,
-                      fields: [],
-                    ),
-                  ],
-                ),
+              manifest,
+              Manifest(
+                name: 'Basic',
+                params: [],
+                items: [
+                  ManifestItem(
+                    name: 'BasicOne',
+                    shortName: 'one',
+                    equality: ManifestEquality.identity,
+                    fields: [],
+                  ),
+                ],
               ),
             );
           });
@@ -100,24 +89,21 @@ abstract class _Basic {
 @WithName('Hello')
 void one();
 }''');
-              final reader = const SourceReader();
-              final source = reader.read(x.element);
+              final reader = SourceReader();
+              final manifest = reader.read(x.element);
               expect(
-                source,
-                Source(
-                  options: optionsSafe,
-                  manifest: Manifest(
-                    name: 'Basic',
-                    params: [],
-                    items: [
-                      ManifestItem(
-                        name: 'Hello',
-                        shortName: 'one',
-                        equality: ManifestEquality.data,
-                        fields: [],
-                      ),
-                    ],
-                  ),
+                manifest,
+                Manifest(
+                  name: 'Basic',
+                  params: [],
+                  items: [
+                    ManifestItem(
+                      name: 'Hello',
+                      shortName: 'one',
+                      equality: ManifestEquality.data,
+                      fields: [],
+                    ),
+                  ],
                 ),
               );
             });
@@ -129,24 +115,21 @@ abstract class _Basic {
 @WithEquality(Equality.identity)
 void one();
 }''');
-              final reader = const SourceReader();
-              final source = reader.read(x.element);
+              final reader = SourceReader();
+              final manifest = reader.read(x.element);
               expect(
-                source,
-                Source(
-                  options: optionsSafe,
-                  manifest: Manifest(
-                    name: 'Basic',
-                    params: [],
-                    items: [
-                      ManifestItem(
-                        name: 'BasicOne',
-                        shortName: 'one',
-                        equality: ManifestEquality.identity,
-                        fields: [],
-                      ),
-                    ],
-                  ),
+                manifest,
+                Manifest(
+                  name: 'Basic',
+                  params: [],
+                  items: [
+                    ManifestItem(
+                      name: 'BasicOne',
+                      shortName: 'one',
+                      equality: ManifestEquality.identity,
+                      fields: [],
+                    ),
+                  ],
                 ),
               );
             });
@@ -159,24 +142,20 @@ abstract class _Basic {
 @WithEquality(Equality.identity)
 void one();
 }''');
-              final reader = const SourceReader();
-              final source = reader.read(x.element);
+              final manifest = SourceReader().read(x.element);
               expect(
-                source,
-                Source(
-                  options: optionsSafe,
-                  manifest: Manifest(
-                    name: 'Basic',
-                    params: [],
-                    items: [
-                      ManifestItem(
-                        name: 'Hello',
-                        shortName: 'one',
-                        equality: ManifestEquality.identity,
-                        fields: [],
-                      ),
-                    ],
-                  ),
+                manifest,
+                Manifest(
+                  name: 'Basic',
+                  params: [],
+                  items: [
+                    ManifestItem(
+                      name: 'Hello',
+                      shortName: 'one',
+                      equality: ManifestEquality.identity,
+                      fields: [],
+                    ),
+                  ],
                 ),
               );
             });
@@ -188,24 +167,20 @@ void one();
 abstract class _Basic {
 void one();
 }''');
-              final reader = const SourceReader();
-              final source = reader.read(x.element);
+              final manifest = SourceReader().read(x.element);
               expect(
-                source,
-                Source(
-                  options: optionsSafe,
-                  manifest: Manifest(
-                    name: 'Basic',
-                    params: [],
-                    items: [
-                      ManifestItem(
-                        name: 'PreOne',
-                        shortName: 'one',
-                        equality: ManifestEquality.data,
-                        fields: [],
-                      ),
-                    ],
-                  ),
+                manifest,
+                Manifest(
+                  name: 'Basic',
+                  params: [],
+                  items: [
+                    ManifestItem(
+                      name: 'PreOne',
+                      shortName: 'one',
+                      equality: ManifestEquality.data,
+                      fields: [],
+                    ),
+                  ],
                 ),
               );
             });
@@ -218,24 +193,21 @@ abstract class _Basic {
 @WithName('Hello')
 void one();
 }''');
-              final reader = const SourceReader();
-              final source = reader.read(x.element);
+              final reader = SourceReader();
+              final manifest = reader.read(x.element);
               expect(
-                source,
-                Source(
-                  options: optionsSafe,
-                  manifest: Manifest(
-                    name: 'Basic',
-                    params: [],
-                    items: [
-                      ManifestItem(
-                        name: 'Hello',
-                        shortName: 'one',
-                        equality: ManifestEquality.data,
-                        fields: [],
-                      ),
-                    ],
-                  ),
+                manifest,
+                Manifest(
+                  name: 'Basic',
+                  params: [],
+                  items: [
+                    ManifestItem(
+                      name: 'Hello',
+                      shortName: 'one',
+                      equality: ManifestEquality.data,
+                      fields: [],
+                    ),
+                  ],
                 ),
               );
             });
@@ -247,39 +219,35 @@ void one();
 abstract class _Basic {
 void one(@WithType('double?') x, @WithType('double') int? y);
 }''');
-            final reader = const SourceReader();
-            final source = reader.read(x.element);
+            final manifest = SourceReader().read(x.element);
             expect(
-              source,
-              Source(
-                options: optionsSafe,
-                manifest: Manifest(
-                  name: 'Basic',
-                  params: [],
-                  items: [
-                    ManifestItem(
-                      name: 'BasicOne',
-                      shortName: 'one',
-                      equality: ManifestEquality.data,
-                      fields: [
-                        ManifestField(
-                          name: 'x',
-                          type: ManifestType(
-                            name: 'double',
-                            isNullable: true,
-                          ),
+              manifest,
+              Manifest(
+                name: 'Basic',
+                params: [],
+                items: [
+                  ManifestItem(
+                    name: 'BasicOne',
+                    shortName: 'one',
+                    equality: ManifestEquality.data,
+                    fields: [
+                      ManifestField(
+                        name: 'x',
+                        type: ManifestType(
+                          name: 'double',
+                          isNullable: true,
                         ),
-                        ManifestField(
-                          name: 'y',
-                          type: ManifestType(
-                            name: 'double',
-                            isNullable: false,
-                          ),
+                      ),
+                      ManifestField(
+                        name: 'y',
+                        type: ManifestType(
+                          name: 'double',
+                          isNullable: false,
                         ),
-                      ],
-                    ),
-                  ],
-                ),
+                      ),
+                    ],
+                  ),
+                ],
               ),
             );
           });
@@ -294,75 +262,71 @@ void one(T x);
 void two(E y);
 void three(T? z);
 }''');
-            final reader = const SourceReader();
-            final source = reader.read(x.element);
+            final manifest = SourceReader().read(x.element);
             expect(
-              source,
-              Source(
-                options: optionsSafe,
-                manifest: Manifest(
-                  name: 'Basic',
-                  params: [
-                    ManifestParam(
-                      name: 'T',
-                      bound: ManifestType(
-                        name: 'num',
-                        isNullable: false,
+              manifest,
+              Manifest(
+                name: 'Basic',
+                params: [
+                  ManifestParam(
+                    name: 'T',
+                    bound: ManifestType(
+                      name: 'num',
+                      isNullable: false,
+                    ),
+                  ),
+                  ManifestParam(
+                    name: 'E',
+                    bound: ManifestType(
+                      name: 'Object',
+                      isNullable: true,
+                    ),
+                  ),
+                ],
+                items: [
+                  ManifestItem(
+                    name: 'BasicOne',
+                    shortName: 'one',
+                    equality: ManifestEquality.data,
+                    fields: [
+                      ManifestField(
+                        name: 'x',
+                        type: ManifestType(
+                          name: 'T',
+                          isNullable: false,
+                        ),
                       ),
-                    ),
-                    ManifestParam(
-                      name: 'E',
-                      bound: ManifestType(
-                        name: 'Object',
-                        isNullable: true,
+                    ],
+                  ),
+                  ManifestItem(
+                    name: 'BasicTwo',
+                    shortName: 'two',
+                    equality: ManifestEquality.data,
+                    fields: [
+                      ManifestField(
+                        name: 'y',
+                        type: ManifestType(
+                          name: 'E',
+                          isNullable: false,
+                        ),
                       ),
-                    ),
-                  ],
-                  items: [
-                    ManifestItem(
-                      name: 'BasicOne',
-                      shortName: 'one',
-                      equality: ManifestEquality.data,
-                      fields: [
-                        ManifestField(
-                          name: 'x',
-                          type: ManifestType(
-                            name: 'T',
-                            isNullable: false,
-                          ),
+                    ],
+                  ),
+                  ManifestItem(
+                    name: 'BasicThree',
+                    shortName: 'three',
+                    equality: ManifestEquality.data,
+                    fields: [
+                      ManifestField(
+                        name: 'z',
+                        type: ManifestType(
+                          name: 'T',
+                          isNullable: true,
                         ),
-                      ],
-                    ),
-                    ManifestItem(
-                      name: 'BasicTwo',
-                      shortName: 'two',
-                      equality: ManifestEquality.data,
-                      fields: [
-                        ManifestField(
-                          name: 'y',
-                          type: ManifestType(
-                            name: 'E',
-                            isNullable: false,
-                          ),
-                        ),
-                      ],
-                    ),
-                    ManifestItem(
-                      name: 'BasicThree',
-                      shortName: 'three',
-                      equality: ManifestEquality.data,
-                      fields: [
-                        ManifestField(
-                          name: 'z',
-                          type: ManifestType(
-                            name: 'T',
-                            isNullable: true,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
+                      ),
+                    ],
+                  ),
+                ],
               ),
             );
           });
@@ -373,411 +337,28 @@ void three(T? z);
 abstract class _Basic<T> {
 void one();
 }''');
-            final reader = const SourceReader();
-            final source = reader.read(x.element);
+            final manifest = SourceReader().read(x.element);
             expect(
-              source,
-              Source(
-                options: optionsSafe,
-                manifest: Manifest(
-                  name: 'Basic',
-                  params: [
-                    ManifestParam(
-                      name: 'T',
-                      bound: ManifestType(
-                        name: 'Object',
-                        isNullable: true,
-                      ),
+              manifest,
+              Manifest(
+                name: 'Basic',
+                params: [
+                  ManifestParam(
+                    name: 'T',
+                    bound: ManifestType(
+                      name: 'Object',
+                      isNullable: true,
                     ),
-                  ],
-                  items: [
-                    ManifestItem(
-                      name: 'BasicOne',
-                      shortName: 'one',
-                      equality: ManifestEquality.data,
-                      fields: [],
-                    ),
-                  ],
-                ),
-              ),
-            );
-          });
-        });
-      });
-
-      group('legacy', () {
-        group('simple', () {
-          test('basic', () async {
-            final x = await resolveSealedLegacy('''
-@Sealed()
-abstract class _Basic {
-void one();
-void two(int x, double y);
-}''');
-            final reader = const SourceReader();
-            final source = reader.read(x.element);
-            expect(
-              source,
-              Source(
-                options: optionsLegacy,
-                manifest: Manifest(
-                  name: 'Basic',
-                  params: [],
-                  items: [
-                    ManifestItem(
-                      name: 'BasicOne',
-                      shortName: 'one',
-                      equality: ManifestEquality.data,
-                      fields: [],
-                    ),
-                    ManifestItem(
-                      name: 'BasicTwo',
-                      shortName: 'two',
-                      equality: ManifestEquality.data,
-                      fields: [
-                        ManifestField(
-                          name: 'x',
-                          type: ManifestType(
-                            name: 'int',
-                            isNullable: true,
-                          ),
-                        ),
-                        ManifestField(
-                          name: 'y',
-                          type: ManifestType(
-                            name: 'double',
-                            isNullable: true,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            );
-          });
-
-          test('equality', () async {
-            final x = await resolveSealedLegacy('''
-@Sealed()
-@WithEquality(Equality.identity)
-abstract class _Basic {
-void one();
-}''');
-            final reader = const SourceReader();
-            final source = reader.read(x.element);
-            expect(
-              source,
-              Source(
-                options: optionsLegacy,
-                manifest: Manifest(
-                  name: 'Basic',
-                  params: [],
-                  items: [
-                    ManifestItem(
-                      name: 'BasicOne',
-                      shortName: 'one',
-                      equality: ManifestEquality.identity,
-                      fields: [],
-                    ),
-                  ],
-                ),
-              ),
-            );
-          });
-
-          group('meta', () {
-            test('change name', () async {
-              final x = await resolveSealedLegacy('''
-@Sealed()
-abstract class _Basic {
-@WithName('Hello')
-void one();
-}''');
-              final reader = const SourceReader();
-              final source = reader.read(x.element);
-              expect(
-                source,
-                Source(
-                  options: optionsLegacy,
-                  manifest: Manifest(
-                    name: 'Basic',
-                    params: [],
-                    items: [
-                      ManifestItem(
-                        name: 'Hello',
-                        shortName: 'one',
-                        equality: ManifestEquality.data,
-                        fields: [],
-                      ),
-                    ],
                   ),
-                ),
-              );
-            });
-
-            test('change equality', () async {
-              final x = await resolveSealedLegacy('''
-@Sealed()
-abstract class _Basic {
-@WithEquality(Equality.identity)
-void one();
-}''');
-              final reader = const SourceReader();
-              final source = reader.read(x.element);
-              expect(
-                source,
-                Source(
-                  options: optionsLegacy,
-                  manifest: Manifest(
-                    name: 'Basic',
-                    params: [],
-                    items: [
-                      ManifestItem(
-                        name: 'BasicOne',
-                        shortName: 'one',
-                        equality: ManifestEquality.identity,
-                        fields: [],
-                      ),
-                    ],
+                ],
+                items: [
+                  ManifestItem(
+                    name: 'BasicOne',
+                    shortName: 'one',
+                    equality: ManifestEquality.data,
+                    fields: [],
                   ),
-                ),
-              );
-            });
-
-            test('change name and equality', () async {
-              final x = await resolveSealedLegacy('''
-@Sealed()
-abstract class _Basic {
-@WithName('Hello')
-@WithEquality(Equality.identity)
-void one();
-}''');
-              final reader = const SourceReader();
-              final source = reader.read(x.element);
-              expect(
-                source,
-                Source(
-                  options: optionsLegacy,
-                  manifest: Manifest(
-                    name: 'Basic',
-                    params: [],
-                    items: [
-                      ManifestItem(
-                        name: 'Hello',
-                        shortName: 'one',
-                        equality: ManifestEquality.identity,
-                        fields: [],
-                      ),
-                    ],
-                  ),
-                ),
-              );
-            });
-
-            test('change prefix', () async {
-              final x = await resolveSealedLegacy('''
-@Sealed()
-@WithPrefix('Pre')
-abstract class _Basic {
-void one();
-}''');
-              final reader = const SourceReader();
-              final source = reader.read(x.element);
-              expect(
-                source,
-                Source(
-                  options: optionsLegacy,
-                  manifest: Manifest(
-                    name: 'Basic',
-                    params: [],
-                    items: [
-                      ManifestItem(
-                        name: 'PreOne',
-                        shortName: 'one',
-                        equality: ManifestEquality.data,
-                        fields: [],
-                      ),
-                    ],
-                  ),
-                ),
-              );
-            });
-
-            test('change prefix and name', () async {
-              final x = await resolveSealedLegacy('''
-@Sealed()
-@WithPrefix('Pre')
-abstract class _Basic {
-@WithName('Hello')
-void one();
-}''');
-              final reader = const SourceReader();
-              final source = reader.read(x.element);
-              expect(
-                source,
-                Source(
-                  options: optionsLegacy,
-                  manifest: Manifest(
-                    name: 'Basic',
-                    params: [],
-                    items: [
-                      ManifestItem(
-                        name: 'Hello',
-                        shortName: 'one',
-                        equality: ManifestEquality.data,
-                        fields: [],
-                      ),
-                    ],
-                  ),
-                ),
-              );
-            });
-          });
-
-          test('withType', () async {
-            final x = await resolveSealedLegacy('''
-@Sealed()
-abstract class _Basic {
-void one(@WithType('double?') x, @WithType('double') int y);
-}''');
-            final reader = const SourceReader();
-            final source = reader.read(x.element);
-            expect(
-              source,
-              Source(
-                options: optionsLegacy,
-                manifest: Manifest(
-                  name: 'Basic',
-                  params: [],
-                  items: [
-                    ManifestItem(
-                      name: 'BasicOne',
-                      shortName: 'one',
-                      equality: ManifestEquality.data,
-                      fields: [
-                        ManifestField(
-                          name: 'x',
-                          type: ManifestType(
-                            name: 'double',
-                            isNullable: true,
-                          ),
-                        ),
-                        ManifestField(
-                          name: 'y',
-                          type: ManifestType(
-                            name: 'double',
-                            isNullable: true,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            );
-          });
-        });
-
-        group('generic', () {
-          test('basic', () async {
-            final x = await resolveSealedLegacy('''
-@Sealed()
-abstract class _Basic<T extends num, E extends Object> {
-void one(T x);
-void two(E y);
-}''');
-            final reader = const SourceReader();
-            final source = reader.read(x.element);
-            expect(
-              source,
-              Source(
-                options: optionsLegacy,
-                manifest: Manifest(
-                  name: 'Basic',
-                  params: [
-                    ManifestParam(
-                      name: 'T',
-                      bound: ManifestType(
-                        name: 'num',
-                        isNullable: true,
-                      ),
-                    ),
-                    ManifestParam(
-                      name: 'E',
-                      bound: ManifestType(
-                        name: 'Object',
-                        isNullable: true,
-                      ),
-                    ),
-                  ],
-                  items: [
-                    ManifestItem(
-                      name: 'BasicOne',
-                      shortName: 'one',
-                      equality: ManifestEquality.data,
-                      fields: [
-                        ManifestField(
-                          name: 'x',
-                          type: ManifestType(
-                            name: 'T',
-                            isNullable: true,
-                          ),
-                        ),
-                      ],
-                    ),
-                    ManifestItem(
-                      name: 'BasicTwo',
-                      shortName: 'two',
-                      equality: ManifestEquality.data,
-                      fields: [
-                        ManifestField(
-                          name: 'y',
-                          type: ManifestType(
-                            name: 'E',
-                            isNullable: true,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            );
-          });
-
-          test('default bound', () async {
-            final x = await resolveSealedLegacy('''
-@Sealed()
-abstract class _Basic<T> {
-void one();
-}''');
-            final reader = const SourceReader();
-            final source = reader.read(x.element);
-            expect(
-              source,
-              Source(
-                options: optionsLegacy,
-                manifest: Manifest(
-                  name: 'Basic',
-                  params: [
-                    ManifestParam(
-                      name: 'T',
-                      bound: ManifestType(
-                        name: 'Object',
-                        isNullable: true,
-                      ),
-                    ),
-                  ],
-                  items: [
-                    ManifestItem(
-                      name: 'BasicOne',
-                      shortName: 'one',
-                      equality: ManifestEquality.data,
-                      fields: [],
-                    ),
-                  ],
-                ),
+                ],
               ),
             );
           });
@@ -786,13 +367,26 @@ void one();
     });
 
     group('should fail if', () {
+      test('when is not nul-safe', () async {
+        final x = await resolveSealedNonNullSafe('''
+@Sealed()
+abstract class _Basic {
+void one();
+}''');
+        final reader = SourceReader();
+        expect(
+          () => reader.read(x.element),
+          throwsSealedErrorNotInternal(),
+        );
+      });
+
       test('upper method name', () async {
         final x = await resolveSealedSafe('''
 @Sealed()
 abstract class _Basic {
 void One();
 }''');
-        final reader = const SourceReader();
+        final reader = SourceReader();
         expect(
           () => reader.read(x.element),
           throwsSealedErrorNotInternal(),
@@ -805,7 +399,7 @@ void One();
 abstract class _basic {
 void one();
 }''');
-        final reader = const SourceReader();
+        final reader = SourceReader();
         expect(
           () => reader.read(x.element),
           throwsSealedErrorNotInternal(),
@@ -818,7 +412,7 @@ void one();
 abstract class _Basic {
 void one(int X);
 }''');
-        final reader = const SourceReader();
+        final reader = SourceReader();
         expect(
           () => reader.read(x.element),
           throwsSealedErrorNotInternal(),
@@ -831,7 +425,7 @@ void one(int X);
 enum _Basic {
 a, b, c,
 }''');
-        final reader = const SourceReader();
+        final reader = SourceReader();
         expect(
           () => reader.read(x.element),
           throwsSealedErrorNotInternal(),
@@ -843,7 +437,7 @@ a, b, c,
 @Sealed()
 void hello() {}
 ''');
-        final reader = const SourceReader();
+        final reader = SourceReader();
         expect(
           () => reader.read(x.element),
           throwsSealedErrorNotInternal(),
@@ -856,7 +450,7 @@ void hello() {}
 abstract class Basic {
 void one();
 }''');
-        final reader = const SourceReader();
+        final reader = SourceReader();
         expect(
           () => reader.read(x.element),
           throwsSealedErrorNotInternal(),
@@ -869,7 +463,7 @@ void one();
 abstract class _Basic {
 void _one();
 }''');
-        final reader = const SourceReader();
+        final reader = SourceReader();
         expect(
           () => reader.read(x.element),
           throwsSealedErrorNotInternal(),
@@ -882,7 +476,7 @@ void _one();
 abstract class _Basic {
 void one(int _x);
 }''');
-        final reader = const SourceReader();
+        final reader = SourceReader();
         expect(
           () => reader.read(x.element),
           throwsSealedErrorNotInternal(),
@@ -897,7 +491,7 @@ class S {}
 abstract class _Basic extends S {
 void one();
 }''');
-        final reader = const SourceReader();
+        final reader = SourceReader();
         expect(
           () => reader.read(x.element),
           throwsSealedErrorNotInternal(),
@@ -912,7 +506,7 @@ abstract class S {}
 abstract class _Basic implements S {
 void one();
 }''');
-        final reader = const SourceReader();
+        final reader = SourceReader();
         expect(
           () => reader.read(x.element),
           throwsSealedErrorNotInternal(),
@@ -925,11 +519,12 @@ void one();
 abstract class _Basic extends Object {
 void one();
 }''');
-        final reader = const SourceReader();
+        final reader = SourceReader();
         expect(
-          () => reader.read(x.element),
-          isNot(throwsA(anything)),
-        );
+            () => reader.read(x.element),
+            isNot(
+              throwsA(anything),
+            ));
       });
 
       test('no items', () async {
@@ -937,7 +532,7 @@ void one();
 @Sealed()
 abstract class _Basic {
 }''');
-        final reader = const SourceReader();
+        final reader = SourceReader();
         expect(
           () => reader.read(x.element),
           throwsSealedErrorNotInternal(),
@@ -950,7 +545,7 @@ abstract class _Basic {
 abstract class _Basic {
 void one<T>();
 }''');
-        final reader = const SourceReader();
+        final reader = SourceReader();
         expect(
           () => reader.read(x.element),
           throwsSealedErrorNotInternal(),
@@ -964,20 +559,7 @@ void one<T>();
 abstract class _Basic {
 void one(@WithType("Hel llo") x);
 }''');
-          final reader = const SourceReader();
-          expect(
-            () => reader.read(x.element),
-            throwsSealedErrorNotInternal(),
-          );
-        });
-
-        test('with nullability comments', () async {
-          final x = await resolveSealedSafe('''
-@Sealed()
-abstract class _Basic {
-void one(@WithType("double/*?*/") x);
-}''');
-          final reader = const SourceReader();
+          final reader = SourceReader();
           expect(
             () => reader.read(x.element),
             throwsSealedErrorNotInternal(),
@@ -993,7 +575,7 @@ void one(@WithType("double/*?*/") x);
 abstract class _Basic {
 void one();
 }''');
-          final reader = const SourceReader();
+          final reader = SourceReader();
           expect(
             () => reader.read(x.element),
             throwsSealedErrorNotInternal(),
@@ -1007,7 +589,7 @@ abstract class _Basic {
 @WithName("Hel lo")
 void one();
 }''');
-          final reader = const SourceReader();
+          final reader = SourceReader();
           expect(
             () => reader.read(x.element),
             throwsSealedErrorNotInternal(),
@@ -1021,7 +603,7 @@ void one();
 abstract class _Basic {
 void one();
 }''');
-          final reader = const SourceReader();
+          final reader = SourceReader();
           expect(
             () => reader.read(x.element),
             throwsSealedErrorNotInternal(),
@@ -1035,7 +617,7 @@ abstract class _Basic {
 @WithName("Hello?")
 void one();
 }''');
-          final reader = const SourceReader();
+          final reader = SourceReader();
           expect(
             () => reader.read(x.element),
             throwsSealedErrorNotInternal(),
@@ -1049,7 +631,7 @@ void one();
 abstract class _Basic {
 void one();
 }''');
-          final reader = const SourceReader();
+          final reader = SourceReader();
           expect(
             () => reader.read(x.element),
             throwsSealedErrorNotInternal(),
@@ -1063,7 +645,7 @@ abstract class _Basic {
 @WithName("hello")
 void one();
 }''');
-          final reader = const SourceReader();
+          final reader = SourceReader();
           expect(
             () => reader.read(x.element),
             throwsSealedErrorNotInternal(),
@@ -1077,7 +659,7 @@ void one();
 abstract class _Basic {
 void one();
 }''');
-          final reader = const SourceReader();
+          final reader = SourceReader();
           expect(
             () => reader.read(x.element),
             throwsSealedErrorNotInternal(),
@@ -1091,7 +673,7 @@ abstract class _Basic {
 @WithName("_Hello")
 void one();
 }''');
-          final reader = const SourceReader();
+          final reader = SourceReader();
           expect(
             () => reader.read(x.element),
             throwsSealedErrorNotInternal(),

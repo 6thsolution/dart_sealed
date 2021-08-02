@@ -7,51 +7,51 @@ import '../../../utils/examples.dart';
 void main() {
   group('class DocWriter', () {
     test('initialization', () {
-      final source = source1DataSafe;
-      final writer = TopDocWriter(source);
+      final manifest = manifest1Data;
+      final writer = TopDocWriter(manifest);
 
-      expect(writer.source, source);
+      expect(writer.manifest, manifest);
     });
 
     group('method write', () {
       test('data equality', () {
-        final source = source1DataSafe;
-        final writer = TopDocWriter(source);
+        final manifest = manifest1Data;
+        final writer = TopDocWriter(manifest);
 
         expect(writer.write(), doc1Data);
       });
 
       test('identity equality', () {
-        final source = source1IdentitySafe;
-        final writer = TopDocWriter(source);
+        final manifest = manifest1Identity;
+        final writer = TopDocWriter(manifest);
 
         expect(writer.write(), doc1Identity);
       });
 
       test('distinct equality', () {
-        final source = source1DistinctSafe;
-        final writer = TopDocWriter(source);
+        final manifest = manifest1Distinct;
+        final writer = TopDocWriter(manifest);
 
         expect(writer.write(), doc1Distinct);
       });
 
       test('data equality generic', () {
-        final source = source2DataSafe;
-        final writer = TopDocWriter(source);
+        final manifest = manifest2Data;
+        final writer = TopDocWriter(manifest);
 
         expect(writer.write(), doc2Data);
       });
 
       test('data equality simple wrapped', () {
-        final source = source3DataSafe;
-        final writer = TopDocWriter(source);
+        final manifest = manifest3Data;
+        final writer = TopDocWriter(manifest);
 
         expect(writer.write(), doc3Data);
       });
 
       test('data equality generic wrapped', () {
-        final source = source4DataSafe;
-        final writer = TopDocWriter(source);
+        final manifest = manifest4Data;
+        final writer = TopDocWriter(manifest);
 
         expect(writer.write(), doc4Data);
       });

@@ -6,19 +6,19 @@ import '../../../../utils/examples.dart';
 void main() {
   group('class TopMatchWhenOrThrowWriter', () {
     test('initialization', () {
-      final source = source1DataSafe;
-      final writer = TopMatchWhenOrThrowWriter(source);
+      final manifest = manifest1Data;
+      final writer = TopMatchWhenOrThrowWriter(manifest);
 
-      expect(writer.source, source);
+      expect(writer.manifest, manifest);
     });
 
     group('method topMatchWhenOrThrowIf', () {
       test('non-wrapped', () {
-        final source = source1DataSafe;
-        final manifest = source.manifest;
+        final manifest = manifest1Data;
+
         // sunny
         final item1 = manifest.items[0];
-        final writer = TopMatchWhenOrThrowWriter(source);
+        final writer = TopMatchWhenOrThrowWriter(manifest);
         final i = writer.topMatchWhenOrThrowIf(item1);
 
         expect(i.condition, 'weather is HiSunny && sunny != null');
@@ -26,9 +26,9 @@ void main() {
       });
 
       test('wrapped', () {
-        final source = source3DataSafe;
-        final item2 = source.manifest.items[1];
-        final writer = TopMatchWhenOrThrowWriter(source);
+        final manifest = manifest3Data;
+        final item2 = manifest.items[1];
+        final writer = TopMatchWhenOrThrowWriter(manifest);
         final i = writer.topMatchWhenOrThrowIf(item2);
 
         expect(i.code, 'return two(base.x);');
@@ -36,10 +36,10 @@ void main() {
     });
 
     test('method topMatchWhenOrThrowArgs', () {
-      final source = source1DataSafe;
-      final manifest = source.manifest;
+      final manifest = manifest1Data;
+
       final items = manifest.items;
-      final writer = TopMatchWhenOrThrowWriter(source);
+      final writer = TopMatchWhenOrThrowWriter(manifest);
 
       expect(
         writer.topMatchWhenOrThrowArgs(),
@@ -48,10 +48,10 @@ void main() {
     });
 
     test('method topMatchWhenOrThrowIfs', () {
-      final source = source1DataSafe;
-      final manifest = source.manifest;
+      final manifest = manifest1Data;
+
       final items = manifest.items;
-      final writer = TopMatchWhenOrThrowWriter(source);
+      final writer = TopMatchWhenOrThrowWriter(manifest);
       final ifs = writer.topMatchWhenOrThrowIfs();
       final a = ifs[0];
       final b = writer.topMatchWhenOrThrowIf(items[0]);
@@ -62,8 +62,8 @@ void main() {
     });
 
     test('method topMatchWhenOrThrowBody', () {
-      final source = source1DataSafe;
-      final writer = TopMatchWhenOrThrowWriter(source);
+      final manifest = manifest1Data;
+      final writer = TopMatchWhenOrThrowWriter(manifest);
 
       expect(
         writer.topMatchWhenOrThrowBody(),
@@ -80,8 +80,8 @@ void main() {
 
     group('method topMatchWhenOrThrowStart', () {
       test('non-wrapped', () {
-        final source = source1DataSafe;
-        final writer = TopMatchWhenOrThrowWriter(source);
+        final manifest = manifest1Data;
+        final writer = TopMatchWhenOrThrowWriter(manifest);
 
         expect(
           writer.topMatchWhenOrThrowStart(),
@@ -94,8 +94,8 @@ void main() {
       });
 
       test('wrapped', () {
-        final source = source3DataSafe;
-        final writer = TopMatchWhenOrThrowWriter(source);
+        final manifest = manifest3Data;
+        final writer = TopMatchWhenOrThrowWriter(manifest);
 
         expect(
           writer.topMatchWhenOrThrowStart(),
@@ -110,23 +110,8 @@ void main() {
 
     group('method topMatchWhenOrThrow', () {
       test('null-safe', () {
-        final source = source1DataSafe;
-        final writer = TopMatchWhenOrThrowWriter(source);
-
-        expect(
-          writer.topMatchWhenOrThrow(),
-          stringContainsInOrder([
-            writer.topMatchWhenOrThrowStart(),
-            '{',
-            writer.topMatchWhenOrThrowBody(),
-            '}',
-          ]),
-        );
-      });
-
-      test('legacy', () {
-        final source = source1DataLegacy;
-        final writer = TopMatchWhenOrThrowWriter(source);
+        final manifest = manifest1Data;
+        final writer = TopMatchWhenOrThrowWriter(manifest);
 
         expect(
           writer.topMatchWhenOrThrow(),
