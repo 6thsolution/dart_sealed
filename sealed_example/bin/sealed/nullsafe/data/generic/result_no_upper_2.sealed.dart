@@ -73,49 +73,6 @@ abstract class Result<D extends Object?, E extends Object?> {
     }
   }
 
-  R whenOrDefault<R extends Object?>({
-    R Function(ResultSuccess<D, E> success)? success,
-    R Function(ResultError<D, E> error)? error,
-    required R orDefault,
-  }) {
-    final result = this;
-    if (result is ResultSuccess<D, E>) {
-      return success != null ? success(result) : orDefault;
-    } else if (result is ResultError<D, E>) {
-      return error != null ? error(result) : orDefault;
-    } else {
-      throw AssertionError();
-    }
-  }
-
-  R? whenOrNull<R extends Object?>({
-    R Function(ResultSuccess<D, E> success)? success,
-    R Function(ResultError<D, E> error)? error,
-  }) {
-    final result = this;
-    if (result is ResultSuccess<D, E>) {
-      return success?.call(result);
-    } else if (result is ResultError<D, E>) {
-      return error?.call(result);
-    } else {
-      throw AssertionError();
-    }
-  }
-
-  R whenOrThrow<R extends Object?>({
-    R Function(ResultSuccess<D, E> success)? success,
-    R Function(ResultError<D, E> error)? error,
-  }) {
-    final result = this;
-    if (result is ResultSuccess<D, E> && success != null) {
-      return success(result);
-    } else if (result is ResultError<D, E> && error != null) {
-      return error(result);
-    } else {
-      throw AssertionError();
-    }
-  }
-
   void whenPartial({
     void Function(ResultSuccess<D, E> success)? success,
     void Function(ResultError<D, E> error)? error,

@@ -95,58 +95,6 @@ abstract class Result<D extends num, E extends Object> {
     }
   }
 
-  R whenOrDefault<R extends Object?>({
-    R Function(ResultSuccess<D, E> success)? success,
-    R Function(ResultError<D, E> error)? error,
-    R Function(ResultMixed<D, E> mixed)? mixed,
-    required R orDefault,
-  }) {
-    final result = this;
-    if (result is ResultSuccess<D, E>) {
-      return success != null ? success(result) : orDefault;
-    } else if (result is ResultError<D, E>) {
-      return error != null ? error(result) : orDefault;
-    } else if (result is ResultMixed<D, E>) {
-      return mixed != null ? mixed(result) : orDefault;
-    } else {
-      throw AssertionError();
-    }
-  }
-
-  R? whenOrNull<R extends Object?>({
-    R Function(ResultSuccess<D, E> success)? success,
-    R Function(ResultError<D, E> error)? error,
-    R Function(ResultMixed<D, E> mixed)? mixed,
-  }) {
-    final result = this;
-    if (result is ResultSuccess<D, E>) {
-      return success?.call(result);
-    } else if (result is ResultError<D, E>) {
-      return error?.call(result);
-    } else if (result is ResultMixed<D, E>) {
-      return mixed?.call(result);
-    } else {
-      throw AssertionError();
-    }
-  }
-
-  R whenOrThrow<R extends Object?>({
-    R Function(ResultSuccess<D, E> success)? success,
-    R Function(ResultError<D, E> error)? error,
-    R Function(ResultMixed<D, E> mixed)? mixed,
-  }) {
-    final result = this;
-    if (result is ResultSuccess<D, E> && success != null) {
-      return success(result);
-    } else if (result is ResultError<D, E> && error != null) {
-      return error(result);
-    } else if (result is ResultMixed<D, E> && mixed != null) {
-      return mixed(result);
-    } else {
-      throw AssertionError();
-    }
-  }
-
   void whenPartial({
     void Function(ResultSuccess<D, E> success)? success,
     void Function(ResultError<D, E> error)? error,

@@ -93,58 +93,6 @@ abstract class Complete {
     }
   }
 
-  R whenOrDefault<R extends Object?>({
-    R Function()? one,
-    R Function(int x)? two,
-    R Function(double y, double? z)? three,
-    required R orDefault,
-  }) {
-    final complete = this;
-    if (complete is CompleteOne) {
-      return one != null ? one() : orDefault;
-    } else if (complete is CompleteTwo) {
-      return two != null ? two(complete.x) : orDefault;
-    } else if (complete is CompleteThree) {
-      return three != null ? three(complete.y, complete.z) : orDefault;
-    } else {
-      throw AssertionError();
-    }
-  }
-
-  R? whenOrNull<R extends Object?>({
-    R Function()? one,
-    R Function(int x)? two,
-    R Function(double y, double? z)? three,
-  }) {
-    final complete = this;
-    if (complete is CompleteOne) {
-      return one?.call();
-    } else if (complete is CompleteTwo) {
-      return two?.call(complete.x);
-    } else if (complete is CompleteThree) {
-      return three?.call(complete.y, complete.z);
-    } else {
-      throw AssertionError();
-    }
-  }
-
-  R whenOrThrow<R extends Object?>({
-    R Function()? one,
-    R Function(int x)? two,
-    R Function(double y, double? z)? three,
-  }) {
-    final complete = this;
-    if (complete is CompleteOne && one != null) {
-      return one();
-    } else if (complete is CompleteTwo && two != null) {
-      return two(complete.x);
-    } else if (complete is CompleteThree && three != null) {
-      return three(complete.y, complete.z);
-    } else {
-      throw AssertionError();
-    }
-  }
-
   void whenPartial({
     void Function()? one,
     void Function(int x)? two,
@@ -308,58 +256,6 @@ abstract class Partial {
       return two != null ? two(partial) : orElse(partial);
     } else if (partial is PartialThree) {
       return three != null ? three(partial.y, partial.z) : orElse(partial);
-    } else {
-      throw AssertionError();
-    }
-  }
-
-  R whenOrDefault<R extends Object?>({
-    R Function(PartialOne one)? one,
-    R Function(PartialTwo two)? two,
-    R Function(double y, double? z)? three,
-    required R orDefault,
-  }) {
-    final partial = this;
-    if (partial is PartialOne) {
-      return one != null ? one(partial) : orDefault;
-    } else if (partial is PartialTwo) {
-      return two != null ? two(partial) : orDefault;
-    } else if (partial is PartialThree) {
-      return three != null ? three(partial.y, partial.z) : orDefault;
-    } else {
-      throw AssertionError();
-    }
-  }
-
-  R? whenOrNull<R extends Object?>({
-    R Function(PartialOne one)? one,
-    R Function(PartialTwo two)? two,
-    R Function(double y, double? z)? three,
-  }) {
-    final partial = this;
-    if (partial is PartialOne) {
-      return one?.call(partial);
-    } else if (partial is PartialTwo) {
-      return two?.call(partial);
-    } else if (partial is PartialThree) {
-      return three?.call(partial.y, partial.z);
-    } else {
-      throw AssertionError();
-    }
-  }
-
-  R whenOrThrow<R extends Object?>({
-    R Function(PartialOne one)? one,
-    R Function(PartialTwo two)? two,
-    R Function(double y, double? z)? three,
-  }) {
-    final partial = this;
-    if (partial is PartialOne && one != null) {
-      return one(partial);
-    } else if (partial is PartialTwo && two != null) {
-      return two(partial);
-    } else if (partial is PartialThree && three != null) {
-      return three(partial.y, partial.z);
     } else {
       throw AssertionError();
     }

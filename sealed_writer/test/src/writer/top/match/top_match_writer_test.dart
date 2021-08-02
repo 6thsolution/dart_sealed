@@ -21,9 +21,6 @@ void main() {
         containsAll(<String>[
           writer.topMatchWhenWriter.topMatchWhen(),
           writer.topMatchWhenOrElseWriter.topMatchWhenOrElse(),
-          writer.topMatchWhenOrDefaultWriter.topMatchWhenOrDefault(),
-          writer.topMatchWhenOrNullWriter.topMatchWhenOrNull(),
-          writer.topMatchWhenOrThrowWriter.topMatchWhenOrThrow(),
           writer.topMatchWhenPartialWriter.topMatchWhenPartial(),
         ]),
       );

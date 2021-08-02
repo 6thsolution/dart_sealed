@@ -93,58 +93,6 @@ abstract class Weather {
     }
   }
 
-  R whenOrDefault<R extends Object?>({
-    R Function(PrefixSunny sunny)? sunny,
-    R Function(BadWeather rainy)? rainy,
-    R Function(VeryBadWeather windy)? windy,
-    required R orDefault,
-  }) {
-    final weather = this;
-    if (weather is PrefixSunny) {
-      return sunny != null ? sunny(weather) : orDefault;
-    } else if (weather is BadWeather) {
-      return rainy != null ? rainy(weather) : orDefault;
-    } else if (weather is VeryBadWeather) {
-      return windy != null ? windy(weather) : orDefault;
-    } else {
-      throw AssertionError();
-    }
-  }
-
-  R? whenOrNull<R extends Object?>({
-    R Function(PrefixSunny sunny)? sunny,
-    R Function(BadWeather rainy)? rainy,
-    R Function(VeryBadWeather windy)? windy,
-  }) {
-    final weather = this;
-    if (weather is PrefixSunny) {
-      return sunny?.call(weather);
-    } else if (weather is BadWeather) {
-      return rainy?.call(weather);
-    } else if (weather is VeryBadWeather) {
-      return windy?.call(weather);
-    } else {
-      throw AssertionError();
-    }
-  }
-
-  R whenOrThrow<R extends Object?>({
-    R Function(PrefixSunny sunny)? sunny,
-    R Function(BadWeather rainy)? rainy,
-    R Function(VeryBadWeather windy)? windy,
-  }) {
-    final weather = this;
-    if (weather is PrefixSunny && sunny != null) {
-      return sunny(weather);
-    } else if (weather is BadWeather && rainy != null) {
-      return rainy(weather);
-    } else if (weather is VeryBadWeather && windy != null) {
-      return windy(weather);
-    } else {
-      throw AssertionError();
-    }
-  }
-
   void whenPartial({
     void Function(PrefixSunny sunny)? sunny,
     void Function(BadWeather rainy)? rainy,

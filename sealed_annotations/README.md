@@ -20,7 +20,7 @@ Generate sealed class hierarchy for Dart and Flutter.
 * Support for using one sealed type in another.
 * Support for null-safety.
 * Generate toString for data classes.
-* Generate 6 types of different matching methods. like `when` or `whenOrElse`.
+* Generate 3 types of different matching methods. like `when` or `whenOrElse`.
 * Support for automatic unwrapping and Inheritance
 
 ## Usage
@@ -99,31 +99,6 @@ abstract class Weather {
     /* ... */
   }
 
-  R whenOrDefault<R extends Object?>({
-    R Function(WeatherSunny sunny)? sunny,
-    R Function(WeatherRainy rainy)? rainy,
-    R Function(WeatherWindy windy)? windy,
-    required R orDefault,
-  }) {
-    /* ... */
-  }
-
-  R? whenOrNull<R extends Object?>({
-    R Function(WeatherSunny sunny)? sunny,
-    R Function(WeatherRainy rainy)? rainy,
-    R Function(WeatherWindy windy)? windy,
-  }) {
-    /* ... */
-  }
-
-  R whenOrThrow<R extends Object?>({
-    R Function(WeatherSunny sunny)? sunny,
-    R Function(WeatherRainy rainy)? rainy,
-    R Function(WeatherWindy windy)? windy,
-  }) {
-    /* ... */
-  }
-
   void whenPartial({
     void Function(WeatherSunny sunny)? sunny,
     void Function(WeatherRainy rainy)? rainy,
@@ -156,7 +131,6 @@ class WeatherWindy extends Weather {
 
 Notes:
 
-- Always use exact match method that you need, for example do not use `whenOrNull` instead of `whenPartial`.
 - Prefer using factories in super class instead of sub-class constructors.
 - Minimize usage of cast methods, most of the time they can be replaced with a match method.
 

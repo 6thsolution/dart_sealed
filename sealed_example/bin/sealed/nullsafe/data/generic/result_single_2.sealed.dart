@@ -73,49 +73,6 @@ abstract class Result<D extends num?> {
     }
   }
 
-  R whenOrDefault<R extends Object?>({
-    R Function(ResultSuccess<D> success)? success,
-    R Function(ResultError<D> error)? error,
-    required R orDefault,
-  }) {
-    final result = this;
-    if (result is ResultSuccess<D>) {
-      return success != null ? success(result) : orDefault;
-    } else if (result is ResultError<D>) {
-      return error != null ? error(result) : orDefault;
-    } else {
-      throw AssertionError();
-    }
-  }
-
-  R? whenOrNull<R extends Object?>({
-    R Function(ResultSuccess<D> success)? success,
-    R Function(ResultError<D> error)? error,
-  }) {
-    final result = this;
-    if (result is ResultSuccess<D>) {
-      return success?.call(result);
-    } else if (result is ResultError<D>) {
-      return error?.call(result);
-    } else {
-      throw AssertionError();
-    }
-  }
-
-  R whenOrThrow<R extends Object?>({
-    R Function(ResultSuccess<D> success)? success,
-    R Function(ResultError<D> error)? error,
-  }) {
-    final result = this;
-    if (result is ResultSuccess<D> && success != null) {
-      return success(result);
-    } else if (result is ResultError<D> && error != null) {
-      return error(result);
-    } else {
-      throw AssertionError();
-    }
-  }
-
   void whenPartial({
     void Function(ResultSuccess<D> success)? success,
     void Function(ResultError<D> error)? error,
