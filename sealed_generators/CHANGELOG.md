@@ -1,3 +1,7 @@
+## master
+
+- Changed cast methods to getters
+
 ## 1.5.0
 
 - Removed support for super_enum API

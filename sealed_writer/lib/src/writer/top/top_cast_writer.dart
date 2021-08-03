@@ -9,22 +9,22 @@ import 'package:sealed_writer/src/writer/base/base_cast_utils_writer.dart';
 class TopCastWriter extends BaseCastUtilsWriter {
   const TopCastWriter(Manifest manifest) : super(manifest);
 
-  /// ex. isRainy()
+  /// ex. isRainy
   String topCastIs(ManifestItem item) =>
-      'bool is${subUpper(item)}() => this ${isSub(item)};';
+      'bool get is${subUpper(item)} => this ${isSub(item)};';
 
   Iterable<String> topCastsIs() => manifest.items.map(topCastIs);
 
   /// ex. asRainy()
   String topCastAs(ManifestItem item) =>
-      '${subCall(item)} as${subUpper(item)}() =>'
+      '${subCall(item)} get as${subUpper(item)} =>'
       ' this ${asSub(item)};';
 
   Iterable<String> topCastsAs() => manifest.items.map(topCastAs);
 
   /// ex. asRainyOrNull()
   String topCastAsOrNull(ManifestItem item) => [
-        '${subCall(item)}$n as${subUpper(item)}OrNull() {',
+        '${subCall(item)}$n get as${subUpper(item)}OrNull {',
         initThisValue(),
         'return $topLower ${isSub(item)} ? $topLower : null;',
         '}',

@@ -26,20 +26,20 @@ abstract class Result<D extends num> {
     required Object exception,
   }) = ResultError<D>;
 
-  bool isSuccess() => this is ResultSuccess<D>;
+  bool get isSuccess => this is ResultSuccess<D>;
 
-  bool isError() => this is ResultError<D>;
+  bool get isError => this is ResultError<D>;
 
-  ResultSuccess<D> asSuccess() => this as ResultSuccess<D>;
+  ResultSuccess<D> get asSuccess => this as ResultSuccess<D>;
 
-  ResultError<D> asError() => this as ResultError<D>;
+  ResultError<D> get asError => this as ResultError<D>;
 
-  ResultSuccess<D>? asSuccessOrNull() {
+  ResultSuccess<D>? get asSuccessOrNull {
     final result = this;
     return result is ResultSuccess<D> ? result : null;
   }
 
-  ResultError<D>? asErrorOrNull() {
+  ResultError<D>? get asErrorOrNull {
     final result = this;
     return result is ResultError<D> ? result : null;
   }
