@@ -31,29 +31,29 @@ abstract class Weather {
     required double? angle,
   }) = VeryBadWeather;
 
-  bool isSunny() => this is PrefixSunny;
+  bool get isSunny => this is PrefixSunny;
 
-  bool isRainy() => this is BadWeather;
+  bool get isRainy => this is BadWeather;
 
-  bool isWindy() => this is VeryBadWeather;
+  bool get isWindy => this is VeryBadWeather;
 
-  PrefixSunny asSunny() => this as PrefixSunny;
+  PrefixSunny get asSunny => this as PrefixSunny;
 
-  BadWeather asRainy() => this as BadWeather;
+  BadWeather get asRainy => this as BadWeather;
 
-  VeryBadWeather asWindy() => this as VeryBadWeather;
+  VeryBadWeather get asWindy => this as VeryBadWeather;
 
-  PrefixSunny? asSunnyOrNull() {
+  PrefixSunny? get asSunnyOrNull {
     final weather = this;
     return weather is PrefixSunny ? weather : null;
   }
 
-  BadWeather? asRainyOrNull() {
+  BadWeather? get asRainyOrNull {
     final weather = this;
     return weather is BadWeather ? weather : null;
   }
 
-  VeryBadWeather? asWindyOrNull() {
+  VeryBadWeather? get asWindyOrNull {
     final weather = this;
     return weather is VeryBadWeather ? weather : null;
   }

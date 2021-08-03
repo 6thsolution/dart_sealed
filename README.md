@@ -12,7 +12,7 @@ Generate sealed class hierarchy for Dart and Flutter.
 
 * Generate sealed class with abstract super type and data sub-classes.
 * Static factory methods. for example `Result.success(data: 0)`.
-* Cast methods. for example `a.asSuccess()`, `a.isSuccess()` or `a.asSuccessOrNull()`.
+* Cast methods. for example `a.asSuccess`, `a.isSuccess` or `a.asSuccessOrNull`.
 * Three types of equality and hashCode generation : data (like kotlin data classes), identity and distinct.
 * Implement data equality with popular equatable library.
 * Support for generics. even types can be mixed.
@@ -40,7 +40,7 @@ Import `sealed_annotations`.
 import 'package:sealed_annotations/sealed_annotations.dart';
 ```
 
-Add `part` pointing to a file which you want classes be generated in. with `.super.dart` extension.
+Add `part` pointing to a file which you want classes be generated in. with `.sealed.dart` extension.
 
 ```dart
 part 'weather.sealed.dart';
@@ -71,11 +71,11 @@ The generated code will look like: (the following code is summarised)
 abstract class Weather {
   const factory Weather.rainy({required int rain}) = WeatherRainy;
 
-  bool isRainy() => this is WeatherRainy;
+  bool get isRainy => this is WeatherRainy;
 
-  WeatherRainy asRainy() => this as WeatherRainy;
+  WeatherRainy get asRainy => this as WeatherRainy;
 
-  WeatherRainy? asRainyOrNull() {
+  WeatherRainy? get asRainyOrNull {
     /* ... */
   }
 
@@ -157,7 +157,7 @@ class WeatherWindy extends Weather {
 
 Notes:
 
-- Prefer using factories in super class instead of sub-class constructors.
+- Prefer using factories in super class instead of sub-class constructors. like `Whether.rainy()` instead of `WhetherRainy()`
 - Minimize usage of cast methods, most of the time they can be replaced with a match method.
 
 ## Equality and generated class names

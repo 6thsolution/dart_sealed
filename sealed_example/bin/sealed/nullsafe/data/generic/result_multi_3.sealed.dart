@@ -33,29 +33,29 @@ abstract class Result<D extends num, E extends Object> {
     required E? exception,
   }) = ResultMixed<D, E>;
 
-  bool isSuccess() => this is ResultSuccess<D, E>;
+  bool get isSuccess => this is ResultSuccess<D, E>;
 
-  bool isError() => this is ResultError<D, E>;
+  bool get isError => this is ResultError<D, E>;
 
-  bool isMixed() => this is ResultMixed<D, E>;
+  bool get isMixed => this is ResultMixed<D, E>;
 
-  ResultSuccess<D, E> asSuccess() => this as ResultSuccess<D, E>;
+  ResultSuccess<D, E> get asSuccess => this as ResultSuccess<D, E>;
 
-  ResultError<D, E> asError() => this as ResultError<D, E>;
+  ResultError<D, E> get asError => this as ResultError<D, E>;
 
-  ResultMixed<D, E> asMixed() => this as ResultMixed<D, E>;
+  ResultMixed<D, E> get asMixed => this as ResultMixed<D, E>;
 
-  ResultSuccess<D, E>? asSuccessOrNull() {
+  ResultSuccess<D, E>? get asSuccessOrNull {
     final result = this;
     return result is ResultSuccess<D, E> ? result : null;
   }
 
-  ResultError<D, E>? asErrorOrNull() {
+  ResultError<D, E>? get asErrorOrNull {
     final result = this;
     return result is ResultError<D, E> ? result : null;
   }
 
-  ResultMixed<D, E>? asMixedOrNull() {
+  ResultMixed<D, E>? get asMixedOrNull {
     final result = this;
     return result is ResultMixed<D, E> ? result : null;
   }

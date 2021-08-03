@@ -20,11 +20,11 @@ abstract class Apple {
     required Banana? banana,
   }) = AppleHold;
 
-  bool isHold() => this is AppleHold;
+  bool get isHold => this is AppleHold;
 
-  AppleHold asHold() => this as AppleHold;
+  AppleHold get asHold => this as AppleHold;
 
-  AppleHold? asHoldOrNull() {
+  AppleHold? get asHoldOrNull {
     final apple = this;
     return apple is AppleHold ? apple : null;
   }
@@ -142,11 +142,11 @@ abstract class Banana {
     required Apple apple,
   }) = BananaHold;
 
-  bool isHold() => this is BananaHold;
+  bool get isHold => this is BananaHold;
 
-  BananaHold asHold() => this as BananaHold;
+  BananaHold get asHold => this as BananaHold;
 
-  BananaHold? asHoldOrNull() {
+  BananaHold? get asHoldOrNull {
     final banana = this;
     return banana is BananaHold ? banana : null;
   }
@@ -279,29 +279,29 @@ abstract class Coconut {
     required Banana? banana,
   }) = CoconutHold;
 
-  bool isTest1() => this is CoconutTest1;
+  bool get isTest1 => this is CoconutTest1;
 
-  bool isTest2() => this is CoconutTest2;
+  bool get isTest2 => this is CoconutTest2;
 
-  bool isHold() => this is CoconutHold;
+  bool get isHold => this is CoconutHold;
 
-  CoconutTest1 asTest1() => this as CoconutTest1;
+  CoconutTest1 get asTest1 => this as CoconutTest1;
 
-  CoconutTest2 asTest2() => this as CoconutTest2;
+  CoconutTest2 get asTest2 => this as CoconutTest2;
 
-  CoconutHold asHold() => this as CoconutHold;
+  CoconutHold get asHold => this as CoconutHold;
 
-  CoconutTest1? asTest1OrNull() {
+  CoconutTest1? get asTest1OrNull {
     final coconut = this;
     return coconut is CoconutTest1 ? coconut : null;
   }
 
-  CoconutTest2? asTest2OrNull() {
+  CoconutTest2? get asTest2OrNull {
     final coconut = this;
     return coconut is CoconutTest2 ? coconut : null;
   }
 
-  CoconutHold? asHoldOrNull() {
+  CoconutHold? get asHoldOrNull {
     final coconut = this;
     return coconut is CoconutHold ? coconut : null;
   }

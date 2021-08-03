@@ -12,7 +12,7 @@ Generate sealed class hierarchy for Dart and Flutter.
 
 * Generate sealed class with abstract super type and data sub-classes.
 * Static factory methods. for example `Result.success(data: 0)`.
-* Cast methods. for example `a.asSuccess()`, `a.isSuccess()` or `a.asSuccessOrNull()`.
+* Cast methods. for example `a.asSuccess`, `a.isSuccess` or `a.asSuccessOrNull`.
 * Three types of equality and hashCode generation : data (like kotlin data classes), identity and distinct.
 * Implement data equality with popular equatable library.
 * Support for generics. even types can be mixed.
@@ -71,11 +71,11 @@ The generated code will look like: (the following code is summarised)
 abstract class Weather {
   const factory Weather.rainy({required int rain}) = WeatherRainy;
 
-  bool isRainy() => this is WeatherRainy;
+  bool get isRainy => this is WeatherRainy;
 
-  WeatherRainy asRainy() => this as WeatherRainy;
+  WeatherRainy get asRainy => this as WeatherRainy;
 
-  WeatherRainy? asRainyOrNull() {
+  WeatherRainy? get asRainyOrNull {
     /* ... */
   }
 

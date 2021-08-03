@@ -22,7 +22,7 @@ void main() {
 
           expect(
             writer.topCastIs(item),
-            'bool isSunny() => this is HiSunny;',
+            'bool get isSunny => this is HiSunny;',
           );
         });
       });
@@ -35,7 +35,7 @@ void main() {
 
           expect(
             writer.topCastIs(item),
-            'bool isSuccess() => this is MySuccess<T>;',
+            'bool get isSuccess => this is MySuccess<T>;',
           );
         });
       });
@@ -48,9 +48,9 @@ void main() {
       expect(
         writer.topCastsIs().joinMethods(),
         stringContainsInOrder([
-          'isSunny()',
-          'isRainy()',
-          'isWindy()',
+          'isSunny',
+          'isRainy',
+          'isWindy',
         ]),
       );
     });
@@ -64,7 +64,7 @@ void main() {
 
           expect(
             writer.topCastAs(item),
-            'HiSunny asSunny() => this as HiSunny;',
+            'HiSunny get asSunny => this as HiSunny;',
           );
         });
       });
@@ -77,7 +77,7 @@ void main() {
 
           expect(
             writer.topCastAs(item),
-            'MySuccess<T> asSuccess() => this as MySuccess<T>;',
+            'MySuccess<T> get asSuccess => this as MySuccess<T>;',
           );
         });
       });
@@ -90,9 +90,9 @@ void main() {
       expect(
         writer.topCastsAs().joinMethods(),
         stringContainsInOrder([
-          'asSunny()',
-          'asRainy()',
-          'asWindy()',
+          'asSunny',
+          'asRainy',
+          'asWindy',
         ]),
       );
     });
@@ -106,7 +106,7 @@ void main() {
 
           expect(
             writer.topCastAsOrNull(item),
-            'HiSunny? asSunnyOrNull() {\n'
+            'HiSunny? get asSunnyOrNull {\n'
             'final weather = this;\n'
             'return weather is HiSunny ? weather : null;\n'
             '}',
@@ -122,7 +122,7 @@ void main() {
 
           expect(
             writer.topCastAsOrNull(item),
-            'MySuccess<T>? asSuccessOrNull() {\n'
+            'MySuccess<T>? get asSuccessOrNull {\n'
             'final result = this;\n'
             'return result is MySuccess<T> ? result : null;\n'
             '}',
@@ -138,9 +138,9 @@ void main() {
       expect(
         writer.topCastsAsOrNull().joinMethods(),
         stringContainsInOrder([
-          'asSunnyOrNull()',
-          'asRainyOrNull()',
-          'asWindyOrNull()',
+          'asSunnyOrNull',
+          'asRainyOrNull',
+          'asWindyOrNull',
         ]),
       );
     });
@@ -152,9 +152,9 @@ void main() {
       expect(
         writer.topCastMethods().joinMethods(),
         stringContainsInOrder([
-          'isSunny()',
-          'asRainy()',
-          'asWindyOrNull()',
+          'isSunny',
+          'asRainy',
+          'asWindyOrNull',
         ]),
       );
     });

@@ -31,29 +31,29 @@ abstract class Weather {
     required double? angle,
   }) = WeatherWindy;
 
-  bool isSunny() => this is WeatherSunny;
+  bool get isSunny => this is WeatherSunny;
 
-  bool isRainy() => this is WeatherRainy;
+  bool get isRainy => this is WeatherRainy;
 
-  bool isWindy() => this is WeatherWindy;
+  bool get isWindy => this is WeatherWindy;
 
-  WeatherSunny asSunny() => this as WeatherSunny;
+  WeatherSunny get asSunny => this as WeatherSunny;
 
-  WeatherRainy asRainy() => this as WeatherRainy;
+  WeatherRainy get asRainy => this as WeatherRainy;
 
-  WeatherWindy asWindy() => this as WeatherWindy;
+  WeatherWindy get asWindy => this as WeatherWindy;
 
-  WeatherSunny? asSunnyOrNull() {
+  WeatherSunny? get asSunnyOrNull {
     final weather = this;
     return weather is WeatherSunny ? weather : null;
   }
 
-  WeatherRainy? asRainyOrNull() {
+  WeatherRainy? get asRainyOrNull {
     final weather = this;
     return weather is WeatherRainy ? weather : null;
   }
 
-  WeatherWindy? asWindyOrNull() {
+  WeatherWindy? get asWindyOrNull {
     final weather = this;
     return weather is WeatherWindy ? weather : null;
   }

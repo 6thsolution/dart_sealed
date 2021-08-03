@@ -11,7 +11,7 @@ void main() {
       expect(a, hasType<ResultError<num>>());
 
       final b = Result.success(data: 1.5);
-      expect(b.asSuccess().data, equals(1.5));
+      expect(b.asSuccess.data, equals(1.5));
       expect(b, hasType<ResultSuccess<double>>());
 
       final c = ResultSuccess(data: 1);
