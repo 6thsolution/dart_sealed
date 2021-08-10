@@ -117,7 +117,7 @@ String? extractWithTypeOrNull(Element element) {
   if (obj != null) {
     final type = _readWithType(obj);
     require(
-      type.isSimpleOrNullableTypeName(),
+      type.isExternalTypeName(),
       () => "overridden type name '$type' should be a valid type name"
           ', optionally with nullability sign',
     );

@@ -1,11 +1,8 @@
-import 'package:meta/meta.dart';
 import 'package:sealed_writer/src/manifest/manifest.dart';
 import 'package:sealed_writer/src/utils/string_utils.dart';
 import 'package:sealed_writer/src/writer/base/base_utils_writer.dart';
 
 /// top builder writer
-@immutable
-@sealed
 class TopBuilderWriter extends BaseUtilsWriter {
   const TopBuilderWriter(Manifest manifest) : super(manifest);
 
@@ -50,15 +47,12 @@ class TopBuilderWriter extends BaseUtilsWriter {
   /// ex. static ResultSuccess<T> <T extends num>success(...) =>
   /// ResultSuccess<T>(...)
   String topStaticBuilder(ManifestItem item) => [
-        annotationFactory,
-        [
-          'static ${subCall(item)} ${subLower(item)}$genericDec',
-          topBuilderDecArgs(item),
-          ' => ${subCall(item)}',
-          topBuilderCallArgs(item),
-          ';',
-        ].joinParts(),
-      ].joinLines();
+        'static ${subCall(item)} ${subLower(item)}$genericDec',
+        topBuilderDecArgs(item),
+        ' => ${subCall(item)}',
+        topBuilderCallArgs(item),
+        ';',
+      ].joinParts();
 
   /// ex. factory Weather.sunny() = WeatherSunny;
   ///

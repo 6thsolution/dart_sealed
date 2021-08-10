@@ -1,11 +1,8 @@
-import 'package:meta/meta.dart';
 import 'package:sealed_writer/src/manifest/manifest.dart';
 import 'package:sealed_writer/src/utils/string_utils.dart';
 import 'package:sealed_writer/src/writer/base/base_writer.dart';
 
 /// write docs for sub classes
-@sealed
-@immutable
 class SubDocWriter extends BaseWriter {
   static const equalityNames = ['data', 'identity', 'distinct'];
 

@@ -66,17 +66,42 @@ void main() {
       expect('A b'.isGenTypeName(), isFalse);
     });
 
-    test('method isSimpleOrNullableTypeName', () {
-      expect('_hello'.isSimpleOrNullableTypeName(), isTrue);
-      expect('_Hello'.isSimpleOrNullableTypeName(), isTrue);
-      expect('hello'.isSimpleOrNullableTypeName(), isTrue);
-      expect('Hello'.isSimpleOrNullableTypeName(), isTrue);
+    test('method isExternalTypeName', () {
+      expect('_hello'.isExternalTypeName(), isTrue);
+      expect('_Hello'.isExternalTypeName(), isTrue);
+      expect('hello'.isExternalTypeName(), isTrue);
+      expect('Hello'.isExternalTypeName(), isTrue);
 
-      expect('Hello?'.isSimpleOrNullableTypeName(), isTrue);
+      expect('Hello?'.isExternalTypeName(), isTrue);
 
-      expect(''.isSimpleOrNullableTypeName(), isFalse);
-      expect('A '.isSimpleOrNullableTypeName(), isFalse);
-      expect('A b'.isSimpleOrNullableTypeName(), isFalse);
+      expect('void Function(int x)'.isExternalTypeName(), isTrue);
+      expect('void Function(int x)?'.isExternalTypeName(), isTrue);
+      expect('void Function(int)'.isExternalTypeName(), isTrue);
+      expect('void Function(int)?'.isExternalTypeName(), isTrue);
+
+      expect(''.isExternalTypeName(), isFalse);
+      expect('?'.isExternalTypeName(), isFalse);
+      expect('A '.isExternalTypeName(), isFalse);
+      expect(' A'.isExternalTypeName(), isFalse);
+    });
+
+    test('method isExternalNonNullableTypeName', () {
+      expect('_hello'.isExternalNonNullableTypeName(), isTrue);
+      expect('_Hello'.isExternalNonNullableTypeName(), isTrue);
+      expect('hello'.isExternalNonNullableTypeName(), isTrue);
+      expect('Hello'.isExternalNonNullableTypeName(), isTrue);
+
+      expect('Hello?'.isExternalNonNullableTypeName(), isFalse);
+
+      expect('void Function(int x)'.isExternalNonNullableTypeName(), isTrue);
+      expect('void Function(int x)?'.isExternalNonNullableTypeName(), isFalse);
+      expect('void Function(int)'.isExternalNonNullableTypeName(), isTrue);
+      expect('void Function(int)?'.isExternalNonNullableTypeName(), isFalse);
+
+      expect(''.isExternalNonNullableTypeName(), isFalse);
+      expect('?'.isExternalNonNullableTypeName(), isFalse);
+      expect('A '.isExternalNonNullableTypeName(), isFalse);
+      expect(' A'.isExternalNonNullableTypeName(), isFalse);
     });
 
     test('method readType', () {
@@ -90,7 +115,6 @@ void main() {
 
       expect(() => ''.readType(), throwsInternal());
       expect(() => 'A '.readType(), throwsInternal());
-      expect(() => 'A b'.readType(), throwsInternal());
     });
   });
 }

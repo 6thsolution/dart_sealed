@@ -1,12 +1,9 @@
 import 'package:analyzer/dart/element/element.dart';
-import 'package:meta/meta.dart';
-import 'package:sealed_annotations/sealed_annotations.dart';
 import 'package:sealed_generators/src/manifest/annotation_utils.dart';
 import 'package:sealed_generators/src/manifest/manifest_reader.dart';
 import 'package:sealed_writer/sealed_writer.dart';
 
 /// provides options and details not general to the manifest to reader
-@sealed
 class ManifestReaderBuilder {
   const ManifestReaderBuilder();
 

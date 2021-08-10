@@ -1,3 +1,9 @@
+## dev
+
+- Removed @immutable, @factory and @sealed generation
+- Removed meta export from sealed_annotations
+- Added support for functional types as field types
+
 ## 1.6.0
 
 - Changed cast methods to getters
@@ -6,7 +12,7 @@
 ## 1.5.0
 
 - Removed support for super_enum API
-- Removed support for non null-safe projects.
+- Removed support for non null-safe projects
 - Removed whenOrThrow, whenOrNull and whenOrDefault
 - Removed wrapping functionality
 - Rename whenOrElse to maybeWhen

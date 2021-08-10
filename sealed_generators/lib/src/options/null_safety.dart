@@ -1,11 +1,8 @@
 import 'package:analyzer/dart/element/element.dart';
-import 'package:meta/meta.dart';
 import 'package:pub_semver/pub_semver.dart';
 import 'package:sealed_writer/sealed_writer.dart';
 
 /// read null-safety state
-@sealed
-@immutable
 class NullSafety {
   const NullSafety();
 

@@ -1,9 +1,6 @@
-import 'package:meta/meta.dart';
 import 'package:sealed_writer/src/exceptions/exceptions.dart';
 import 'package:sealed_writer/src/utils/string_utils.dart';
 
-@sealed
-@immutable
 class Branch {
   Branch({
     required this.ifs,
@@ -39,8 +36,6 @@ class Branch {
   String toString() => 'Branch{ifs: $ifs, else: $els}';
 }
 
-@immutable
-@sealed
 class If {
   const If({
     required this.condition,
@@ -54,8 +49,6 @@ class If {
   String toString() => 'if($condition){$code}';
 }
 
-@immutable
-@sealed
 class Else {
   const Else({
     required this.code,

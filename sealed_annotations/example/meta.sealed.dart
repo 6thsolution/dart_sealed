@@ -15,7 +15,6 @@ part of 'meta.dart';
 /// ([VeryBadWeather] windy){[double] velocity, [double]? angle} with distinct equality
 ///
 /// }
-@immutable
 @SealedManifest(_Weather)
 abstract class Weather {
   const Weather._internal();
@@ -194,7 +193,6 @@ abstract class Weather {
 /// (([PrefixSunny] : [Weather]) sunny){}
 ///
 /// with data equality
-@immutable
 class PrefixSunny extends Weather with EquatableMixin {
   const PrefixSunny() : super._internal();
 
@@ -208,7 +206,6 @@ class PrefixSunny extends Weather with EquatableMixin {
 /// (([BadWeather] : [Weather]) rainy){[int] rain}
 ///
 /// with data equality
-@immutable
 class BadWeather extends Weather with EquatableMixin {
   const BadWeather({
     required this.rain,
@@ -228,7 +225,6 @@ class BadWeather extends Weather with EquatableMixin {
 /// (([VeryBadWeather] : [Weather]) windy){[double] velocity, [double]? angle}
 ///
 /// with distinct equality
-@immutable
 class VeryBadWeather extends Weather {
   const VeryBadWeather({
     required this.velocity,

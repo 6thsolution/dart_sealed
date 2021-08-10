@@ -1,4 +1,3 @@
-import 'package:meta/meta.dart';
 import 'package:sealed_writer/src/exceptions/exceptions.dart';
 import 'package:test/test.dart';
 
@@ -36,7 +35,6 @@ Matcher throwsInternal() => throwsA(isInternalSealedError());
 /// delegate and log
 Matcher logging(Matcher matcher) => _Logging(matcher);
 
-@sealed
 class _HasMessage extends CustomMatcher {
   _HasMessage(dynamic matcher)
       : super('SealedError with message that is', 'message', matcher);
@@ -45,7 +43,6 @@ class _HasMessage extends CustomMatcher {
   Object? featureValueOf(dynamic actual) => (actual as SealedError).message;
 }
 
-@sealed
 class _HasCause extends CustomMatcher {
   _HasCause(dynamic matcher)
       : super('SealedError with cause that is', 'cause', matcher);
@@ -55,7 +52,6 @@ class _HasCause extends CustomMatcher {
 }
 
 /// delegate and log
-@sealed
 class _Logging implements Matcher {
   final Matcher matcher;
 

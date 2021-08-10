@@ -1,11 +1,8 @@
-import 'package:meta/meta.dart';
 import 'package:sealed_writer/src/manifest/manifest.dart';
 import 'package:sealed_writer/src/utils/string_utils.dart';
 import 'package:sealed_writer/src/writer/base/base_cast_utils_writer.dart';
 
 /// top cast writer
-@immutable
-@sealed
 class TopCastWriter extends BaseCastUtilsWriter {
   const TopCastWriter(Manifest manifest) : super(manifest);
 

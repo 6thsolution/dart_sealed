@@ -200,18 +200,15 @@ void main() {
 
           expect(
             writer.topStaticBuilder(item1),
-            '@factory\n'
             'static HiSunny sunny() => HiSunny();',
           );
           expect(
             writer.topStaticBuilder(item2),
-            '@factory\n'
             'static WeatherRainy rainy({required int rain,}) =>'
             ' WeatherRainy(rain: rain,);',
           );
           expect(
             writer.topStaticBuilder(item3),
-            '@factory\n'
             'static HelloWindy windy'
             '({required double velocity, required double? angle,})'
             ' => HelloWindy'
@@ -228,7 +225,6 @@ void main() {
 
           expect(
             writer.topStaticBuilder(item1),
-            '@factory\n'
             'static MySuccess<T> success<T extends num>('
             '{required T data,}'
             ') => MySuccess<T>('
