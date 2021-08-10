@@ -557,7 +557,7 @@ void one<T>();
           final x = await resolveSealedSafe('''
 @Sealed()
 abstract class _Basic {
-void one(@WithType("Hel llo") x);
+void one(@WithType("Hello ") x);
 }''');
           final reader = SourceReader();
           expect(

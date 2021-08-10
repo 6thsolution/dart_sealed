@@ -131,7 +131,7 @@ class ManifestType {
     required this.name,
     required this.isNullable,
   }) {
-    check(name.isGenTypeName());
+    check(name.isExternalNonNullableTypeName());
   }
 
   /// name without any ?, ! or *
