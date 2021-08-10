@@ -1,4 +1,4 @@
-## dev
+## 1.7.0
 
 - Removed @immutable, @factory and @sealed generation
 - Removed meta export from sealed_annotations
