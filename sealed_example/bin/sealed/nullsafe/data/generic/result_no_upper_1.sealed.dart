@@ -13,7 +13,6 @@ part of 'result_no_upper_1.dart';
 /// ([ResultError] error){[E] exception} with data equality
 ///
 /// }
-@immutable
 @SealedManifest(_Result)
 abstract class Result<D extends Object?, E extends Object?> {
   const Result._internal();
@@ -152,7 +151,6 @@ abstract class Result<D extends Object?, E extends Object?> {
 /// (([ResultSuccess] : [Result])<[D] extends [Object]?, [E] extends [Object]?> success){[D] data}
 ///
 /// with data equality
-@immutable
 class ResultSuccess<D extends Object?, E extends Object?> extends Result<D, E>
     with EquatableMixin {
   const ResultSuccess({
@@ -173,7 +171,6 @@ class ResultSuccess<D extends Object?, E extends Object?> extends Result<D, E>
 /// (([ResultError] : [Result])<[D] extends [Object]?, [E] extends [Object]?> error){[E] exception}
 ///
 /// with data equality
-@immutable
 class ResultError<D extends Object?, E extends Object?> extends Result<D, E>
     with EquatableMixin {
   const ResultError({

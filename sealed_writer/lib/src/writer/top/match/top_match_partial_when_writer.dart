@@ -1,12 +1,9 @@
-import 'package:meta/meta.dart';
 import 'package:sealed_writer/src/manifest/manifest.dart';
 import 'package:sealed_writer/src/utils/branch_utils.dart';
 import 'package:sealed_writer/src/utils/string_utils.dart';
 import 'package:sealed_writer/src/writer/top/match/top_match_base_writer.dart';
 
 /// match method writer partialWhen()
-@sealed
-@immutable
 class TopMatchPartialWhenWriter extends TopMatchBaseWriter {
   const TopMatchPartialWhenWriter(Manifest manifest) : super(manifest);
 

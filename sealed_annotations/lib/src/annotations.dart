@@ -2,7 +2,6 @@
 library sealed_annotations_annotations;
 
 import 'package:meta/meta_meta.dart';
-import 'package:sealed_annotations/sealed_annotations.dart';
 
 /// annotate classes with @[Sealed] to generate sealed class code.
 ///
@@ -49,10 +48,8 @@ import 'package:sealed_annotations/sealed_annotations.dart';
 ///   void windy(double velocity, double? angle);
 /// }
 /// ```
-@sealed
 @Target({TargetKind.classType})
 class Sealed {
-  @literal
   const Sealed();
 
   @override
@@ -65,12 +62,10 @@ class Sealed {
 /// users should NOT use this annotation.
 ///
 /// see: [Sealed]
-@sealed
 @Target({TargetKind.classType})
 class SealedManifest {
   final Type manifest;
 
-  @literal
   const SealedManifest(this.manifest);
 
   @override
@@ -93,14 +88,12 @@ class SealedManifest {
 ///   void rainy(@WithType('int') rain);
 /// }
 /// ```
-@sealed
 @Target({TargetKind.parameter})
 class WithType {
   /// type name.
   /// for example "int?", "double" or "Result<WeatherData>".
   final String type;
 
-  @literal
   const WithType(this.type);
 
   @override
@@ -123,7 +116,6 @@ class WithType {
 ///   void rainy(int rain); // will become Hello
 /// }
 /// ```
-@sealed
 @Target({TargetKind.method})
 class WithName {
   /// name.
@@ -132,7 +124,6 @@ class WithName {
   /// the specified sub class full name.
   final String name;
 
-  @literal
   const WithName(this.name);
 
   @override
@@ -155,7 +146,6 @@ class WithName {
 ///   void rainy(int rain); // will become LollipopRainy
 /// }
 /// ```
-@sealed
 @Target({TargetKind.classType})
 class WithPrefix {
   /// prefix.
@@ -164,7 +154,6 @@ class WithPrefix {
   /// sub classes.
   final String prefix;
 
-  @literal
   const WithPrefix(this.prefix);
 
   @override
@@ -194,7 +183,6 @@ class WithPrefix {
 ///   void rainy(int rain); // will become LollipopRainy
 /// }
 /// ```
-@sealed
 @Target({TargetKind.classType, TargetKind.method})
 class WithEquality {
   /// equality.
@@ -206,7 +194,6 @@ class WithEquality {
   /// specified sub class.
   final Equality equality;
 
-  @literal
   const WithEquality(this.equality);
 
   @override

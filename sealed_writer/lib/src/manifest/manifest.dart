@@ -1,11 +1,8 @@
-import 'package:meta/meta.dart';
 import 'package:sealed_writer/src/exceptions/exceptions.dart';
 import 'package:sealed_writer/src/utils/list_equality_utils.dart';
 import 'package:sealed_writer/src/utils/type_utils.dart';
 
 /// Manifest
-@immutable
-@sealed
 class Manifest {
   Manifest({
     required this.name,
@@ -43,8 +40,6 @@ class Manifest {
 }
 
 /// Manifest item
-@immutable
-@sealed
 class ManifestItem {
   ManifestItem({
     required this.name,
@@ -99,8 +94,6 @@ enum ManifestEquality {
 }
 
 /// Manifest field
-@immutable
-@sealed
 class ManifestField {
   ManifestField({
     required this.name,
@@ -133,8 +126,6 @@ class ManifestField {
 /// Manifest type
 ///
 /// nullable type
-@immutable
-@sealed
 class ManifestType {
   ManifestType({
     required this.name,
@@ -171,8 +162,6 @@ class ManifestType {
 /// Manifest param
 ///
 /// ex. 'T extends Object?'
-@immutable
-@sealed
 class ManifestParam {
   ManifestParam({
     required this.name,

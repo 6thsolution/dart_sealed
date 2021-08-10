@@ -1,5 +1,3 @@
-import 'package:meta/meta.dart';
-
 /// message should be `null`, `String` or `String Function()`
 void require(final bool value, [final dynamic message]) {
   if (!value) {
@@ -24,7 +22,6 @@ void check(final bool value) {
 }
 
 /// sealed error
-@immutable
 class SealedError extends Error {
   final Object? message;
   final Object? cause;

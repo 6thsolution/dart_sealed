@@ -1,4 +1,3 @@
-import 'package:meta/meta.dart';
 import 'package:sealed_writer/src/manifest/manifest.dart';
 import 'package:sealed_writer/src/utils/string_utils.dart';
 import 'package:sealed_writer/src/writer/base/base_utils_writer.dart';
@@ -10,8 +9,6 @@ import 'package:sealed_writer/src/writer/sub/sub_field_writer.dart';
 import 'package:sealed_writer/src/writer/sub/sub_to_string_writer.dart';
 
 /// source writer
-@sealed
-@immutable
 class SubWriter extends BaseUtilsWriter {
   SubWriter(Manifest manifest)
       : subCopyWriter = SubCopyWriter(manifest),
@@ -41,7 +38,6 @@ class SubWriter extends BaseUtilsWriter {
   /// subclass start
   String subClassStart(ManifestItem item) => [
         subDocWriter.write(item),
-        annotationImmutable,
         [
           'class ${subDec(item)} extends $topCall',
           if (item.equality == ManifestEquality.data) ' with EquatableMixin',

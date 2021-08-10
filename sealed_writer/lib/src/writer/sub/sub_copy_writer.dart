@@ -1,11 +1,8 @@
-import 'package:meta/meta.dart';
 import 'package:sealed_writer/src/manifest/manifest.dart';
 import 'package:sealed_writer/src/utils/string_utils.dart';
 import 'package:sealed_writer/src/writer/base/base_utils_writer.dart';
 
 /// source writer
-@sealed
-@immutable
 class SubCopyWriter extends BaseUtilsWriter {
   const SubCopyWriter(Manifest manifest) : super(manifest);
 
@@ -33,16 +30,13 @@ class SubCopyWriter extends BaseUtilsWriter {
   ///   subCopyWriter.subCopyDeclaration(item)
   /// ```
   String subCopyDeclaration(ManifestItem item) => [
-        annotationFactory,
-        [
-          '${subFull(item)} copy',
-          subCopyDeclarationParts(item)
-              .joinArgsFull()
-              .withBracesOrNot()
-              .withParenthesis(),
-          ' => ${subFull(item)}',
-          subCopyCalcParts(item).joinArgsFull().withParenthesis(),
-          ';',
-        ].joinParts(),
-      ].joinLines();
+        '${subFull(item)} copy',
+        subCopyDeclarationParts(item)
+            .joinArgsFull()
+            .withBracesOrNot()
+            .withParenthesis(),
+        ' => ${subFull(item)}',
+        subCopyCalcParts(item).joinArgsFull().withParenthesis(),
+        ';',
+      ].joinParts();
 }

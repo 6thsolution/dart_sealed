@@ -1,4 +1,3 @@
-import 'package:meta/meta.dart';
 import 'package:sealed_writer/src/manifest/manifest.dart';
 import 'package:sealed_writer/src/utils/string_utils.dart';
 import 'package:sealed_writer/src/writer/base/base_utils_writer.dart';
@@ -8,8 +7,6 @@ import 'package:sealed_writer/src/writer/top/top_cast_writer.dart';
 import 'package:sealed_writer/src/writer/top/top_doc_writer.dart';
 
 /// source writer
-@sealed
-@immutable
 class TopWriter extends BaseUtilsWriter {
   /// [referenceManifest] dictates weather to reference
   /// manifest with @SealedManifest or not, it is true by default
@@ -41,7 +38,6 @@ class TopWriter extends BaseUtilsWriter {
 
   String topClassStart() => [
         topDocWriter.write(),
-        annotationImmutable,
         topManifest(),
         'abstract class $topDec',
       ].joinLines();

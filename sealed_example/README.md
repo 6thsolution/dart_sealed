@@ -40,7 +40,7 @@ Import `sealed_annotations`.
 import 'package:sealed_annotations/sealed_annotations.dart';
 ```
 
-Add `part` pointing to a file which you want classes be generated in. with `.super.dart` extension.
+Add `part` pointing to a file which you want classes be generated in. with `.sealed.dart` extension.
 
 ```dart
 part 'weather.sealed.dart';
@@ -157,7 +157,7 @@ class WeatherWindy extends Weather {
 
 Notes:
 
-- Prefer using factories in super class instead of sub-class constructors.
+- Prefer using factories in super class instead of sub-class constructors. like `Whether.rainy()` instead of `WhetherRainy()`
 - Minimize usage of cast methods, most of the time they can be replaced with a match method.
 
 ## Equality and generated class names

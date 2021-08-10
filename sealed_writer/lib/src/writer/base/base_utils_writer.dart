@@ -1,22 +1,11 @@
-import 'package:meta/meta.dart';
 import 'package:sealed_writer/src/manifest/manifest.dart';
 import 'package:sealed_writer/src/utils/name_utils.dart';
 import 'package:sealed_writer/src/utils/string_utils.dart';
 import 'package:sealed_writer/src/writer/base/base_writer.dart';
 
 /// base writer utilities
-@immutable
 abstract class BaseUtilsWriter extends BaseWriter {
   const BaseUtilsWriter(Manifest manifest) : super(manifest);
-
-  /// @sealed final (closed) class
-  String get annotationClosed => '@sealed';
-
-  /// @immutable
-  String get annotationImmutable => '@immutable';
-
-  /// @factory
-  String get annotationFactory => '@factory';
 
   /// @override
   String get annotationOverride => '@override';

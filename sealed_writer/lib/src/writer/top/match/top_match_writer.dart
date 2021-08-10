@@ -1,4 +1,3 @@
-import 'package:meta/meta.dart';
 import 'package:sealed_writer/src/manifest/manifest.dart';
 import 'package:sealed_writer/src/writer/base/base_writer.dart';
 import 'package:sealed_writer/src/writer/top/match/top_match_map_writer.dart';
@@ -9,8 +8,6 @@ import 'package:sealed_writer/src/writer/top/match/top_match_partial_when_writer
 import 'package:sealed_writer/src/writer/top/match/top_match_when_writer.dart';
 
 /// match method writer
-@sealed
-@immutable
 class TopMatchWriter extends BaseWriter {
   TopMatchWriter(Manifest manifest)
       : topMatchWhenWriter = TopMatchWhenWriter(manifest),

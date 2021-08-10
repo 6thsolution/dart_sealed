@@ -11,7 +11,6 @@ part of 'mixed.dart';
 /// ([AppleHold] hold){[Banana]? banana} with data equality
 ///
 /// }
-@immutable
 @SealedManifest(_Apple)
 abstract class Apple {
   const Apple._internal();
@@ -111,7 +110,6 @@ abstract class Apple {
 /// (([AppleHold] : [Apple]) hold){[Banana]? banana}
 ///
 /// with data equality
-@immutable
 class AppleHold extends Apple with EquatableMixin {
   const AppleHold({
     required this.banana,
@@ -133,7 +131,6 @@ class AppleHold extends Apple with EquatableMixin {
 /// ([BananaHold] hold){[Apple] apple} with data equality
 ///
 /// }
-@immutable
 @SealedManifest(_Banana)
 abstract class Banana {
   const Banana._internal();
@@ -233,7 +230,6 @@ abstract class Banana {
 /// (([BananaHold] : [Banana]) hold){[Apple] apple}
 ///
 /// with data equality
-@immutable
 class BananaHold extends Banana with EquatableMixin {
   const BananaHold({
     required this.apple,
@@ -259,7 +255,6 @@ class BananaHold extends Banana with EquatableMixin {
 /// ([CoconutHold] hold){[Apple]? apple, [Banana]? banana} with data equality
 ///
 /// }
-@immutable
 @SealedManifest(_Coconut)
 abstract class Coconut {
   const Coconut._internal();
@@ -442,7 +437,6 @@ abstract class Coconut {
 /// (([CoconutTest1] : [Coconut]) test1){[int] x, [double] y}
 ///
 /// with data equality
-@immutable
 class CoconutTest1 extends Coconut with EquatableMixin {
   const CoconutTest1({
     required this.x,
@@ -465,7 +459,6 @@ class CoconutTest1 extends Coconut with EquatableMixin {
 /// (([CoconutTest2] : [Coconut]) test2){[int]? x, [double]? y}
 ///
 /// with data equality
-@immutable
 class CoconutTest2 extends Coconut with EquatableMixin {
   const CoconutTest2({
     required this.x,
@@ -488,7 +481,6 @@ class CoconutTest2 extends Coconut with EquatableMixin {
 /// (([CoconutHold] : [Coconut]) hold){[Apple]? apple, [Banana]? banana}
 ///
 /// with data equality
-@immutable
 class CoconutHold extends Coconut with EquatableMixin {
   const CoconutHold({
     required this.apple,

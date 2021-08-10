@@ -1,11 +1,8 @@
-import 'package:meta/meta.dart';
 import 'package:sealed_writer/src/manifest/manifest.dart';
 import 'package:sealed_writer/src/utils/string_utils.dart';
 import 'package:sealed_writer/src/writer/base/base_utils_writer.dart';
 
 /// mimic original manifest code.
-@sealed
-@immutable
 class BackwardWriter extends BaseUtilsWriter {
   /// map equality
   static const _equalityMapping = {

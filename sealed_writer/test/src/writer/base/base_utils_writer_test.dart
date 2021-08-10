@@ -24,27 +24,6 @@ void main() {
       expect(writer.manifest, manifest);
     });
 
-    test('annotation closed', () {
-      final manifest = manifest1Data;
-      final writer = _Writer(manifest);
-
-      expect(writer.annotationClosed, '@sealed');
-    });
-
-    test('annotation immutable', () {
-      final manifest = manifest1Data;
-      final writer = _Writer(manifest);
-
-      expect(writer.annotationImmutable, '@immutable');
-    });
-
-    test('annotation factory', () {
-      final manifest = manifest1Data;
-      final writer = _Writer(manifest);
-
-      expect(writer.annotationFactory, '@factory');
-    });
-
     test('annotation override', () {
       final manifest = manifest1Data;
       final writer = _Writer(manifest);

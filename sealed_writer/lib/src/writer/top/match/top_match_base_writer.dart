@@ -1,12 +1,9 @@
-import 'package:meta/meta.dart';
 import 'package:sealed_writer/src/manifest/manifest.dart';
 import 'package:sealed_writer/src/utils/branch_utils.dart';
 import 'package:sealed_writer/src/utils/string_utils.dart';
 import 'package:sealed_writer/src/writer/base/base_cast_utils_writer.dart';
 
 /// match method writer base
-@sealed
-@immutable
 class TopMatchBaseWriter extends BaseCastUtilsWriter {
   const TopMatchBaseWriter(Manifest manifest) : super(manifest);
 
