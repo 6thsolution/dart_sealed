@@ -1,3 +1,7 @@
+## 1.8.0
+
+- Changed using `any` for external dependencies
+
 ## 1.7.0
 
 - Removed @immutable, @factory and @sealed generation
