@@ -18,11 +18,11 @@ abstract class Result<D extends Object?, E extends Object?> {
   const Result._internal();
 
   const factory Result.success({
-    required D? data,
+    D? data,
   }) = ResultSuccess<D, E>;
 
   const factory Result.error({
-    required E? exception,
+    E? exception,
   }) = ResultError<D, E>;
 
   bool get isSuccess => this is ResultSuccess<D, E>;
@@ -154,7 +154,7 @@ abstract class Result<D extends Object?, E extends Object?> {
 class ResultSuccess<D extends Object?, E extends Object?> extends Result<D, E>
     with EquatableMixin {
   const ResultSuccess({
-    required this.data,
+    this.data,
   }) : super._internal();
 
   final D? data;
@@ -174,7 +174,7 @@ class ResultSuccess<D extends Object?, E extends Object?> extends Result<D, E>
 class ResultError<D extends Object?, E extends Object?> extends Result<D, E>
     with EquatableMixin {
   const ResultError({
-    required this.exception,
+    this.exception,
   }) : super._internal();
 
   final E? exception;

@@ -24,11 +24,11 @@ abstract class Functional1 {
   }) = Functional1One;
 
   const factory Functional1.two({
-    required int Function(double)? x,
+    int Function(double)? x,
   }) = Functional1Two;
 
   const factory Functional1.three({
-    required int Function(double)? x,
+    int Function(double)? x,
   }) = Functional1Three;
 
   bool get isOne => this is Functional1One;
@@ -213,7 +213,7 @@ class Functional1One extends Functional1 with EquatableMixin {
 /// with data equality
 class Functional1Two extends Functional1 with EquatableMixin {
   const Functional1Two({
-    required this.x,
+    this.x,
   }) : super._internal();
 
   final int Function(double)? x;
@@ -232,7 +232,7 @@ class Functional1Two extends Functional1 with EquatableMixin {
 /// with data equality
 class Functional1Three extends Functional1 with EquatableMixin {
   const Functional1Three({
-    required this.x,
+    this.x,
   }) : super._internal();
 
   final int Function(double)? x;
@@ -262,7 +262,7 @@ abstract class Functional2 {
   }) = Functional2One;
 
   const factory Functional2.two({
-    required int Function(double)? x,
+    int Function(double)? x,
   }) = Functional2Two;
 
   bool get isOne => this is Functional2One;
@@ -412,7 +412,7 @@ class Functional2One extends Functional2 with EquatableMixin {
 /// with data equality
 class Functional2Two extends Functional2 with EquatableMixin {
   const Functional2Two({
-    required this.x,
+    this.x,
   }) : super._internal();
 
   final int Function(double)? x;
@@ -448,7 +448,7 @@ abstract class Functional3 {
   }) = Functional3One;
 
   const factory Functional3.two({
-    required Func? x,
+    Func? x,
   }) = Functional3Two;
 
   const factory Functional3.three({
@@ -460,7 +460,7 @@ abstract class Functional3 {
   }) = Functional3Four;
 
   const factory Functional3.five({
-    required int Function(double x)? x,
+    int Function(double x)? x,
   }) = Functional3Five;
 
   bool get isOne => this is Functional3One;
@@ -715,7 +715,7 @@ class Functional3One extends Functional3 with EquatableMixin {
 /// with data equality
 class Functional3Two extends Functional3 with EquatableMixin {
   const Functional3Two({
-    required this.x,
+    this.x,
   }) : super._internal();
 
   final Func? x;
@@ -772,7 +772,7 @@ class Functional3Four extends Functional3 with EquatableMixin {
 /// with data equality
 class Functional3Five extends Functional3 with EquatableMixin {
   const Functional3Five({
-    required this.x,
+    this.x,
   }) : super._internal();
 
   final int Function(double x)? x;

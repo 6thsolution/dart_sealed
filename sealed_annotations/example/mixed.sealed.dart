@@ -16,7 +16,7 @@ abstract class Apple {
   const Apple._internal();
 
   const factory Apple.hold({
-    required Banana? banana,
+    Banana? banana,
   }) = AppleHold;
 
   bool get isHold => this is AppleHold;
@@ -112,7 +112,7 @@ abstract class Apple {
 /// with data equality
 class AppleHold extends Apple with EquatableMixin {
   const AppleHold({
-    required this.banana,
+    this.banana,
   }) : super._internal();
 
   final Banana? banana;
@@ -265,13 +265,13 @@ abstract class Coconut {
   }) = CoconutTest1;
 
   const factory Coconut.test2({
-    required int? x,
-    required double? y,
+    int? x,
+    double? y,
   }) = CoconutTest2;
 
   const factory Coconut.hold({
-    required Apple? apple,
-    required Banana? banana,
+    Apple? apple,
+    Banana? banana,
   }) = CoconutHold;
 
   bool get isTest1 => this is CoconutTest1;
@@ -461,8 +461,8 @@ class CoconutTest1 extends Coconut with EquatableMixin {
 /// with data equality
 class CoconutTest2 extends Coconut with EquatableMixin {
   const CoconutTest2({
-    required this.x,
-    required this.y,
+    this.x,
+    this.y,
   }) : super._internal();
 
   final int? x;
@@ -483,8 +483,8 @@ class CoconutTest2 extends Coconut with EquatableMixin {
 /// with data equality
 class CoconutHold extends Coconut with EquatableMixin {
   const CoconutHold({
-    required this.apple,
-    required this.banana,
+    this.apple,
+    this.banana,
   }) : super._internal();
 
   final Apple? apple;

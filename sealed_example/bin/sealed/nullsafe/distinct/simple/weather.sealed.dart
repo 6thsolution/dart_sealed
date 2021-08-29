@@ -27,7 +27,7 @@ abstract class Weather {
 
   const factory Weather.windy({
     required double velocity,
-    required double? angle,
+    double? angle,
   }) = WeatherWindy;
 
   bool get isSunny => this is WeatherSunny;
@@ -226,7 +226,7 @@ class WeatherRainy extends Weather {
 class WeatherWindy extends Weather {
   const WeatherWindy({
     required this.velocity,
-    required this.angle,
+    this.angle,
   }) : super._internal();
 
   final double velocity;
