@@ -65,7 +65,7 @@ void main() {
           test('nullable field', () {
             expect(
               writer.topBuilderDecArg(field2),
-              'required double? angle',
+              'double? angle',
             );
           });
         });
@@ -95,7 +95,7 @@ void main() {
 
       expect(
         writer.topBuilderDecArgs(item3),
-        '({required double velocity, required double? angle,})',
+        '({required double velocity, double? angle,})',
       );
     });
 
@@ -210,7 +210,7 @@ void main() {
           expect(
             writer.topStaticBuilder(item3),
             'static HelloWindy windy'
-            '({required double velocity, required double? angle,})'
+            '({required double velocity, double? angle,})'
             ' => HelloWindy'
             '(velocity: velocity, angle: angle,);',
           );
@@ -259,7 +259,7 @@ void main() {
           expect(
             writer.topFactoryBuilder(item3),
             'const factory Weather.windy'
-            '({required double velocity, required double? angle,})'
+            '({required double velocity, double? angle,})'
             ' = HelloWindy;',
           );
         });

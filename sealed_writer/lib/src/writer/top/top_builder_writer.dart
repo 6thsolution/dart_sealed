@@ -6,11 +6,14 @@ import 'package:sealed_writer/src/writer/base/base_utils_writer.dart';
 class TopBuilderWriter extends BaseUtilsWriter {
   const TopBuilderWriter(Manifest manifest) : super(manifest);
 
-  /// ex. required double? angle
-  String topBuilderDecArg(ManifestField field) =>
-      '$req ${typeSL(field.type)} ${field.name}';
+  /// ex. required double velocity
+  /// ex. double? angle
+  String topBuilderDecArg(ManifestField field) => [
+        if (!field.type.isNullable) '$req ',
+        '${typeSL(field.type)} ${field.name}',
+      ].joinParts();
 
-  /// ex. ({required double velocity, required double? angle,})
+  /// ex. ({required double velocity, double? angle,})
   String topBuilderDecArgs(ManifestItem item) => item.fields
       .map(topBuilderDecArg)
       .joinArgsFull()

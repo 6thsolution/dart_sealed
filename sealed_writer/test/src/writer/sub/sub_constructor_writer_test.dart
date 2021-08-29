@@ -31,7 +31,7 @@ void main() {
         test('nullable field', () {
           expect(
             writer.subConstructorDecArg(field2),
-            'required this.angle',
+            'this.angle',
           );
         });
       });
@@ -45,7 +45,7 @@ void main() {
 
       expect(
         writer.subConstructorDecArgs(item3),
-        '({required this.velocity, required this.angle,})',
+        '({required this.velocity, this.angle,})',
       );
     });
 
@@ -94,7 +94,7 @@ void main() {
         );
         expect(
           writer.subConstructorDeclaration(item3),
-          'const HelloWindy({required this.velocity, required this.angle,})'
+          'const HelloWindy({required this.velocity, this.angle,})'
           ': super._internal();',
         );
       });

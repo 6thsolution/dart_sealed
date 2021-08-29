@@ -27,7 +27,7 @@ abstract class Weather {
 
   const factory Weather.windy({
     required double velocity,
-    required double? angle,
+    double? angle,
   }) = VeryBadWeather;
 
   bool get isSunny => this is PrefixSunny;
@@ -228,7 +228,7 @@ class BadWeather extends Weather with EquatableMixin {
 class VeryBadWeather extends Weather {
   const VeryBadWeather({
     required this.velocity,
-    required this.angle,
+    this.angle,
   }) : super._internal();
 
   final double velocity;

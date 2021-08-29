@@ -18,7 +18,7 @@ abstract class Result<D extends num> {
   const Result._internal();
 
   const factory Result.success({
-    required D? data,
+    D? data,
   }) = ResultSuccess<D>;
 
   const factory Result.error({
@@ -153,7 +153,7 @@ abstract class Result<D extends num> {
 /// with data equality
 class ResultSuccess<D extends num> extends Result<D> with EquatableMixin {
   const ResultSuccess({
-    required this.data,
+    this.data,
   }) : super._internal();
 
   final D? data;
