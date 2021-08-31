@@ -59,7 +59,13 @@ abstract class _Weather {
 }
 ```
 
-Then run the following command to generate code for you.
+Then run the following command to generate code for you. If you are developer for flutter:
+
+```bash
+flutter pub run build_runner build
+```
+
+And if you are developing for pure dart:
 
 ```bash
 dart run build_runner build
@@ -157,7 +163,8 @@ class WeatherWindy extends Weather {
 
 Notes:
 
-- Prefer using factories in super class instead of sub-class constructors. like `Whether.rainy()` instead of `WhetherRainy()`
+- Prefer using factories in super class instead of sub-class constructors. like `Whether.rainy()` instead
+  of `WhetherRainy()`
 - Minimize usage of cast methods, most of the time they can be replaced with a match method.
 
 ## Equality and generated class names
@@ -312,4 +319,21 @@ abstract class _WeatherInfo {
   // you can also have nullable types.
   void nullable(@WithType('Result<WeatherData>?') result);
 }
+```
+
+## Ignoring Generated Files
+
+It is recommended to ignore generated files on Git. Add this to your `.gitignore` file:
+
+```
+*.sealed.dart
+```
+
+It is NOT recommended to exclude generated files from analysis. But if you decide to do so, add this to
+your `analysis_options.yaml` file:
+
+```
+analyzer:
+  exclude:
+    - **.sealed.dart
 ```
