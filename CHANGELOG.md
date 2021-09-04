@@ -1,6 +1,8 @@
 ## dev
 
 - Fixed @WithPrefix allowing empty string as argument
+- Added checks for manifest integrity
+- Added common fields to manifest
 
 ## 1.9.0
 
