@@ -40,6 +40,22 @@ void main() {
         expect(
           writer.topMethods(),
           containsAll(<String>[
+            ...writer.topCommonWriter.topCommonGetters(),
+            ...writer.topBuilderWriter.topBuilderMethods(),
+            ...writer.topCastWriter.topCastMethods(),
+            ...writer.topMatchWriter.topMatchMethods(),
+          ]),
+        );
+      });
+
+      test('equality data common', () {
+        final manifest = manifest3Data;
+        final writer = TopWriter(manifest);
+
+        expect(
+          writer.topMethods(),
+          containsAll(<String>[
+            ...writer.topCommonWriter.topCommonGetters(),
             ...writer.topBuilderWriter.topBuilderMethods(),
             ...writer.topCastWriter.topCastMethods(),
             ...writer.topMatchWriter.topMatchMethods(),
@@ -54,6 +70,7 @@ void main() {
         expect(
           writer.topMethods(),
           containsAll(<String>[
+            ...writer.topCommonWriter.topCommonGetters(),
             ...writer.topBuilderWriter.topBuilderMethods(),
             ...writer.topCastWriter.topCastMethods(),
             ...writer.topMatchWriter.topMatchMethods(),
@@ -68,6 +85,7 @@ void main() {
         expect(
           writer.topMethods(),
           containsAll(<String>[
+            ...writer.topCommonWriter.topCommonGetters(),
             ...writer.topBuilderWriter.topBuilderMethods(),
             ...writer.topCastWriter.topCastMethods(),
             ...writer.topMatchWriter.topMatchMethods(),
