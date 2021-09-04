@@ -6,9 +6,18 @@ import 'package:sealed_writer/src/writer/base/base_utils_writer.dart';
 class SubFieldWriter extends BaseUtilsWriter {
   const SubFieldWriter(Manifest manifest) : super(manifest);
 
+  /// extract field name
+  static String _fieldName(ManifestField field) => field.name;
+
+  /// check if is a common field
+  bool subFieldIsCommon(ManifestField field) =>
+      manifest.fields.map(_fieldName).contains(field.name);
+
   /// ex. final double direction;
-  String subFieldDeclaration(ManifestField field) =>
-      'final ${typeSL(field.type)} ${field.name};';
+  String subFieldDeclaration(ManifestField field) => [
+        if (subFieldIsCommon(field)) annotationOverride,
+        'final ${typeSL(field.type)} ${field.name};',
+      ].joinLines();
 
   Iterable<String> subFieldDeclarationList(ManifestItem item) =>
       item.fields.map(subFieldDeclaration);
