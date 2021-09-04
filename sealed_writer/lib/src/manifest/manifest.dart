@@ -8,6 +8,7 @@ class Manifest {
     required this.name,
     required this.items,
     required this.params,
+    required this.fields,
   }) {
     check(name.isGenClassName());
     check(items.isNotEmpty);
@@ -22,8 +23,15 @@ class Manifest {
   /// params. can be empty.
   final List<ManifestParam> params;
 
+  /// common fields.
+  ///
+  /// items should contain all of common fields
+  /// by themselves.
+  final List<ManifestField> fields;
+
   @override
-  String toString() => 'Manifest{name: $name, items: $items, params: $params}';
+  String toString() => 'Manifest{name: $name, items: $items,'
+      ' params: $params, fields: $fields}';
 
   @override
   bool operator ==(Object other) =>
@@ -32,11 +40,16 @@ class Manifest {
           runtimeType == other.runtimeType &&
           name == other.name &&
           listEquals(items, other.items) &&
-          listEquals(params, other.params);
+          listEquals(params, other.params) &&
+          listEquals(fields, other.fields);
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^ name.hashCode ^ listHash(items) ^ listHash(params);
+      runtimeType.hashCode ^
+      name.hashCode ^
+      listHash(items) ^
+      listHash(params) ^
+      listHash(fields);
 }
 
 /// Manifest item

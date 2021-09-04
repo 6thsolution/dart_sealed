@@ -23,6 +23,7 @@ void two(int x, double? y);
               Manifest(
                 name: 'Basic',
                 params: [],
+                fields: [],
                 items: [
                   ManifestItem(
                     name: 'BasicOne',
@@ -69,6 +70,7 @@ void one();
               Manifest(
                 name: 'Basic',
                 params: [],
+                fields: [],
                 items: [
                   ManifestItem(
                     name: 'BasicOne',
@@ -96,6 +98,7 @@ void one();
                 Manifest(
                   name: 'Basic',
                   params: [],
+                  fields: [],
                   items: [
                     ManifestItem(
                       name: 'Hello',
@@ -122,6 +125,7 @@ void one();
                 Manifest(
                   name: 'Basic',
                   params: [],
+                  fields: [],
                   items: [
                     ManifestItem(
                       name: 'BasicOne',
@@ -148,6 +152,7 @@ void one();
                 Manifest(
                   name: 'Basic',
                   params: [],
+                  fields: [],
                   items: [
                     ManifestItem(
                       name: 'Hello',
@@ -173,6 +178,7 @@ void one();
                 Manifest(
                   name: 'Basic',
                   params: [],
+                  fields: [],
                   items: [
                     ManifestItem(
                       name: 'PreOne',
@@ -198,6 +204,7 @@ void one();
                 Manifest(
                   name: 'Basic',
                   params: [],
+                  fields: [],
                   items: [
                     ManifestItem(
                       name: 'One',
@@ -225,6 +232,7 @@ void one();
                 Manifest(
                   name: 'Basic',
                   params: [],
+                  fields: [],
                   items: [
                     ManifestItem(
                       name: 'Hello',
@@ -250,6 +258,7 @@ void one(@WithType('double?') x, @WithType('double') int? y);
               Manifest(
                 name: 'Basic',
                 params: [],
+                fields: [],
                 items: [
                   ManifestItem(
                     name: 'BasicOne',
@@ -292,6 +301,7 @@ void three(T? z);
               manifest,
               Manifest(
                 name: 'Basic',
+                fields: [],
                 params: [
                   ManifestParam(
                     name: 'T',
@@ -367,6 +377,7 @@ void one();
               manifest,
               Manifest(
                 name: 'Basic',
+                fields: [],
                 params: [
                   ManifestParam(
                     name: 'T',

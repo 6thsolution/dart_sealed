@@ -33,6 +33,7 @@ class ManifestReader {
         name: topName,
         params: _extractParams(),
         items: _extractItems(),
+        fields: [],
       );
 
   /// extract  class param
