@@ -185,6 +185,31 @@ void one();
               );
             });
 
+            test('empty prefix', () async {
+              final x = await resolveSealedSafe('''
+@Sealed()
+@WithPrefix('')
+abstract class _Basic {
+void one();
+}''');
+              final manifest = SourceReader().read(x.element);
+              expect(
+                manifest,
+                Manifest(
+                  name: 'Basic',
+                  params: [],
+                  items: [
+                    ManifestItem(
+                      name: 'One',
+                      shortName: 'one',
+                      equality: ManifestEquality.data,
+                      fields: [],
+                    ),
+                  ],
+                ),
+              );
+            });
+
             test('change prefix and name', () async {
               final x = await resolveSealedSafe('''
 @Sealed()

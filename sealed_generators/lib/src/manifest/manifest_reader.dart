@@ -13,7 +13,7 @@ class ManifestReader {
     required this.topClass,
   }) {
     check(topName.isGenClassName());
-    check(topPrefix.isGenClassName());
+    check(topPrefix.isEmpty || topPrefix.isGenClassName());
   }
 
   /// top class name, like: Weather.

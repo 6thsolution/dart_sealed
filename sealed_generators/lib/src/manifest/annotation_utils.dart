@@ -56,18 +56,21 @@ String? extractWithPrefixOrNull(Element element) {
   final obj = _findWithPrefixOrNull(element);
   if (obj != null) {
     final prefix = _readWithPrefix(obj);
-    require(
-      prefix.isGenTypeName(),
-      () => "name prefix '$prefix' should be a valid type name",
-    );
-    require(
-      prefix.isPublic(),
-      () => "name prefix '$prefix' should be public",
-    );
-    require(
-      prefix.startsWithUpper(),
-      () => "name prefix '$prefix' should start with upper case letter",
-    );
+    // empty prefix is allowed
+    if (prefix.isNotEmpty) {
+      require(
+        prefix.isGenTypeName(),
+        () => "name prefix '$prefix' should be a valid type name",
+      );
+      require(
+        prefix.isPublic(),
+        () => "name prefix '$prefix' should be public",
+      );
+      require(
+        prefix.startsWithUpper(),
+        () => "name prefix '$prefix' should start with upper case letter",
+      );
+    }
     return prefix;
   } else {
     return null;
