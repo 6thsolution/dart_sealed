@@ -1,3 +1,7 @@
+## dev
+
+- Fixed @WithPrefix allowing empty string as argument
+
 ## 1.9.0
 
 - Changed not using `required` on nullable fields and arguments
