@@ -1,5 +1,6 @@
 import 'package:sealed_writer/src/manifest/manifest.dart';
 
+part 'examples_common.dart';
 part 'examples_generic_simple.dart';
 part 'examples_simple.dart';
 

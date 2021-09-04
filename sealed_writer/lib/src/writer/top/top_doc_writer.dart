@@ -10,6 +10,7 @@ class TopDocWriter extends BaseWriter {
 
   String write() => [
         '${_topDoc()} {',
+        if (manifest.fields.isNotEmpty) _fieldsDoc(manifest.fields),
         ..._itemsDoc(),
         '}',
       ].insertEmptyLinesBetween().addDocComments().joinLines();
@@ -24,7 +25,7 @@ class TopDocWriter extends BaseWriter {
           ' ',
           item.shortName,
         ].joinParts().withParenthesis(),
-        _fieldsDoc(item),
+        _fieldsDoc(item.fields),
         ' with ${_equality(item.equality)} equality',
       ].joinParts();
 
@@ -33,8 +34,8 @@ class TopDocWriter extends BaseWriter {
         _paramsDoc(),
       ].joinParts();
 
-  String _fieldsDoc(ManifestItem item) =>
-      item.fields.map(_fieldDoc).joinArgsSimple().withBraces();
+  String _fieldsDoc(List<ManifestField> fields) =>
+      fields.map(_fieldDoc).joinArgsSimple().withBraces();
 
   String _fieldDoc(ManifestField field) => [
         field.type.name.withBraKet(),
