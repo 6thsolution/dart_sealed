@@ -1,4 +1,5 @@
 import 'package:sealed_writer/src/exceptions/exceptions.dart';
+import 'package:sealed_writer/src/manifest/manifest_integrity.dart';
 import 'package:sealed_writer/src/utils/list_equality_utils.dart';
 import 'package:sealed_writer/src/utils/type_utils.dart';
 
@@ -12,6 +13,7 @@ class Manifest {
   }) {
     check(name.isGenClassName());
     check(items.isNotEmpty);
+    checkManifestIntegrity(this);
   }
 
   /// name, for example "WeatherState".
