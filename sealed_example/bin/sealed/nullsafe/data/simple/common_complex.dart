@@ -6,7 +6,7 @@ part 'common_complex.sealed.dart';
 abstract class _Common {
   Object? get x;
 
-  final String y = 'hello';
+  final String y = '';
 
   void one(String x);
 
@@ -15,4 +15,21 @@ abstract class _Common {
   void three();
 
   void four(Object? x);
+}
+
+@Sealed()
+abstract class _CommonWithOverride {
+  @WithType('Object?')
+  dynamic get x;
+
+  @WithType('String')
+  final dynamic y = null;
+
+  void one(@WithType('String') dynamic x);
+
+  void two(@WithType('Object') dynamic x);
+
+  void three();
+
+  void four(@WithType('Object?') dynamic x);
 }
