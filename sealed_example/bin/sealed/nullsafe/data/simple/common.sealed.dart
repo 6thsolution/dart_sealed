@@ -8,22 +8,36 @@ part of 'common.dart';
 
 /// [ApiError] {
 ///
-/// ([ApiErrorInternetError] internetError){} with data equality
+/// {[String] message, [String]? code}
 ///
-/// ([ApiErrorBadRequest] badRequest){} with data equality
+/// ([ApiErrorInternetError] internetError){[String] message, [String]? code} with data equality
 ///
-/// ([ApiErrorInternalError] internalError){[Object]? error} with data equality
+/// ([ApiErrorBadRequest] badRequest){[String] message, [String]? code} with data equality
+///
+/// ([ApiErrorInternalError] internalError){[String] message, [String]? code, [Object]? error} with data equality
 ///
 /// }
 @SealedManifest(_ApiError)
 abstract class ApiError {
   const ApiError._internal();
 
-  const factory ApiError.internetError() = ApiErrorInternetError;
+  String get message;
 
-  const factory ApiError.badRequest() = ApiErrorBadRequest;
+  String? get code;
+
+  const factory ApiError.internetError({
+    required String message,
+    String? code,
+  }) = ApiErrorInternetError;
+
+  const factory ApiError.badRequest({
+    required String message,
+    String? code,
+  }) = ApiErrorBadRequest;
 
   const factory ApiError.internalError({
+    required String message,
+    String? code,
     Object? error,
   }) = ApiErrorInternalError;
 
@@ -55,36 +69,41 @@ abstract class ApiError {
   }
 
   R when<R extends Object?>({
-    required R Function() internetError,
-    required R Function() badRequest,
-    required R Function(Object? error) internalError,
+    required R Function(String message, String? code) internetError,
+    required R Function(String message, String? code) badRequest,
+    required R Function(String message, String? code, Object? error)
+        internalError,
   }) {
     final apiError = this;
     if (apiError is ApiErrorInternetError) {
-      return internetError();
+      return internetError(apiError.message, apiError.code);
     } else if (apiError is ApiErrorBadRequest) {
-      return badRequest();
+      return badRequest(apiError.message, apiError.code);
     } else if (apiError is ApiErrorInternalError) {
-      return internalError(apiError.error);
+      return internalError(apiError.message, apiError.code, apiError.error);
     } else {
       throw AssertionError();
     }
   }
 
   R maybeWhen<R extends Object?>({
-    R Function()? internetError,
-    R Function()? badRequest,
-    R Function(Object? error)? internalError,
+    R Function(String message, String? code)? internetError,
+    R Function(String message, String? code)? badRequest,
+    R Function(String message, String? code, Object? error)? internalError,
     required R Function(ApiError apiError) orElse,
   }) {
     final apiError = this;
     if (apiError is ApiErrorInternetError) {
-      return internetError != null ? internetError() : orElse(apiError);
+      return internetError != null
+          ? internetError(apiError.message, apiError.code)
+          : orElse(apiError);
     } else if (apiError is ApiErrorBadRequest) {
-      return badRequest != null ? badRequest() : orElse(apiError);
+      return badRequest != null
+          ? badRequest(apiError.message, apiError.code)
+          : orElse(apiError);
     } else if (apiError is ApiErrorInternalError) {
       return internalError != null
-          ? internalError(apiError.error)
+          ? internalError(apiError.message, apiError.code, apiError.error)
           : orElse(apiError);
     } else {
       throw AssertionError();
@@ -92,27 +111,27 @@ abstract class ApiError {
   }
 
   void partialWhen({
-    void Function()? internetError,
-    void Function()? badRequest,
-    void Function(Object? error)? internalError,
+    void Function(String message, String? code)? internetError,
+    void Function(String message, String? code)? badRequest,
+    void Function(String message, String? code, Object? error)? internalError,
     void Function(ApiError apiError)? orElse,
   }) {
     final apiError = this;
     if (apiError is ApiErrorInternetError) {
       if (internetError != null) {
-        internetError();
+        internetError(apiError.message, apiError.code);
       } else if (orElse != null) {
         orElse(apiError);
       }
     } else if (apiError is ApiErrorBadRequest) {
       if (badRequest != null) {
-        badRequest();
+        badRequest(apiError.message, apiError.code);
       } else if (orElse != null) {
         orElse(apiError);
       }
     } else if (apiError is ApiErrorInternalError) {
       if (internalError != null) {
-        internalError(apiError.error);
+        internalError(apiError.message, apiError.code, apiError.error);
       } else if (orElse != null) {
         orElse(apiError);
       }
@@ -187,47 +206,78 @@ abstract class ApiError {
   }
 }
 
-/// (([ApiErrorInternetError] : [ApiError]) internetError){}
+/// (([ApiErrorInternetError] : [ApiError]) internetError){[String] message, [String]? code}
 ///
 /// with data equality
 class ApiErrorInternetError extends ApiError with EquatableMixin {
-  const ApiErrorInternetError() : super._internal();
+  const ApiErrorInternetError({
+    required this.message,
+    this.code,
+  }) : super._internal();
 
   @override
-  String toString() => 'ApiError.internetError()';
+  final String message;
+  @override
+  final String? code;
 
   @override
-  List<Object?> get props => [];
+  String toString() => 'ApiError.internetError(message: $message, code: $code)';
+
+  @override
+  List<Object?> get props => [
+        message,
+        code,
+      ];
 }
 
-/// (([ApiErrorBadRequest] : [ApiError]) badRequest){}
+/// (([ApiErrorBadRequest] : [ApiError]) badRequest){[String] message, [String]? code}
 ///
 /// with data equality
 class ApiErrorBadRequest extends ApiError with EquatableMixin {
-  const ApiErrorBadRequest() : super._internal();
+  const ApiErrorBadRequest({
+    required this.message,
+    this.code,
+  }) : super._internal();
 
   @override
-  String toString() => 'ApiError.badRequest()';
+  final String message;
+  @override
+  final String? code;
 
   @override
-  List<Object?> get props => [];
+  String toString() => 'ApiError.badRequest(message: $message, code: $code)';
+
+  @override
+  List<Object?> get props => [
+        message,
+        code,
+      ];
 }
 
-/// (([ApiErrorInternalError] : [ApiError]) internalError){[Object]? error}
+/// (([ApiErrorInternalError] : [ApiError]) internalError){[String] message, [String]? code, [Object]? error}
 ///
 /// with data equality
 class ApiErrorInternalError extends ApiError with EquatableMixin {
   const ApiErrorInternalError({
+    required this.message,
+    this.code,
     this.error,
   }) : super._internal();
 
+  @override
+  final String message;
+  @override
+  final String? code;
   final Object? error;
 
   @override
-  String toString() => 'ApiError.internalError(error: $error)';
+  String toString() =>
+      'ApiError.internalError(message: $message, code: $code, error: $error)';
 
   @override
   List<Object?> get props => [
+        message,
+        code,
         error,
       ];
 }

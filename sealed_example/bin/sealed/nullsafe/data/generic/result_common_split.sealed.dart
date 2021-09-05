@@ -8,18 +8,26 @@ part of 'result_common_split.dart';
 
 /// [ResultLeftRight]<[D] extends [num]> {
 ///
-/// ([ResultLeftRightSuccessLeft] successLeft){} with data equality
+/// {[D] data}
 ///
-/// ([ResultLeftRightSuccessRight] successRight){} with data equality
+/// ([ResultLeftRightSuccessLeft] successLeft){[D] data} with data equality
+///
+/// ([ResultLeftRightSuccessRight] successRight){[D] data} with data equality
 ///
 /// }
 @SealedManifest(_ResultLeftRight)
 abstract class ResultLeftRight<D extends num> {
   const ResultLeftRight._internal();
 
-  const factory ResultLeftRight.successLeft() = ResultLeftRightSuccessLeft<D>;
+  D get data;
 
-  const factory ResultLeftRight.successRight() = ResultLeftRightSuccessRight<D>;
+  const factory ResultLeftRight.successLeft({
+    required D data,
+  }) = ResultLeftRightSuccessLeft<D>;
+
+  const factory ResultLeftRight.successRight({
+    required D data,
+  }) = ResultLeftRightSuccessRight<D>;
 
   bool get isSuccessLeft => this is ResultLeftRightSuccessLeft<D>;
 
@@ -46,49 +54,53 @@ abstract class ResultLeftRight<D extends num> {
   }
 
   R when<R extends Object?>({
-    required R Function() successLeft,
-    required R Function() successRight,
+    required R Function(D data) successLeft,
+    required R Function(D data) successRight,
   }) {
     final resultLeftRight = this;
     if (resultLeftRight is ResultLeftRightSuccessLeft<D>) {
-      return successLeft();
+      return successLeft(resultLeftRight.data);
     } else if (resultLeftRight is ResultLeftRightSuccessRight<D>) {
-      return successRight();
+      return successRight(resultLeftRight.data);
     } else {
       throw AssertionError();
     }
   }
 
   R maybeWhen<R extends Object?>({
-    R Function()? successLeft,
-    R Function()? successRight,
+    R Function(D data)? successLeft,
+    R Function(D data)? successRight,
     required R Function(ResultLeftRight<D> resultLeftRight) orElse,
   }) {
     final resultLeftRight = this;
     if (resultLeftRight is ResultLeftRightSuccessLeft<D>) {
-      return successLeft != null ? successLeft() : orElse(resultLeftRight);
+      return successLeft != null
+          ? successLeft(resultLeftRight.data)
+          : orElse(resultLeftRight);
     } else if (resultLeftRight is ResultLeftRightSuccessRight<D>) {
-      return successRight != null ? successRight() : orElse(resultLeftRight);
+      return successRight != null
+          ? successRight(resultLeftRight.data)
+          : orElse(resultLeftRight);
     } else {
       throw AssertionError();
     }
   }
 
   void partialWhen({
-    void Function()? successLeft,
-    void Function()? successRight,
+    void Function(D data)? successLeft,
+    void Function(D data)? successRight,
     void Function(ResultLeftRight<D> resultLeftRight)? orElse,
   }) {
     final resultLeftRight = this;
     if (resultLeftRight is ResultLeftRightSuccessLeft<D>) {
       if (successLeft != null) {
-        successLeft();
+        successLeft(resultLeftRight.data);
       } else if (orElse != null) {
         orElse(resultLeftRight);
       }
     } else if (resultLeftRight is ResultLeftRightSuccessRight<D>) {
       if (successRight != null) {
-        successRight();
+        successRight(resultLeftRight.data);
       } else if (orElse != null) {
         orElse(resultLeftRight);
       }
@@ -155,30 +167,44 @@ abstract class ResultLeftRight<D extends num> {
   }
 }
 
-/// (([ResultLeftRightSuccessLeft] : [ResultLeftRight])<[D] extends [num]> successLeft){}
+/// (([ResultLeftRightSuccessLeft] : [ResultLeftRight])<[D] extends [num]> successLeft){[D] data}
 ///
 /// with data equality
 class ResultLeftRightSuccessLeft<D extends num> extends ResultLeftRight<D>
     with EquatableMixin {
-  const ResultLeftRightSuccessLeft() : super._internal();
+  const ResultLeftRightSuccessLeft({
+    required this.data,
+  }) : super._internal();
 
   @override
-  String toString() => 'ResultLeftRight.successLeft()';
+  final D data;
 
   @override
-  List<Object?> get props => [];
+  String toString() => 'ResultLeftRight.successLeft(data: $data)';
+
+  @override
+  List<Object?> get props => [
+        data,
+      ];
 }
 
-/// (([ResultLeftRightSuccessRight] : [ResultLeftRight])<[D] extends [num]> successRight){}
+/// (([ResultLeftRightSuccessRight] : [ResultLeftRight])<[D] extends [num]> successRight){[D] data}
 ///
 /// with data equality
 class ResultLeftRightSuccessRight<D extends num> extends ResultLeftRight<D>
     with EquatableMixin {
-  const ResultLeftRightSuccessRight() : super._internal();
+  const ResultLeftRightSuccessRight({
+    required this.data,
+  }) : super._internal();
 
   @override
-  String toString() => 'ResultLeftRight.successRight()';
+  final D data;
 
   @override
-  List<Object?> get props => [];
+  String toString() => 'ResultLeftRight.successRight(data: $data)';
+
+  @override
+  List<Object?> get props => [
+        data,
+      ];
 }

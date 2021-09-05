@@ -8,20 +8,26 @@ part of 'result_common.dart';
 
 /// [Result]<[D] extends [num]> {
 ///
+/// {[Object]? value}
+///
 /// ([ResultSuccess] success){[D] value} with data equality
 ///
-/// ([ResultError] error){} with data equality
+/// ([ResultError] error){[Object]? value} with data equality
 ///
 /// }
 @SealedManifest(_Result)
 abstract class Result<D extends num> {
   const Result._internal();
 
+  Object? get value;
+
   const factory Result.success({
     required D value,
   }) = ResultSuccess<D>;
 
-  const factory Result.error() = ResultError<D>;
+  const factory Result.error({
+    Object? value,
+  }) = ResultError<D>;
 
   bool get isSuccess => this is ResultSuccess<D>;
 
@@ -43,13 +49,13 @@ abstract class Result<D extends num> {
 
   R when<R extends Object?>({
     required R Function(D value) success,
-    required R Function() error,
+    required R Function(Object? value) error,
   }) {
     final result = this;
     if (result is ResultSuccess<D>) {
       return success(result.value);
     } else if (result is ResultError<D>) {
-      return error();
+      return error(result.value);
     } else {
       throw AssertionError();
     }
@@ -57,14 +63,14 @@ abstract class Result<D extends num> {
 
   R maybeWhen<R extends Object?>({
     R Function(D value)? success,
-    R Function()? error,
+    R Function(Object? value)? error,
     required R Function(Result<D> result) orElse,
   }) {
     final result = this;
     if (result is ResultSuccess<D>) {
       return success != null ? success(result.value) : orElse(result);
     } else if (result is ResultError<D>) {
-      return error != null ? error() : orElse(result);
+      return error != null ? error(result.value) : orElse(result);
     } else {
       throw AssertionError();
     }
@@ -72,7 +78,7 @@ abstract class Result<D extends num> {
 
   void partialWhen({
     void Function(D value)? success,
-    void Function()? error,
+    void Function(Object? value)? error,
     void Function(Result<D> result)? orElse,
   }) {
     final result = this;
@@ -84,7 +90,7 @@ abstract class Result<D extends num> {
       }
     } else if (result is ResultError<D>) {
       if (error != null) {
-        error();
+        error(result.value);
       } else if (orElse != null) {
         orElse(result);
       }
@@ -154,6 +160,7 @@ class ResultSuccess<D extends num> extends Result<D> with EquatableMixin {
     required this.value,
   }) : super._internal();
 
+  @override
   final D value;
 
   @override
@@ -165,15 +172,22 @@ class ResultSuccess<D extends num> extends Result<D> with EquatableMixin {
       ];
 }
 
-/// (([ResultError] : [Result])<[D] extends [num]> error){}
+/// (([ResultError] : [Result])<[D] extends [num]> error){[Object]? value}
 ///
 /// with data equality
 class ResultError<D extends num> extends Result<D> with EquatableMixin {
-  const ResultError() : super._internal();
+  const ResultError({
+    this.value,
+  }) : super._internal();
 
   @override
-  String toString() => 'Result.error()';
+  final Object? value;
 
   @override
-  List<Object?> get props => [];
+  String toString() => 'Result.error(value: $value)';
+
+  @override
+  List<Object?> get props => [
+        value,
+      ];
 }
