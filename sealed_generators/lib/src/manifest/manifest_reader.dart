@@ -203,15 +203,15 @@ class ManifestReader {
     final name = accessor.name;
     require(
       name.isGenTypeName(),
-      () => "getter name '$name' should be valid type name",
+      () => "getter/field name '$name' should be valid type name",
     );
     require(
       name.isPublic(),
-      () => "getter name '$name' should not start with '_'",
+      () => "getter/field name '$name' should not start with '_'",
     );
     require(
       name.startsWithLower(),
-      () => "getter name '$name' should start with lower case",
+      () => "getter/field name '$name' should start with lower case",
     );
     return name;
   }

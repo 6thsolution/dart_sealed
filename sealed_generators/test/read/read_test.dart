@@ -740,6 +740,21 @@ void one(int X);
         );
       });
 
+      test('upper common field name', () async {
+        final x = await resolveSealedSafe('''
+@Sealed()
+abstract class _Basic {
+int get X;
+
+void one();
+}''');
+        final reader = SourceReader();
+        expect(
+          () => reader.read(x.element),
+          throwsSealedErrorNotInternal(),
+        );
+      });
+
       test('non class element of enum', () async {
         final x = await resolveSealedSafe('''
 @Sealed()
@@ -796,6 +811,21 @@ void _one();
 @Sealed()
 abstract class _Basic {
 void one(int _x);
+}''');
+        final reader = SourceReader();
+        expect(
+          () => reader.read(x.element),
+          throwsSealedErrorNotInternal(),
+        );
+      });
+
+      test('private getter', () async {
+        final x = await resolveSealedSafe('''
+@Sealed()
+abstract class _Basic {
+int get _x;
+
+void one();
 }''');
         final reader = SourceReader();
         expect(
