@@ -319,13 +319,19 @@ void main() {
         equality: ManifestEquality.identity,
         fields: [],
       );
-      final manifest = Manifest(name: 'Weather', items: [item], params: []);
+      final manifest = Manifest(
+        name: 'Weather',
+        items: [item],
+        params: [],
+        fields: [],
+      );
       final upper = ManifestType(name: 'num', isNullable: true);
       final param = ManifestParam(name: 'T', bound: upper);
       final manifest2 = Manifest(
         name: 'Weather',
         items: [item],
         params: [param],
+        fields: [],
       );
 
       expect(manifest.name, equals('Weather'));
@@ -334,29 +340,51 @@ void main() {
       expect(manifest2.params, contains(param));
 
       expect(
-        () => Manifest(name: 'weather', items: [item], params: []),
+        () => Manifest(
+          name: 'weather',
+          items: [item],
+          params: [],
+          fields: [],
+        ),
         throwsInternal(),
       );
       expect(
-        () => Manifest(name: 'Weather?', items: [item], params: []),
+        () => Manifest(
+          name: 'Weather?',
+          items: [item],
+          params: [],
+          fields: [],
+        ),
         throwsInternal(),
       );
       expect(
-        () => Manifest(name: 'Weather', items: [], params: []),
+        () => Manifest(
+          name: 'Weather',
+          items: [],
+          params: [],
+          fields: [],
+        ),
         throwsInternal(),
       );
       expect(
-        () => Manifest(name: '_Weather', items: [], params: []),
+        () => Manifest(
+          name: '_Weather',
+          items: [],
+          params: [],
+          fields: [],
+        ),
         throwsInternal(),
       );
     });
 
     test('toString', () {
+      final type1 = ManifestType(name: 'double', isNullable: true);
+      final field1 = ManifestField(name: 'angle', type: type1);
       final item1 = ManifestItem(
         shortName: 'sunny',
         name: 'Lollipop',
         equality: ManifestEquality.identity,
-        fields: [],
+        fields: [field1],
       );
       final bound1 = ManifestType(name: 'num', isNullable: true);
       final param1 = ManifestParam(name: 'T', bound: bound1);
@@ -364,11 +392,13 @@ void main() {
         name: 'Weather',
         items: [item1],
         params: [param1],
+        fields: [field1],
       );
       expect(
         a.toString(),
         equals(
-          'Manifest{name: Weather, items: [$item1], params: [$param1]}',
+          'Manifest{name: Weather, items: [$item1], params: [$param1],'
+          ' fields: [$field1]}',
         ),
       );
     });
@@ -376,13 +406,13 @@ void main() {
     test('equality', () {
       final item1 = ManifestItem(
         shortName: 'sunny',
-        name: 'Lollipop',
+        name: 'LollipopSunny',
         equality: ManifestEquality.identity,
         fields: [],
       );
       final item2 = ManifestItem(
         shortName: 'rainy',
-        name: 'Lollipop',
+        name: 'LollipopRainy',
         equality: ManifestEquality.data,
         fields: [],
       );
@@ -392,26 +422,71 @@ void main() {
         name: 'Weather',
         items: [item1],
         params: [param1],
+        fields: [],
       );
       final b = Manifest(
         name: 'Weather',
         items: [item1],
         params: [param1],
+        fields: [],
       );
       final c = Manifest(
-        name: 'Lollipop',
+        name: 'Lol',
         items: [item1],
         params: [param1],
+        fields: [],
       );
       final d = Manifest(
         name: 'Weather',
         items: [item1, item2],
         params: [param1],
+        fields: [],
       );
       final e = Manifest(
         name: 'Weather',
         items: [item1],
         params: [],
+        fields: [],
+      );
+
+      final type1 = ManifestType(name: 'double', isNullable: true);
+      final field1 = ManifestField(name: 'angle', type: type1);
+      final field2 = ManifestField(name: 'velocity', type: type1);
+      final item3 = ManifestItem(
+        shortName: 'rainy',
+        name: 'Lollipop',
+        equality: ManifestEquality.data,
+        fields: [field1, field2],
+      );
+      final f = Manifest(
+        name: 'Weather',
+        items: [item3],
+        params: [],
+        fields: [],
+      );
+      final g = Manifest(
+        name: 'Weather',
+        items: [item3],
+        params: [],
+        fields: [field1],
+      );
+      final h = Manifest(
+        name: 'Weather',
+        items: [item3],
+        params: [],
+        fields: [field2],
+      );
+      final i = Manifest(
+        name: 'Weather',
+        items: [item3],
+        params: [],
+        fields: [field1, field2],
+      );
+      final j = Manifest(
+        name: 'Weather',
+        items: [item3],
+        params: [],
+        fields: [],
       );
 
       expect(a, equals(a));
@@ -419,18 +494,31 @@ void main() {
       expect(a, isNot(equals(c)));
       expect(a, isNot(equals(d)));
       expect(a, isNot(equals(e)));
+
+      expect(f, equals(f));
+      expect(f, equals(j));
+      expect(a, isNot(equals(f)));
+      expect(a, isNot(equals(g)));
+      expect(a, isNot(equals(h)));
+      expect(a, isNot(equals(i)));
+      expect(f, isNot(equals(g)));
+      expect(f, isNot(equals(h)));
+      expect(f, isNot(equals(i)));
+      expect(g, isNot(equals(h)));
+      expect(g, isNot(equals(i)));
+      expect(h, isNot(equals(i)));
     });
 
     test('hashCode', () {
       final item1 = ManifestItem(
         shortName: 'sunny',
-        name: 'Lollipop',
+        name: 'LollipopSunny',
         equality: ManifestEquality.identity,
         fields: [],
       );
       final item2 = ManifestItem(
         shortName: 'rainy',
-        name: 'Lollipop',
+        name: 'LollipopRainy',
         equality: ManifestEquality.data,
         fields: [],
       );
@@ -440,26 +528,71 @@ void main() {
         name: 'Weather',
         items: [item1],
         params: [param1],
+        fields: [],
       );
       final b = Manifest(
         name: 'Weather',
         items: [item1],
         params: [param1],
+        fields: [],
       );
       final c = Manifest(
-        name: 'Lollipop',
+        name: 'Lol',
         items: [item1],
         params: [param1],
+        fields: [],
       );
       final d = Manifest(
         name: 'Weather',
         items: [item1, item2],
         params: [param1],
+        fields: [],
       );
       final e = Manifest(
         name: 'Weather',
         items: [item1],
         params: [],
+        fields: [],
+      );
+
+      final type1 = ManifestType(name: 'double', isNullable: true);
+      final field1 = ManifestField(name: 'angle', type: type1);
+      final field2 = ManifestField(name: 'velocity', type: type1);
+      final item3 = ManifestItem(
+        shortName: 'rainy',
+        name: 'Lollipop',
+        equality: ManifestEquality.data,
+        fields: [field1, field2],
+      );
+      final f = Manifest(
+        name: 'Weather',
+        items: [item3],
+        params: [],
+        fields: [],
+      );
+      final g = Manifest(
+        name: 'Weather',
+        items: [item3],
+        params: [],
+        fields: [field1],
+      );
+      final h = Manifest(
+        name: 'Weather',
+        items: [item3],
+        params: [],
+        fields: [field2],
+      );
+      final i = Manifest(
+        name: 'Weather',
+        items: [item3],
+        params: [],
+        fields: [field1, field2],
+      );
+      final j = Manifest(
+        name: 'Weather',
+        items: [item3],
+        params: [],
+        fields: [],
       );
 
       expect(a.hashCode, equals(a.hashCode));
@@ -467,6 +600,480 @@ void main() {
       expect(a.hashCode, isNot(equals(c.hashCode)));
       expect(a.hashCode, isNot(equals(d.hashCode)));
       expect(a.hashCode, isNot(equals(e.hashCode)));
+
+      expect(f.hashCode, equals(f.hashCode));
+      expect(f.hashCode, equals(j.hashCode));
+      expect(a.hashCode, isNot(equals(f.hashCode)));
+      expect(a.hashCode, isNot(equals(g.hashCode)));
+      expect(a.hashCode, isNot(equals(h.hashCode)));
+      expect(a.hashCode, isNot(equals(i.hashCode)));
+      expect(f.hashCode, isNot(equals(g.hashCode)));
+      expect(f.hashCode, isNot(equals(h.hashCode)));
+      expect(f.hashCode, isNot(equals(i.hashCode)));
+      expect(g.hashCode, isNot(equals(h.hashCode)));
+      expect(g.hashCode, isNot(equals(i.hashCode)));
+      expect(h.hashCode, isNot(equals(i.hashCode)));
+    });
+
+    test('common integrity', () {
+      final type1 = ManifestType(name: 'num', isNullable: true);
+      final type2 = ManifestType(name: 'double', isNullable: true);
+      final type3 = ManifestType(name: 'Object', isNullable: true);
+      final field1 = ManifestField(name: 'angle', type: type1);
+      final field2 = ManifestField(name: 'angle', type: type1);
+      final field3 = ManifestField(name: 'angle', type: type2);
+      final field4 = ManifestField(name: 'velocity', type: type1);
+      final field5 = ManifestField(name: 'lollipop', type: type3);
+
+      expect(
+        () => Manifest(
+          name: 'State',
+          fields: [field1],
+          items: [
+            ManifestItem(
+              name: 'One',
+              shortName: 'one',
+              equality: ManifestEquality.data,
+              fields: [],
+            ),
+          ],
+          params: [],
+        ),
+        throwsInternal(),
+      );
+      expect(
+        () => Manifest(
+          name: 'State',
+          fields: [field1],
+          items: [
+            ManifestItem(
+              name: 'One',
+              shortName: 'one',
+              equality: ManifestEquality.data,
+              fields: [field5],
+            ),
+          ],
+          params: [],
+        ),
+        throwsInternal(),
+      );
+      Manifest(
+        name: 'State',
+        fields: [field1],
+        items: [
+          ManifestItem(
+            name: 'One',
+            shortName: 'one',
+            equality: ManifestEquality.data,
+            fields: [field5, field1],
+          ),
+        ],
+        params: [],
+      );
+      expect(
+        () => Manifest(
+          name: 'State',
+          fields: [field1, field4],
+          items: [
+            ManifestItem(
+              name: 'One',
+              shortName: 'one',
+              equality: ManifestEquality.data,
+              fields: [field5],
+            ),
+          ],
+          params: [],
+        ),
+        throwsInternal(),
+      );
+      Manifest(
+        name: 'State',
+        fields: [field1, field4],
+        items: [
+          ManifestItem(
+            name: 'One',
+            shortName: 'one',
+            equality: ManifestEquality.data,
+            fields: [field5, field1, field4],
+          ),
+        ],
+        params: [],
+      );
+      Manifest(
+        name: 'State',
+        fields: [field1],
+        items: [
+          ManifestItem(
+            name: 'One',
+            shortName: 'one',
+            equality: ManifestEquality.data,
+            fields: [field2],
+          ),
+        ],
+        params: [],
+      );
+      Manifest(
+        name: 'State',
+        fields: [field1],
+        items: [
+          ManifestItem(
+            name: 'One',
+            shortName: 'one',
+            equality: ManifestEquality.data,
+            fields: [field2],
+          ),
+        ],
+        params: [],
+      );
+      Manifest(
+        name: 'State',
+        fields: [field1],
+        items: [
+          ManifestItem(
+            name: 'One',
+            shortName: 'one',
+            equality: ManifestEquality.data,
+            fields: [field3],
+          ),
+        ],
+        params: [],
+      );
+      expect(
+        () => Manifest(
+          name: 'State',
+          fields: [field1],
+          items: [
+            ManifestItem(
+              name: 'One',
+              shortName: 'one',
+              equality: ManifestEquality.data,
+              fields: [],
+            ),
+            ManifestItem(
+              name: 'Two',
+              shortName: 'two',
+              equality: ManifestEquality.data,
+              fields: [field1],
+            ),
+          ],
+          params: [],
+        ),
+        throwsInternal(),
+      );
+      Manifest(
+        name: 'State',
+        fields: [field1],
+        items: [
+          ManifestItem(
+            name: 'One',
+            shortName: 'one',
+            equality: ManifestEquality.data,
+            fields: [field2],
+          ),
+          ManifestItem(
+            name: 'Two',
+            shortName: 'two',
+            equality: ManifestEquality.data,
+            fields: [field1],
+          ),
+        ],
+        params: [],
+      );
+      Manifest(
+        name: 'State',
+        fields: [field1, field4],
+        items: [
+          ManifestItem(
+            name: 'One',
+            shortName: 'one',
+            equality: ManifestEquality.data,
+            fields: [field3, field4],
+          ),
+          ManifestItem(
+            name: 'Two',
+            shortName: 'two',
+            equality: ManifestEquality.data,
+            fields: [field1, field4],
+          ),
+        ],
+        params: [],
+      );
+      expect(
+        () => Manifest(
+          name: 'State',
+          fields: [field1, field4],
+          items: [
+            ManifestItem(
+              name: 'One',
+              shortName: 'one',
+              equality: ManifestEquality.data,
+              fields: [field3, field4],
+            ),
+            ManifestItem(
+              name: 'Two',
+              shortName: 'two',
+              equality: ManifestEquality.data,
+              fields: [field1],
+            ),
+          ],
+          params: [],
+        ),
+        throwsInternal(),
+      );
+    });
+
+    test('param name integrity', () {
+      expect(
+        () => Manifest(
+          name: 'Top',
+          items: [
+            ManifestItem(
+              name: 'Full1',
+              shortName: 'short1',
+              equality: ManifestEquality.data,
+              fields: [],
+            ),
+          ],
+          params: [
+            ManifestParam(
+              name: 'T1',
+              bound: ManifestType(
+                name: 'num',
+                isNullable: false,
+              ),
+            ),
+            ManifestParam(
+              name: 'T2',
+              bound: ManifestType(
+                name: 'num',
+                isNullable: false,
+              ),
+            ),
+            ManifestParam(
+              name: 'T1',
+              bound: ManifestType(
+                name: 'double',
+                isNullable: false,
+              ),
+            ),
+          ],
+          fields: [],
+        ),
+        throwsInternal(),
+      );
+    });
+
+    test('full class name integrity', () {
+      expect(
+        () => Manifest(
+          name: 'Top',
+          items: [
+            ManifestItem(
+              name: 'Top',
+              shortName: 'short1',
+              equality: ManifestEquality.data,
+              fields: [],
+            ),
+          ],
+          params: [],
+          fields: [],
+        ),
+        throwsInternal(),
+      );
+      expect(
+        () => Manifest(
+          name: 'Top',
+          items: [
+            ManifestItem(
+              name: 'Full1',
+              shortName: 'short1',
+              equality: ManifestEquality.data,
+              fields: [],
+            ),
+            ManifestItem(
+              name: 'Full1',
+              shortName: 'short2',
+              equality: ManifestEquality.data,
+              fields: [],
+            ),
+          ],
+          params: [],
+          fields: [],
+        ),
+        throwsInternal(),
+      );
+    });
+
+    test('short name integrity', () {
+      expect(
+        () => Manifest(
+          name: 'Top',
+          items: [
+            ManifestItem(
+              name: 'Full1',
+              shortName: 'short1',
+              equality: ManifestEquality.data,
+              fields: [],
+            ),
+            ManifestItem(
+              name: 'Full2',
+              shortName: 'short2',
+              equality: ManifestEquality.data,
+              fields: [],
+            ),
+            ManifestItem(
+              name: 'Full3',
+              shortName: 'short1',
+              equality: ManifestEquality.data,
+              fields: [],
+            ),
+          ],
+          params: [],
+          fields: [],
+        ),
+        throwsInternal(),
+      );
+    });
+
+    test('field name integrity', () {
+      expect(
+        () => Manifest(
+          name: 'Top',
+          items: [
+            ManifestItem(
+              name: 'Full1',
+              shortName: 'short1',
+              equality: ManifestEquality.data,
+              fields: [
+                ManifestField(
+                  name: 'field1',
+                  type: ManifestType(
+                    name: 'num',
+                    isNullable: false,
+                  ),
+                ),
+                ManifestField(
+                  name: 'field2',
+                  type: ManifestType(
+                    name: 'int',
+                    isNullable: false,
+                  ),
+                ),
+                ManifestField(
+                  name: 'field1',
+                  type: ManifestType(
+                    name: 'double',
+                    isNullable: false,
+                  ),
+                ),
+              ],
+            ),
+            ManifestItem(
+              name: 'Full2',
+              shortName: 'short2',
+              equality: ManifestEquality.data,
+              fields: [],
+            ),
+          ],
+          params: [],
+          fields: [],
+        ),
+        throwsInternal(),
+      );
+    });
+
+    test('this value integrity', () {
+      expect(
+        () => Manifest(
+          name: 'Top',
+          items: [
+            ManifestItem(
+              name: 'Full1',
+              shortName: 'top',
+              equality: ManifestEquality.data,
+              fields: [],
+            ),
+          ],
+          params: [],
+          fields: [],
+        ),
+        throwsInternal(),
+      );
+    });
+
+    test('match names integrity', () {
+      expect(
+        () => Manifest(
+          name: 'Top',
+          items: [
+            ManifestItem(
+              name: 'Full1',
+              shortName: 'short1',
+              equality: ManifestEquality.data,
+              fields: [
+                ManifestField(
+                  name: 'maybeMap',
+                  type: ManifestType(
+                    name: 'num',
+                    isNullable: false,
+                  ),
+                ),
+              ],
+            ),
+          ],
+          params: [],
+          fields: [],
+        ),
+        throwsInternal(),
+      );
+    });
+
+    test('equatable names integrity', () {
+      expect(
+        () => Manifest(
+          name: 'Top',
+          items: [
+            ManifestItem(
+              name: 'Full1',
+              shortName: 'short1',
+              equality: ManifestEquality.data,
+              fields: [
+                ManifestField(
+                  name: 'props',
+                  type: ManifestType(
+                    name: 'num',
+                    isNullable: false,
+                  ),
+                ),
+              ],
+            ),
+          ],
+          params: [],
+          fields: [],
+        ),
+        throwsInternal(),
+      );
+      Manifest(
+        name: 'Top',
+        items: [
+          ManifestItem(
+            name: 'Full1',
+            shortName: 'short1',
+            equality: ManifestEquality.identity,
+            fields: [
+              ManifestField(
+                name: 'props',
+                type: ManifestType(
+                  name: 'num',
+                  isNullable: false,
+                ),
+              ),
+            ],
+          ),
+        ],
+        params: [],
+        fields: [],
+      );
     });
   });
 }

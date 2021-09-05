@@ -14,3 +14,13 @@ abstract class _Weather {
   @WithEquality(Equality.distinct)
   void windy(double velocity, double? angle);
 }
+
+@Sealed()
+@WithPrefix('')
+abstract class _ApiError {
+  void internetError();
+
+  void serverError(int code);
+
+  void otherError(String? message);
+}

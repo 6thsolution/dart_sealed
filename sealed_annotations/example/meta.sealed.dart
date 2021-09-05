@@ -240,3 +240,239 @@ class VeryBadWeather extends Weather {
   @override
   bool operator ==(Object other) => false;
 }
+
+/// [ApiError] {
+///
+/// ([InternetError] internetError){} with data equality
+///
+/// ([ServerError] serverError){[int] code} with data equality
+///
+/// ([OtherError] otherError){[String]? message} with data equality
+///
+/// }
+@SealedManifest(_ApiError)
+abstract class ApiError {
+  const ApiError._internal();
+
+  const factory ApiError.internetError() = InternetError;
+
+  const factory ApiError.serverError({
+    required int code,
+  }) = ServerError;
+
+  const factory ApiError.otherError({
+    String? message,
+  }) = OtherError;
+
+  bool get isInternetError => this is InternetError;
+
+  bool get isServerError => this is ServerError;
+
+  bool get isOtherError => this is OtherError;
+
+  InternetError get asInternetError => this as InternetError;
+
+  ServerError get asServerError => this as ServerError;
+
+  OtherError get asOtherError => this as OtherError;
+
+  InternetError? get asInternetErrorOrNull {
+    final apiError = this;
+    return apiError is InternetError ? apiError : null;
+  }
+
+  ServerError? get asServerErrorOrNull {
+    final apiError = this;
+    return apiError is ServerError ? apiError : null;
+  }
+
+  OtherError? get asOtherErrorOrNull {
+    final apiError = this;
+    return apiError is OtherError ? apiError : null;
+  }
+
+  R when<R extends Object?>({
+    required R Function() internetError,
+    required R Function(int code) serverError,
+    required R Function(String? message) otherError,
+  }) {
+    final apiError = this;
+    if (apiError is InternetError) {
+      return internetError();
+    } else if (apiError is ServerError) {
+      return serverError(apiError.code);
+    } else if (apiError is OtherError) {
+      return otherError(apiError.message);
+    } else {
+      throw AssertionError();
+    }
+  }
+
+  R maybeWhen<R extends Object?>({
+    R Function()? internetError,
+    R Function(int code)? serverError,
+    R Function(String? message)? otherError,
+    required R Function(ApiError apiError) orElse,
+  }) {
+    final apiError = this;
+    if (apiError is InternetError) {
+      return internetError != null ? internetError() : orElse(apiError);
+    } else if (apiError is ServerError) {
+      return serverError != null
+          ? serverError(apiError.code)
+          : orElse(apiError);
+    } else if (apiError is OtherError) {
+      return otherError != null
+          ? otherError(apiError.message)
+          : orElse(apiError);
+    } else {
+      throw AssertionError();
+    }
+  }
+
+  void partialWhen({
+    void Function()? internetError,
+    void Function(int code)? serverError,
+    void Function(String? message)? otherError,
+    void Function(ApiError apiError)? orElse,
+  }) {
+    final apiError = this;
+    if (apiError is InternetError) {
+      if (internetError != null) {
+        internetError();
+      } else if (orElse != null) {
+        orElse(apiError);
+      }
+    } else if (apiError is ServerError) {
+      if (serverError != null) {
+        serverError(apiError.code);
+      } else if (orElse != null) {
+        orElse(apiError);
+      }
+    } else if (apiError is OtherError) {
+      if (otherError != null) {
+        otherError(apiError.message);
+      } else if (orElse != null) {
+        orElse(apiError);
+      }
+    } else {
+      throw AssertionError();
+    }
+  }
+
+  R map<R extends Object?>({
+    required R Function(InternetError internetError) internetError,
+    required R Function(ServerError serverError) serverError,
+    required R Function(OtherError otherError) otherError,
+  }) {
+    final apiError = this;
+    if (apiError is InternetError) {
+      return internetError(apiError);
+    } else if (apiError is ServerError) {
+      return serverError(apiError);
+    } else if (apiError is OtherError) {
+      return otherError(apiError);
+    } else {
+      throw AssertionError();
+    }
+  }
+
+  R maybeMap<R extends Object?>({
+    R Function(InternetError internetError)? internetError,
+    R Function(ServerError serverError)? serverError,
+    R Function(OtherError otherError)? otherError,
+    required R Function(ApiError apiError) orElse,
+  }) {
+    final apiError = this;
+    if (apiError is InternetError) {
+      return internetError != null ? internetError(apiError) : orElse(apiError);
+    } else if (apiError is ServerError) {
+      return serverError != null ? serverError(apiError) : orElse(apiError);
+    } else if (apiError is OtherError) {
+      return otherError != null ? otherError(apiError) : orElse(apiError);
+    } else {
+      throw AssertionError();
+    }
+  }
+
+  void partialMap({
+    void Function(InternetError internetError)? internetError,
+    void Function(ServerError serverError)? serverError,
+    void Function(OtherError otherError)? otherError,
+    void Function(ApiError apiError)? orElse,
+  }) {
+    final apiError = this;
+    if (apiError is InternetError) {
+      if (internetError != null) {
+        internetError(apiError);
+      } else if (orElse != null) {
+        orElse(apiError);
+      }
+    } else if (apiError is ServerError) {
+      if (serverError != null) {
+        serverError(apiError);
+      } else if (orElse != null) {
+        orElse(apiError);
+      }
+    } else if (apiError is OtherError) {
+      if (otherError != null) {
+        otherError(apiError);
+      } else if (orElse != null) {
+        orElse(apiError);
+      }
+    } else {
+      throw AssertionError();
+    }
+  }
+}
+
+/// (([InternetError] : [ApiError]) internetError){}
+///
+/// with data equality
+class InternetError extends ApiError with EquatableMixin {
+  const InternetError() : super._internal();
+
+  @override
+  String toString() => 'ApiError.internetError()';
+
+  @override
+  List<Object?> get props => [];
+}
+
+/// (([ServerError] : [ApiError]) serverError){[int] code}
+///
+/// with data equality
+class ServerError extends ApiError with EquatableMixin {
+  const ServerError({
+    required this.code,
+  }) : super._internal();
+
+  final int code;
+
+  @override
+  String toString() => 'ApiError.serverError(code: $code)';
+
+  @override
+  List<Object?> get props => [
+        code,
+      ];
+}
+
+/// (([OtherError] : [ApiError]) otherError){[String]? message}
+///
+/// with data equality
+class OtherError extends ApiError with EquatableMixin {
+  const OtherError({
+    this.message,
+  }) : super._internal();
+
+  final String? message;
+
+  @override
+  String toString() => 'ApiError.otherError(message: $message)';
+
+  @override
+  List<Object?> get props => [
+        message,
+      ];
+}

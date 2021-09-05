@@ -59,7 +59,13 @@ abstract class _Weather {
 }
 ```
 
-Then run the following command to generate code for you.
+Then run the following command to generate code for you. If you are developer for flutter:
+
+```bash
+flutter pub run build_runner build
+```
+
+And if you are developing for pure dart:
 
 ```bash
 dart run build_runner build
@@ -157,7 +163,8 @@ class WeatherWindy extends Weather {
 
 Notes:
 
-- Prefer using factories in super class instead of sub-class constructors. like `Whether.rainy()` instead of `WhetherRainy()`
+- Prefer using factories in super class instead of sub-class constructors. like `Whether.rainy()` instead
+  of `WhetherRainy()`
 - Minimize usage of cast methods, most of the time they can be replaced with a match method.
 
 ## Equality and generated class names
@@ -312,4 +319,112 @@ abstract class _WeatherInfo {
   // you can also have nullable types.
   void nullable(@WithType('Result<WeatherData>?') result);
 }
+```
+
+## Common Fields
+
+Sometimes you need some fields to be present in all of your sealed classes. For example consider making a sealed class
+for different types of errors, and all of them are required to have `code` and `message`. It is very annoying to add
+code and message to all of sealeds manually. Also if you have an error object you are unable to get its code or message
+without using cast or match methods. Here you can use common fields.
+
+To declare a common field you can add a getter or a final field to a manifest class, and it will automatically be added
+to all of your sealed classes. for example:
+
+```dart
+@Sealed()
+abstract class _ApiError {
+  // using getter
+  String get message;
+
+  // using final field
+  final String? code = null;
+
+  // code and message will be added to this automatically
+  void internetError();
+
+  void badRequest();
+
+  void internalError(Object? error);
+}
+```
+
+common fields are available on `ApiError` objects as well as it's sub-classes.
+
+If you specify common fields in your seaeld classes it has no effect. for example:
+
+```dart
+@Sealed()
+abstract class _Common {
+  Object get x;
+
+  // one and two will have identical signatures
+  void one(Object x);
+
+  void two();
+}
+```
+
+You can use sub-class of common field type in sealed classes. For example:
+
+```dart
+@Sealed()
+abstract class _Common {
+  Object get x;
+
+  // x has type int
+  void one(int x);
+
+  // x has type String
+  void one(String x);
+
+  // x has type Object
+  void three();
+}
+```
+
+common fields also works with other constructs of dart_sealed like generics and @WithType. for example:
+
+```dart
+@Sealed()
+abstract class _Common {
+  @WithType('num')
+  dynamic get x; // you can omit dynamic
+
+  // x has type int
+  void one(@WithType('int') dynamic x); // you can omit dynamic
+
+  // x has type num
+  void two();
+}
+```
+
+and, for example:
+
+```dart
+@Sealed()
+abstract class _Result<D extends num> {
+  Object? get value;
+
+  void success(D value);
+
+  void error();
+}
+```
+
+## Ignoring Generated Files
+
+It is recommended to ignore generated files on Git. Add this to your `.gitignore` file:
+
+```
+*.sealed.dart
+```
+
+It is NOT recommended to exclude generated files from analysis. But if you decide to do so, add this to
+your `analysis_options.yaml` file:
+
+```
+analyzer:
+  exclude:
+    - **.sealed.dart
 ```

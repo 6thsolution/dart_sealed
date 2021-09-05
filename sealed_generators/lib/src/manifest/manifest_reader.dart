@@ -13,7 +13,7 @@ class ManifestReader {
     required this.topClass,
   }) {
     check(topName.isGenClassName());
-    check(topPrefix.isGenClassName());
+    check(topPrefix.isEmpty || topPrefix.isGenClassName());
   }
 
   /// top class name, like: Weather.
@@ -29,11 +29,19 @@ class ManifestReader {
   final ClassElement topClass;
 
   /// read manifest
-  Manifest read() => Manifest(
-        name: topName,
-        params: _extractParams(),
-        items: _extractItems(),
-      );
+  Manifest read() {
+    final params = _extractParams();
+    final commonFields = _extractCommonFields();
+    final items = _extractItems();
+    final correctedItems = _correctItemsWithCommons(items, commonFields);
+
+    return Manifest(
+      name: topName,
+      params: params,
+      items: correctedItems,
+      fields: commonFields,
+    );
+  }
 
   /// extract  class param
   ManifestParam _extractParam(TypeParameterElement p) {
@@ -157,6 +165,85 @@ class ManifestReader {
       );
 
   /// read overridden type for an argument or null
-  ManifestType? _readOverriddenTypeOrNull(ParameterElement arg) =>
-      extractWithTypeOrNull(arg)?.readType();
+  ManifestType? _readOverriddenTypeOrNull(Element element) =>
+      extractWithTypeOrNull(element)?.readType();
+
+  /// extract common fields from getters
+  List<ManifestField> _extractCommonFields() => topClass.accessors
+      .where(_filterGetterAccessors)
+      .map(_extractCommonField)
+      .toList();
+
+  /// filter getter accessors
+  static bool _filterGetterAccessors(PropertyAccessorElement accessor) =>
+      accessor.isGetter;
+
+  /// extract common field from a getter
+  ManifestField _extractCommonField(PropertyAccessorElement accessor) {
+    final name = _extractCommonFieldName(accessor);
+    return ManifestField(
+      name: name,
+      type: _readOverriddenCommonFieldTypeOrNull(accessor) ??
+          _extractManifestType(accessor.type.returnType),
+    );
+  }
+
+  /// read overridden common field type or null
+  ///
+  /// getter may be synthesized from a field
+  ManifestType? _readOverriddenCommonFieldTypeOrNull(
+    PropertyAccessorElement accessor,
+  ) =>
+      accessor.isSynthetic
+          ? _readOverriddenTypeOrNull(accessor.nonSynthetic)
+          : _readOverriddenTypeOrNull(accessor);
+
+  /// extract field name from method argument
+  String _extractCommonFieldName(PropertyAccessorElement accessor) {
+    final name = accessor.name;
+    require(
+      name.isGenTypeName(),
+      () => "getter/field name '$name' should be valid type name",
+    );
+    require(
+      name.isPublic(),
+      () => "getter/field name '$name' should not start with '_'",
+    );
+    require(
+      name.startsWithLower(),
+      () => "getter/field name '$name' should start with lower case",
+    );
+    return name;
+  }
+
+  /// add common fields to items
+  List<ManifestItem> _correctItemsWithCommons(
+    List<ManifestItem> items,
+    List<ManifestField> commonFields,
+  ) =>
+      items
+          .map((item) => ManifestItem(
+                name: item.name,
+                shortName: item.shortName,
+                equality: item.equality,
+                fields: _correctFieldsWithCommons(
+                  item.fields,
+                  commonFields,
+                ).toList(),
+              ))
+          .toList();
+
+  /// add common fields to fields
+  Iterable<ManifestField> _correctFieldsWithCommons(
+    List<ManifestField> fields,
+    List<ManifestField> commonFields,
+  ) sync* {
+    final names = fields.map((e) => e.name).toList();
+    for (final commonField in commonFields) {
+      if (!names.contains(commonField.name)) {
+        yield commonField;
+      }
+    }
+    yield* fields;
+  }
 }

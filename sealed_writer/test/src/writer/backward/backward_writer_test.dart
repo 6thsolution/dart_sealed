@@ -40,6 +40,13 @@ void main() {
 
         expect(writer.write(), code2Data);
       });
+
+      test('data equality common', () {
+        final manifest = manifest3Data;
+        final writer = BackwardWriter(manifest);
+
+        expect(writer.write(), code3Data);
+      });
     });
   });
 }

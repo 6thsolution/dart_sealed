@@ -88,7 +88,11 @@ class SealedManifest {
 ///   void rainy(@WithType('int') rain);
 /// }
 /// ```
-@Target({TargetKind.parameter})
+@Target({
+  TargetKind.parameter,
+  TargetKind.field,
+  TargetKind.getter,
+})
 class WithType {
   /// type name.
   /// for example "int?", "double" or "Result<WeatherData>".

@@ -43,13 +43,21 @@ class BackwardWriter extends BaseUtilsWriter {
   /// single-line
   String _nameAnnotation(ManifestItem item) => "@WithName('${item.name}')";
 
+  /// maybe multi-line
   String _group(ManifestItem item) => [
         _equalityAnnotation(item),
         _nameAnnotation(item),
         _method(item),
       ].joinLines();
 
-  Iterable<String> _groups() => manifest.items.map(_group);
+  /// single-line
+  String _common(ManifestField field) =>
+      '${typeSL(field.type)} get ${field.name};';
+
+  Iterable<String> _groups() => [
+        ...manifest.fields.map(_common),
+        ...manifest.items.map(_group),
+      ];
 
   /// write
   String write() => [

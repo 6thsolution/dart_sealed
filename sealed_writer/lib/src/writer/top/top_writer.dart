@@ -4,6 +4,7 @@ import 'package:sealed_writer/src/writer/base/base_utils_writer.dart';
 import 'package:sealed_writer/src/writer/top/match/top_match_writer.dart';
 import 'package:sealed_writer/src/writer/top/top_builder_writer.dart';
 import 'package:sealed_writer/src/writer/top/top_cast_writer.dart';
+import 'package:sealed_writer/src/writer/top/top_common_writer.dart';
 import 'package:sealed_writer/src/writer/top/top_doc_writer.dart';
 
 /// source writer
@@ -15,6 +16,7 @@ class TopWriter extends BaseUtilsWriter {
         topCastWriter = TopCastWriter(manifest),
         topMatchWriter = TopMatchWriter(manifest),
         topDocWriter = TopDocWriter(manifest),
+        topCommonWriter = TopCommonWriter(manifest),
         super(manifest);
 
   final TopBuilderWriter topBuilderWriter;
@@ -25,12 +27,15 @@ class TopWriter extends BaseUtilsWriter {
 
   final TopDocWriter topDocWriter;
 
+  final TopCommonWriter topCommonWriter;
+
   /// ex. @SealedManifest(_Weather)
   String topManifest() => '@SealedManifest(_$top)';
 
   String topConstructor() => 'const $top._internal();';
 
   Iterable<String> topMethods() => [
+        ...topCommonWriter.topCommonGetters(),
         ...topBuilderWriter.topBuilderMethods(),
         ...topCastWriter.topCastMethods(),
         ...topMatchWriter.topMatchMethods(),

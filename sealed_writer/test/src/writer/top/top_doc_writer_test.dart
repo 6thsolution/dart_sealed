@@ -41,6 +41,13 @@ void main() {
 
         expect(writer.write(), doc2Data);
       });
+
+      test('data equality common', () {
+        final manifest = manifest3Data;
+        final writer = TopDocWriter(manifest);
+
+        expect(writer.write(), doc3Data);
+      });
     });
 
     test('constant equalityNames', () {

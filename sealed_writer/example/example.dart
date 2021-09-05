@@ -26,6 +26,7 @@ void main() {
       ),
     ],
     params: [],
+    fields: [],
   );
 
   print('==============');

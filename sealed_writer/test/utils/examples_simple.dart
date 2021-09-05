@@ -38,6 +38,7 @@ Manifest manifest1([ManifestEquality equality = ManifestEquality.data]) =>
         ),
       ],
       params: [],
+      fields: [],
     );
 
 final manifest1Data = manifest1(ManifestEquality.data);
