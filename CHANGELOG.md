@@ -1,8 +1,8 @@
-## dev
+## 1.10.0
 
 - Fixed @WithPrefix allowing empty string as argument (#6)
 - Added capability of adding common fields (#8)
-- Updated docs according to ignore generated files (#5)
+- Updated docs according to ignore/exclude generated files (#5)
 
 ## 1.9.0
 
