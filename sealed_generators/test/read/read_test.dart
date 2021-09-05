@@ -285,6 +285,291 @@ void one(@WithType('double?') x, @WithType('double') int? y);
               ),
             );
           });
+
+          group('common', () {
+            test('basic', () async {
+              final x = await resolveSealedSafe('''
+@Sealed()
+abstract class _Basic {
+int get x;
+
+void one(double y);
+}''');
+              final manifest = SourceReader().read(x.element);
+              expect(
+                manifest,
+                Manifest(
+                  name: 'Basic',
+                  params: [],
+                  fields: [
+                    ManifestField(
+                      name: 'x',
+                      type: ManifestType(
+                        name: 'int',
+                        isNullable: false,
+                      ),
+                    ),
+                  ],
+                  items: [
+                    ManifestItem(
+                      name: 'BasicOne',
+                      shortName: 'one',
+                      equality: ManifestEquality.data,
+                      fields: [
+                        ManifestField(
+                          name: 'x',
+                          type: ManifestType(
+                            name: 'int',
+                            isNullable: false,
+                          ),
+                        ),
+                        ManifestField(
+                          name: 'y',
+                          type: ManifestType(
+                            name: 'double',
+                            isNullable: false,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              );
+            });
+
+            test('inherit', () async {
+              final x = await resolveSealedSafe('''
+@Sealed()
+abstract class _Basic {
+num get x;
+
+void one();
+
+void two(int x);
+}''');
+              final manifest = SourceReader().read(x.element);
+              expect(
+                manifest,
+                Manifest(
+                  name: 'Basic',
+                  params: [],
+                  fields: [
+                    ManifestField(
+                      name: 'x',
+                      type: ManifestType(
+                        name: 'num',
+                        isNullable: false,
+                      ),
+                    ),
+                  ],
+                  items: [
+                    ManifestItem(
+                      name: 'BasicOne',
+                      shortName: 'one',
+                      equality: ManifestEquality.data,
+                      fields: [
+                        ManifestField(
+                          name: 'x',
+                          type: ManifestType(
+                            name: 'num',
+                            isNullable: false,
+                          ),
+                        ),
+                      ],
+                    ),
+                    ManifestItem(
+                      name: 'BasicTwo',
+                      shortName: 'two',
+                      equality: ManifestEquality.data,
+                      fields: [
+                        ManifestField(
+                          name: 'x',
+                          type: ManifestType(
+                            name: 'int',
+                            isNullable: false,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              );
+            });
+
+            test('final field', () async {
+              final x = await resolveSealedSafe('''
+@Sealed()
+abstract class _Basic {
+final int x = 0;
+
+void one();
+}''');
+              final manifest = SourceReader().read(x.element);
+              expect(
+                manifest,
+                Manifest(
+                  name: 'Basic',
+                  params: [],
+                  fields: [
+                    ManifestField(
+                      name: 'x',
+                      type: ManifestType(
+                        name: 'int',
+                        isNullable: false,
+                      ),
+                    ),
+                  ],
+                  items: [
+                    ManifestItem(
+                      name: 'BasicOne',
+                      shortName: 'one',
+                      equality: ManifestEquality.data,
+                      fields: [
+                        ManifestField(
+                          name: 'x',
+                          type: ManifestType(
+                            name: 'int',
+                            isNullable: false,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              );
+            });
+
+            test('basic meta', () async {
+              final x = await resolveSealedSafe('''
+@Sealed()
+abstract class _Basic {
+@WithType('int')
+dynamic get x;
+
+void one();
+}''');
+              final manifest = SourceReader().read(x.element);
+              expect(
+                manifest,
+                Manifest(
+                  name: 'Basic',
+                  params: [],
+                  fields: [
+                    ManifestField(
+                      name: 'x',
+                      type: ManifestType(
+                        name: 'int',
+                        isNullable: false,
+                      ),
+                    ),
+                  ],
+                  items: [
+                    ManifestItem(
+                      name: 'BasicOne',
+                      shortName: 'one',
+                      equality: ManifestEquality.data,
+                      fields: [
+                        ManifestField(
+                          name: 'x',
+                          type: ManifestType(
+                            name: 'int',
+                            isNullable: false,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              );
+            });
+
+            test('inherit meta', () async {
+              final x = await resolveSealedSafe('''
+@Sealed()
+abstract class _Basic {
+num get x;
+
+void one(@WithType('int') dynamic x);
+}''');
+              final manifest = SourceReader().read(x.element);
+              expect(
+                manifest,
+                Manifest(
+                  name: 'Basic',
+                  params: [],
+                  fields: [
+                    ManifestField(
+                      name: 'x',
+                      type: ManifestType(
+                        name: 'num',
+                        isNullable: false,
+                      ),
+                    ),
+                  ],
+                  items: [
+                    ManifestItem(
+                      name: 'BasicOne',
+                      shortName: 'one',
+                      equality: ManifestEquality.data,
+                      fields: [
+                        ManifestField(
+                          name: 'x',
+                          type: ManifestType(
+                            name: 'int',
+                            isNullable: false,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              );
+            });
+
+            test('final field meta', () async {
+              final x = await resolveSealedSafe('''
+@Sealed()
+abstract class _Basic {
+@WithType('int')
+final dynamic x = null;
+
+void one();
+}''');
+              final manifest = SourceReader().read(x.element);
+              expect(
+                manifest,
+                Manifest(
+                  name: 'Basic',
+                  params: [],
+                  fields: [
+                    ManifestField(
+                      name: 'x',
+                      type: ManifestType(
+                        name: 'int',
+                        isNullable: false,
+                      ),
+                    ),
+                  ],
+                  items: [
+                    ManifestItem(
+                      name: 'BasicOne',
+                      shortName: 'one',
+                      equality: ManifestEquality.data,
+                      fields: [
+                        ManifestField(
+                          name: 'x',
+                          type: ManifestType(
+                            name: 'int',
+                            isNullable: false,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              );
+            });
+          });
         });
 
         group('generic', () {

@@ -175,7 +175,7 @@ class ManifestReader {
       .toList();
 
   /// filter getter accessors
-  bool _filterGetterAccessors(PropertyAccessorElement accessor) =>
+  static bool _filterGetterAccessors(PropertyAccessorElement accessor) =>
       accessor.isGetter;
 
   /// extract common field from a getter
