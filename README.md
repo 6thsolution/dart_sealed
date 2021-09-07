@@ -420,11 +420,10 @@ It is recommended to ignore generated files on Git. Add this to your `.gitignore
 *.sealed.dart
 ```
 
-It is NOT recommended to exclude generated files from analysis. But if you decide to do so, add this to
-your `analysis_options.yaml` file:
+To exclude generated files from dart analysis, add this to your `analysis_options.yaml` file:
 
 ```
 analyzer:
   exclude:
-    - **.sealed.dart
+    - lib/**/*.sealed.dart
 ```
