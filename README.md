@@ -349,6 +349,8 @@ abstract class _ApiError {
 }
 ```
 
+You can also use a constructor in pair with final fields equivalently.
+
 common fields are available on `ApiError` objects as well as it's sub-classes.
 
 If you specify common fields in your seaeld classes it has no effect. for example:
