@@ -349,6 +349,8 @@ abstract class _ApiError {
 }
 ```
 
+You can also use a constructor in pair with final fields equivalently.
+
 common fields are available on `ApiError` objects as well as it's sub-classes.
 
 If you specify common fields in your seaeld classes it has no effect. for example:
@@ -420,11 +422,10 @@ It is recommended to ignore generated files on Git. Add this to your `.gitignore
 *.sealed.dart
 ```
 
-It is NOT recommended to exclude generated files from analysis. But if you decide to do so, add this to
-your `analysis_options.yaml` file:
+To exclude generated files from dart analysis, add this to your `analysis_options.yaml` file:
 
 ```
 analyzer:
   exclude:
-    - **.sealed.dart
+    - lib/**/*.sealed.dart
 ```
