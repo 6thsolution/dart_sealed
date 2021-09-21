@@ -1,3 +1,7 @@
+## 1.11.0
+
+- Added whenOrNull and mapOrNull methods (#12)
+
 ## 1.10.0
 
 - Fixed @WithPrefix allowing empty string as argument (#6)
@@ -48,7 +52,7 @@
 - Using factory instead of static methods
 - Disabled copy method generation
 
-## 1.1.0
+## whenOrNull0
 
 - Decoupled super_enum APIs from dart_sealed
 

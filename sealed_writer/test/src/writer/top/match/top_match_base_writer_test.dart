@@ -94,6 +94,31 @@ void main() {
       });
     });
 
+    group('method topMatchGenericNArgOrElse', () {
+      group('simple', () {
+        test('null-safe', () {
+          final manifest = manifest1Data;
+          final writer = TopMatchBaseWriter(manifest);
+
+          expect(
+            writer.topMatchGenericNArgOrElse(),
+            'R Function(Weather weather)? orElse',
+          );
+        });
+      });
+      group('generic', () {
+        test('null-safe', () {
+          final manifest = manifest2Data;
+          final writer = TopMatchBaseWriter(manifest);
+
+          expect(
+            writer.topMatchGenericNArgOrElse(),
+            'R Function(Result<T> result)? orElse',
+          );
+        });
+      });
+    });
+
     group('method topMatchGenericNNArgOrDefault', () {
       group('simple', () {
         test('null-safe', () {

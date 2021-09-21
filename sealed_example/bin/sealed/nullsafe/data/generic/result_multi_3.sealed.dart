@@ -126,6 +126,26 @@ abstract class Result<D extends num, E extends Object> {
     }
   }
 
+  R? whenOrNull<R extends Object?>({
+    R Function(D? data)? success,
+    R Function(E? exception)? error,
+    R Function(D? data, E? exception)? mixed,
+    R Function(Result<D, E> result)? orElse,
+  }) {
+    final result = this;
+    if (result is ResultSuccess<D, E>) {
+      return success != null ? success(result.data) : orElse?.call(result);
+    } else if (result is ResultError<D, E>) {
+      return error != null ? error(result.exception) : orElse?.call(result);
+    } else if (result is ResultMixed<D, E>) {
+      return mixed != null
+          ? mixed(result.data, result.exception)
+          : orElse?.call(result);
+    } else {
+      throw AssertionError();
+    }
+  }
+
   R map<R extends Object?>({
     required R Function(ResultSuccess<D, E> success) success,
     required R Function(ResultError<D, E> error) error,
@@ -186,6 +206,24 @@ abstract class Result<D extends num, E extends Object> {
       } else if (orElse != null) {
         orElse(result);
       }
+    } else {
+      throw AssertionError();
+    }
+  }
+
+  R? mapOrNull<R extends Object?>({
+    R Function(ResultSuccess<D, E> success)? success,
+    R Function(ResultError<D, E> error)? error,
+    R Function(ResultMixed<D, E> mixed)? mixed,
+    R Function(Result<D, E> result)? orElse,
+  }) {
+    final result = this;
+    if (result is ResultSuccess<D, E>) {
+      return success != null ? success(result) : orElse?.call(result);
+    } else if (result is ResultError<D, E>) {
+      return error != null ? error(result) : orElse?.call(result);
+    } else if (result is ResultMixed<D, E>) {
+      return mixed != null ? mixed(result) : orElse?.call(result);
     } else {
       throw AssertionError();
     }

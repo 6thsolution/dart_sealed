@@ -124,6 +124,26 @@ abstract class Weather {
     }
   }
 
+  R? whenOrNull<R extends Object?>({
+    R Function()? sunny,
+    R Function(int rain)? rainy,
+    R Function(double velocity, double? angle)? windy,
+    R Function(Weather weather)? orElse,
+  }) {
+    final weather = this;
+    if (weather is WeatherSunny) {
+      return sunny != null ? sunny() : orElse?.call(weather);
+    } else if (weather is WeatherRainy) {
+      return rainy != null ? rainy(weather.rain) : orElse?.call(weather);
+    } else if (weather is WeatherWindy) {
+      return windy != null
+          ? windy(weather.velocity, weather.angle)
+          : orElse?.call(weather);
+    } else {
+      throw AssertionError();
+    }
+  }
+
   R map<R extends Object?>({
     required R Function(WeatherSunny sunny) sunny,
     required R Function(WeatherRainy rainy) rainy,
@@ -184,6 +204,24 @@ abstract class Weather {
       } else if (orElse != null) {
         orElse(weather);
       }
+    } else {
+      throw AssertionError();
+    }
+  }
+
+  R? mapOrNull<R extends Object?>({
+    R Function(WeatherSunny sunny)? sunny,
+    R Function(WeatherRainy rainy)? rainy,
+    R Function(WeatherWindy windy)? windy,
+    R Function(Weather weather)? orElse,
+  }) {
+    final weather = this;
+    if (weather is WeatherSunny) {
+      return sunny != null ? sunny(weather) : orElse?.call(weather);
+    } else if (weather is WeatherRainy) {
+      return rainy != null ? rainy(weather) : orElse?.call(weather);
+    } else if (weather is WeatherWindy) {
+      return windy != null ? windy(weather) : orElse?.call(weather);
     } else {
       throw AssertionError();
     }

@@ -67,6 +67,18 @@ abstract class Apple {
     }
   }
 
+  R? whenOrNull<R extends Object?>({
+    R Function(Banana? banana)? hold,
+    R Function(Apple apple)? orElse,
+  }) {
+    final apple = this;
+    if (apple is AppleHold) {
+      return hold != null ? hold(apple.banana) : orElse?.call(apple);
+    } else {
+      throw AssertionError();
+    }
+  }
+
   R map<R extends Object?>({
     required R Function(AppleHold hold) hold,
   }) {
@@ -101,6 +113,18 @@ abstract class Apple {
       } else if (orElse != null) {
         orElse(apple);
       }
+    } else {
+      throw AssertionError();
+    }
+  }
+
+  R? mapOrNull<R extends Object?>({
+    R Function(AppleHold hold)? hold,
+    R Function(Apple apple)? orElse,
+  }) {
+    final apple = this;
+    if (apple is AppleHold) {
+      return hold != null ? hold(apple) : orElse?.call(apple);
     } else {
       throw AssertionError();
     }
@@ -187,6 +211,18 @@ abstract class Banana {
     }
   }
 
+  R? whenOrNull<R extends Object?>({
+    R Function(Apple apple)? hold,
+    R Function(Banana banana)? orElse,
+  }) {
+    final banana = this;
+    if (banana is BananaHold) {
+      return hold != null ? hold(banana.apple) : orElse?.call(banana);
+    } else {
+      throw AssertionError();
+    }
+  }
+
   R map<R extends Object?>({
     required R Function(BananaHold hold) hold,
   }) {
@@ -221,6 +257,18 @@ abstract class Banana {
       } else if (orElse != null) {
         orElse(banana);
       }
+    } else {
+      throw AssertionError();
+    }
+  }
+
+  R? mapOrNull<R extends Object?>({
+    R Function(BananaHold hold)? hold,
+    R Function(Banana banana)? orElse,
+  }) {
+    final banana = this;
+    if (banana is BananaHold) {
+      return hold != null ? hold(banana) : orElse?.call(banana);
     } else {
       throw AssertionError();
     }
@@ -368,6 +416,30 @@ abstract class Coconut {
     }
   }
 
+  R? whenOrNull<R extends Object?>({
+    R Function(int x, double y)? test1,
+    R Function(int? x, double? y)? test2,
+    R Function(Apple? apple, Banana? banana)? hold,
+    R Function(Coconut coconut)? orElse,
+  }) {
+    final coconut = this;
+    if (coconut is CoconutTest1) {
+      return test1 != null
+          ? test1(coconut.x, coconut.y)
+          : orElse?.call(coconut);
+    } else if (coconut is CoconutTest2) {
+      return test2 != null
+          ? test2(coconut.x, coconut.y)
+          : orElse?.call(coconut);
+    } else if (coconut is CoconutHold) {
+      return hold != null
+          ? hold(coconut.apple, coconut.banana)
+          : orElse?.call(coconut);
+    } else {
+      throw AssertionError();
+    }
+  }
+
   R map<R extends Object?>({
     required R Function(CoconutTest1 test1) test1,
     required R Function(CoconutTest2 test2) test2,
@@ -428,6 +500,24 @@ abstract class Coconut {
       } else if (orElse != null) {
         orElse(coconut);
       }
+    } else {
+      throw AssertionError();
+    }
+  }
+
+  R? mapOrNull<R extends Object?>({
+    R Function(CoconutTest1 test1)? test1,
+    R Function(CoconutTest2 test2)? test2,
+    R Function(CoconutHold hold)? hold,
+    R Function(Coconut coconut)? orElse,
+  }) {
+    final coconut = this;
+    if (coconut is CoconutTest1) {
+      return test1 != null ? test1(coconut) : orElse?.call(coconut);
+    } else if (coconut is CoconutTest2) {
+      return test2 != null ? test2(coconut) : orElse?.call(coconut);
+    } else if (coconut is CoconutHold) {
+      return hold != null ? hold(coconut) : orElse?.call(coconut);
     } else {
       throw AssertionError();
     }

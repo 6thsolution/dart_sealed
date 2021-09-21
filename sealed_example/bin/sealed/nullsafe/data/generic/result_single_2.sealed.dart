@@ -95,6 +95,21 @@ abstract class Result<D extends num?> {
     }
   }
 
+  R? whenOrNull<R extends Object?>({
+    R Function(D data)? success,
+    R Function(Object exception)? error,
+    R Function(Result<D> result)? orElse,
+  }) {
+    final result = this;
+    if (result is ResultSuccess<D>) {
+      return success != null ? success(result.data) : orElse?.call(result);
+    } else if (result is ResultError<D>) {
+      return error != null ? error(result.exception) : orElse?.call(result);
+    } else {
+      throw AssertionError();
+    }
+  }
+
   R map<R extends Object?>({
     required R Function(ResultSuccess<D> success) success,
     required R Function(ResultError<D> error) error,
@@ -142,6 +157,21 @@ abstract class Result<D extends num?> {
       } else if (orElse != null) {
         orElse(result);
       }
+    } else {
+      throw AssertionError();
+    }
+  }
+
+  R? mapOrNull<R extends Object?>({
+    R Function(ResultSuccess<D> success)? success,
+    R Function(ResultError<D> error)? error,
+    R Function(Result<D> result)? orElse,
+  }) {
+    final result = this;
+    if (result is ResultSuccess<D>) {
+      return success != null ? success(result) : orElse?.call(result);
+    } else if (result is ResultError<D>) {
+      return error != null ? error(result) : orElse?.call(result);
     } else {
       throw AssertionError();
     }

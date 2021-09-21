@@ -124,6 +124,26 @@ abstract class Weather {
     }
   }
 
+  R? whenOrNull<R extends Object?>({
+    R Function()? sunny,
+    R Function(int rain)? rainy,
+    R Function(double velocity, double? angle)? windy,
+    R Function(Weather weather)? orElse,
+  }) {
+    final weather = this;
+    if (weather is PrefixSunny) {
+      return sunny != null ? sunny() : orElse?.call(weather);
+    } else if (weather is BadWeather) {
+      return rainy != null ? rainy(weather.rain) : orElse?.call(weather);
+    } else if (weather is VeryBadWeather) {
+      return windy != null
+          ? windy(weather.velocity, weather.angle)
+          : orElse?.call(weather);
+    } else {
+      throw AssertionError();
+    }
+  }
+
   R map<R extends Object?>({
     required R Function(PrefixSunny sunny) sunny,
     required R Function(BadWeather rainy) rainy,
@@ -184,6 +204,24 @@ abstract class Weather {
       } else if (orElse != null) {
         orElse(weather);
       }
+    } else {
+      throw AssertionError();
+    }
+  }
+
+  R? mapOrNull<R extends Object?>({
+    R Function(PrefixSunny sunny)? sunny,
+    R Function(BadWeather rainy)? rainy,
+    R Function(VeryBadWeather windy)? windy,
+    R Function(Weather weather)? orElse,
+  }) {
+    final weather = this;
+    if (weather is PrefixSunny) {
+      return sunny != null ? sunny(weather) : orElse?.call(weather);
+    } else if (weather is BadWeather) {
+      return rainy != null ? rainy(weather) : orElse?.call(weather);
+    } else if (weather is VeryBadWeather) {
+      return windy != null ? windy(weather) : orElse?.call(weather);
     } else {
       throw AssertionError();
     }
@@ -360,6 +398,28 @@ abstract class ApiError {
     }
   }
 
+  R? whenOrNull<R extends Object?>({
+    R Function()? internetError,
+    R Function(int code)? serverError,
+    R Function(String? message)? otherError,
+    R Function(ApiError apiError)? orElse,
+  }) {
+    final apiError = this;
+    if (apiError is InternetError) {
+      return internetError != null ? internetError() : orElse?.call(apiError);
+    } else if (apiError is ServerError) {
+      return serverError != null
+          ? serverError(apiError.code)
+          : orElse?.call(apiError);
+    } else if (apiError is OtherError) {
+      return otherError != null
+          ? otherError(apiError.message)
+          : orElse?.call(apiError);
+    } else {
+      throw AssertionError();
+    }
+  }
+
   R map<R extends Object?>({
     required R Function(InternetError internetError) internetError,
     required R Function(ServerError serverError) serverError,
@@ -420,6 +480,28 @@ abstract class ApiError {
       } else if (orElse != null) {
         orElse(apiError);
       }
+    } else {
+      throw AssertionError();
+    }
+  }
+
+  R? mapOrNull<R extends Object?>({
+    R Function(InternetError internetError)? internetError,
+    R Function(ServerError serverError)? serverError,
+    R Function(OtherError otherError)? otherError,
+    R Function(ApiError apiError)? orElse,
+  }) {
+    final apiError = this;
+    if (apiError is InternetError) {
+      return internetError != null
+          ? internetError(apiError)
+          : orElse?.call(apiError);
+    } else if (apiError is ServerError) {
+      return serverError != null
+          ? serverError(apiError)
+          : orElse?.call(apiError);
+    } else if (apiError is OtherError) {
+      return otherError != null ? otherError(apiError) : orElse?.call(apiError);
     } else {
       throw AssertionError();
     }

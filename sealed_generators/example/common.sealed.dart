@@ -140,6 +140,30 @@ abstract class ApiError {
     }
   }
 
+  R? whenOrNull<R extends Object?>({
+    R Function(String message, String? code)? internetError,
+    R Function(String message, String? code)? badRequest,
+    R Function(String message, String? code, Object? error)? internalError,
+    R Function(ApiError apiError)? orElse,
+  }) {
+    final apiError = this;
+    if (apiError is ApiErrorInternetError) {
+      return internetError != null
+          ? internetError(apiError.message, apiError.code)
+          : orElse?.call(apiError);
+    } else if (apiError is ApiErrorBadRequest) {
+      return badRequest != null
+          ? badRequest(apiError.message, apiError.code)
+          : orElse?.call(apiError);
+    } else if (apiError is ApiErrorInternalError) {
+      return internalError != null
+          ? internalError(apiError.message, apiError.code, apiError.error)
+          : orElse?.call(apiError);
+    } else {
+      throw AssertionError();
+    }
+  }
+
   R map<R extends Object?>({
     required R Function(ApiErrorInternetError internetError) internetError,
     required R Function(ApiErrorBadRequest badRequest) badRequest,
@@ -200,6 +224,28 @@ abstract class ApiError {
       } else if (orElse != null) {
         orElse(apiError);
       }
+    } else {
+      throw AssertionError();
+    }
+  }
+
+  R? mapOrNull<R extends Object?>({
+    R Function(ApiErrorInternetError internetError)? internetError,
+    R Function(ApiErrorBadRequest badRequest)? badRequest,
+    R Function(ApiErrorInternalError internalError)? internalError,
+    R Function(ApiError apiError)? orElse,
+  }) {
+    final apiError = this;
+    if (apiError is ApiErrorInternetError) {
+      return internetError != null
+          ? internetError(apiError)
+          : orElse?.call(apiError);
+    } else if (apiError is ApiErrorBadRequest) {
+      return badRequest != null ? badRequest(apiError) : orElse?.call(apiError);
+    } else if (apiError is ApiErrorInternalError) {
+      return internalError != null
+          ? internalError(apiError)
+          : orElse?.call(apiError);
     } else {
       throw AssertionError();
     }

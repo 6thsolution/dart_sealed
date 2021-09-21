@@ -109,6 +109,25 @@ abstract class ResultLeftRight<D extends num> {
     }
   }
 
+  R? whenOrNull<R extends Object?>({
+    R Function(D data)? successLeft,
+    R Function(D data)? successRight,
+    R Function(ResultLeftRight<D> resultLeftRight)? orElse,
+  }) {
+    final resultLeftRight = this;
+    if (resultLeftRight is ResultLeftRightSuccessLeft<D>) {
+      return successLeft != null
+          ? successLeft(resultLeftRight.data)
+          : orElse?.call(resultLeftRight);
+    } else if (resultLeftRight is ResultLeftRightSuccessRight<D>) {
+      return successRight != null
+          ? successRight(resultLeftRight.data)
+          : orElse?.call(resultLeftRight);
+    } else {
+      throw AssertionError();
+    }
+  }
+
   R map<R extends Object?>({
     required R Function(ResultLeftRightSuccessLeft<D> successLeft) successLeft,
     required R Function(ResultLeftRightSuccessRight<D> successRight)
@@ -161,6 +180,25 @@ abstract class ResultLeftRight<D extends num> {
       } else if (orElse != null) {
         orElse(resultLeftRight);
       }
+    } else {
+      throw AssertionError();
+    }
+  }
+
+  R? mapOrNull<R extends Object?>({
+    R Function(ResultLeftRightSuccessLeft<D> successLeft)? successLeft,
+    R Function(ResultLeftRightSuccessRight<D> successRight)? successRight,
+    R Function(ResultLeftRight<D> resultLeftRight)? orElse,
+  }) {
+    final resultLeftRight = this;
+    if (resultLeftRight is ResultLeftRightSuccessLeft<D>) {
+      return successLeft != null
+          ? successLeft(resultLeftRight)
+          : orElse?.call(resultLeftRight);
+    } else if (resultLeftRight is ResultLeftRightSuccessRight<D>) {
+      return successRight != null
+          ? successRight(resultLeftRight)
+          : orElse?.call(resultLeftRight);
     } else {
       throw AssertionError();
     }

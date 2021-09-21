@@ -18,6 +18,10 @@ class TopMatchBaseWriter extends BaseCastUtilsWriter {
   String topMatchGenericNNArgOrElse() => '$req R Function'
       '($topCall $topLower) orElse';
 
+  /// required R Function(Weather weather) orElse
+  String topMatchGenericNArgOrElse() => 'R Function'
+      '($topCall $topLower)? orElse';
+
   /// required R orDefault
   String topMatchGenericNNArgOrDefault() => '$req R orDefault';
 

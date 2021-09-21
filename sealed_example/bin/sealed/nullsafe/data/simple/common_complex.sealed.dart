@@ -161,6 +161,27 @@ abstract class Common {
     }
   }
 
+  R? whenOrNull<R extends Object?>({
+    R Function(String y, String x)? one,
+    R Function(String y, Object x)? two,
+    R Function(String y, Object? x)? three,
+    R Function(String y, Object? x)? four,
+    R Function(Common common)? orElse,
+  }) {
+    final common = this;
+    if (common is CommonOne) {
+      return one != null ? one(common.y, common.x) : orElse?.call(common);
+    } else if (common is CommonTwo) {
+      return two != null ? two(common.y, common.x) : orElse?.call(common);
+    } else if (common is CommonThree) {
+      return three != null ? three(common.y, common.x) : orElse?.call(common);
+    } else if (common is CommonFour) {
+      return four != null ? four(common.y, common.x) : orElse?.call(common);
+    } else {
+      throw AssertionError();
+    }
+  }
+
   R map<R extends Object?>({
     required R Function(CommonOne one) one,
     required R Function(CommonTwo two) two,
@@ -234,6 +255,27 @@ abstract class Common {
       } else if (orElse != null) {
         orElse(common);
       }
+    } else {
+      throw AssertionError();
+    }
+  }
+
+  R? mapOrNull<R extends Object?>({
+    R Function(CommonOne one)? one,
+    R Function(CommonTwo two)? two,
+    R Function(CommonThree three)? three,
+    R Function(CommonFour four)? four,
+    R Function(Common common)? orElse,
+  }) {
+    final common = this;
+    if (common is CommonOne) {
+      return one != null ? one(common) : orElse?.call(common);
+    } else if (common is CommonTwo) {
+      return two != null ? two(common) : orElse?.call(common);
+    } else if (common is CommonThree) {
+      return three != null ? three(common) : orElse?.call(common);
+    } else if (common is CommonFour) {
+      return four != null ? four(common) : orElse?.call(common);
     } else {
       throw AssertionError();
     }
@@ -507,6 +549,35 @@ abstract class CommonWithOverride {
     }
   }
 
+  R? whenOrNull<R extends Object?>({
+    R Function(String y, String x)? one,
+    R Function(String y, Object x)? two,
+    R Function(String y, Object? x)? three,
+    R Function(String y, Object? x)? four,
+    R Function(CommonWithOverride commonWithOverride)? orElse,
+  }) {
+    final commonWithOverride = this;
+    if (commonWithOverride is CommonWithOverrideOne) {
+      return one != null
+          ? one(commonWithOverride.y, commonWithOverride.x)
+          : orElse?.call(commonWithOverride);
+    } else if (commonWithOverride is CommonWithOverrideTwo) {
+      return two != null
+          ? two(commonWithOverride.y, commonWithOverride.x)
+          : orElse?.call(commonWithOverride);
+    } else if (commonWithOverride is CommonWithOverrideThree) {
+      return three != null
+          ? three(commonWithOverride.y, commonWithOverride.x)
+          : orElse?.call(commonWithOverride);
+    } else if (commonWithOverride is CommonWithOverrideFour) {
+      return four != null
+          ? four(commonWithOverride.y, commonWithOverride.x)
+          : orElse?.call(commonWithOverride);
+    } else {
+      throw AssertionError();
+    }
+  }
+
   R map<R extends Object?>({
     required R Function(CommonWithOverrideOne one) one,
     required R Function(CommonWithOverrideTwo two) two,
@@ -584,6 +655,35 @@ abstract class CommonWithOverride {
       } else if (orElse != null) {
         orElse(commonWithOverride);
       }
+    } else {
+      throw AssertionError();
+    }
+  }
+
+  R? mapOrNull<R extends Object?>({
+    R Function(CommonWithOverrideOne one)? one,
+    R Function(CommonWithOverrideTwo two)? two,
+    R Function(CommonWithOverrideThree three)? three,
+    R Function(CommonWithOverrideFour four)? four,
+    R Function(CommonWithOverride commonWithOverride)? orElse,
+  }) {
+    final commonWithOverride = this;
+    if (commonWithOverride is CommonWithOverrideOne) {
+      return one != null
+          ? one(commonWithOverride)
+          : orElse?.call(commonWithOverride);
+    } else if (commonWithOverride is CommonWithOverrideTwo) {
+      return two != null
+          ? two(commonWithOverride)
+          : orElse?.call(commonWithOverride);
+    } else if (commonWithOverride is CommonWithOverrideThree) {
+      return three != null
+          ? three(commonWithOverride)
+          : orElse?.call(commonWithOverride);
+    } else if (commonWithOverride is CommonWithOverrideFour) {
+      return four != null
+          ? four(commonWithOverride)
+          : orElse?.call(commonWithOverride);
     } else {
       throw AssertionError();
     }

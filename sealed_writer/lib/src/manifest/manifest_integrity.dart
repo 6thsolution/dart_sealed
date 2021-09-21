@@ -6,9 +6,11 @@ const _matchNames = [
   'when',
   'maybeWhen',
   'partialWhen',
+  'whenOrNull',
   'map',
   'maybeMap',
   'partialMap',
+  'mapOrNull',
 ];
 
 void checkManifestIntegrity(Manifest manifest) {

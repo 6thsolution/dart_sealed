@@ -20,7 +20,7 @@ Generate sealed class hierarchy for Dart and Flutter.
 * Support for using one sealed type in another.
 * Support for null-safety.
 * Generate toString for data classes.
-* Generate 6 types of different matching methods. like `when`, `maybeWhen` and `map`.
+* Generate 8 types of different matching methods. like `when`, `maybeWhen` and `map`.
 
 ## Usage
 
@@ -113,6 +113,15 @@ abstract class Weather {
     /* ... */
   }
 
+  R? whenOrNull<R extends Object?>({
+    R Function()? sunny,
+    R Function(int rain)? rainy,
+    R Function(double velocity, double? angle)? windy,
+    R Function(Weather weather)? orElse,
+  }) {
+    /* ... */
+  }
+
   R map<R extends Object?>({
     required R Function(WeatherSunny sunny) sunny,
     required R Function(WeatherRainy rainy) rainy,
@@ -135,6 +144,15 @@ abstract class Weather {
     void Function(WeatherRainy rainy)? rainy,
     void Function(WeatherWindy windy)? windy,
     void Function(Weather weather)? orElse,
+  }) {
+    /* ... */
+  }
+
+  R? mapOrNull<R extends Object?>({
+    R Function(WeatherSunny sunny)? sunny,
+    R Function(WeatherRainy rainy)? rainy,
+    R Function(WeatherWindy windy)? windy,
+    R Function(Weather weather)? orElse,
   }) {
     /* ... */
   }

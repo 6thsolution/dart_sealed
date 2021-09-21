@@ -1,3 +1,7 @@
+## 1.11.0
+
+- Added whenOrNull and mapOrNull methods (#12)
+
 ## 1.10.0
 
 - Fixed @WithPrefix allowing empty string as argument (#6)

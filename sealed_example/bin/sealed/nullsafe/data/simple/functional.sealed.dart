@@ -123,6 +123,24 @@ abstract class Functional1 {
     }
   }
 
+  R? whenOrNull<R extends Object?>({
+    R Function(int Function(double) x)? one,
+    R Function(int Function(double)? x)? two,
+    R Function(int Function(double)? x)? three,
+    R Function(Functional1 functional1)? orElse,
+  }) {
+    final functional1 = this;
+    if (functional1 is Functional1One) {
+      return one != null ? one(functional1.x) : orElse?.call(functional1);
+    } else if (functional1 is Functional1Two) {
+      return two != null ? two(functional1.x) : orElse?.call(functional1);
+    } else if (functional1 is Functional1Three) {
+      return three != null ? three(functional1.x) : orElse?.call(functional1);
+    } else {
+      throw AssertionError();
+    }
+  }
+
   R map<R extends Object?>({
     required R Function(Functional1One one) one,
     required R Function(Functional1Two two) two,
@@ -183,6 +201,24 @@ abstract class Functional1 {
       } else if (orElse != null) {
         orElse(functional1);
       }
+    } else {
+      throw AssertionError();
+    }
+  }
+
+  R? mapOrNull<R extends Object?>({
+    R Function(Functional1One one)? one,
+    R Function(Functional1Two two)? two,
+    R Function(Functional1Three three)? three,
+    R Function(Functional1 functional1)? orElse,
+  }) {
+    final functional1 = this;
+    if (functional1 is Functional1One) {
+      return one != null ? one(functional1) : orElse?.call(functional1);
+    } else if (functional1 is Functional1Two) {
+      return two != null ? two(functional1) : orElse?.call(functional1);
+    } else if (functional1 is Functional1Three) {
+      return three != null ? three(functional1) : orElse?.call(functional1);
     } else {
       throw AssertionError();
     }
@@ -335,6 +371,21 @@ abstract class Functional2 {
     }
   }
 
+  R? whenOrNull<R extends Object?>({
+    R Function(int Function(double) x)? one,
+    R Function(int Function(double)? x)? two,
+    R Function(Functional2 functional2)? orElse,
+  }) {
+    final functional2 = this;
+    if (functional2 is Functional2One) {
+      return one != null ? one(functional2.x) : orElse?.call(functional2);
+    } else if (functional2 is Functional2Two) {
+      return two != null ? two(functional2.x) : orElse?.call(functional2);
+    } else {
+      throw AssertionError();
+    }
+  }
+
   R map<R extends Object?>({
     required R Function(Functional2One one) one,
     required R Function(Functional2Two two) two,
@@ -382,6 +433,21 @@ abstract class Functional2 {
       } else if (orElse != null) {
         orElse(functional2);
       }
+    } else {
+      throw AssertionError();
+    }
+  }
+
+  R? mapOrNull<R extends Object?>({
+    R Function(Functional2One one)? one,
+    R Function(Functional2Two two)? two,
+    R Function(Functional2 functional2)? orElse,
+  }) {
+    final functional2 = this;
+    if (functional2 is Functional2One) {
+      return one != null ? one(functional2) : orElse?.call(functional2);
+    } else if (functional2 is Functional2Two) {
+      return two != null ? two(functional2) : orElse?.call(functional2);
     } else {
       throw AssertionError();
     }
@@ -599,6 +665,30 @@ abstract class Functional3 {
     }
   }
 
+  R? whenOrNull<R extends Object?>({
+    R Function(Func x)? one,
+    R Function(Func? x)? two,
+    R Function(FuncN x)? three,
+    R Function(int Function(double x) x)? four,
+    R Function(int Function(double x)? x)? five,
+    R Function(Functional3 functional3)? orElse,
+  }) {
+    final functional3 = this;
+    if (functional3 is Functional3One) {
+      return one != null ? one(functional3.x) : orElse?.call(functional3);
+    } else if (functional3 is Functional3Two) {
+      return two != null ? two(functional3.x) : orElse?.call(functional3);
+    } else if (functional3 is Functional3Three) {
+      return three != null ? three(functional3.x) : orElse?.call(functional3);
+    } else if (functional3 is Functional3Four) {
+      return four != null ? four(functional3.x) : orElse?.call(functional3);
+    } else if (functional3 is Functional3Five) {
+      return five != null ? five(functional3.x) : orElse?.call(functional3);
+    } else {
+      throw AssertionError();
+    }
+  }
+
   R map<R extends Object?>({
     required R Function(Functional3One one) one,
     required R Function(Functional3Two two) two,
@@ -685,6 +775,30 @@ abstract class Functional3 {
       } else if (orElse != null) {
         orElse(functional3);
       }
+    } else {
+      throw AssertionError();
+    }
+  }
+
+  R? mapOrNull<R extends Object?>({
+    R Function(Functional3One one)? one,
+    R Function(Functional3Two two)? two,
+    R Function(Functional3Three three)? three,
+    R Function(Functional3Four four)? four,
+    R Function(Functional3Five five)? five,
+    R Function(Functional3 functional3)? orElse,
+  }) {
+    final functional3 = this;
+    if (functional3 is Functional3One) {
+      return one != null ? one(functional3) : orElse?.call(functional3);
+    } else if (functional3 is Functional3Two) {
+      return two != null ? two(functional3) : orElse?.call(functional3);
+    } else if (functional3 is Functional3Three) {
+      return three != null ? three(functional3) : orElse?.call(functional3);
+    } else if (functional3 is Functional3Four) {
+      return four != null ? four(functional3) : orElse?.call(functional3);
+    } else if (functional3 is Functional3Five) {
+      return five != null ? five(functional3) : orElse?.call(functional3);
     } else {
       throw AssertionError();
     }
