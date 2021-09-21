@@ -30,11 +30,11 @@ jobs:
       - name: test sealed_generators
         working-directory: sealed_generators
         run: dart test
-      - name: build sealed_example
-        working-directory: sealed_example
+      - name: build example
+        working-directory: example
         run: dart run build_runner build --delete-conflicting-outputs
-      - name: test sealed_example
-        working-directory: sealed_example
+      - name: test example
+        working-directory: example
         run: dart test
       - name: example
         run: .tools/example

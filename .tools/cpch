@@ -3,7 +3,7 @@
 echo COPY CHANGELOG FILE
 
 cp CHANGELOG.md sealed_annotations/
-cp CHANGELOG.md sealed_example/
+cp CHANGELOG.md example/
 cp CHANGELOG.md sealed_generators/
 cp CHANGELOG.md sealed_writer/
 

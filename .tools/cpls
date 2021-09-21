@@ -3,7 +3,7 @@
 echo COPY LICENSE FILE
 
 cp LICENSE sealed_annotations/
-cp LICENSE sealed_example/
+cp LICENSE example/
 cp LICENSE sealed_generators/
 cp LICENSE sealed_writer/
 

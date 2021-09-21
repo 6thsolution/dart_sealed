@@ -17,7 +17,7 @@ echo NOTE sealed_generators
 call dart pub upgrade || exit 1
 popd || exit 1
 
-pushd sealed_example || exit 1
-echo NOTE sealed_example
+pushd example || exit 1
+echo NOTE example
 call dart pub upgrade || exit 1
 popd || exit 1

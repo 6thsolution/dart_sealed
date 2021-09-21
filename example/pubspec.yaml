@@ -1,6 +1,6 @@
-name: sealed_example
+name: example
 description: Dart and Flutter sealed or union class generator and annotations, with match methods and other utilities.
-repository: https://github.com/6thsolution/dart_sealed/tree/master/sealed_example
+repository: https://github.com/6thsolution/dart_sealed/tree/master/example
 homepage: https://github.com/6thsolution/dart_sealed
 
 version: 1.11.0
