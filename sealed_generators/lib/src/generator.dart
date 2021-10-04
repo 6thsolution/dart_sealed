@@ -11,8 +11,8 @@ class SealedGenerator extends GeneratorForAnnotation<Sealed> {
   @override
   String generateForAnnotatedElement(
     Element element,
-    ConstantReader _,
-    BuildStep __,
+    ConstantReader annotation,
+    BuildStep buildStep,
   ) =>
       SourceWriter(
         const SourceReader().read(

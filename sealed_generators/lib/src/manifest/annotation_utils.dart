@@ -2,7 +2,6 @@ import 'package:analyzer/dart/element/element.dart';
 import 'package:sealed_annotations/sealed_annotations.dart';
 import 'package:sealed_writer/sealed_writer.dart';
 import 'package:source_gen/source_gen.dart';
-import 'package:source_gen/src/constants/reader.dart';
 
 /// map equality
 const _equalityMapping = {

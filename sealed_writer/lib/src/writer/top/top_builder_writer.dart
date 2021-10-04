@@ -37,7 +37,7 @@ class TopBuilderWriter extends BaseUtilsWriter {
       item.fields.map(topBuilderWrappedDecArg).joinArgsFull().withParenthesis();
 
   /// ex. angle
-  String subConstructorWrappedCallArg(ManifestField field) => '${field.name}';
+  String subConstructorWrappedCallArg(ManifestField field) => field.name;
 
   /// ex. (angle,)
   String topBuilderWrappedCallArgs(ManifestItem item) => item.fields
