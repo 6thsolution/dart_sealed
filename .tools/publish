@@ -1,0 +1,18 @@
+#!/bin/bash
+
+echo HEADER publish
+
+pushd sealed_annotations || exit 1
+echo NOTE sealed_annotations
+dart pub publish || exit 1
+popd || exit 1
+
+pushd sealed_writer || exit 1
+echo NOTE sealed_writer
+dart pub publish || exit 1
+popd || exit 1
+
+pushd sealed_generators || exit 1
+echo NOTE sealed_generators
+dart pub publish || exit 1
+popd || exit 1
