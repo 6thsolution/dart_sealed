@@ -19,7 +19,7 @@ dependencies:
   pub_semver: any
 
 dev_dependencies:
-  pedantic: any
+  lints: any
   test: any
   build_test: any
 

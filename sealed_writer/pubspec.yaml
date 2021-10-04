@@ -9,7 +9,7 @@ environment:
   sdk: '>=2.12.0 <3.0.0'
 
 dev_dependencies:
-  pedantic: any
+  lints: any
   test: any
 
 # remove this on pub branch

@@ -18,7 +18,7 @@ dependencies:
 dev_dependencies:
   # use fixed version dependency
   sealed_generators: '1.11.0'
-  pedantic: any
+  lints: any
   test: any
   build_runner: any
 
@@ -26,5 +26,7 @@ dev_dependencies:
 dependency_overrides:
   sealed_annotations:
     path: ../sealed_annotations
+  sealed_writer:
+    path: ../sealed_writer
   sealed_generators:
     path: ../sealed_generators
