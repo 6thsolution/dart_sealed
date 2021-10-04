@@ -21,12 +21,3 @@ dev_dependencies:
   lints: any
   test: any
   build_runner: any
-
-# remove this on pub branch
-dependency_overrides:
-  sealed_annotations:
-    path: ../sealed_annotations
-  sealed_writer:
-    path: ../sealed_writer
-  sealed_generators:
-    path: ../sealed_generators

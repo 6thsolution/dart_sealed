@@ -22,13 +22,3 @@ dev_dependencies:
   lints: any
   test: any
   build_test: any
-
-# remove this on pub branch
-publish_to: 'none'
-
-# remove this on pub branch
-dependency_overrides:
-  sealed_annotations:
-    path: ../sealed_annotations
-  sealed_writer:
-    path: ../sealed_writer

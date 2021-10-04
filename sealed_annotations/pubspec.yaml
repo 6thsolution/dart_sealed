@@ -15,6 +15,3 @@ dependencies:
 dev_dependencies:
   lints: any
   test: any
-
-# remove this on pub branch
-publish_to: 'none'

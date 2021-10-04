@@ -2,9 +2,7 @@ name: Dart
 
 on:
   push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+    branches: [ pub ]
 
 jobs:
   build:
@@ -38,10 +36,3 @@ jobs:
         run: dart test
       - name: example
         run: .tools/example
-      - name: coverage
-        run: .tools/coverage
-      - name: upload coverage to codecov
-        uses: codecov/codecov-action@v1
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          files: coverage/lcov.info
