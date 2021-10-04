@@ -2,7 +2,7 @@ import 'dart:io';
 
 final start = 'SF:';
 final end = RegExp(
-  'sealed_(annotations|example|generators|writer)',
+  '(example|sealed_(annotations|generators|writer))',
 );
 
 void main() async {
