@@ -20,6 +20,7 @@ void main() {
 
       final d = ResultSuccess(data: null);
       expect(d.data, isNull);
+      // ignore: prefer_void_to_null
       expect(d, hasType<ResultSuccess<Null>>());
     });
 
