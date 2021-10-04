@@ -279,6 +279,9 @@ class VeryBadWeather extends Weather {
 
   @override
   bool operator ==(Object other) => false;
+
+  @override
+  int get hashCode => 0;
 }
 
 /// [ApiError] {

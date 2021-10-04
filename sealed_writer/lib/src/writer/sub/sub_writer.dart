@@ -50,6 +50,12 @@ class SubWriter extends BaseUtilsWriter {
         'bool operator ==(Object other) => false;',
       ].joinLines();
 
+  /// int get hashCode => 0;
+  String subDistinctHashCode() => [
+        annotationOverride,
+        'int get hashCode => 0;',
+      ].joinLines();
+
   /// subclass
   String subClass(ManifestItem item) => [
         subClassStart(item),
@@ -60,6 +66,7 @@ class SubWriter extends BaseUtilsWriter {
         if (item.equality == ManifestEquality.data)
           subEquatableWriter.subEquatableEquality(item),
         if (item.equality == ManifestEquality.distinct) subDistinctEquality(),
+        if (item.equality == ManifestEquality.distinct) subDistinctHashCode(),
         '}',
       ].joinMethods();
 

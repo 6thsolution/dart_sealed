@@ -94,7 +94,7 @@ void main() {
       });
     });
 
-    group('method topDistinctEquality', () {
+    group('method subDistinctEquality', () {
       group('simple', () {
         test('null-safe', () {
           final manifest = manifest1Data;
@@ -117,6 +117,34 @@ void main() {
             writer.subDistinctEquality(),
             '@override\n'
             'bool operator ==(Object other) => false;',
+          );
+        });
+      });
+    });
+
+    group('method subDistinctHashCode', () {
+      group('simple', () {
+        test('null-safe', () {
+          final manifest = manifest1Data;
+          final writer = SubWriter(manifest);
+
+          expect(
+            writer.subDistinctHashCode(),
+            '@override\n'
+            'int get hashCode => 0;',
+          );
+        });
+      });
+
+      group('generic', () {
+        test('null-safe', () {
+          final manifest = manifest2Data;
+          final writer = SubWriter(manifest);
+
+          expect(
+            writer.subDistinctHashCode(),
+            '@override\n'
+            'int get hashCode => 0;',
           );
         });
       });
@@ -198,6 +226,7 @@ void main() {
             writer.subClass(item2),
             allOf(
               stringContainsInOrder(['operator ==']),
+              stringContainsInOrder(['int get hashCode']),
               isNot(stringContainsInOrder(['get props'])),
               isNot(stringContainsInOrder(['EquatableMixin'])),
             ),

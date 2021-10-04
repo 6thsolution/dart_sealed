@@ -4,6 +4,7 @@
 - Using fixed version dependencies
 - Using lints package instead of pedantic for analysis
 - Deprecated partialWhen and partialMap methods (#12)
+- Added hashCode generation for distinct equality
 
 ## 1.10.0
 

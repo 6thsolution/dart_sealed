@@ -241,6 +241,9 @@ class WeatherSunny extends Weather {
 
   @override
   bool operator ==(Object other) => false;
+
+  @override
+  int get hashCode => 0;
 }
 
 /// (([WeatherRainy] : [Weather]) rainy){[int] rain}
@@ -258,6 +261,9 @@ class WeatherRainy extends Weather {
 
   @override
   bool operator ==(Object other) => false;
+
+  @override
+  int get hashCode => 0;
 }
 
 /// (([WeatherWindy] : [Weather]) windy){[double] velocity, [double]? angle}
@@ -277,4 +283,7 @@ class WeatherWindy extends Weather {
 
   @override
   bool operator ==(Object other) => false;
+
+  @override
+  int get hashCode => 0;
 }
