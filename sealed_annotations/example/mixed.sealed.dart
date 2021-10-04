@@ -51,6 +51,7 @@ abstract class Apple {
     }
   }
 
+  @Deprecated('Use `whenOrNull` instead. Will be removed by next release.')
   void partialWhen({
     void Function(Banana? banana)? hold,
     void Function(Apple apple)? orElse,
@@ -102,6 +103,7 @@ abstract class Apple {
     }
   }
 
+  @Deprecated('Use `mapOrNull` instead. Will be removed by next release.')
   void partialMap({
     void Function(AppleHold hold)? hold,
     void Function(Apple apple)? orElse,
@@ -195,6 +197,7 @@ abstract class Banana {
     }
   }
 
+  @Deprecated('Use `whenOrNull` instead. Will be removed by next release.')
   void partialWhen({
     void Function(Apple apple)? hold,
     void Function(Banana banana)? orElse,
@@ -246,6 +249,7 @@ abstract class Banana {
     }
   }
 
+  @Deprecated('Use `mapOrNull` instead. Will be removed by next release.')
   void partialMap({
     void Function(BananaHold hold)? hold,
     void Function(Banana banana)? orElse,
@@ -386,6 +390,7 @@ abstract class Coconut {
     }
   }
 
+  @Deprecated('Use `whenOrNull` instead. Will be removed by next release.')
   void partialWhen({
     void Function(int x, double y)? test1,
     void Function(int? x, double? y)? test2,
@@ -475,6 +480,7 @@ abstract class Coconut {
     }
   }
 
+  @Deprecated('Use `mapOrNull` instead. Will be removed by next release.')
   void partialMap({
     void Function(CoconutTest1 test1)? test1,
     void Function(CoconutTest2 test2)? test2,

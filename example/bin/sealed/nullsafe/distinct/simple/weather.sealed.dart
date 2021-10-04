@@ -94,6 +94,7 @@ abstract class Weather {
     }
   }
 
+  @Deprecated('Use `whenOrNull` instead. Will be removed by next release.')
   void partialWhen({
     void Function()? sunny,
     void Function(int rain)? rainy,
@@ -179,6 +180,7 @@ abstract class Weather {
     }
   }
 
+  @Deprecated('Use `mapOrNull` instead. Will be removed by next release.')
   void partialMap({
     void Function(WeatherSunny sunny)? sunny,
     void Function(WeatherRainy rainy)? rainy,

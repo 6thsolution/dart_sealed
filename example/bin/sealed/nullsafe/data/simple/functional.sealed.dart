@@ -93,6 +93,7 @@ abstract class Functional1 {
     }
   }
 
+  @Deprecated('Use `whenOrNull` instead. Will be removed by next release.')
   void partialWhen({
     void Function(int Function(double) x)? one,
     void Function(int Function(double)? x)? two,
@@ -176,6 +177,7 @@ abstract class Functional1 {
     }
   }
 
+  @Deprecated('Use `mapOrNull` instead. Will be removed by next release.')
   void partialMap({
     void Function(Functional1One one)? one,
     void Function(Functional1Two two)? two,
@@ -348,6 +350,7 @@ abstract class Functional2 {
     }
   }
 
+  @Deprecated('Use `whenOrNull` instead. Will be removed by next release.')
   void partialWhen({
     void Function(int Function(double) x)? one,
     void Function(int Function(double)? x)? two,
@@ -415,6 +418,7 @@ abstract class Functional2 {
     }
   }
 
+  @Deprecated('Use `mapOrNull` instead. Will be removed by next release.')
   void partialMap({
     void Function(Functional2One one)? one,
     void Function(Functional2Two two)? two,
@@ -621,6 +625,7 @@ abstract class Functional3 {
     }
   }
 
+  @Deprecated('Use `whenOrNull` instead. Will be removed by next release.')
   void partialWhen({
     void Function(Func x)? one,
     void Function(Func? x)? two,
@@ -736,6 +741,7 @@ abstract class Functional3 {
     }
   }
 
+  @Deprecated('Use `mapOrNull` instead. Will be removed by next release.')
   void partialMap({
     void Function(Functional3One one)? one,
     void Function(Functional3Two two)? two,

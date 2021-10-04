@@ -94,6 +94,7 @@ abstract class Weather {
     }
   }
 
+  @Deprecated('Use `whenOrNull` instead. Will be removed by next release.')
   void partialWhen({
     void Function()? sunny,
     void Function(int rain)? rainy,
@@ -179,6 +180,7 @@ abstract class Weather {
     }
   }
 
+  @Deprecated('Use `mapOrNull` instead. Will be removed by next release.')
   void partialMap({
     void Function(PrefixSunny sunny)? sunny,
     void Function(BadWeather rainy)? rainy,
@@ -368,6 +370,7 @@ abstract class ApiError {
     }
   }
 
+  @Deprecated('Use `whenOrNull` instead. Will be removed by next release.')
   void partialWhen({
     void Function()? internetError,
     void Function(int code)? serverError,
@@ -455,6 +458,7 @@ abstract class ApiError {
     }
   }
 
+  @Deprecated('Use `mapOrNull` instead. Will be removed by next release.')
   void partialMap({
     void Function(InternetError internetError)? internetError,
     void Function(ServerError serverError)? serverError,

@@ -50,6 +50,8 @@ class TopMatchPartialMapWriter extends TopMatchBaseWriter {
   /// void PartialMap(item...)
   /// {...}
   String topMatchPartialMap() => [
+        "@Deprecated('Use `mapOrNull` instead. "
+            "Will be removed by next release.')",
         topMatchPartialMapStart(),
         '{',
         topMatchPartialMapBody(),

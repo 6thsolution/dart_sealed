@@ -124,6 +124,7 @@ abstract class Common {
     }
   }
 
+  @Deprecated('Use `whenOrNull` instead. Will be removed by next release.')
   void partialWhen({
     void Function(String y, String x)? one,
     void Function(String y, Object x)? two,
@@ -223,6 +224,7 @@ abstract class Common {
     }
   }
 
+  @Deprecated('Use `mapOrNull` instead. Will be removed by next release.')
   void partialMap({
     void Function(CommonOne one)? one,
     void Function(CommonTwo two)? two,
@@ -512,6 +514,7 @@ abstract class CommonWithOverride {
     }
   }
 
+  @Deprecated('Use `whenOrNull` instead. Will be removed by next release.')
   void partialWhen({
     void Function(String y, String x)? one,
     void Function(String y, Object x)? two,
@@ -623,6 +626,7 @@ abstract class CommonWithOverride {
     }
   }
 
+  @Deprecated('Use `mapOrNull` instead. Will be removed by next release.')
   void partialMap({
     void Function(CommonWithOverrideOne one)? one,
     void Function(CommonWithOverrideTwo two)? two,

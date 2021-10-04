@@ -72,6 +72,7 @@ abstract class Result<D extends num?> {
     }
   }
 
+  @Deprecated('Use `whenOrNull` instead. Will be removed by next release.')
   void partialWhen({
     void Function(D data)? success,
     void Function(Object exception)? error,
@@ -139,6 +140,7 @@ abstract class Result<D extends num?> {
     }
   }
 
+  @Deprecated('Use `mapOrNull` instead. Will be removed by next release.')
   void partialMap({
     void Function(ResultSuccess<D> success)? success,
     void Function(ResultError<D> error)? error,

@@ -50,6 +50,8 @@ class TopMatchPartialWhenWriter extends TopMatchBaseWriter {
   /// void PartialWhen(item...)
   /// {...}
   String topMatchPartialWhen() => [
+        "@Deprecated('Use `whenOrNull` instead. "
+            "Will be removed by next release.')",
         topMatchPartialWhenStart(),
         '{',
         topMatchPartialWhenBody(),

@@ -86,6 +86,7 @@ abstract class ResultLeftRight<D extends num> {
     }
   }
 
+  @Deprecated('Use `whenOrNull` instead. Will be removed by next release.')
   void partialWhen({
     void Function(D data)? successLeft,
     void Function(D data)? successRight,
@@ -162,6 +163,7 @@ abstract class ResultLeftRight<D extends num> {
     }
   }
 
+  @Deprecated('Use `mapOrNull` instead. Will be removed by next release.')
   void partialMap({
     void Function(ResultLeftRightSuccessLeft<D> successLeft)? successLeft,
     void Function(ResultLeftRightSuccessRight<D> successRight)? successRight,

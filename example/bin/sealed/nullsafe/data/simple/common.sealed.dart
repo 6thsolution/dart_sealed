@@ -110,6 +110,7 @@ abstract class ApiError {
     }
   }
 
+  @Deprecated('Use `whenOrNull` instead. Will be removed by next release.')
   void partialWhen({
     void Function(String message, String? code)? internetError,
     void Function(String message, String? code)? badRequest,
@@ -199,6 +200,7 @@ abstract class ApiError {
     }
   }
 
+  @Deprecated('Use `mapOrNull` instead. Will be removed by next release.')
   void partialMap({
     void Function(ApiErrorInternetError internetError)? internetError,
     void Function(ApiErrorBadRequest badRequest)? badRequest,

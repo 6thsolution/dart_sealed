@@ -3,6 +3,7 @@
 - Added whenOrNull and mapOrNull methods (#12)
 - Using fixed version dependencies
 - Using lints package instead of pedantic for analysis
+- Deprecated partialWhen and partialMap methods (#12)
 
 ## 1.10.0
 
