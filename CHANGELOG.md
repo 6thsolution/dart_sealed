@@ -1,6 +1,7 @@
 ## 1.11.0
 
 - Added whenOrNull and mapOrNull methods (#12)
+- Using fixed version dependencies
 
 ## 1.10.0
 

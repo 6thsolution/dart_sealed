@@ -5,17 +5,14 @@ homepage: https://github.com/6thsolution/dart_sealed
 
 version: 1.11.0
 
-# remove this when publishing
-publish_to: 'none'
-
 environment:
   sdk: '>=2.12.0 <3.0.0'
 
 dependencies:
-  sealed_annotations:
-    path: ../sealed_annotations
-  sealed_writer:
-    path: ../sealed_writer
+  # use fixed version dependency
+  sealed_annotations: '1.11.0'
+  # use fixed version dependency
+  sealed_writer: '1.11.0'
   build: any
   source_gen: any
   analyzer: any
@@ -25,3 +22,13 @@ dev_dependencies:
   pedantic: any
   test: any
   build_test: any
+
+# remove this on pub branch
+publish_to: 'none'
+
+# remove this on pub branch
+dependency_overrides:
+  sealed_annotations:
+    path: ../sealed_annotations
+  sealed_writer:
+    path: ../sealed_writer

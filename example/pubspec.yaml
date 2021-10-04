@@ -12,12 +12,19 @@ environment:
   sdk: '>=2.12.0 <3.0.0'
 
 dependencies:
-  sealed_annotations:
-    path: ../sealed_annotations
+  # use fixed version dependency
+  sealed_annotations: '1.11.0'
 
 dev_dependencies:
-  sealed_generators:
-    path: ../sealed_generators
+  # use fixed version dependency
+  sealed_generators: '1.11.0'
   pedantic: any
   test: any
   build_runner: any
+
+# remove this on pub branch
+dependency_overrides:
+  sealed_annotations:
+    path: ../sealed_annotations
+  sealed_generators:
+    path: ../sealed_generators
