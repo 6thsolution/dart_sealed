@@ -789,3 +789,156 @@ class CommonWithOverrideFour extends CommonWithOverride with EquatableMixin {
         x,
       ];
 }
+
+/// [CommonHierarchy] {
+///
+/// {[Common] x}
+///
+/// ([CommonHierarchyOne] one){[Common] x} with data equality
+///
+/// }
+@SealedManifest(_CommonHierarchy)
+abstract class CommonHierarchy {
+  const CommonHierarchy._internal();
+
+  Common get x;
+
+  const factory CommonHierarchy.one({
+    required Common x,
+  }) = CommonHierarchyOne;
+
+  bool get isOne => this is CommonHierarchyOne;
+
+  CommonHierarchyOne get asOne => this as CommonHierarchyOne;
+
+  CommonHierarchyOne? get asOneOrNull {
+    final commonHierarchy = this;
+    return commonHierarchy is CommonHierarchyOne ? commonHierarchy : null;
+  }
+
+  R when<R extends Object?>({
+    required R Function(Common x) one,
+  }) {
+    final commonHierarchy = this;
+    if (commonHierarchy is CommonHierarchyOne) {
+      return one(commonHierarchy.x);
+    } else {
+      throw AssertionError();
+    }
+  }
+
+  R maybeWhen<R extends Object?>({
+    R Function(Common x)? one,
+    required R Function(CommonHierarchy commonHierarchy) orElse,
+  }) {
+    final commonHierarchy = this;
+    if (commonHierarchy is CommonHierarchyOne) {
+      return one != null ? one(commonHierarchy.x) : orElse(commonHierarchy);
+    } else {
+      throw AssertionError();
+    }
+  }
+
+  @Deprecated('Use `whenOrNull` instead. Will be removed by next release.')
+  void partialWhen({
+    void Function(Common x)? one,
+    void Function(CommonHierarchy commonHierarchy)? orElse,
+  }) {
+    final commonHierarchy = this;
+    if (commonHierarchy is CommonHierarchyOne) {
+      if (one != null) {
+        one(commonHierarchy.x);
+      } else if (orElse != null) {
+        orElse(commonHierarchy);
+      }
+    } else {
+      throw AssertionError();
+    }
+  }
+
+  R? whenOrNull<R extends Object?>({
+    R Function(Common x)? one,
+    R Function(CommonHierarchy commonHierarchy)? orElse,
+  }) {
+    final commonHierarchy = this;
+    if (commonHierarchy is CommonHierarchyOne) {
+      return one != null
+          ? one(commonHierarchy.x)
+          : orElse?.call(commonHierarchy);
+    } else {
+      throw AssertionError();
+    }
+  }
+
+  R map<R extends Object?>({
+    required R Function(CommonHierarchyOne one) one,
+  }) {
+    final commonHierarchy = this;
+    if (commonHierarchy is CommonHierarchyOne) {
+      return one(commonHierarchy);
+    } else {
+      throw AssertionError();
+    }
+  }
+
+  R maybeMap<R extends Object?>({
+    R Function(CommonHierarchyOne one)? one,
+    required R Function(CommonHierarchy commonHierarchy) orElse,
+  }) {
+    final commonHierarchy = this;
+    if (commonHierarchy is CommonHierarchyOne) {
+      return one != null ? one(commonHierarchy) : orElse(commonHierarchy);
+    } else {
+      throw AssertionError();
+    }
+  }
+
+  @Deprecated('Use `mapOrNull` instead. Will be removed by next release.')
+  void partialMap({
+    void Function(CommonHierarchyOne one)? one,
+    void Function(CommonHierarchy commonHierarchy)? orElse,
+  }) {
+    final commonHierarchy = this;
+    if (commonHierarchy is CommonHierarchyOne) {
+      if (one != null) {
+        one(commonHierarchy);
+      } else if (orElse != null) {
+        orElse(commonHierarchy);
+      }
+    } else {
+      throw AssertionError();
+    }
+  }
+
+  R? mapOrNull<R extends Object?>({
+    R Function(CommonHierarchyOne one)? one,
+    R Function(CommonHierarchy commonHierarchy)? orElse,
+  }) {
+    final commonHierarchy = this;
+    if (commonHierarchy is CommonHierarchyOne) {
+      return one != null ? one(commonHierarchy) : orElse?.call(commonHierarchy);
+    } else {
+      throw AssertionError();
+    }
+  }
+}
+
+/// (([CommonHierarchyOne] : [CommonHierarchy]) one){[Common] x}
+///
+/// with data equality
+class CommonHierarchyOne extends CommonHierarchy with EquatableMixin {
+  const CommonHierarchyOne({
+    required this.x,
+  }) : super._internal();
+
+  @override
+  final Common x;
+
+  @override
+  String toString() => 'CommonHierarchy.one(x: $x)';
+
+  @override
+  List<Object?> get props => [
+        x,
+      ];
+}

@@ -128,3 +128,10 @@ String? extractWithTypeOrNull(Element element) {
     return null;
   }
 }
+
+/// find @[Sealed] or null
+ConstantReader? _findSealedOrNull(Element element) =>
+    _filterMetadataOfType<Sealed>(element).firstOrNull;
+
+/// is a [Sealed] manifest class
+bool isAnnotatedBySealed(Element element) => _findSealedOrNull(element) != null;

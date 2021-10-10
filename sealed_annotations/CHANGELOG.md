@@ -1,3 +1,7 @@
+## 1.12.0
+
+- Added hierarchy feature to use sealed classes directly in sealed hierarchies
+
 ## 1.11.0
 
 - Added whenOrNull and mapOrNull methods (#12)
