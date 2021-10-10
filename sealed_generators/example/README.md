@@ -321,6 +321,52 @@ abstract class _WeatherInfo {
 }
 ```
 
+### Hierarchy Feature
+
+If Sealed classes are in the same file you can reference them directly using their manifest class name. This is to
+avoid `@WithType` annotation and better refactoring capability.
+
+```dart
+@Sealed()
+abstract class _Apple {
+  void eat();
+}
+
+@Sealed()
+abstract class _Banana {
+  void eat();
+}
+
+@Sealed()
+abstract class _Basket {
+  void friends(_Apple? apple, _Banana? banana);
+
+// or equivalently
+// void friends(@WithType('Apple?') apple, @WithType('Banana?') banana);
+}
+```
+
+And for generic case:
+
+```dart
+@Sealed()
+abstract class _Result<D extends num> {
+  void success(D data);
+
+  void error(Object exception);
+}
+
+@Sealed()
+abstract class _Basket {
+  void hold(_Result<int> x);
+
+// or equivalently:
+// void hold(@WithType('Result<int>') x);
+}
+```
+
+`@WithType` annotation will override hierarchy feature if present.
+
 ## Common Fields
 
 Sometimes you need some fields to be present in all of your sealed classes. For example consider making a sealed class

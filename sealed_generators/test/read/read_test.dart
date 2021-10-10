@@ -286,6 +286,44 @@ void one(@WithType('double?') x, @WithType('double') int? y);
             );
           });
 
+          test('hierarchy', () async {
+            final x = await resolveSealedSafe('''
+@Sealed()
+abstract class _Basic1 {
+void one(_Basic2 x);
+}
+
+@Sealed()
+abstract class _Basic2 {
+void one();
+}''');
+            final manifest = SourceReader().read(x.element);
+            expect(
+              manifest,
+              Manifest(
+                name: 'Basic1',
+                params: [],
+                fields: [],
+                items: [
+                  ManifestItem(
+                    name: 'Basic1One',
+                    shortName: 'one',
+                    equality: ManifestEquality.data,
+                    fields: [
+                      ManifestField(
+                        name: 'x',
+                        type: ManifestType(
+                          name: 'Basic2',
+                          isNullable: false,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            );
+          });
+
           group('common', () {
             test('basic', () async {
               final x = await resolveSealedSafe('''

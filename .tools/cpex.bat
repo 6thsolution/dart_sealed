@@ -14,6 +14,10 @@ copy example\bin\sealed\nullsafe\data\simple\common.dart sealed_annotations\exam
 copy example\bin\sealed\nullsafe\data\simple\common.sealed.dart sealed_annotations\example\
 copy example\bin\sealed\nullsafe\data\generic\result_complex.dart sealed_annotations\example\
 copy example\bin\sealed\nullsafe\data\generic\result_complex.sealed.dart sealed_annotations\example\
+copy example\bin\sealed\nullsafe\data\simple\hierarchy.dart sealed_annotations\example\
+copy example\bin\sealed\nullsafe\data\simple\hierarchy.sealed.dart sealed_annotations\example\
+copy example\bin\sealed\nullsafe\data\generic\result_hierarchy.dart sealed_annotations\example\
+copy example\bin\sealed\nullsafe\data\generic\result_hierarchy.sealed.dart sealed_annotations\example\
 
 copy example\bin\sealed\nullsafe\data\simple\weather.dart sealed_generators\example\
 copy example\bin\sealed\nullsafe\data\simple\weather.sealed.dart sealed_generators\example\
@@ -27,5 +31,9 @@ copy example\bin\sealed\nullsafe\data\simple\common.dart sealed_generators\examp
 copy example\bin\sealed\nullsafe\data\simple\common.sealed.dart sealed_generators\example\
 copy example\bin\sealed\nullsafe\data\generic\result_complex.dart sealed_generators\example\
 copy example\bin\sealed\nullsafe\data\generic\result_complex.sealed.dart sealed_generators\example\
+copy example\bin\sealed\nullsafe\data\simple\hierarchy.dart sealed_generators\example\
+copy example\bin\sealed\nullsafe\data\simple\hierarchy.sealed.dart sealed_generators\example\
+copy example\bin\sealed\nullsafe\data\generic\result_hierarchy.dart sealed_generators\example\
+copy example\bin\sealed\nullsafe\data\generic\result_hierarchy.sealed.dart sealed_generators\example\
 
 echo DONE

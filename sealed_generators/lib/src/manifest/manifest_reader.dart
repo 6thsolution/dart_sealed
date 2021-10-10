@@ -143,8 +143,21 @@ class ManifestReader {
   }
 
   /// type name without any nullability sign
-  String _extractTypeName(DartType type) =>
-      type.getDisplayString(withNullability: false);
+  String _extractTypeName(DartType type) {
+    final typeName = type.getDisplayString(withNullability: false);
+    final reference = type.element;
+    if (reference != null && isAnnotatedBySealed(reference)) {
+      // type itself is a sealed manifest class
+      require(
+        typeName.startsWith('_') && typeName.length > 1,
+        () => "referenced sealed class field type "
+            "'$typeName' should start with '_'",
+      );
+      return typeName.substring(1);
+    } else {
+      return typeName;
+    }
+  }
 
   /// type is nullable?
   bool _extractTypeIsNullable(DartType type) =>

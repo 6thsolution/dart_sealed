@@ -33,3 +33,10 @@ abstract class _CommonWithOverride {
 
   void four(@WithType('Object?') dynamic x);
 }
+
+@Sealed()
+abstract class _CommonHierarchy {
+  _Common get x;
+
+  void one();
+}
