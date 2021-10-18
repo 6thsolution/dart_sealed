@@ -9,15 +9,19 @@ import 'package:sealed_writer/src/writer/top/top_doc_writer.dart';
 
 /// source writer
 class TopWriter extends BaseUtilsWriter {
-  /// [referenceManifest] dictates weather to reference
+  /// [referToManifest] dictates weather to reference
   /// manifest with @SealedManifest or not, it is true by default
-  TopWriter(Manifest manifest)
-      : topBuilderWriter = TopBuilderWriter(manifest),
+  TopWriter(
+    Manifest manifest, {
+    this.referToManifest = true,
+  })  : topBuilderWriter = TopBuilderWriter(manifest),
         topCastWriter = TopCastWriter(manifest),
         topMatchWriter = TopMatchWriter(manifest),
         topDocWriter = TopDocWriter(manifest),
         topCommonWriter = TopCommonWriter(manifest),
         super(manifest);
+
+  final bool referToManifest;
 
   final TopBuilderWriter topBuilderWriter;
 
@@ -43,7 +47,7 @@ class TopWriter extends BaseUtilsWriter {
 
   String topClassStart() => [
         topDocWriter.write(),
-        topManifest(),
+        if (referToManifest) topManifest(),
         'abstract class $topDec',
       ].joinLines();
 

@@ -1,3 +1,7 @@
+## 1.13.0
+
+- Added referToManifest to source writer
+
 ## 1.12.0
 
 - Added hierarchy feature to use sealed classes directly in sealed hierarchies
