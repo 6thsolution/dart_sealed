@@ -8,10 +8,15 @@ import 'package:sealed_writer/src/writer/top/top_writer.dart';
 ///
 /// NOTE: writer phase is completely disjoint from reader phase.
 class SourceWriter extends BaseWriter {
-  /// [referenceManifest] dictates weather to reference
+  /// [referToManifest] dictates weather to reference
   /// manifest with @SealedManifest or not, it is true by default
-  SourceWriter(Manifest manifest)
-      : topWriter = TopWriter(manifest),
+  SourceWriter(
+    Manifest manifest, {
+    bool referToManifest = true,
+  })  : topWriter = TopWriter(
+          manifest,
+          referToManifest: referToManifest,
+        ),
         subWriter = SubWriter(manifest),
         super(manifest);
 

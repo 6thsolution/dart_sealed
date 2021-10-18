@@ -33,7 +33,7 @@ void main() {
   print('FORWARD WRITER');
   print('==============');
 
-  final forward = SourceWriter(source);
+  final forward = SourceWriter(source, referToManifest: false);
   print(forward.write());
 
   print('===============');
