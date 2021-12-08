@@ -68,6 +68,21 @@ class TopBuilderWriter extends BaseUtilsWriter {
         ';',
       ].joinParts();
 
+  /// Only generated if type has no parameters.
+  ///
+  /// ex. static const  sunny = Weather.sunny();
+  String topConstantBuilder(ManifestItem item) => [
+        if (item.fields.isEmpty) ...<String>[
+          'static const ${subLower(item)}',
+          ' = ',
+          '$top.${subLower(item)}',
+          '();',
+        ]
+      ].joinParts();
+
   /// top builder methods
-  Iterable<String> topBuilderMethods() => manifest.items.map(topFactoryBuilder);
+  Iterable<String> topBuilderMethods() => [
+        ...manifest.items.map(topFactoryBuilder),
+        ...manifest.items.map(topConstantBuilder)
+      ];
 }
