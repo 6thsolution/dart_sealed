@@ -37,7 +37,7 @@ class ManifestReaderBuilder {
     );
     final cls = e as ClassElement;
     require(
-      !cls.isEnum && !cls.isMixin && !cls.isMixinApplication,
+      !(e is EnumElement) && !(e is MixinElement) && !cls.isMixinApplication,
       'element should be a Class',
     );
     require(
