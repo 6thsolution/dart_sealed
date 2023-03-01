@@ -57,15 +57,23 @@ class TopBuilderWriter extends BaseUtilsWriter {
         ';',
       ].joinParts();
 
-  /// ex. factory Weather.sunny() = WeatherSunny;
+  /// ex. static const Weather sunny = WeatherSunny();
   ///
   /// ex. factory Result.success(...) = ResultSuccess<T>;
   String topFactoryBuilder(ManifestItem item) => [
-        'const factory $top.${subLower(item)}',
-        topBuilderDecArgs(item),
-        ' = ',
-        subCall(item),
-        ';',
+        if (item.fields.isNotEmpty) ...<String>[
+          'const factory $top.${subLower(item)}',
+          topBuilderDecArgs(item),
+          ' = ',
+          subCall(item),
+          ';',
+        ],
+        if (item.fields.isEmpty) ...<String>[
+          'static const $top ${subLower(item)}',
+          ' = ',
+          subCall(item),
+          '();',
+        ]
       ].joinParts();
 
   /// top builder methods

@@ -19,8 +19,6 @@ part of 'meta.dart';
 abstract class Weather {
   const Weather._internal();
 
-  const factory Weather.sunny() = PrefixSunny;
-
   const factory Weather.rainy({
     required int rain,
   }) = BadWeather;
@@ -29,6 +27,8 @@ abstract class Weather {
     required double velocity,
     double? angle,
   }) = VeryBadWeather;
+
+  static const Weather sunny = PrefixSunny();
 
   bool get isSunny => this is PrefixSunny;
 
@@ -297,8 +297,6 @@ class VeryBadWeather extends Weather {
 abstract class ApiError {
   const ApiError._internal();
 
-  const factory ApiError.internetError() = InternetError;
-
   const factory ApiError.serverError({
     required int code,
   }) = ServerError;
@@ -306,6 +304,8 @@ abstract class ApiError {
   const factory ApiError.otherError({
     String? message,
   }) = OtherError;
+
+  static const ApiError internetError = InternetError();
 
   bool get isInternetError => this is InternetError;
 
