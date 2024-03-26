@@ -1,3 +1,7 @@
+## 1.14.0
+
+- Fixed some issues
+
 ## 1.13.0
 
 - Added referToManifest to source writer
