@@ -102,7 +102,7 @@ void _checkMatchNames(Manifest manifest) {
   for (final item in manifest.items) {
     [
       ..._matchNames,
-      ...item.fields.map(_fieldName).toList(),
+      ...item.fields.map(_fieldName),
     ].checkNoEquals();
   }
 }
