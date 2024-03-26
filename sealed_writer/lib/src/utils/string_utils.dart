@@ -7,7 +7,7 @@ extension StringIterableUtils on Iterable<String> {
     } else if (length == 1) {
       return first;
     } else {
-      return join(', ') + ',';
+      return '${join(', ')},';
     }
   }
 
@@ -19,7 +19,7 @@ extension StringIterableUtils on Iterable<String> {
     if (isEmpty) {
       return '';
     } else {
-      return join(', ') + ',';
+      return '${join(', ')},';
     }
   }
 
