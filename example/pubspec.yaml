@@ -3,21 +3,21 @@ description: Dart and Flutter sealed or union class generator and annotations, w
 repository: https://github.com/6thsolution/dart_sealed/tree/master/example
 homepage: https://github.com/6thsolution/dart_sealed
 
-version: 1.13.0
+version: 1.14.0
 
 # example package should not be published
 publish_to: 'none'
 
 environment:
-  sdk: '>=2.12.0 <3.0.0'
+  sdk: '>=2.12.0 <4.0.0'
 
 dependencies:
   # use fixed version dependency
-  sealed_annotations: '1.13.0'
+  sealed_annotations: '1.14.0'
 
 dev_dependencies:
   # use fixed version dependency
-  sealed_generators: '1.13.0'
+  sealed_generators: '1.14.0'
   lints: any
   test: any
   build_runner: any
