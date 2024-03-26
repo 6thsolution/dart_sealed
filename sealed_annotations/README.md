@@ -10,7 +10,7 @@ Generate sealed class hierarchy for Dart and Flutter.
 
 ## Features
 
-* Generate sealed class with abstract super type and data sub-classes.
+* Generate sealed class with abstract super type and data subclasses.
 * Static factory methods. for example `Result.success(data: 0)`.
 * Cast methods. for example `a.asSuccess`, `a.isSuccess` or `a.asSuccessOrNull`.
 * Three types of equality and hashCode generation : data (like kotlin data classes), identity and distinct.
@@ -163,14 +163,14 @@ class WeatherWindy extends Weather {
 
 Notes:
 
-- Prefer using factories in super class instead of sub-class constructors. like `Whether.rainy()` instead
+- Prefer using factories in super class instead of subclass constructors. like `Whether.rainy()` instead
   of `WhetherRainy()`
 - Minimize usage of cast methods, most of the time they can be replaced with a match method.
 
 ## Equality and generated class names
 
 You can choose between three types of equality using `@WithEquality(...)` annotation. Default equality is `data` if not
-specified. This will become default equality for all sub-classes. You can change equality of each sub-class by using
+specified. This will become default equality for all subclasses. You can change equality of each subclass by using
 this annotation on individual methods.
 
 Equality types:
@@ -209,14 +209,14 @@ abstract class _Weather {
 ```
 
 An abstract super class is generated with name equal to name of manifest class without the underline (here `Weather`).
-Each method will become a sub-class. There should be at least one method. sub-class names are based on method name
+Each method will become a subclass. There should be at least one method. subclass names are based on method name
 prefixed with super class name (for example `WeatherSunny`). Naming process can be tailored with use of `@WithPrefix`
-and `@WithName` annotations. Each method argument will become a field in corresponding sub-class. Field names are equal
+and `@WithName` annotations. Each method argument will become a field in corresponding subclass. Field names are equal
 to argument names and field types are equal to argument types or dynamic if not specified. Argument types can be
 overridden using `@WithType` annotation for example when type information is not available at build time. Note that you
 can have nullable and non-nullable fields.
 
-To change prefix of sub-class names which by default is top class name, you can use `@WithPrefix` annotation. for
+To change prefix of subclass names which by default is top class name, you can use `@WithPrefix` annotation. for
 example:
 
 ```dart
@@ -228,9 +228,9 @@ abstract class _Weather {
 ```
 
 Now `sunny` will be named `HelloSunny` instead of the default `WeatherSunny`. You can use `@WithPrefix('')` to remove
-all prefix from sub-class names.
+all prefix from subclass names.
 
-To change sub-class names directly you can use `@WithName` annotation. It will override `WithPrefix` if specified. for
+To change subclass names directly you can use `@WithName` annotation. It will override `WithPrefix` if specified. for
 example:
 
 ```dart
@@ -244,8 +244,8 @@ abstract class _Weather {
 Now `sunny` will be named `Hello` instead of the default `WeatherSunny`. This is useful if you want not to use prefix
 for some items.
 
-Almost all methods on sealed classes use short names extracted from manifest method names. Full sub-class names are not
-used. It is recommended not to use sub-classes directly. There are factory methods for each item on super class.
+Almost all methods on sealed classes use short names extracted from manifest method names. Full subclass names are not
+used. It is recommended not to use subclasses directly. There are factory methods for each item on super class.
 
 ## Generic Usage
 
@@ -371,8 +371,8 @@ abstract class _Basket {
 
 Sometimes you need some fields to be present in all of your sealed classes. For example consider making a sealed class
 for different types of errors, and all of them are required to have `code` and `message`. It is very annoying to add
-code and message to all of sealeds manually. Also if you have an error object you are unable to get its code or message
-without using cast or match methods. Here you can use common fields.
+code and message to all of sealed classes manually. Also, if you have an error object you are unable to get its code or
+message without using cast or match methods. Here you can use common fields.
 
 To declare a common field you can add a getter or a final field to a manifest class, and it will automatically be added
 to all of your sealed classes. for example:
@@ -397,9 +397,9 @@ abstract class _ApiError {
 
 You can also use a constructor in pair with final fields equivalently.
 
-common fields are available on `ApiError` objects as well as it's sub-classes.
+common fields are available on `ApiError` objects as well as its subclasses.
 
-If you specify common fields in your seaeld classes it has no effect. for example:
+If you specify common fields in your sealed classes it has no effect. for example:
 
 ```dart
 @Sealed()
@@ -413,7 +413,7 @@ abstract class _Common {
 }
 ```
 
-You can use sub-class of common field type in sealed classes. For example:
+You can use subclass of common field type in sealed classes. For example:
 
 ```dart
 @Sealed()
